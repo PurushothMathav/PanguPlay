@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enhanced Video Player with Keyboard Controls</title>
+  <title>Enhanced YouTube-Style Video Player</title>
   <style>
-    /* Styling stays the same as previous versions */
+    /* General Styling */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -17,7 +17,7 @@
     }
     .video-container {
       position: relative;
-      width: 80%;
+      width: 100%;
       max-width: 900px;
       background: #000;
       border-radius: 8px;
@@ -57,6 +57,50 @@
       height: 100%;
       background: #ff0000;
     }
+    .button {
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 18px;
+      margin: 0 5px;
+      display: flex;
+      align-items: center;
+    }
+    .button:hover {
+      color: #ff0000;
+    }
+    select {
+      background: #202020;
+      color: white;
+      border: none;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+    select:hover {
+      background: #333;
+    }
+
+    /* Mobile-Specific Styling */
+    @media (max-width: 768px) {
+      .video-container {
+        width: 95%;
+        height: auto;
+      }
+      .controls {
+        flex-direction: column;
+        padding: 5px;
+      }
+      .controls .button {
+        font-size: 14px;
+        margin: 5px 0;
+      }
+      .timer {
+        font-size: 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -90,7 +134,7 @@
     const mute = document.getElementById('mute');
     const fullscreen = document.getElementById('fullscreen');
 
-    // Play/Pause
+    // Play/Pause functionality
     playPause.addEventListener('click', togglePlayPause);
     video.addEventListener('timeupdate', updateProgress);
     video.addEventListener('click', togglePlayPause);
