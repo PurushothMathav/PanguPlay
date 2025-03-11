@@ -20,14 +20,26 @@
     }
 
     .video-details {
+      display: flex;
+      flex-direction: row;
       margin-top: 20px;
       text-align: center;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 20px;
     }
 
     .video-details img {
-      width: 100px;
-      height: 150px;
+      width: 200px;
+      height: 300px;
       border-radius: 10px;
+      margin-right: 20px;
+    }
+
+    .video-details .details {
+      text-align: left;
+      border-left: 1px solid #ccc;
+      padding-left: 20px;
     }
 
     .divider {
@@ -42,6 +54,8 @@
       width: 90%;
       max-width: 800px;
       margin: 0 auto;
+      height: 60vh;
+      overflow: hidden;
     }
 
     video {
@@ -50,11 +64,16 @@
       background: black;
       border-radius: 10px;
       box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
+      object-fit: cover;
     }
 
     .controls {
-      margin-top: 20px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
       text-align: center;
+      background-color: #121212;
+      padding: 10px;
     }
 
     .controls a {
@@ -70,9 +89,15 @@
     .controls a:hover {
       background: #ff0000;
     }
+
+    .heading {
+      text-align: center;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
+  <h1 class="heading">Video Details</h1>
   <div class="video-details" id="videoDetails"></div>
   <div class="divider"></div>
   <div class="video-container">
@@ -100,17 +125,17 @@
       const videoDetailsElement = document.getElementById('videoDetails');
       const details = JSON.parse(decodeURIComponent(videoDetails)); // Decode the video details
       videoDetailsElement.innerHTML = `
-        <h2>Video Details</h2>
         <img src="${decodeURIComponent(videoImage)}" alt="${videoTitle}">
-        <p>Image: ${videoImage}</p>
-        <p>Movie: ${videoTitle}</p>
-        <p>Director: ${details.director}</p>
-        <p>Starring: ${details.starring}</p>
-        <p>Genres: ${details.genres}</p>
-        <p>Quality: ${details.quality}</p>
-        <p>Language: ${details.language}</p>
-        <p>Movie Rating: ${details.movieRating}</p>
-        <p>Last Updated: ${details.lastUpdated}</p>
+        <div class="details">
+          <p>Movie: ${videoTitle}</p>
+          <p>Director: ${details.director}</p>
+          <p>Starring: ${details.starring}</p>
+          <p>Genres: ${details.genres}</p>
+          <p>Quality: ${details.quality}</p>
+          <p>Language: ${details.language}</p>
+          <p>Movie Rating: ${details.movieRating}</p>
+          <p>Last Updated: ${details.lastUpdated}</p>
+        </div>
       `;
     } else {
       alert('No video specified!');
