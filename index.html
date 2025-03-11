@@ -149,22 +149,13 @@
       videoPlayer.src = videoUrl; // Set the src attribute to the actual video URL
 
       // Set up the download button
-downloadButton.addEventListener('click', async () => {
-  try {
-    const videoUrl = videoPlayer.src;
-    const fileName = videoUrl.split('/').pop(); // Extract the file name from the URL
-    const response = await fetch(videoUrl);
-    const blob = await response.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = fileName; // Use the extracted file name
-    a.click();
-    URL.revokeObjectURL(url);
-  } catch (error) {
-    console.error('Error downloading video:', error);
-  }
-});
+      downloadButton.addEventListener('click', () => {
+        const videoLink = document.createElement('a');
+        videoLink.href = videoPlayer.src;
+        videoLink.download = 'video';
+        videoLink.target = '_blank';
+        videoLink.click();
+      });
 
             // Delay playing and fullscreen request by 1 second
       setTimeout(() => {
