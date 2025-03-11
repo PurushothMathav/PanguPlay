@@ -205,7 +205,12 @@
 
       .video-image-container {
         flex: 0 0 auto;
-        height: 250px;
+        height: auto;
+        max-height: 250px;
+      }
+
+      .video-details {
+        padding: 15px;
       }
 
       .detail-row {
@@ -215,10 +220,16 @@
 
       .detail-label {
         margin-bottom: 5px;
+        font-size: 14px;
+      }
+
+      .detail-value {
+        line-height: 1.4;
       }
 
       .genres-list {
-        justify-content: center;
+        justify-content: flex-start;
+        margin-top: 5px;
       }
     }
 
@@ -243,10 +254,20 @@
 
       .video-details h2 {
         font-size: 20px;
+        margin-bottom: 10px;
       }
 
       .video-image-container {
-        height: 200px;
+        max-height: 200px;
+      }
+      
+      .detail-row {
+        margin-bottom: 12px;
+      }
+      
+      .genre-tag {
+        font-size: 12px;
+        padding: 2px 8px;
       }
     }
   </style>
