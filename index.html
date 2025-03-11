@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Gallery</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212; /* Dark theme */
+      color: white;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #202020; /* Darker background for content */
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    }
+.header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .title {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    #searchInput {
+      width: 50%;
+      height: 30px;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #searchInput:focus {
+      outline: none;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Flexible grid structure */
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .card {
+	  margin: 20px; /* Add margin to create space between cards */
+      position: relative;
+      background-color: #303030;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px); /* Lift effect */
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .card-content {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .card-content h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+	  color: #fff; /* Set text color to white */
+    }
+
+	.card-content h2:visited {
+	color: #fff; /* Set visited text color to white */
+	}
+	
+	a, a:visited, a:hover, a:active {
+	color: inherit; /* Inherit text color from parent element */
+	}
+	
+    .card-content p {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #ccc;
+      margin: 5px 0;
+    }
+
+    /* Labels for Episode and Time */
+    .label {
+      position: absolute;
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
+      padding: 5px 8px;
+      border-radius: 4px;
+    }
+
+    .episode-tag {
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.7); /* Semi-transparent for contrast */
+    }
+
+    .time-label {
+      bottom: 10px;
+      right: 10px;
+      background: rgba(255, 0, 0, 0.8); /* Bright red for visibility */
+    }
+
+    /* Responsive design improvements */
+    @media only screen and (max-width: 768px) {
+      .container {
+        width: 100%;
+        padding: 10px;
+      }
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .card {
+        margin-bottom: 20px;
+      }
+      .card img {
+        height: 150px;
+      }
+    }
+
+    @media only screen and (max-width: 480px) {
+      .container {
+        padding: 5px;
+      }
+      .cards {
+        grid-template-columns: 1fr;
+      }
+      .card {
+        margin-bottom: 10px;
+      }
+      .card img {
+        height: 100px;
+      }
+    }
+
+    /* Add this to your CSS file */
+
+        #searchInput {
+      width: 50%;
+      height: 30px;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #searchInput:focus {
+      outline: none;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="title">Video Gallery</h1>
+      <input type="search" id="searchInput" placeholder="Search for videos...">
+    </div>
+    <div class="gallery" id="gallery"></div>
+  </div>
+
+  <script>
+    // Data for video cards
+    const videoData = [
+      {
+        title: 'Aghathiyaa (2025)',
+        image: './src/Thumbnail/Aghathiyaa (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Aghathiyaa%20(2025).mp4'
+      },
+      {
+        title: 'Yamakaathaghi (2025)',
+        image: './src/Thumbnail/Yamakaathaghi (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/output.mp4'
+      },
+      {
+        title: 'Thandel (2025)',
+        image: './src/Thumbnail/Thandel (2025)_Resized.png',
+        video: 'The_First_Frost_Resized.mp4'
+      },
+      {
+        title: 'Niram Marum Ulagil (2025)',
+        image: './src/Thumbnail/Niram Marum Ulagil (2025)_Resized.png',
+        video: 'The_Best_Thing_Resized.mp4'
+      },
+      {
+        title: 'Leg Piece (2025)',
+        image: './src/Thumbnail/Leg Piece (2025)_Resized.png',
+        video: 'Lovely_Runner_Resized.mp4'
+      },
+      {
+        title: 'Kingston (2025)',
+        image: './src/Thumbnail/Kingston (2025)_Resized.png',
+        video: 'My_Demon_Resized.mp4'
+      },
+	  {
+        title: 'Gentlewoman (2025)',
+        image: './src/Thumbnail/Gentlewoman (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Gentlewoman%20(2025).mp4'
+      },
+	  {
+        title: 'Dragon (2025)',
+        image: './src/Thumbnail/Dragon (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Dragon%20(2025).mp4'
+      },
+    ];
+
+    // Function to create video cards
+	function createVideoCards(data) {
+	const gallery = document.getElementById('gallery');
+	gallery.innerHTML = '';
+
+	data.forEach((video) => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+
+    const image = document.createElement('img');
+    image.src = video.image;
+    card.appendChild(image);
+
+    const cardContent = document.createElement('div');
+    cardContent.classList.add('card-content');
+
+    const title = document.createElement('h2');
+    title.textContent = video.title;
+    cardContent.appendChild(title);
+
+    const videoLink = document.createElement('p');
+    videoLink.textContent = `Watch ${video.title}`;
+    cardContent.appendChild(videoLink);
+
+    // Wrap card content with anchor tag
+    const anchor = document.createElement('a');
+    anchor.href = `player.html?video=${video.video}`;
+    anchor.appendChild(cardContent);
+
+    card.appendChild(image);
+    card.appendChild(anchor);
+
+    gallery.appendChild(card);
+	});
+	}
+
+    // Create video cards on page load
+    createVideoCards(videoData);
+
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      console.log(`Searching for: ${searchTerm}`);
+
+      const filteredData = videoData.filter((video) => {
+        return video.title.toLowerCase().includes(searchTerm);
+      });
+      console.log(`Filtered data: ${filteredData.length} results`);
+
+      createVideoCards(filteredData);
+    });
+  </script>
+</body>
+</html>
