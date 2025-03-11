@@ -219,56 +219,128 @@
       {
         title: 'Aghathiyaa (2025)',
         image: './src/Thumbnail/Aghathiyaa (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Aghathiyaa%20(2025).mp4'
+        video: 'https://storage.googleapis.com/panguplaybucket/Aghathiyaa%20(2025).mp4',
+        details: {
+          director: 'Pa. Vijay',
+          starring: 'Jiiva, Raashi Khanna',
+          genres: 'Action, Adventure, Fantasy, Thriller',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '6.3/10',
+          lastUpdated: '11 March 2025'
+        }
       },
       {
         title: 'Yamakaathaghi (2025)',
         image: './src/Thumbnail/Yamakaathaghi (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Yamakaathaghi%20(2025).mp4'
+        video: 'https://storage.googleapis.com/panguplaybucket/Yamakaathaghi%20(2025).mp4',
+		details: {
+          director: 'Peppin George Jayaseelan',
+          starring: 'Roopa Koduvayur, Narendra Prasath',
+          genres: 'Mystery, Thriller, Horror',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '8.6/10',
+          lastUpdated: '11 March 2025'
+        }
       },
       {
         title: 'Thandel (2025)',
         image: './src/Thumbnail/Thandel (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Thandel%20(2025).mp4'
+        video: 'https://storage.googleapis.com/panguplaybucket/Thandel%20(2025).mp4',
+		details: {
+          director: 'Chandoo Mondeti',
+          starring: 'Naga Chaitanya Akkineni, Sai Pallavi',
+          genres: 'Action, Drama, Romantic',
+          quality: 'Original HD',
+          language: 'Tamil',
+          movieRating: '9.0/10',
+          lastUpdated: '11 March 2025'
+        }
       },
       {
         title: 'Niram Marum Ulagil (2025)',
         image: './src/Thumbnail/Niram Marum Ulagil (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Niram%20Marum%20Ulagil%20(2025).mp4'
+        video: 'https://storage.googleapis.com/panguplaybucket/Niram%20Marum%20Ulagil%20(2025).mp4',
+		details: {
+          director: 'JB Britto',
+          starring: 'Rio Raj, Bharathiraja, Natarajan Subramaniam',
+          genres: 'Family, Drama',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '9.3/10',
+          lastUpdated: '11 March 2025'
+        }
       },
       {
         title: 'Leg Piece (2025)',
         image: './src/Thumbnail/Leg Piece (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Leg%20Piece%20(2025).mp4'
+        video: 'https://storage.googleapis.com/panguplaybucket/Leg%20Piece%20(2025).mp4',
+		details: {
+          director: 'Srinath Alnath',
+          starring: 'Yogi Babu, John Vijay, Mime Gopi',
+          genres: 'Comedy, Drama',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '8.4/10',
+          lastUpdated: '11 March 2025'
+        }
       },
       {
         title: 'Kingston (2025)',
         image: './src/Thumbnail/Kingston (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Kingston%20(2025).mp4'
+        video: 'https://storage.googleapis.com/panguplaybucket/Kingston%20(2025).mp4',
+		details: {
+          director: 'Kamal Prakash',
+          starring: 'G. V. Prakash Kumar, Divya Bharathi',
+          genres: 'Action, Adventure, Fantasy, Thriller',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '8.2/10',
+          lastUpdated: '11 March 2025'
+        }
       },
 	  {
         title: 'Gentlewoman (2025)',
         image: './src/Thumbnail/Gentlewoman (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Gentlewoman%20(2025).mp4'
+        video: 'https://storage.googleapis.com/panguplaybucket/Gentlewoman%20(2025).mp4',
+		details: {
+          director: 'Joshua Sethuraman',
+          starring: 'Lijomol Jose, Losliya Mariyanesan, Hari Krishnan',
+          genres: 'Drama, Mystery, Thriller',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '8.7/10',
+          lastUpdated: '11 March 2025'
+        }
       },
 	  {
         title: 'Dragon (2025)',
         image: './src/Thumbnail/Dragon (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Dragon%20(2025).mp4'
+        video: 'https://storage.googleapis.com/panguplaybucket/Dragon%20(2025).mp4',
+		details: {
+          director: 'Ashwath Marimuthu',
+          starring: 'Pradeep Ranganathan, Anupama Parameswaran',
+          genres: 'Comedy, Drama, Romance',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '9.5/10',
+          lastUpdated: '11 March 2025'
+        }
       },
     ];
 
     // Function to create video cards
-	function createVideoCards(data) {
-	const gallery = document.getElementById('gallery');
-	gallery.innerHTML = '';
+function createVideoCards(data) {
+  const gallery = document.getElementById('gallery');
+  gallery.innerHTML = '';
 
-	data.forEach((video) => {
+  data.forEach((video) => {
     const card = document.createElement('div');
     card.classList.add('card');
 
     const image = document.createElement('img');
-    image.src = video.image;
+    image.src = video.image; // Corrected line
     card.appendChild(image);
 
     const cardContent = document.createElement('div');
@@ -278,21 +350,18 @@
     title.textContent = video.title;
     cardContent.appendChild(title);
 
-    const videoLink = document.createElement('p');
+    const details = encodeURIComponent(JSON.stringify(video.details));
+    const videoLink = document.createElement('a');
+    videoLink.href = `player.html?video=${encodeURIComponent(video.video)}&title=${video.title}&image=${video.image}&details=${details}`;
     videoLink.textContent = `Watch ${video.title}`;
     cardContent.appendChild(videoLink);
 
-    // Wrap card content with anchor tag
-    const anchor = document.createElement('a');
-    anchor.href = `player.html?video=${video.video}`;
-    anchor.appendChild(cardContent);
-
     card.appendChild(image);
-    card.appendChild(anchor);
+    card.appendChild(cardContent);
 
     gallery.appendChild(card);
-	});
-	}
+  });
+}
 
     // Create video cards on page load
     createVideoCards(videoData);
