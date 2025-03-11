@@ -88,6 +88,7 @@
 
       .video-details {
         text-align: center;
+        margin-bottom: 20px;
       }
 
       video {
@@ -100,7 +101,6 @@
   <h1 class="heading">Video Details</h1>
   <div class="video-details-container">
     <img src="image.jpg" alt="Video Image" class="video-image">
-    <div class="vertical-separator"></div>
     <div class="video-details">
       <p>Movie: Video Title</p>
       <p>Director: Director Name</p>
@@ -149,7 +149,7 @@
 
       // Set the video image
       const videoImageElement = document.querySelector('.video-image');
-      videoImageElement.src = decodeURIComponent(videoImage);
+	  videoImageElement.src = decodeURIComponent(videoImage);
     } else {
       alert('No video specified!');
     }
