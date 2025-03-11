@@ -11,35 +11,41 @@
       padding: 0;
       background-color: #121212;
       color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
+      text-align: center;
     }
 
-    .video-details {
+    .heading {
+      margin-bottom: 20px;
+    }
+
+    .video-details-container {
       display: flex;
       flex-direction: row;
-      margin-top: 20px;
-      text-align: center;
       align-items: center;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 20px;
+      margin-bottom: 20px;
+      justify-content: center;
     }
 
-    .video-details img {
+    .video-image {
       width: 200px;
       height: 300px;
       border-radius: 10px;
       margin-right: 20px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     }
 
-    .video-details .details {
-      text-align: left;
+    .vertical-separator {
       border-left: 1px solid #ccc;
-      padding-left: 20px;
+      height: 300px;
+      margin: 0 20px;
+    }
+
+    .video-details {
+      text-align: left;
+    }
+
+    .video-details p {
+      margin-bottom: 10px;
     }
 
     .divider {
@@ -49,94 +55,68 @@
       border-bottom: 1px solid #ccc;
     }
 
-    .back-to-home {
-      text-align: center;
-      margin: 10px 0;
-	  display: block;
-    }
-
-    .back-to-home a {
-      color: white;
-      background: #ff0000;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 5px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-      font-size: 16px;
-    }
-
-    .back-to-home a:hover {
-      background: #cc0000;
-    }
-
     .video-container {
-   width: 100%;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    height: 0;
-    overflow: hidden;
-}
-
-@media only screen and (max-width: 768px) {
-  .video-container {
-    width: 100%;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    height: 0;
-    overflow: hidden;
-	.back-to-home {
-    display: none;
-  }
-  }
-
-  .video-container video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-}
+      width: 90%;
+      max-width: 800px;
+      margin: 20px auto;
+    }
 
     video {
       width: 100%;
-      height: 100%;
+      height: 500px;
       background: black;
       border-radius: 10px;
       box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
       object-fit: cover;
     }
 
-    .heading {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    /* Add responsive design styles */
     @media only screen and (max-width: 768px) {
-      .video-details img {
-        width: 100px;
-        height: 150px;
+      .video-details-container {
+        flex-direction: column;
+        align-items: center;
       }
 
-      .video-details .details {
-        font-size: 14px;
+      .video-image {
+        width: 100%;
+        height: 200px;
+        margin-bottom: 20px;
       }
 
-      .video-container {
-        height: 40vh;
+      .vertical-separator {
+        display: none;
+      }
+
+      .video-details {
+        text-align: center;
+      }
+
+      video {
+        height: 300px;
       }
     }
   </style>
 </head>
 <body>
   <h1 class="heading">Video Details</h1>
-  <div class="video-details" id="videoDetails"></div>
-  <div class="divider"></div>
-  <div class="back-to-home">
-    <a href="index.html">Back to Home</a>
+  <div class="video-details-container">
+    <img src="image.jpg" alt="Video Image" class="video-image">
+    <div class="vertical-separator"></div>
+    <div class="video-details">
+      <p>Movie: Video Title</p>
+      <p>Director: Director Name</p>
+      <p>Starring: Starring Names</p>
+      <p>Genres: Genre Names</p>
+      <p>Quality: Video Quality</p>
+      <p>Language: Video Language</p>
+      <p>Movie Rating: Video Rating</p>
+      <p>Last Updated: Video Last Updated</p>
+    </div>
   </div>
   <div class="divider"></div>
   <div class="video-container">
-    <video id="videoPlayer" controls></video>
+    <video id="videoPlayer" controls>
+      <source src="video.mp4" type="video/mp4">
+    </video>
   </div>
 
   <script>
@@ -154,21 +134,22 @@
       videoPlayer.src = decodeURIComponent(videoUrl); // Decode the video URL
 
       // Set the video details
-      const videoDetailsElement = document.getElementById('videoDetails');
+      const videoDetailsElement = document.querySelector('.video-details');
       const details = JSON.parse(decodeURIComponent(videoDetails)); // Decode the video details
       videoDetailsElement.innerHTML = `
-        <img src="${decodeURIComponent(videoImage)}" alt="${videoTitle}">
-        <div class="details">
-          <p style="margin-bottom: 10px;">Movie: ${videoTitle}</p>
-          <p style="margin-bottom: 10px;">Director: ${details.director}</p>
-          <p style="margin-bottom: 10px;">Starring: ${details.starring}</p>
-          <p style="margin-bottom: 10px;">Genres: ${details.genres}</p>
-          <p style="margin-bottom: 10px;">Quality: ${details.quality}</p>
-          <p style="margin-bottom: 10px;">Language: ${details.language}</p>
-          <p style="margin-bottom: 10px;">Movie Rating: ${details.movieRating}</p>
-          <p style="margin-bottom: 10px;">Last Updated: ${details.lastUpdated}</p>
-        </div>
+        <p>Movie: ${videoTitle}</p>
+        <p>Director: ${details.director}</p>
+        <p>Starring: ${details.starring}</p>
+        <p>Genres: ${details.genres}</p>
+        <p>Quality: ${details.quality}</p>
+        <p>Language: ${details.language}</p>
+        <p>Movie Rating: ${details.movieRating}</p>
+        <p>Last Updated: ${details.lastUpdated}</p>
       `;
+
+      // Set the video image
+      const videoImageElement = document.querySelector('.video-image');
+      videoImageElement.src = decodeURIComponent(videoImage);
     } else {
       alert('No video specified!');
     }
