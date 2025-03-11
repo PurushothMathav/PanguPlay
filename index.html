@@ -2,212 +2,313 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Video Player</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Video Gallery</title>
   <style>
+    /* Global Styles */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #121212;
+      background-color: #121212; /* Dark theme */
       color: white;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #202020; /* Darker background for content */
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    }
+.header {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
+      margin-bottom: 20px;
     }
 
-    .video-container {
-      position: relative;
-      width: 90%;
-      max-width: 800px;
-      margin: 0 auto;
+    .title {
+      font-size: 36px;
+      margin-bottom: 10px;
     }
 
-    video {
-      width: 100%;
-      height: 100%;
-      background: black;
-      border-radius: 10px;
-      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
-    }
-
-    #videoTitle {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: white;
-      font-size: 24px;
-      font-weight: bold;
-      z-index: 1;
-      text-align: center;
-      pointer-events: none;
-    }
-
-    .video-container:-webkit-full-screen {
-      width: 100%;
-      height: 100%;
-    }
-
-    .video-container:-moz-full-screen {
-      width: 100%;
-      height: 100%;
-    }
-
-    .video-container:-ms-fullscreen {
-      width: 100%;
-      height: 100%;
-    }
-
-    .video-container:fullscreen {
-      width: 100%;
-      height: 100%;
-    }
-
-    .video-container:-webkit-full-screen #videoTitle,
-    .video-container:-moz-full-screen #videoTitle,
-    .video-container:-ms-fullscreen #videoTitle,
-    .video-container:fullscreen #videoTitle {
-      position: fixed;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9999;
-    }
-
-    .controls {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    .controls a {
-      color: white;
-      background: #202020;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 5px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    #searchInput {
+      width: 50%;
+      height: 30px;
+      padding: 10px;
       font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     }
 
-    .controls a:hover {
-      background: #ff0000;
+    #searchInput:focus {
+      outline: none;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Flexible grid structure */
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .card {
+	  margin: 20px; /* Add margin to create space between cards */
+      position: relative;
+      background-color: #303030;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px); /* Lift effect */
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+	  max-height: 300px; /* Add a maximum height */
+      object-fit: cover;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .card-content {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .card-content h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+	  color: #fff; /* Set text color to white */
+    }
+
+	.card-content h2:visited {
+	color: #fff; /* Set visited text color to white */
+	}
+	
+	a, a:visited, a:hover, a:active {
+	color: inherit; /* Inherit text color from parent element */
+	}
+	
+    .card-content p {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #ccc;
+      margin: 5px 0;
+    }
+
+    /* Labels for Episode and Time */
+    .label {
+      position: absolute;
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
+      padding: 5px 8px;
+      border-radius: 4px;
+    }
+
+    .episode-tag {
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.7); /* Semi-transparent for contrast */
+    }
+
+    .time-label {
+      bottom: 10px;
+      right: 10px;
+      background: rgba(255, 0, 0, 0.8); /* Bright red for visibility */
     }
 
     /* Responsive design improvements */
     @media only screen and (max-width: 768px) {
-      video {
+      .container {
         width: 100%;
-        max-width: 600px;
+        padding: 10px;
       }
-      .controls a {
-        padding: 5px 10px;
-        font-size: 14px;
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .card {
+        margin-bottom: 20px;
+      }
+      .card img {
+        height: 150px;
       }
     }
 
     @media only screen and (max-width: 480px) {
-      video {
+      .container {
+        padding: 5px;
+      }
+      .cards {
+        grid-template-columns: 1fr;
+      }
+      .card {
+        margin-bottom: 10px;
+      }
+      .card img {
         width: 100%;
-        max-width: 400px;
+		height: 200px; /* Adjusted height for smaller mobile devices */
+		object-fit: cover;
       }
-      .controls a {
-        padding: 3px 6px;
-        font-size: 12px;
-      }
+    }
+
+    /* Add this to your CSS file */
+
+        #searchInput {
+      width: 50%;
+      height: 30px;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #searchInput:focus {
+      outline: none;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
 <body>
-  <!-- Add a div element to display the title -->
-  <div class="video-container">
-    <video id="videoPlayer" controls>
-      <!-- Dynamic video source will be set by JavaScript -->
-    </video>
-    <div id="videoTitle"></div>
-  </div>
-  <div class="controls">
-    <a href="index.html">Back to Home</a>
-    <button id="downloadButton">Download Video</button>
+  <div class="container">
+    <div class="header">
+      <h1 class="title">PanguPlay Video Gallery</h1>
+      <input type="search" id="searchInput" placeholder="Search for videos...">
+    </div>
+    <div class="gallery" id="gallery"></div>
   </div>
 
   <script>
-    // Get the video element
-    const videoPlayer = document.getElementById('videoPlayer');
+    // Data for video cards
+    const videoData = [
+      {
+        title: 'Aghathiyaa (2025)',
+        image: './src/Thumbnail/Aghathiyaa (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Aghathiyaa%20(2025).mp4'
+      },
+      {
+        title: 'Yamakaathaghi (2025)',
+        image: './src/Thumbnail/Yamakaathaghi (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Yamakaathaghi%20(2025).mp4'
+      },
+      {
+        title: 'Thandel (2025)',
+        image: './src/Thumbnail/Thandel (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Thandel%20(2025).mp4'
+      },
+      {
+        title: 'Niram Marum Ulagil (2025)',
+        image: './src/Thumbnail/Niram Marum Ulagil (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Niram%20Marum%20Ulagil%20(2025).mp4'
+      },
+      {
+        title: 'Leg Piece (2025)',
+        image: './src/Thumbnail/Leg Piece (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Leg%20Piece%20(2025).mp4'
+      },
+      {
+        title: 'Kingston (2025)',
+        image: './src/Thumbnail/Kingston (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Kingston%20(2025).mp4'
+      },
+	  {
+        title: 'Gentlewoman (2025)',
+        image: './src/Thumbnail/Gentlewoman (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Gentlewoman%20(2025).mp4'
+      },
+	  {
+        title: 'Dragon (2025)',
+        image: './src/Thumbnail/Dragon (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Dragon%20(2025).mp4'
+      },
+    ];
 
-    // Get the download button
-    const downloadButton = document.getElementById('downloadButton');
+    // Function to create video cards
+	function createVideoCards(data) {
+	const gallery = document.getElementById('gallery');
+	gallery.innerHTML = '';
 
-    // Get the query parameter from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const videoUrl = urlParams.get('video');
+	data.forEach((video) => {
+    const card = document.createElement('div');
+    card.classList.add('card');
 
-    if (videoUrl) {
-      videoPlayer.src = videoUrl; // Set the src attribute to the actual video URL
+    const image = document.createElement('img');
+    image.src = video.image;
+    card.appendChild(image);
 
-      // Set up the download button
-      downloadButton.addEventListener('click', () => {
-        const videoLink = document.createElement('a');
-        videoLink.href = videoPlayer.src;
-        videoLink.download = 'video';
-        videoLink.target = '_blank';
-        videoLink.click();
+    const cardContent = document.createElement('div');
+    cardContent.classList.add('card-content');
+
+    const title = document.createElement('h2');
+    title.textContent = video.title;
+    cardContent.appendChild(title);
+
+    const videoLink = document.createElement('p');
+    videoLink.textContent = `Watch ${video.title}`;
+    cardContent.appendChild(videoLink);
+
+    // Wrap card content with anchor tag
+    const anchor = document.createElement('a');
+    anchor.href = `player.html?video=${video.video}`;
+    anchor.appendChild(cardContent);
+
+    card.appendChild(image);
+    card.appendChild(anchor);
+
+    gallery.appendChild(card);
+	});
+	}
+
+    // Create video cards on page load
+    createVideoCards(videoData);
+
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      console.log(`Searching for: ${searchTerm}`);
+
+      const filteredData = videoData.filter((video) => {
+        return video.title.toLowerCase().includes(searchTerm);
       });
+      console.log(`Filtered data: ${filteredData.length} results`);
 
-            // Delay playing and fullscreen request by 1 second
-      setTimeout(() => {
-        videoPlayer.play().catch((error) => {
-          console.error('Autoplay failed:', error);
-        });
-        videoPlayer.requestFullscreen().catch((error) => {
-          console.error('Fullscreen request failed:', error);
-        });
-      }, 1000);
-    } else {
-      alert('No video specified!');
-    }
-
-    // Set the video title text
-    const videoTitle = document.getElementById('videoTitle');
-    const videoUrlParts = videoUrl.split('/');
-    const videoTitleText = videoUrlParts[videoUrlParts.length - 1];
-    videoTitle.textContent = videoTitleText;
-
-    // Style the video title element
-    videoTitle.style.color = 'white';
-    videoTitle.style.fontSize = '24px';
-    videoTitle.style.fontWeight = 'bold';
-    videoTitle.style.zIndex = '1'; // Ensure the title is on top of the video
-
-    // Add event listener for fullscreen change
-    document.addEventListener('fullscreenchange', () => {
-      if (document.fullscreenElement) {
-        videoTitle.style.position = 'fixed';
-        videoTitle.style.top = '10px';
-        videoTitle.style.left = '50%';
-        videoTitle.style.transform = 'translateX(-50%)';
-        videoTitle.style.zIndex = '9999';
-      } else {
-        videoTitle.style.position = 'absolute';
-        videoTitle.style.top = '10px';
-        videoTitle.style.left = '50%';
-        videoTitle.style.transform = 'translateX(-50%)';
-      }
-    });
-
-    // Add event listeners for keyboard shortcuts
-    document.addEventListener('keydown', (event) => {
-      switch (event.key) {
-        case 'f': // Fullscreen
-          videoPlayer.requestFullscreen();
-          break;
-        case 'm': // Mute
-          videoPlayer.muted = !videoPlayer.muted;
-          break;
-      }
+      createVideoCards(filteredData);
     });
   </script>
 </body>
