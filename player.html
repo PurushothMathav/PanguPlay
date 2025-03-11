@@ -45,8 +45,27 @@
     .divider {
       width: 90%;
       max-width: 800px;
-      margin: 20px auto;
+      margin: 10px auto;
       border-bottom: 1px solid #ccc;
+    }
+
+    .back-to-home {
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .back-to-home a {
+      color: white;
+      background: #ff0000;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+      font-size: 16px;
+    }
+
+    .back-to-home a:hover {
+      background: #cc0000;
     }
 
     .video-container {
@@ -67,66 +86,38 @@
       object-fit: cover;
     }
 
-    .controls {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      text-align: center;
-      background-color: #121212;
-      padding: 10px;
-    }
-
-    .controls a {
-      color: white;
-      background: #202020;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 5px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-      font-size: 16px;
-    }
-
-    .controls a:hover {
-      background: #ff0000;
-    }
-
     .heading {
       text-align: center;
-      margin-bottom: 20px;
-    }
-	
-	/* Add responsive design styles */
-  @media only screen and (max-width: 768px) {
-    .video-details img {
-      width: 100px;
-      height: 150px;
+      margin-bottom: 10px;
     }
 
-    .video-details .details {
-      font-size: 14px;
-    }
+    /* Add responsive design styles */
+    @media only screen and (max-width: 768px) {
+      .video-details img {
+        width: 100px;
+        height: 150px;
+      }
 
-    .video-container {
-      height: 40vh;
-    }
+      .video-details .details {
+        font-size: 14px;
+      }
 
-    .controls {
-      position: relative;
-      bottom: auto;
-      margin-top: 20px;
+      .video-container {
+        height: 40vh;
+      }
     }
-  }
   </style>
 </head>
 <body>
   <h1 class="heading">Video Details</h1>
   <div class="video-details" id="videoDetails"></div>
   <div class="divider"></div>
+  <div class="back-to-home">
+    <a href="index.html">Back to Home</a>
+  </div>
+  <div class="divider"></div>
   <div class="video-container">
     <video id="videoPlayer" controls></video>
-  </div>
-  <div class="controls">
-    <a href="index.html">Back to Home</a>
   </div>
 
   <script>
@@ -149,14 +140,14 @@
       videoDetailsElement.innerHTML = `
         <img src="${decodeURIComponent(videoImage)}" alt="${videoTitle}">
         <div class="details">
-          <p>Movie: ${videoTitle}</p>
-          <p>Director: ${details.director}</p>
-          <p>Starring: ${details.starring}</p>
-          <p>Genres: ${details.genres}</p>
-          <p>Quality: ${details.quality}</p>
-          <p>Language: ${details.language}</p>
-          <p>Movie Rating: ${details.movieRating}</p>
-          <p>Last Updated: ${details.lastUpdated}</p>
+          <p style="margin-bottom: 10px;">Movie: ${videoTitle}</p>
+          <p style="margin-bottom: 10px;">Director: ${details.director}</p>
+          <p style="margin-bottom: 10px;">Starring: ${details.starring}</p>
+          <p style="margin-bottom: 10px;">Genres: ${details.genres}</p>
+          <p style="margin-bottom: 10px;">Quality: ${details.quality}</p>
+          <p style="margin-bottom: 10px;">Language: ${details.language}</p>
+          <p style="margin-bottom: 10px;">Movie Rating: ${details.movieRating}</p>
+          <p style="margin-bottom: 10px;">Last Updated: ${details.lastUpdated}</p>
         </div>
       `;
     } else {
