@@ -99,15 +99,11 @@
   </div>
   <div class="controls">
     <a href="index.html">Back to Home</a>
-    <button id="downloadButton">Download Video</button>
   </div>
 
   <script>
     // Get the video element
     const videoPlayer = document.getElementById('videoPlayer');
-
-    // Get the download button
-    const downloadButton = document.getElementById('downloadButton');
 
     // Get the query parameter from the URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -115,15 +111,6 @@
 
     if (videoUrl) {
       videoPlayer.src = videoUrl; // Set the src attribute to the actual video URL
-
-      // Set up the download button
-      downloadButton.addEventListener('click', () => {
-        if (navigator.userAgent.match(/Android|iOS|iPhone/i)) {
-          window.location.href = videoPlayer.src;
-        } else {
-          window.open(videoPlayer.src, '_blank');
-        }
-      });
 
       // Delay playing and fullscreen request by 1 second
       setTimeout(() => {
@@ -150,7 +137,7 @@
     videoTitle.style.fontWeight = 'bold';
     videoTitle.style.zIndex = '1'; // Ensure the title is on top of the video
 
-   // Add event listener for fullscreen change
+    // Add event listener for fullscreen change
 document.addEventListener('fullscreenchange', () => {
   if (document.fullscreenElement) {
     videoTitle.style.position = 'fixed';
