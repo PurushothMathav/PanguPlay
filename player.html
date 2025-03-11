@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Video Player - PanguPlay</title>
-  <!-- add icon link -->
-    <link rel="icon" href="https://storage.googleapis.com/panguplaybucket/PanguPlay.png" type="image/x-icon" />
   <style>
     /* Global Styles */
     body {
@@ -323,7 +321,7 @@
 
     <div class="video-content">
       <div class="video-container">
-        <video id="videoPlayer" controls preload="metadata">
+        <video id="videoPlayer" controls preload="metadata" playsinline webkit-playsinline>
           <source src="" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -407,6 +405,12 @@
       document.getElementById('videoTitle').textContent = videoTitle;
       document.title = videoTitle + ' - PanguPlay';
       
+	  // In the player.html file, add this code right after setting the video source
+		videoPlayer.addEventListener('error', function(e) {
+		console.error('Video error:', videoPlayer.error);
+		alert('Error loading video: ' + videoPlayer.error.message);
+		});
+	  
       // Set video image
       document.getElementById('videoImage').src = decodeURIComponent(videoImage);
       
