@@ -19,6 +19,24 @@
       overflow: hidden;
     }
 
+    .video-details {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .video-details img {
+      width: 100px;
+      height: 150px;
+      border-radius: 10px;
+    }
+
+    .divider {
+      width: 90%;
+      max-width: 800px;
+      margin: 20px auto;
+      border-bottom: 1px solid #ccc;
+    }
+
     .video-container {
       position: relative;
       width: 90%;
@@ -32,19 +50,6 @@
       background: black;
       border-radius: 10px;
       box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
-    }
-
-    #videoTitle {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: white;
-      font-size: 24px;
-      font-weight: bold;
-      z-index: 1;
-      text-align: center;
-      pointer-events: none;
     }
 
     .controls {
@@ -65,37 +70,13 @@
     .controls a:hover {
       background: #ff0000;
     }
-
-    /* Responsive design improvements */
-    @media only screen and (max-width: 768px) {
-      video {
-        width: 100%;
-        max-width: 600px;
-      }
-      .controls a {
-        padding: 5px 10px;
-        font-size: 14px;
-      }
-    }
-
-    @media only screen and (max-width: 480px) {
-      video {
-        width: 100%;
-        max-width: 400px;
-      }
-      .controls a {
-        padding: 3px 6px;
-        font-size: 12px;
-      }
-    }
   </style>
 </head>
 <body>
+  <div class="video-details" id="videoDetails"></div>
+  <div class="divider"></div>
   <div class="video-container">
-    <video id="videoPlayer" controls>
-      <!-- Dynamic video source will be set by JavaScript -->
-    </video>
-    <div id="videoTitle"></div>
+    <video id="videoPlayer" controls></video>
   </div>
   <div class="controls">
     <a href="index.html">Back to Home</a>
@@ -108,62 +89,32 @@
     // Get the query parameter from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const videoUrl = urlParams.get('video');
+    const videoTitle = urlParams.get('title');
+    const videoImage = urlParams.get('image');
+    const videoDetails = urlParams.get('details');
 
     if (videoUrl) {
-      videoPlayer.src = videoUrl; // Set the src attribute to the actual video URL
+      videoPlayer.src = decodeURIComponent(videoUrl); // Decode the video URL
 
-      // Delay playing and fullscreen request by 1 second
-      setTimeout(() => {
-        videoPlayer.play().catch((error) => {
-          console.error('Autoplay failed:', error);
-        });
-        videoPlayer.requestFullscreen().catch((error) => {
-          console.error('Fullscreen request failed:', error);
-        });
-      }, 1000);
+      // Set the video details
+      const videoDetailsElement = document.getElementById('videoDetails');
+      const details = JSON.parse(decodeURIComponent(videoDetails)); // Decode the video details
+      videoDetailsElement.innerHTML = `
+        <h2>Video Details</h2>
+        <img src="${decodeURIComponent(videoImage)}" alt="${videoTitle}">
+        <p>Image: ${videoImage}</p>
+        <p>Movie: ${videoTitle}</p>
+        <p>Director: ${details.director}</p>
+        <p>Starring: ${details.starring}</p>
+        <p>Genres: ${details.genres}</p>
+        <p>Quality: ${details.quality}</p>
+        <p>Language: ${details.language}</p>
+        <p>Movie Rating: ${details.movieRating}</p>
+        <p>Last Updated: ${details.lastUpdated}</p>
+      `;
     } else {
       alert('No video specified!');
     }
-
-    // Set the video title text
-    const videoTitle = document.getElementById('videoTitle');
-    const videoUrlParts = videoUrl.split('/');
-    const videoTitleText = videoUrlParts[videoUrlParts.length - 1];
-    videoTitle.textContent = videoTitleText;
-
-    // Style the video title element
-    videoTitle.style.color = 'white';
-    videoTitle.style.fontSize = '24px';
-    videoTitle.style.fontWeight = 'bold';
-    videoTitle.style.zIndex = '1'; // Ensure the title is on top of the video
-
-    // Add event listener for fullscreen change
-document.addEventListener('fullscreenchange', () => {
-  if (document.fullscreenElement) {
-    videoTitle.style.position = 'fixed';
-    videoTitle.style.top = '10px';
-    videoTitle.style.left = '50%';
-    videoTitle.style.transform = 'translateX(-50%)';
-    videoTitle.style.zIndex = '9999';
-  } else {
-    videoTitle.style.position = 'absolute';
-    videoTitle.style.top = '10px';
-    videoTitle.style.left = '50%';
-    videoTitle.style.transform = 'translateX(-50%)';
-  }
-});
-
-// Add event listeners for keyboard shortcuts
-document.addEventListener('keydown', (event) => {
-  switch (event.key) {
-    case 'f': // Fullscreen
-      videoPlayer.requestFullscreen();
-      break;
-    case 'm': // Mute
-      videoPlayer.muted = !videoPlayer.muted;
-      break;
-  }
-});
   </script>
 </body>
 </html>
