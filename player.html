@@ -84,6 +84,37 @@
       display: block;
       border-radius: 10px;
     }
+    
+    .unmute-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      cursor: pointer;
+    }
+    
+    .unmute-button {
+      background-color: #ff4500;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease;
+    }
+    
+    .unmute-button:hover {
+      background-color: #ff6347;
+      transform: scale(1.05);
+    }
 
     .video-details-container {
       display: flex;
@@ -321,10 +352,13 @@
 
     <div class="video-content">
       <div class="video-container">
-        <video id="videoPlayer" controls preload="metadata" playsinline webkit-playsinline autoplay muted="false">
+        <video id="videoPlayer" controls preload="metadata" playsinline webkit-playsinline autoplay muted>
           <source src="" type="video/mp4">
           Your browser does not support the video tag.
         </video>
+        <div id="unmuteOverlay" class="unmute-overlay">
+          <button id="unmuteButton" class="unmute-button">Tap to Unmute</button>
+        </div>
       </div>
 
       <div class="video-details-container">
@@ -400,23 +434,76 @@
       // Set video source
       const videoPlayer = document.getElementById('videoPlayer');
       videoPlayer.src = decodeURIComponent(videoUrl);
-	  
-	  // Ensure the video is not muted
-  videoPlayer.muted = false; // Ensure the video is not muted
-  videoPlayer.autoplay = true; // Optionally enable autoplay if needed
       
       // Set video title
       document.getElementById('videoTitle').textContent = videoTitle;
       document.title = videoTitle + ' - PanguPlay';
       
-	  // In the player.html file, add this code right after setting the video source
-		videoPlayer.addEventListener('error', function(e) {
-		console.error('Video error:', videoPlayer.error);
-		alert('Error loading video: ' + videoPlayer.error.message);
-		});
-	  
       // Set video image
       document.getElementById('videoImage').src = decodeURIComponent(videoImage);
+      
+      // Unmute functionality
+      const unmuteOverlay = document.getElementById('unmuteOverlay');
+      const unmuteButton = document.getElementById('unmuteButton');
+      
+      // Keep track of unmute attempts
+      let unmuteAttempted = false;
+      
+      // Function to unmute video
+      function unmuteVideo() {
+        videoPlayer.muted = false;
+        unmuteOverlay.style.display = 'none';
+        unmuteAttempted = true;
+        
+        // If the video was paused, play it
+        if (videoPlayer.paused) {
+          videoPlayer.play().catch(e => {
+            console.error('Error playing video:', e);
+          });
+        }
+      }
+      
+      // Multiple ways to unmute
+      unmuteButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        unmuteVideo();
+      });
+      
+      unmuteOverlay.addEventListener('click', function() {
+        unmuteVideo();
+      });
+      
+      // Listen for video play event
+      videoPlayer.addEventListener('play', function() {
+        // Only remove the overlay if user has explicitly unmuted
+        if (unmuteAttempted) {
+          videoPlayer.muted = false;
+          unmuteOverlay.style.display = 'none';
+        }
+      });
+      
+      // Listen for user interaction with video controls
+      videoPlayer.addEventListener('volumechange', function() {
+        if (!videoPlayer.muted) {
+          unmuteOverlay.style.display = 'none';
+          unmuteAttempted = true;
+        }
+      });
+      
+      // If user interacts with video directly
+      videoPlayer.addEventListener('click', function() {
+        if (videoPlayer.muted) {
+          videoPlayer.muted = false;
+          unmuteOverlay.style.display = 'none';
+          unmuteAttempted = true;
+        }
+      });
+      
+      // Handle potential video errors
+      videoPlayer.addEventListener('error', function(e) {
+        console.error('Video error:', videoPlayer.error);
+        alert('Error loading video: ' + (videoPlayer.error ? videoPlayer.error.message : 'Unknown error'));
+      });
       
       // Parse and set video details
       try {
