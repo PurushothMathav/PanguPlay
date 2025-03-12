@@ -84,36 +84,43 @@
       display: block;
       border-radius: 10px;
     }
-    
-    .unmute-overlay {
+
+    .play-button-container {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 10;
+      background-color: rgba(0, 0, 0, 0.3);
       cursor: pointer;
     }
-    
-    .unmute-button {
-      background-color: #ff4500;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 50px;
-      font-size: 16px;
-      font-weight: bold;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      transition: all 0.2s ease;
+
+    .play-button {
+      width: 80px;
+      height: 80px;
+      background-color: rgba(255, 69, 0, 0.8);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
     }
-    
-    .unmute-button:hover {
-      background-color: #ff6347;
-      transform: scale(1.05);
+
+    .play-button:hover {
+      background-color: rgba(255, 69, 0, 1);
+      transform: scale(1.1);
+    }
+
+    .play-button-triangle {
+      width: 0;
+      height: 0;
+      border-top: 20px solid transparent;
+      border-left: 32px solid white;
+      border-bottom: 20px solid transparent;
+      margin-left: 8px;
     }
 
     .video-details-container {
@@ -279,6 +286,18 @@
         justify-content: flex-start;
         margin-top: 5px;
       }
+
+      .play-button {
+        width: 60px;
+        height: 60px;
+      }
+
+      .play-button-triangle {
+        border-top: 15px solid transparent;
+        border-left: 24px solid white;
+        border-bottom: 15px solid transparent;
+        margin-left: 6px;
+      }
     }
 
     @media only screen and (max-width: 480px) {
@@ -334,6 +353,18 @@
         font-size: 13px;
         padding: 3px 8px;
       }
+
+      .play-button {
+        width: 50px;
+        height: 50px;
+      }
+
+      .play-button-triangle {
+        border-top: 12px solid transparent;
+        border-left: 20px solid white;
+        border-bottom: 12px solid transparent;
+        margin-left: 5px;
+      }
     }
   </style>
 </head>
@@ -352,12 +383,14 @@
 
     <div class="video-content">
       <div class="video-container">
-        <video id="videoPlayer" controls preload="metadata" playsinline webkit-playsinline autoplay muted>
+        <video id="videoPlayer" controls preload="metadata" playsinline webkit-playsinline>
           <source src="" type="video/mp4">
           Your browser does not support the video tag.
         </video>
-        <div id="unmuteOverlay" class="unmute-overlay">
-          <button id="unmuteButton" class="unmute-button">Tap to Unmute</button>
+        <div id="playButtonContainer" class="play-button-container">
+          <div class="play-button">
+            <div class="play-button-triangle"></div>
+          </div>
         </div>
       </div>
 
@@ -442,61 +475,28 @@
       // Set video image
       document.getElementById('videoImage').src = decodeURIComponent(videoImage);
       
-      // Unmute functionality
-      const unmuteOverlay = document.getElementById('unmuteOverlay');
-      const unmuteButton = document.getElementById('unmuteButton');
+      // Custom play button
+      const playButtonContainer = document.getElementById('playButtonContainer');
       
-      // Keep track of unmute attempts
-      let unmuteAttempted = false;
-      
-      // Function to unmute video
-      function unmuteVideo() {
-        videoPlayer.muted = false;
-        unmuteOverlay.style.display = 'none';
-        unmuteAttempted = true;
-        
-        // If the video was paused, play it
-        if (videoPlayer.paused) {
-          videoPlayer.play().catch(e => {
-            console.error('Error playing video:', e);
-          });
-        }
-      }
-      
-      // Multiple ways to unmute
-      unmuteButton.addEventListener('click', function(e) {
-        e.stopPropagation();
-        unmuteVideo();
+      // Click on play button overlay to start video
+      playButtonContainer.addEventListener('click', function() {
+        videoPlayer.play().then(() => {
+          // Hide play button on successful play
+          playButtonContainer.style.display = 'none';
+        }).catch(error => {
+          console.error('Error playing video:', error);
+          alert('Cannot play video automatically. Please use the video controls to play.');
+        });
       });
       
-      unmuteOverlay.addEventListener('click', function() {
-        unmuteVideo();
-      });
-      
-      // Listen for video play event
+      // Hide play button when user plays video using controls
       videoPlayer.addEventListener('play', function() {
-        // Only remove the overlay if user has explicitly unmuted
-        if (unmuteAttempted) {
-          videoPlayer.muted = false;
-          unmuteOverlay.style.display = 'none';
-        }
+        playButtonContainer.style.display = 'none';
       });
       
-      // Listen for user interaction with video controls
-      videoPlayer.addEventListener('volumechange', function() {
-        if (!videoPlayer.muted) {
-          unmuteOverlay.style.display = 'none';
-          unmuteAttempted = true;
-        }
-      });
-      
-      // If user interacts with video directly
-      videoPlayer.addEventListener('click', function() {
-        if (videoPlayer.muted) {
-          videoPlayer.muted = false;
-          unmuteOverlay.style.display = 'none';
-          unmuteAttempted = true;
-        }
+      // Show play button when video is paused
+      videoPlayer.addEventListener('pause', function() {
+        playButtonContainer.style.display = 'flex';
       });
       
       // Handle potential video errors
