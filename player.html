@@ -321,7 +321,7 @@
 
     <div class="video-content">
       <div class="video-container">
-        <video id="videoPlayer" controls preload="metadata" playsinline webkit-playsinline autoplay muted="false">
+        <video id="videoPlayer" controls preload="metadata" playsinline webkit-playsinline>
           <source src="" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -400,10 +400,6 @@
       // Set video source
       const videoPlayer = document.getElementById('videoPlayer');
       videoPlayer.src = decodeURIComponent(videoUrl);
-	  
-	  // Ensure the video is not muted
-  videoPlayer.muted = false; // Ensure the video is not muted
-  videoPlayer.autoplay = true; // Optionally enable autoplay if needed
       
       // Set video title
       document.getElementById('videoTitle').textContent = videoTitle;
