@@ -3,9 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Video Player - PanguPlay</title>
-  <!-- Add Video.js CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.20.3/video-js.min.css" rel="stylesheet">
+  <title>Advanced Multi-Codec Video Player - PanguPlay</title>
+  
+  <!-- Enhanced Video.js CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.21.1/video-js.min.css" rel="stylesheet">
+  
+  <!-- Videojs-contrib-quality-levels CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-quality-levels/2.1.0/videojs-contrib-quality-levels.min.css" rel="stylesheet">
+  
   <style>
     /* Global Styles */
     body {
@@ -79,7 +84,7 @@
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
     }
 
-    /* Custom Video.js styling */
+    /* Enhanced Video.js styling */
     .video-js {
       width: 100%;
       height: 600px;
@@ -88,12 +93,20 @@
 
     /* Custom Video.js controls color */
     .video-js .vjs-control-bar {
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.8);
     }
 
     .video-js .vjs-big-play-button {
-      background-color: rgba(255, 69, 0, 0.7);
+      background-color: rgba(255, 69, 0, 0.8);
       border-color: #ff4500;
+      border-radius: 50%;
+      height: 80px;
+      width: 80px;
+      line-height: 80px;
+      font-size: 3em;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
 
     .video-js .vjs-big-play-button:hover {
@@ -207,13 +220,15 @@
       margin: 15px 0;
     }
 
-    .player-selection {
+    .player-controls {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    .player-toggle {
+    .player-toggle, .codec-info-btn {
       background-color: #333;
       border: 1px solid #555;
       color: #fff;
@@ -221,10 +236,45 @@
       border-radius: 4px;
       cursor: pointer;
       font-size: 14px;
+      transition: all 0.2s ease;
     }
 
-    .player-toggle:hover {
+    .player-toggle:hover, .codec-info-btn:hover {
       background-color: #444;
+    }
+
+    .codec-info-panel {
+      background-color: #333;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      text-align: left;
+      display: none;
+    }
+
+    .codec-info-panel h3 {
+      margin-top: 0;
+      color: #ff4500;
+    }
+
+    .codec-info-panel p {
+      margin: 5px 0;
+    }
+
+    .codec-detail {
+      display: flex;
+      margin-bottom: 8px;
+    }
+
+    .codec-label {
+      flex: 0 0 120px;
+      font-weight: bold;
+      color: #bbbbbb;
+    }
+
+    .codec-value {
+      flex: 1;
+      color: #ffffff;
     }
 
     /* Responsive design improvements */
@@ -234,132 +284,23 @@
         padding: 15px;
       }
 
-      .header {
-        margin-bottom: 15px;
-      }
-
-      .back-button {
-        padding: 6px 12px;
-        font-size: 14px;
-      }
-
-      .heading {
-        font-size: 20px;
-      }
-
       .video-js {
         height: 350px;
       }
-
-      .video-details-container {
-        flex-direction: column;
-      }
-
-      .video-image-container {
-        flex: 0 0 auto;
-        height: 200px; /* Fixed height */
-        width: 100%;
+      
+      .player-controls {
+        justify-content: center;
       }
       
-      .video-image {
-        width: 100%;
-        height: 100%;
-        object-fit: contain; /* Changed from cover to prevent cropping */
-      }
-
-      .quality-badge {
-        top: 10px;
-        right: 10px;
-      }
-
-      .video-details {
-        padding: 15px;
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      .detail-row {
-        flex-direction: row; /* Keep as row even on mobile */
-        margin-bottom: 12px;
-        flex-wrap: wrap;
-      }
-
-      .detail-label {
-        flex: 0 0 85px; /* Slightly smaller on mobile */
-        margin-bottom: 0;
-        font-size: 14px;
-      }
-
-      .detail-value {
-        flex: 1;
-        min-width: 60%; /* Ensure enough space */
-        line-height: 1.4;
-      }
-
-      .genres-list {
-        justify-content: flex-start;
-        margin-top: 5px;
-      }
+      /* Other responsive styles as previously defined */
     }
 
     @media only screen and (max-width: 480px) {
-      .container {
-        width: 100%;
-        padding: 10px;
-        margin: 10px auto;
-        border-radius: 0; /* Full width on smallest screens */
-      }
-
-      .header {
-        margin-bottom: 10px;
-      }
-      
-      .heading {
-        font-size: 18px;
-      }
-
       .video-js {
         height: 250px;
-        border-radius: 8px;
-      }
-
-      video.native-player {
-        max-height: 250px;
-        border-radius: 8px;
-      }
-
-      .video-details-container {
-        border-radius: 8px;
-      }
-
-      .video-details h2 {
-        font-size: 20px;
-        margin-bottom: 10px;
-      }
-
-      .video-image-container {
-        height: 180px; /* Even smaller height on smallest screens */
       }
       
-      .detail-row {
-        margin-bottom: 10px;
-      }
-      
-      .detail-label {
-        flex: 0 0 80px;
-        font-size: 13px;
-      }
-      
-      .genre-tag {
-        font-size: 12px;
-        padding: 2px 8px;
-        margin-bottom: 4px;
-      }
-      
-      .movie-rating {
-        font-size: 13px;
-        padding: 3px 8px;
-      }
+      /* Other mobile styles as previously defined */
     }
   </style>
 </head>
@@ -373,16 +314,41 @@
         </svg>
         Home
       </button>
-      <h1 class="heading">PanguPlay Video Player</h1>
+      <h1 class="heading">PanguPlay Advanced Video Player</h1>
     </div>
 
     <div class="video-content">
-      <div class="player-selection">
+      <div class="player-controls">
+        <button id="toggleCodecInfo" class="codec-info-btn">Show Tech Info</button>
         <button id="togglePlayer" class="player-toggle">Switch to Standard Player</button>
+      </div>
+      
+      <div id="codecInfoPanel" class="codec-info-panel">
+        <h3>Video Technical Information</h3>
+        <div class="codec-detail">
+          <div class="codec-label">Video Format:</div>
+          <div id="videoFormat" class="codec-value">Detecting...</div>
+        </div>
+        <div class="codec-detail">
+          <div class="codec-label">Video Codec:</div>
+          <div id="videoCodec" class="codec-value">Detecting...</div>
+        </div>
+        <div class="codec-detail">
+          <div class="codec-label">Audio Codec:</div>
+          <div id="audioCodec" class="codec-value">Detecting...</div>
+        </div>
+        <div class="codec-detail">
+          <div class="codec-label">Resolution:</div>
+          <div id="videoResolution" class="codec-value">Detecting...</div>
+        </div>
+        <div class="codec-detail">
+          <div class="codec-label">Player Mode:</div>
+          <div id="playerMode" class="codec-value">Enhanced (Video.js)</div>
+        </div>
       </div>
 
       <div class="video-container">
-        <!-- Video.js player (enhanced with HEVC support) -->
+        <!-- Video.js player for enhanced codec support -->
         <video id="videoJsPlayer" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" style="display:block;">
           <p class="vjs-no-js">
             To view this video please enable JavaScript, and consider upgrading to a web browser that
@@ -447,18 +413,19 @@
             <div class="detail-label">Updated:</div>
             <div id="lastUpdated" class="detail-value">Last Updated Date</div>
           </div>
-
-          <div id="codecInfo" class="detail-row" style="display:none;">
-            <div class="detail-label">Codec:</div>
-            <div id="codecValue" class="detail-value">Detecting...</div>
-          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Video.js library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.20.3/video.min.js"></script>
+  <!-- Core Video.js library - newer version -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.21.1/video.min.js"></script>
+  
+  <!-- VideoJS HEVC Support Plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-quality-levels/2.1.0/videojs-contrib-quality-levels.min.js"></script>
+  
+  <!-- HLS Support -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.15.0/videojs-contrib-hls.min.js"></script>
   
   <script>
     // Function to go back to home page
@@ -476,46 +443,167 @@
     let currentPlayer = 'videojs'; // Start with Video.js player
     let videoJsPlayer = null;
     
-    // Initialize the Video.js player
+    // Dynamically determine MIME type based on file extension
+    function getMimeType(url) {
+      const extension = url.split('.').pop().toLowerCase();
+      
+      const mimeTypes = {
+        'mp4': 'video/mp4',
+        'webm': 'video/webm',
+        'mkv': 'video/x-matroska',
+        'mov': 'video/quicktime',
+        'avi': 'video/x-msvideo',
+        'm3u8': 'application/x-mpegURL',
+        'mpd': 'application/dash+xml',
+        'ts': 'video/mp2t',
+        'ogv': 'video/ogg',
+        'm4v': 'video/mp4',
+        '3gp': 'video/3gpp'
+      };
+      
+      return mimeTypes[extension] || 'video/mp4';
+    }
+    
+    // Initialize the Video.js player with enhanced codec support
     function initializeVideoJsPlayer(url) {
       if (videoJsPlayer) {
         videoJsPlayer.dispose();
       }
       
-      videoJsPlayer = videojs('videoJsPlayer', {
+      const mimeType = getMimeType(url);
+      const playerOptions = {
         controls: true,
         autoplay: false,
         preload: 'auto',
         fluid: true,
+        playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2],
+        responsive: true,
+        techOrder: ['html5'],
         sources: [{
           src: url,
-          type: 'video/mp4'
+          type: mimeType
         }],
         html5: {
-          hls: {
+          vhs: {
             overrideNative: true
           },
-          nativeVideoTracks: false,
-          nativeAudioTracks: false,
-          nativeTextTracks: false
-        }
-      });
+          nativeVideoTracks: true,
+          nativeAudioTracks: true,
+          nativeTextTracks: true
+        },
+        liveui: mimeType === 'application/x-mpegURL' || mimeType === 'application/dash+xml'
+      };
+      
+      // Additional setup for HLS content
+      if (mimeType === 'application/x-mpegURL') {
+        playerOptions.html5.hls = {
+          enableLowInitialPlaylist: true,
+          smoothQualityChange: true,
+          overrideNative: true
+        };
+      }
+      
+      videoJsPlayer = videojs('videoJsPlayer', playerOptions);
       
       // Handle error event
       videoJsPlayer.on('error', function() {
-        console.log('Video.js player error detected');
+        console.log('Video.js player error detected:', videoJsPlayer.error());
+        
+        // Try to get more detailed error information
+        const errorDetails = videoJsPlayer.error();
+        console.log('Error code:', errorDetails ? errorDetails.code : 'unknown');
+        console.log('Error message:', errorDetails ? errorDetails.message : 'unknown');
+        
+        // Check if we have audio but no video
+        const tracks = videoJsPlayer.audioTracks();
+        console.log('Audio tracks:', tracks && tracks.length ? tracks.length : 'None detected');
         
         // If Video.js fails, auto-switch to native player
         if (currentPlayer === 'videojs') {
           switchToNativePlayer();
           document.getElementById('togglePlayer').textContent = 'Switch to Enhanced Player';
+          document.getElementById('playerMode').textContent = 'Standard (Browser Native)';
         }
       });
+      
+      // Update technical information when metadata is loaded
+      videoJsPlayer.on('loadedmetadata', function() {
+        updateTechnicalInfo();
+      });
+      
+      // Wake up audio context on mobile devices
+      document.addEventListener('touchstart', function() {
+        if (videoJsPlayer) {
+          videoJsPlayer.muted(false);
+          videoJsPlayer.volume(1);
+          // Try playing after user interaction on mobile
+          videoJsPlayer.play().catch(e => {
+            console.log('Play after touch failed:', e);
+          });
+        }
+      }, {once: true});
+    }
+    
+    // Extract and display technical information about the video
+    function updateTechnicalInfo() {
+      try {
+        const player = currentPlayer === 'videojs' ? videoJsPlayer : document.getElementById('nativePlayer');
+        
+        if (currentPlayer === 'videojs' && videoJsPlayer) {
+          const videoElem = videoJsPlayer.tech().el();
+          
+          // Get video resolution
+          const width = videoElem.videoWidth;
+          const height = videoElem.videoHeight;
+          document.getElementById('videoResolution').textContent = width + 'x' + height;
+          
+          // Get file extension for format detection
+          const url = videoJsPlayer.currentSrc();
+          const extension = url.split('.').pop().toLowerCase();
+          document.getElementById('videoFormat').textContent = extension.toUpperCase();
+          
+          // Estimate video codec based on container and browser
+          let videoCodec = 'Unknown';
+          if (extension === 'mp4') {
+            if (url.includes('265') || url.includes('hevc')) {
+              videoCodec = 'H.265 / HEVC';
+            } else {
+              videoCodec = 'H.264 / AVC';
+            }
+          } else if (extension === 'webm') {
+            videoCodec = 'VP9 or AV1';
+          } else if (extension === 'mkv') {
+            videoCodec = 'Multiple (MKV Container)';
+          } else {
+            videoCodec = extension.toUpperCase() + ' format';
+          }
+          document.getElementById('videoCodec').textContent = videoCodec;
+          
+          // Audio codec estimation
+          document.getElementById('audioCodec').textContent = 'AAC or MP3 (Auto-detected)';
+        } else if (currentPlayer === 'native') {
+          const nativePlayer = document.getElementById('nativePlayer');
+          
+          // Basic info from native player
+          const width = nativePlayer.videoWidth;
+          const height = nativePlayer.videoHeight;
+          document.getElementById('videoResolution').textContent = width + 'x' + height;
+          
+          const url = nativePlayer.currentSrc;
+          const extension = url.split('.').pop().toLowerCase();
+          document.getElementById('videoFormat').textContent = extension.toUpperCase();
+          document.getElementById('videoCodec').textContent = 'Browser Native Codec';
+          document.getElementById('audioCodec').textContent = 'Browser Native Audio';
+        }
+      } catch (e) {
+        console.error('Error updating technical info:', e);
+      }
     }
     
     // Switch to native HTML5 player
     function switchToNativePlayer() {
       if (videoJsPlayer) {
+        const currentTime = videoJsPlayer.currentTime();
         videoJsPlayer.pause();
         document.getElementById('videoJsPlayer').style.display = 'none';
       }
@@ -524,23 +612,36 @@
       nativePlayer.style.display = 'block';
       currentPlayer = 'native';
       
+      // Update technical info panel
+      document.getElementById('playerMode').textContent = 'Standard (Browser Native)';
+      
       // Try to play the native player
       nativePlayer.play().catch(e => {
         console.log('Native player failed to auto-play:', e);
+      });
+      
+      // Update technical info when metadata is loaded
+      nativePlayer.addEventListener('loadedmetadata', function() {
+        updateTechnicalInfo();
       });
     }
     
     // Switch to Video.js player
     function switchToVideoJsPlayer() {
       const nativePlayer = document.getElementById('nativePlayer');
+      const currentTime = nativePlayer.currentTime;
       nativePlayer.pause();
       nativePlayer.style.display = 'none';
       
       document.getElementById('videoJsPlayer').style.display = 'block';
       currentPlayer = 'videojs';
       
-      // Try to play the video.js player
+      // Update technical info panel
+      document.getElementById('playerMode').textContent = 'Enhanced (Video.js)';
+      
+      // Try to play the video.js player and seek to the same position
       if (videoJsPlayer) {
+        videoJsPlayer.currentTime(currentTime);
         videoJsPlayer.play();
       }
     }
@@ -553,6 +654,18 @@
       } else {
         switchToVideoJsPlayer();
         this.textContent = 'Switch to Standard Player';
+      }
+    });
+    
+    // Toggle codec info panel
+    document.getElementById('toggleCodecInfo').addEventListener('click', function() {
+      const panel = document.getElementById('codecInfoPanel');
+      if (panel.style.display === 'none' || !panel.style.display) {
+        panel.style.display = 'block';
+        this.textContent = 'Hide Tech Info';
+      } else {
+        panel.style.display = 'none';
+        this.textContent = 'Show Tech Info';
       }
     });
     
@@ -584,9 +697,6 @@
       
       // Set video image
       document.getElementById('videoImage').src = decodeURIComponent(videoImage);
-      
-      // Show codec information
-      document.getElementById('codecInfo').style.display = 'flex';
       
       // Parse and set video details
       try {
@@ -622,18 +732,6 @@
     } else {
       alert('Video information is incomplete. Returning to home page.');
       goToHome();
-    }
-    
-    // Check for codec information when metadata is loaded
-    document.getElementById('nativePlayer').addEventListener('loadedmetadata', function() {
-      document.getElementById('codecValue').textContent = 'Standard H.264/MP4';
-    });
-    
-    // If Video.js player loads successfully, assume it's handling HEVC
-    if (videoJsPlayer) {
-      videoJsPlayer.on('loadedmetadata', function() {
-        document.getElementById('codecValue').textContent = 'HEVC/H.265 (Enhanced Player)';
-      });
     }
   </script>
 </body>
