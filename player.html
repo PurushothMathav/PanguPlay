@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Video Player - PanguPlay</title>
-  <!-- Add Video.js CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.20.3/video-js.min.css" rel="stylesheet">
   <style>
     /* Global Styles */
     body {
@@ -79,33 +77,7 @@
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
     }
 
-    /* Custom Video.js styling */
-    .video-js {
-      width: 100%;
-      height: 600px;
-      border-radius: 10px;
-    }
-
-    /* Custom Video.js controls color */
-    .video-js .vjs-control-bar {
-      background-color: rgba(0, 0, 0, 0.7);
-    }
-
-    .video-js .vjs-big-play-button {
-      background-color: rgba(255, 69, 0, 0.7);
-      border-color: #ff4500;
-    }
-
-    .video-js .vjs-big-play-button:hover {
-      background-color: #ff4500;
-    }
-
-    .video-js .vjs-play-progress {
-      background-color: #ff4500;
-    }
-    
-    /* Fallback video styling */
-    video.native-player {
+    video {
       width: 100%;
       height: auto;
       max-height: 600px;
@@ -207,26 +179,6 @@
       margin: 15px 0;
     }
 
-    .player-selection {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 10px;
-    }
-
-    .player-toggle {
-      background-color: #333;
-      border: 1px solid #555;
-      color: #fff;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .player-toggle:hover {
-      background-color: #444;
-    }
-
     /* Responsive design improvements */
     @media only screen and (max-width: 768px) {
       .container {
@@ -245,10 +197,6 @@
 
       .heading {
         font-size: 20px;
-      }
-
-      .video-js {
-        height: 350px;
       }
 
       .video-details-container {
@@ -318,12 +266,7 @@
         font-size: 18px;
       }
 
-      .video-js {
-        height: 250px;
-        border-radius: 8px;
-      }
-
-      video.native-player {
+      video {
         max-height: 250px;
         border-radius: 8px;
       }
@@ -377,21 +320,8 @@
     </div>
 
     <div class="video-content">
-      <div class="player-selection">
-        <button id="togglePlayer" class="player-toggle">Switch to Standard Player</button>
-      </div>
-
       <div class="video-container">
-        <!-- Video.js player (enhanced with HEVC support) -->
-        <video id="videoJsPlayer" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" style="display:block;">
-          <p class="vjs-no-js">
-            To view this video please enable JavaScript, and consider upgrading to a web browser that
-            <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-          </p>
-        </video>
-        
-        <!-- Native HTML5 player as fallback -->
-        <video id="nativePlayer" class="native-player" controls preload="metadata" playsinline webkit-playsinline style="display:none;">
+        <video id="videoPlayer" controls preload="metadata" playsinline webkit-playsinline>
           <source src="" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -447,19 +377,11 @@
             <div class="detail-label">Updated:</div>
             <div id="lastUpdated" class="detail-value">Last Updated Date</div>
           </div>
-
-          <div id="codecInfo" class="detail-row" style="display:none;">
-            <div class="detail-label">Codec:</div>
-            <div id="codecValue" class="detail-value">Detecting...</div>
-          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Video.js library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.20.3/video.min.js"></script>
-  
   <script>
     // Function to go back to home page
     function goToHome() {
@@ -473,134 +395,24 @@
     const videoImage = urlParams.get('image');
     const videoDetailsEncoded = urlParams.get('details');
     
-    let currentPlayer = 'videojs'; // Start with Video.js player
-    let videoJsPlayer = null;
-    
-    // Initialize the Video.js player
-    function initializeVideoJsPlayer(url) {
-      if (videoJsPlayer) {
-        videoJsPlayer.dispose();
-      }
-      
-      videoJsPlayer = videojs('videoJsPlayer', {
-        controls: true,
-        autoplay: false,
-        preload: 'auto',
-        fluid: true,
-        sources: [{
-          src: url,
-          type: 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
-        }],
-        html5: {
-          hls: {
-            overrideNative: true
-          },
-          nativeVideoTracks: false,
-          nativeAudioTracks: true,
-          nativeTextTracks: false
-        }
-      });
-      
-      // Handle error event
-      videoJsPlayer.on('error', function() {
-        console.log('Video.js player error detected');
-        
-		// Log audio-specific state
-  console.log('Audio tracks:', videoJsPlayer.audioTracks());
-		
-        // If Video.js fails, auto-switch to native player
-        if (currentPlayer === 'videojs') {
-          switchToNativePlayer();
-          document.getElementById('togglePlayer').textContent = 'Switch to Enhanced Player';
-        }
-      });
-	  
-	  // Add this code right here
-  document.addEventListener('touchstart', function() {
-    // Try to wake up the audio context on mobile
-    if (videoJsPlayer) {
-      videoJsPlayer.muted(false);
-      videoJsPlayer.volume(1);
-    }
-  }, {once: true});
-}
-	  
-    }
-    
-    // Switch to native HTML5 player
-    function switchToNativePlayer() {
-      if (videoJsPlayer) {
-        videoJsPlayer.pause();
-        document.getElementById('videoJsPlayer').style.display = 'none';
-      }
-      
-      const nativePlayer = document.getElementById('nativePlayer');
-      nativePlayer.style.display = 'block';
-      currentPlayer = 'native';
-      
-      // Try to play the native player
-      nativePlayer.play().catch(e => {
-        console.log('Native player failed to auto-play:', e);
-      });
-    }
-    
-    // Switch to Video.js player
-    function switchToVideoJsPlayer() {
-      const nativePlayer = document.getElementById('nativePlayer');
-      nativePlayer.pause();
-      nativePlayer.style.display = 'none';
-      
-      document.getElementById('videoJsPlayer').style.display = 'block';
-      currentPlayer = 'videojs';
-      
-      // Try to play the video.js player
-      if (videoJsPlayer) {
-        videoJsPlayer.play();
-      }
-    }
-    
-    // Toggle between players
-    document.getElementById('togglePlayer').addEventListener('click', function() {
-      if (currentPlayer === 'videojs') {
-        switchToNativePlayer();
-        this.textContent = 'Switch to Enhanced Player';
-      } else {
-        switchToVideoJsPlayer();
-        this.textContent = 'Switch to Standard Player';
-      }
-    });
-    
     // Update the page with video information
     if (videoUrl && videoTitle && videoImage && videoDetailsEncoded) {
-      const decodedVideoUrl = decodeURIComponent(videoUrl);
-      
-      // Set native video source
-      const nativePlayer = document.getElementById('nativePlayer');
-      nativePlayer.src = decodedVideoUrl;
-      
-      // Initialize Video.js player
-      initializeVideoJsPlayer(decodedVideoUrl);
+      // Set video source
+      const videoPlayer = document.getElementById('videoPlayer');
+      videoPlayer.src = decodeURIComponent(videoUrl);
       
       // Set video title
       document.getElementById('videoTitle').textContent = videoTitle;
       document.title = videoTitle + ' - PanguPlay';
       
-      // Error handling for native player
-      nativePlayer.addEventListener('error', function(e) {
-        console.error('Native player error:', nativePlayer.error);
-        
-        // If we're using the native player and it fails, try the Video.js player
-        if (currentPlayer === 'native') {
-          switchToVideoJsPlayer();
-          document.getElementById('togglePlayer').textContent = 'Switch to Standard Player';
-        }
-      });
-      
+	  // In the player.html file, add this code right after setting the video source
+		videoPlayer.addEventListener('error', function(e) {
+		console.error('Video error:', videoPlayer.error);
+		alert('Error loading video: ' + videoPlayer.error.message);
+		});
+	  
       // Set video image
       document.getElementById('videoImage').src = decodeURIComponent(videoImage);
-      
-      // Show codec information
-      document.getElementById('codecInfo').style.display = 'flex';
       
       // Parse and set video details
       try {
@@ -636,18 +448,6 @@
     } else {
       alert('Video information is incomplete. Returning to home page.');
       goToHome();
-    }
-    
-    // Check for codec information when metadata is loaded
-    document.getElementById('nativePlayer').addEventListener('loadedmetadata', function() {
-      document.getElementById('codecValue').textContent = 'Standard H.264/MP4';
-    });
-    
-    // If Video.js player loads successfully, assume it's handling HEVC
-    if (videoJsPlayer) {
-      videoJsPlayer.on('loadedmetadata', function() {
-        document.getElementById('codecValue').textContent = 'HEVC/H.265 (Enhanced Player)';
-      });
     }
   </script>
 </body>
