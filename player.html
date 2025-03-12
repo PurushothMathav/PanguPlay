@@ -401,9 +401,53 @@
       const videoPlayer = document.getElementById('videoPlayer');
       videoPlayer.src = decodeURIComponent(videoUrl);
 	  
-	  // Ensure the video is not muted
-  videoPlayer.muted = false; // Ensure the video is not muted
-  videoPlayer.autoplay = true; // Optionally enable autoplay if needed
+	  // Add this new section to handle unmuting
+  videoPlayer.muted = true; // Start muted to allow autoplay
+  videoPlayer.autoplay = true;
+  
+  // Create unmute overlay
+  const unmuteOverlay = document.createElement('div');
+  unmuteOverlay.style.position = 'absolute';
+  unmuteOverlay.style.top = '0';
+  unmuteOverlay.style.left = '0';
+  unmuteOverlay.style.width = '100%';
+  unmuteOverlay.style.height = '100%';
+  unmuteOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+  unmuteOverlay.style.display = 'flex';
+  unmuteOverlay.style.justifyContent = 'center';
+  unmuteOverlay.style.alignItems = 'center';
+  unmuteOverlay.style.zIndex = '10';
+  unmuteOverlay.style.cursor = 'pointer';
+  
+  const unmuteButton = document.createElement('button');
+  unmuteButton.innerText = 'Tap to Unmute';
+  unmuteButton.style.backgroundColor = '#ff4500';
+  unmuteButton.style.color = 'white';
+  unmuteButton.style.border = 'none';
+  unmuteButton.style.padding = '12px 24px';
+  unmuteButton.style.borderRadius = '50px';
+  unmuteButton.style.fontSize = '16px';
+  unmuteButton.style.fontWeight = 'bold';
+  
+  unmuteOverlay.appendChild(unmuteButton);
+  document.querySelector('.video-container').appendChild(unmuteOverlay);
+  
+  // Add event listener to unmute
+  unmuteOverlay.addEventListener('click', function() {
+    videoPlayer.muted = false;
+    unmuteOverlay.style.display = 'none';
+    
+    // If the video was paused, play it
+    if (videoPlayer.paused) {
+      videoPlayer.play();
+    }
+  });
+  
+  // Also add event listeners for standard controls
+  videoPlayer.addEventListener('play', function() {
+    videoPlayer.muted = false;
+    unmuteOverlay.style.display = 'none';
+  });
       
       // Set video title
       document.getElementById('videoTitle').textContent = videoTitle;
