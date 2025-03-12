@@ -520,12 +520,6 @@
         }
       },
     ];
-
-// In the player.html file, add this code right after setting the video source
-  videoPlayer.addEventListener('error', function(e) {
-    console.error('Video error:', videoPlayer.error);
-    alert('Error loading video: ' + videoPlayer.error?.message || 'Unknown error');
-  });
     
     // Function to parse the date string to a comparable format
     function parseDate(dateStr) {
