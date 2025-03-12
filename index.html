@@ -316,6 +316,20 @@
   </div>
 
   <script>
+	window.onload = function() {
+            // Ensure that this code runs only when the user reaches the main page
+            if (window.location.pathname === "/") {
+                // Push the current state to the history stack
+                history.pushState(null, null, window.location.href);
+
+                // Add an event listener to detect the back button press
+                window.addEventListener('popstate', function(event) {
+                    // Prevent going back to the previous pages
+                    history.pushState(null, null, window.location.href);
+                });
+            }
+        };
+	  
     // Data for video cards
     const videoData = [
       {
