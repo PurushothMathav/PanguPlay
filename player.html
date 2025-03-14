@@ -305,56 +305,7 @@
       }
     }
 	
-	.interaction-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 20px 0;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 8px;
-  }
-  
-  .view-count {
-    font-size: 16px;
-    color: #555;
-  }
-  
-  .rating-buttons {
-    display: flex;
-    gap: 15px;
-  }
-  
-  .rating-btn {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background: none;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    padding: 6px 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  
-  .rating-btn:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .rating-btn.active {
-    background-color: #e1f5fe;
-    border-color: #29b6f6;
-    color: #0288d1;
-  }
-  
-  .rating-btn.active svg {
-    stroke: #0288d1;
-  }
-  
-  .rating-btn.disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+
   </style>
 </head>
 <body>
@@ -378,22 +329,9 @@
         </video>
       </div>
 	  
-	  <div class="interaction-container">
-  <div class="view-count">
-    <span id="viewCount">0</span> views
-  </div>
-  <div class="rating-buttons">
-    <button id="likeButton" class="rating-btn">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
-      <span id="likeCount">0</span>
-    </button>
-    <button id="dislikeButton" class="rating-btn">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"></path></svg>
-      <span id="dislikeCount">0</span>
-    </button>
-  </div>
-</div>
-
+	  
+	  
+	  
       <div class="video-details-container">
         <div class="video-image-container">
           <img id="videoImage" src="" alt="Video Image" class="video-image">
@@ -468,161 +406,10 @@
       const videoPlayer = document.getElementById('videoPlayer');
       videoPlayer.src = decodeURIComponent(videoUrl);
      
-	 document.addEventListener('DOMContentLoaded', function() {
-    const videoTitle = document.getElementById('videoTitle').textContent;
-    const videoId = videoTitle.replace(/\s+/g, '-').toLowerCase();
-    const likeButton = document.getElementById('likeButton');
-    const dislikeButton = document.getElementById('dislikeButton');
-    const likeCount = document.getElementById('likeCount');
-    const dislikeCount = document.getElementById('dislikeCount');
-    const viewCountElement = document.getElementById('viewCount');
-    
-    // Generate a unique user ID if not already set
-    if (!localStorage.getItem('userUniqueId')) {
-      localStorage.setItem('userUniqueId', generateUniqueId());
-    }
-    const userId = localStorage.getItem('userUniqueId');
-    
-    // Function to generate a unique ID
-    function generateUniqueId() {
-      return 'user_' + Math.random().toString(36).substr(2, 9);
-    }
-    
-    // Initialize by fetching data from server
-    fetchVideoStats();
-    
-    // Record view (only once per session)
-    if (!sessionStorage.getItem(`viewed_${videoId}`)) {
-      recordView();
-      sessionStorage.setItem(`viewed_${videoId}`, 'true');
-    }
-    
-    // Like button handler
-    likeButton.addEventListener('click', function() {
-      if (!likeButton.classList.contains('disabled')) {
-        sendRating('like');
-      }
-    });
-    
-    // Dislike button handler
-    dislikeButton.addEventListener('click', function() {
-      if (!dislikeButton.classList.contains('disabled')) {
-        sendRating('dislike');
-      }
-    });
-    
-    // Fetch video statistics from server
-    function fetchVideoStats() {
-      fetch('/api/video-stats?videoId=' + encodeURIComponent(videoId))
-        .then(response => response.json())
-        .then(data => {
-          updateUI(data);
-          checkUserInteraction();
-        })
-        .catch(error => {
-          console.error('Error fetching video stats:', error);
-        });
-    }
-    
-    // Record a view
-    function recordView() {
-      fetch('/api/record-view', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          videoId: videoId,
-          userId: userId
-        })
-      })
-      .then(response => response.json())
-      .then(data => {
-        viewCountElement.textContent = data.views;
-      })
-      .catch(error => {
-        console.error('Error recording view:', error);
-      });
-    }
-    
-    // Send rating (like or dislike)
-    function sendRating(action) {
-      // Disable buttons until response is received
-      likeButton.classList.add('disabled');
-      dislikeButton.classList.add('disabled');
-      
-      fetch('/api/rate-video', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          videoId: videoId,
-          userId: userId,
-          action: action
-        })
-      })
-      .then(response => response.json())
-      .then(data => {
-        updateUI(data);
-        disableInteractions(action);
-      })
-      .catch(error => {
-        console.error('Error rating video:', error);
-        // Re-enable buttons if there's an error
-        likeButton.classList.remove('disabled');
-        dislikeButton.classList.remove('disabled');
-      });
-    }
-    
-    // Check if user has already interacted with this video
-    function checkUserInteraction() {
-      fetch('/api/user-interaction', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          videoId: videoId,
-          userId: userId
-        })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.hasInteracted) {
-          disableInteractions(data.action);
-        }
-      })
-      .catch(error => {
-        console.error('Error checking user interaction:', error);
-      });
-    }
-    
-    // Update UI based on current stats
-    function updateUI(data) {
-      likeCount.textContent = data.likes || 0;
-      dislikeCount.textContent = data.dislikes || 0;
-      viewCountElement.textContent = data.views || 0;
-    }
-    
-    // Disable further interactions after user has rated
-    function disableInteractions(action) {
-      likeButton.classList.remove('disabled');
-      dislikeButton.classList.remove('disabled');
-      
-      if (action === 'like') {
-        likeButton.classList.add('active');
-        dislikeButton.setAttribute('disabled', 'disabled');
-        dislikeButton.classList.add('disabled');
-      } else if (action === 'dislike') {
-        dislikeButton.classList.add('active');
-        likeButton.setAttribute('disabled', 'disabled');
-        likeButton.classList.add('disabled');
-      }
-    }
-  });
 	 
-      // Set video title
+	 
+	 
+	 // Set video title
       document.getElementById('videoTitle').textContent = videoTitle;
       document.title = videoTitle + ' - PanguPlay';
       
