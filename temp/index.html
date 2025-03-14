@@ -1,0 +1,1289 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PanguPlay Video Gallery</title>
+   <!-- add icon link -->
+    <link rel="icon" href="https://storage.googleapis.com/panguplaybucket/PanguPlay.png" type="image/x-icon" />
+  <style>
+    /* Global Styles */
+    :root {
+      --primary-color: #ff4500;
+      --dark-bg: #121212;
+      --card-bg: #202020;
+      --card-hover: #303030;
+      --text-color: #ffffff;
+      --text-secondary: #bbbbbb;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+
+    /* Header Styles */
+    .header {
+      text-align: center;
+      padding: 30px 0;
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .title {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .search-container {
+      width: 90%;
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    #searchInput {
+      width: 100%;
+      height: 50px;
+      padding: 0 20px 0 50px;
+      font-size: 16px;
+      border: none;
+      border-radius: 25px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    #searchInput:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+    }
+
+    /* Gallery Styles */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 25px;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+      background-color: var(--card-hover);
+    }
+
+    .card-image-container {
+      position: relative;
+      overflow: hidden;
+      height: 330px;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    .quality-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      z-index: 1;
+    }
+
+    .card-content {
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .card-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .star-icon {
+      color: gold;
+      margin-right: 5px;
+    }
+
+    .watch-button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .watch-button:hover {
+      background-color: #ff6347;
+    }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 30px;
+      font-size: 20px;
+      color: var(--text-secondary);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+      }
+      
+      .title {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        width: 95%;
+        padding: 15px 0;
+      }
+      
+      .header {
+        padding: 20px 0;
+      }
+      
+      .title {
+        font-size: 32px;
+      }
+      
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 15px;
+      }
+      
+      .card-image-container {
+        height: 240px;
+      }
+      
+      .card-content {
+        padding: 10px;
+      }
+      
+      .card-title {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: 92%;
+        padding: 10px 0;
+      }
+      
+      .header {
+        padding: 15px 0;
+        margin-bottom: 20px;
+      }
+      
+      .title {
+        font-size: 28px;
+        margin-bottom: 15px;
+      }
+      
+      #searchInput {
+        height: 45px;
+        font-size: 14px;
+      }
+      
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      
+      .card-image-container {
+        height: 220px;
+      }
+      
+      .card-content {
+        padding: 8px;
+      }
+      
+      .card-title {
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+      
+      .watch-button {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="title">PanguPlay Video Gallery</h1>
+      <div class="search-container">
+        <div class="search-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <input type="search" id="searchInput" placeholder="Search for movies...">
+      </div>
+    </div>
+    
+    <div class="gallery" id="gallery">
+      <!-- Video cards will be generated here -->
+    </div>
+  </div>
+
+  <script>
+	window.onload = function() {
+            // Ensure that this code runs only when the user reaches the main page
+            if (window.location.pathname === "/") {
+                // Push the current state to the history stack
+                history.pushState(null, null, window.location.href);
+
+                // Add an event listener to detect the back button press
+                window.addEventListener('popstate', function(event) {
+                    // Prevent going back to the previous pages
+                    history.pushState(null, null, window.location.href);
+                });
+            }
+        };
+	  
+    // Data for video cards
+    const videoData = [
+      {
+        title: 'Kaadhal Enbadhu Podhu Udamai (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Kaadhal%20Enbadhu%20Podhu%20Udamai%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Kaadhal%20Enbadhu%20Podhu%20Udamai%20(2025).mp4',
+        details: {
+          director: 'Jayaprakash Radhakrishnan',
+          starring: 'Vineeth, Rohini, Lijomol Jose, Anusha Prabhu, Kalesh Ramanand, Deepa Shankar',
+          genres: 'Drama',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '9.1/10',
+          lastUpdated: '13 March 2025'
+        }
+	  },
+	  {
+        title: 'Ramam Raghavam (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Ramam%20Raghavam%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Ramam%20Raghavam%20(2025).mp4',
+        details: {
+          director: 'Dhanraj',
+          starring: 'Samuthirakani, Dhanraj, Mokksha, Harish Uthaman, Sunil Naidu, Srinivas Reddy, Prudhvi Raj, Vennela Kishore',
+          genres: 'Drama, Thriller',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '9.3/10',
+          lastUpdated: '14 March 2025'
+        }
+	 },
+	 {
+        title: 'Murmur (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Murmur%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Murmur%20(2025).mp4',
+        details: {
+          director: 'Hemnath Narayanan',
+          starring: 'Richie Kapoor, Devaraj Arumugam,Yuvikha Rajendran',
+          genres: 'Horror, Thriller',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '7.9/10',
+          lastUpdated: '12 March 2025'
+        }
+      },
+	    {
+        title: 'Aghathiyaa (2025)',
+        image: './src/Thumbnail/Aghathiyaa (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Aghathiyaa%20(2025).mp4',
+        details: {
+          director: 'Pa. Vijay',
+          starring: 'Jiiva, Raashi Khanna',
+          genres: 'Action, Adventure, Fantasy, Thriller',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '6.3/10',
+          lastUpdated: '11 March 2025'
+        }
+      },
+	    {
+        title: '2K Love Story (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/2K%20Love%20Story%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/2K%20Love%20Story%20(2025).mp4',
+        details: {
+          director: 'Suseenthiran',
+          starring: 'Jagaveer, Meenakshi Govindarajan, Bala Saravanan, Antony Bhagyaraj, Jayaprakash, Vinodhini Vaidyanathan, GP Muthu',
+          genres: 'Romantic, Comedy, Drama',
+          quality: 'PreDVD',
+          language: 'Tamil',
+          movieRating: '9.0/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Baby and Baby (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Baby%20and%20Baby%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Baby%20and%20Baby%20(2025).mp4',
+        details: {
+          director: 'Prathap',
+          starring: 'Jai, Sathyaraj, Yogi Babu, Pragya Nagra, Sai Dhanyaa',
+          genres: 'Comedy, Drama',
+          quality: 'PreDVD',
+          language: 'Tamil',
+          movieRating: '7.2/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Fire (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Fire%20(2025_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Fire%20(2025.mp4',
+        details: {
+          director: 'Jsk Satish Kumar',
+          starring: 'Sakshi Agarwal, Suresh Chakravarthi, Rachitha Mahalakshmi, Balaji Murugadoss, Gayathri Shan, Singampuli, Chandini Tamilarasan',
+          genres: 'Crime, Mystery, Thriller',
+          quality: 'PreDVD',
+          language: 'Tamil',
+          movieRating: '9.1/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Kooran (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Kooran%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Kooran%20(2025).mp4',
+        details: {
+          director: 'Nithin Vemupati, Ramesh Rangaswamy',
+          starring: 'S.A. Chandrashekhar, Y.G. Mahendran, George Maryan, Balaji Sakthivel, Indraja Sankar, Sathyan, Saravana Subbiah',
+          genres: 'Drama, Thriller',
+          quality: 'PreDVD',
+          language: 'Tamil',
+          movieRating: '9.6/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Nilavuku Enmel Ennadi Kobam (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Nilavuku%20Enmel%20Ennadi%20Kobam%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Nilavuku%20Enmel%20Ennadi%20Kobam%20(2025).mp4',
+        details: {
+          director: 'Dhanush',
+          starring: 'Priyanka Arulmohan, Rabiya Khatoon, Venkatesh Menon, Pavish Narayan, Aadukalam Naren, Saranya Ponvannan, Ramya Ranganathan, R. Sarathkumar, Siddhartha Shankar, Anikha Surendran, Mathew Thomas, V S Prince, Ratan Priya Prakash Varrier',
+          genres: 'Comedy, Drama, Romance',
+          quality: 'PreDVD',
+          language: 'Tamil',
+          movieRating: '6.5/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Ramam Raghavam (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Ramam%20Raghavam%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Ramam%20Raghavam%20(2025).mp4',
+        details: {
+          director: 'Dhanraj',
+          starring: 'Samuthirakani, Dhanraj, Mokksha, Harish Uthaman, Sunil Naidu, Srinivas Reddy, Prudhvi Raj, Vennela Kishore',
+          genres: 'Drama, Thriller',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '9.3/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+      {
+        title: 'Yamakaathaghi (2025)',
+        image: './src/Thumbnail/Yamakaathaghi (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Yamakaathaghi%20(2025).mp4',
+        details: {
+          director: 'Peppin George Jayaseelan',
+          starring: 'Roopa Koduvayur, Narendra Prasath',
+          genres: 'Mystery, Thriller, Horror',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '8.6/10',
+          lastUpdated: '11 March 2025'
+        }
+      },
+      {
+        title: 'Thandel (2025)',
+        image: './src/Thumbnail/Thandel (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Thandel%20(2025).mp4',
+        details: {
+          director: 'Chandoo Mondeti',
+          starring: 'Naga Chaitanya Akkineni, Sai Pallavi',
+          genres: 'Action, Drama, Romantic',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '9.0/10',
+          lastUpdated: '11 March 2025'
+        }
+      },
+      {
+        title: 'Niram Marum Ulagil (2025)',
+        image: './src/Thumbnail/Niram Marum Ulagil (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Niram%20Marum%20Ulagil%20(2025).mp4',
+        details: {
+          director: 'JB Britto',
+          starring: 'Rio Raj, Bharathiraja, Natarajan Subramaniam',
+          genres: 'Family, Drama',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '9.3/10',
+          lastUpdated: '11 March 2025'
+        }
+      },
+      {
+        title: 'Leg Piece (2025)',
+        image: './src/Thumbnail/Leg Piece (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Leg%20Piece%20(2025).mp4',
+        details: {
+          director: 'Srinath Alnath',
+          starring: 'Yogi Babu, John Vijay, Mime Gopi',
+          genres: 'Comedy, Drama',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '8.4/10',
+          lastUpdated: '11 March 2025'
+        }
+      },
+      {
+        title: 'Kingston (2025)',
+        image: './src/Thumbnail/Kingston (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Kingston%20(2025).mp4',
+        details: {
+          director: 'Kamal Prakash',
+          starring: 'G. V. Prakash Kumar, Divya Bharathi',
+          genres: 'Action, Adventure, Fantasy, Thriller',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '8.2/10',
+          lastUpdated: '11 March 2025'
+        }
+      },
+      {
+        title: 'Gentlewoman (2025)',
+        image: './src/Thumbnail/Gentlewoman (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Gentlewoman%20(2025).mp4',
+        details: {
+          director: 'Joshua Sethuraman',
+          starring: 'Lijomol Jose, Losliya Mariyanesan, Hari Krishnan',
+          genres: 'Drama, Mystery, Thriller',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '8.7/10',
+          lastUpdated: '11 March 2025'
+        }
+      },
+      {
+        title: 'Dragon (2025)',
+        image: './src/Thumbnail/Dragon (2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Dragon%20(2025).mp4',
+        details: {
+          director: 'Ashwath Marimuthu',
+          starring: 'Pradeep Ranganathan, Anupama Parameswaran',
+          genres: 'Comedy, Drama, Romance',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '9.5/10',
+          lastUpdated: '11 March 2025'
+        }
+      },
+	  {
+        title: 'Kudumbasthan (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Kudumbasthan%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Kudumbasthan%20(2025).mp4'.replace(/ /g, '%20'),
+        details: {
+          director: 'Rajeshwar Kaliswamy',
+          starring: 'Manikandan K, Saanve Megghana, Guru Somasundaram',
+          genres: 'Comedy, Drama',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '8.9/10',
+          lastUpdated: '12 March 2025'
+        }
+      },
+	  {
+        title: 'Kuzhanthaigal Munnetra Kazhagam (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Kuzhanthaigal%20Munnetra%20Kazhagam%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Kuzhanthaigal%20Munnetra%20Kazhagam%20(2025).mp4',
+        details: {
+          director: 'Shankar Dayal N',
+          starring: 'Yogi Babu, Senthil',
+          genres: 'Drama, Political',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '5.5/10',
+          lastUpdated: '12 March 2025'
+        }
+      },
+	  {
+        title: 'Raja Bheema (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Raja%20Bheema%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Raja%20Bheema%20(2025).mp4',
+        details: {
+          director: 'Naresh Sampath',
+          starring: 'Arav, Yogi Babu, Ashima Narwal',
+          genres: 'Action',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '7.5/10',
+          lastUpdated: '12 March 2025'
+        }
+      },
+	  {
+        title: 'Sabdham (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Sabdham%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Sabdham%20(2025).mp4',
+        details: {
+          director: 'Arivazhagan Venkatachalam',
+          starring: 'Simran, Lakshmi Menon, Aadhi',
+          genres: 'Horror, Thriller',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '8.6/10',
+          lastUpdated: '12 March 2025'
+        }
+      },
+	  {
+        title: 'Sankranthiki Vasthunam (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Sankranthiki%20Vasthunam%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Sankranthiki%20Vasthunam%20(2025).mp4'.replace(/ /g, '%20'),
+        details: {
+          director: 'Anil Ravipudi',
+          starring: 'Aishwarya Rajesh, Venkatesh Daggubati, Meenaakshi Chaudhary',
+          genres: 'Action, Comedy',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '6.8/10',
+          lastUpdated: '12 March 2025'
+        }
+      },
+	  {
+        title: 'Vidaamuyarchi (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Vidaamuyarchi%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Vidaamuyarchi%20(2025).mp4',
+        details: {
+          director: 'Magizh Thirumeni',
+          starring: 'Ajith Kumar, Trisha, Arjun',
+          genres: 'Action, Thriller',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '8.3/10',
+          lastUpdated: '12 March 2025'
+        }
+      },
+	     {
+        title: 'Baapu - A Fathers Story (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Baapu%20-%20A%20Fathers%20Story%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Baapu%20-%20A%20Fathers%20Story%20(2025).mp4',
+        details: {
+          director: 'K Dayakar Reddy',
+          starring: 'Brahmaji, Sudhakar Reddy Kethiri, Srinivas Avasarala, Aamani, Dhanya Balakrishna, Racha Ravi, Milkuri Gangavva, Mani Aegurla',
+          genres: 'Comedy, Drama',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '8.3/10',
+          lastUpdated: '13 March 2025'
+        }
+      },
+	    {
+        title: 'Chitram Choodara (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Chitram%20Choodara%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Chitram%20Choodara%20(2025).mp4',
+        details: {
+          director: 'RN Harshavardhan',
+          starring: 'Varun Sandesh, Sheetal Bhat, Ravi Babu, Tanikella Bharani, Sivaji Raja, Raja Ravindra, Dhanraj, Kasi Viswanath, Meena Kumari, Annapurnamma',
+          genres: 'Drama, Romantic',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '4.5/10',
+          lastUpdated: '13 March 2025'
+        }
+      },
+	    {
+        title: 'Laila (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Laila%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Laila%20(2025).mp4',
+        details: {
+          director: 'Ram Narayan',
+          starring: 'Vishwak Sen, Akanksha Sharma',
+          genres: 'Action, Comedy, Drama, Romance',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '2.6/10',
+          lastUpdated: '12 March 2025'
+        }
+      },
+	    {
+        title: 'MataRaani Mounamidi (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/MataRaani%20Mounamidi%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/MataRaani%20Mounamidi%20(2025).mp4',
+        details: {
+          director: 'Suku Purvaj',
+          starring: 'Mahesh Datta, Soni Srivasthava, Archana Ananth',
+          genres: 'Horror, Thriller',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '6.5/10',
+          lastUpdated: '13 March 2025'
+        }
+      },
+	   {
+        title: 'Captain America Brave New World (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Captain%20America%20Brave%20New%20World%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Captain%20America%20Brave%20New%20World%20(2025).mp4',
+        details: {
+          director: 'Julius Onah',
+          starring: 'Anthony Mackie, Harrison Ford, Danny Ramirez, Shira Haas, Carl Lumbly, Tim Blake Nelson, Giancarlo Esposito, Xosha Roquemore, Liv Tyler',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '6.0/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Daaku Maharaaj (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Daaku%20Maharaaj%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Daaku%20Maharaaj%20(2025).mp4',
+        details: {
+          director: 'Bobby Kolli',
+          starring: 'Nandamuri Balakrishna, Bobby Deol, Pragya Jaiswal, Shraddha Srinath, Sachin Khedekar, Makarand Deshpande, Urvashi Rautela, Aadukalam Naren, Nithin Mehta, Ravi Kishan, VTV Ganesh, Rishi, Chandini Chowdary',
+          genres: 'Action, Drama',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '6.0/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Kadapuraa Kalaikuzhu (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Kadapuraa%20Kalaikuzhu%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Kadapuraa%20Kalaikuzhu%20(2025).mp4',
+        details: {
+          director: 'Raja Gurusamy',
+          starring: 'Munishkanth, Kaali Venkat, Mime Gopi, Hari Krishnan, Srilekha Rajendran, Swathi Muthu, Supergood Subramani, Anthakudi Ilayaraja',
+          genres: 'Comedy, Drama',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '6.5/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Kalan (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Kalan%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Kalan%20(2025).mp4',
+        details: {
+          director: 'Veera Murugan',
+          starring: 'Appukutty, Cheran Raj, Sampath Ram, Deepa Shankar',
+          genres: 'Crime, Thriller',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '5.4/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Meow (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Meow%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Meow%20(2025).mp4',
+        details: {
+          director: 'Lal Jose',
+          starring: 'Soubin Shahir, Mamta Mohandas, Harishree Yousuf, Salim Kumar',
+          genres: 'Drama',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '6.5/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Bottle Radha (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Bottle%20Radha%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Bottle%20Radha%20(2025).mp4',
+        details: {
+          director: 'Dhinakaran Sivalingam',
+          starring: 'Guru Somasundaram, Sanchana Natarajan, John Vijay, Lollu Sabha Maaran, Merku Thodarchi Malai Antony, Pari Elavazhagan, Anbarasi',
+          genres: 'Comedy, Drama',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '6.5/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Game Changer (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Game%20Changer%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Game%20Changer%20(2025).mp4',
+        details: {
+          director: 'S. Shankar',
+          starring: 'Ram Charan, Kiara Advani, Anjali, S. J. Suryah, Srikanth, Sunil, Jayaram, Samuthirakani',
+          genres: 'Action, Drama, Thriller',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '5.6/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Kadhalikka Neramillai (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Kadhalikka%20Neramillai%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Kadhalikka%20Neramillai%20(2025).mp4',
+        details: {
+          director: 'Kiruthiga Udhayanidhi',
+          starring: 'Ravi Mohan, Nithya Menen, Yogi Babu, Vinay Rai, T.J. Bhanu, Lal',
+          genres: 'Romantic, Comedy',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '6.2/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Madraskaaran (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Madraskaaran%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Madraskaaran%20(2025).mp4',
+        details: {
+          director: 'Vaali Mohan Das',
+          starring: 'Shane Nigam, Kalaiyarasan, Niharika Konidela, Aishwarya Dutta, Karunas, Pandiarajan, Super Subbarayan, Geetha Kailasam, Lallu, Deepa Shankar, Udayaraj, Palakshi',
+          genres: 'Action, Drama',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '4.8/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Srikakulam Sherlock Holmes (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Srikakulam%20Sherlock%20Holmes%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Srikakulam%20Sherlock%20Holmes%20(2025).mp4',
+        details: {
+          director: 'Writer Mohan',
+          starring: 'Vennela Kishore, Ananya Nagalla, Siya Gowtam, Sneha Gupta, Ravi Teja Mahadasyam, Prabhakar, Muralidhar Goud',
+          genres: 'Comedy, Thriller',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '8.4/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Vanangaan (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Vanangaan%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Vanangaan%20(2025).mp4',
+        details: {
+          director: 'Bala',
+          starring: 'Arun Vijay, Ridha, Roshni Prakash',
+          genres: 'Action, Drama',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '6.2/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: 'Dinasari (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Dinasari%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Dinasari%20(2025).mp4',
+        details: {
+          director: 'G. Sankar',
+          starring: 'Premgi Amaren, M.S. Bhaskar, Chaams, Meera Krishnan, Cynthia Lourde, Radha Ravi, Srikanth, Vinodhini Vaidyanathan',
+          genres: 'Drama',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '8.7/10',
+          lastUpdated: '13 March 2025'
+        }
+},{
+        title: 'Tharunam (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Tharunam%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Tharunam%20(2025).mp4',
+        details: {
+          director: 'Arvindh Srinivasan',
+          starring: 'Kishen Das, Smruthi Venkat, Raj Ayyappa, Bala Saravanan',
+          genres: 'Romance, Thriller',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '8.5/10',
+          lastUpdated: '13 March 2025'
+        }
+},
+{
+        title: '35 Chinna Vishayam Illa (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/35%20Chinna%20Vishayam%20Illa%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/35%20Chinna%20Vishayam%20Illa%20(2025).mp4',
+        details: {
+          director: 'Nanda Kishore Emani',
+          starring: 'Nivetha Thomas, Arundev Pothula, Vishwadev Rachakonda, Priyadarshi Pulikonda, Gautami, K. Bhagyaraj',
+          genres: 'Comedy, Drama',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '7.2/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Bioscope (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Bioscope%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Bioscope%20(2025).mp4',
+        details: {
+          director: 'Sankagiri Rajkumar',
+          starring: 'Sankagiri Rajkumar, Manickam, Vellayammal, Muththayi, Cheran (guest appearance)',
+          genres: 'Comedy, Drama',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '8.1/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Dhoom Dhaam (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Dhoom%20Dhaam%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Dhoom%20Dhaam%20(2025).mp4',
+        details: {
+          director: 'Rishab Seth',
+          starring: 'Yami Gautam Dhar, Pratik Gandhi, Eijaz Khan, Pavitra Sarkar, Neelu Kohli',
+          genres: 'Action, Comedy, Romance',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '6.4/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Madha Gaja Raja (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Madha%20Gaja%20Raja%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Madha%20Gaja%20Raja%20(2025).mp4',
+        details: {
+          director: 'Sundar C',
+          starring: 'Vishal, Anjali, Varalaxmi Sarathkumar, Santhanam, Sonu Sood, Manivannan, Subbaraju, Nithin Sathya, Sadagoppan Ramesh, Munna Simon, John Kokken',
+          genres: 'Action, Comedy',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '5.6/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Marco (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Marco%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Marco%20(2025).mp4',
+        details: {
+          director: 'Haneef Adeni',
+          starring: 'Unni Mukundan, Yukti Thareja, Kabir Duhan Singh, Anson Paul, Jagadeesh, Siddique',
+          genres: 'Action, Thriller',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '8.1/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Operation Raavan (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Operation%20Raavan%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Operation%20Raavan%20(2025).mp4',
+        details: {
+          director: 'Venkata Satya',
+          starring: 'Rakshit Atluri, Sangeerthana Vipin, Radhika Sarathkumar, Charan Raj, Raghu Kunche',
+          genres: 'Crime, Mystery, Thriller',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '2.0/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Rekhachithram (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Rekhachithram%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Rekhachithram%20(2025).mp4',
+        details: {
+          director: 'Jofin T. Chacko',
+          starring: 'Asif Ali, Anaswara Rajan, Manoj K. Jayan, Siddique, Jagadish, Saikumar, Harisree Ashokan, Indrans',
+          genres: 'Mystery, Crime, Thriller',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '8.0/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Satchi Perumal (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Satchi%20Perumal%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Satchi%20Perumal%20(2025).mp4',
+        details: {
+          director: 'RP. Vinnu',
+          starring: 'Ashok Rangarajan, V P. Rajasekar, Pandiamma, Verra Paramasivam',
+          genres: 'Drama',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '8.9/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'The Mehta Boys (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/The%20Mehta%20Boys%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/The%20Mehta%20Boys%20(2025).mp4',
+        details: {
+          director: 'Boman Irani',
+          starring: 'Boman Irani, Avinash Tiwary, Shreya Chaudhry, Puja Sarup, Harssh Singh',
+          genres: 'Drama',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '8.1/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Tik Tok (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Tik%20Tok%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Tik%20Tok%20(2025).mp4',
+        details: {
+          director: 'Mathanakumar',
+          starring: 'Priyanka Arulmohan, Rajaji, Sushma Raj',
+          genres: 'Horror',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '7.6/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Vaagai (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Vaagai%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Vaagai%20(2025).mp4',
+        details: {
+          director: 'Ram Sevaa',
+          starring: 'Gaana Bala, Tarushi Jha, Chitra Lakshmanan, J U Niranjan, Pattimandram Raja, Karuthama Rajasri, Ramakrishnan, Sujatha Sivakumar',
+          genres: 'Romance',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '9.0/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Mr House Keeping (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Mr%20House%20Keeping%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Mr%20House%20Keeping%20(2025).mp4',
+        details: {
+          director: 'Arun Ravichandran',
+          starring: 'Hari Bhaskar, Losliya Mariyanesan, Ilavarasu, Sha Ra, Rayan',
+          genres: 'Comedy, Drama, Romance',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '7.4/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Nesippaya (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Nesippaya%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Nesippaya%20(2025).mp4',
+        details: {
+          director: 'Vishnuvardhan',
+          starring: 'Akash Murali, Aditi Shankar, R. Sarathkumar, Prabhu, Khushbu Sundar',
+          genres: 'Romantic Action Thriller',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '9.3/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Vallan (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Vallan%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Vallan%20(2025).mp4',
+        details: {
+          director: 'VR Mani Seiyon',
+          starring: 'Sundar C, Tanya Hope, Hebah Patel, Kamal Kamaraju, Abhirami Venkatachalam, Chandini Tamilarasan, Thalaivaasal Vijay, Jayakumar, TSK',
+          genres: 'Action, Crime, Thriller',
+          quality: 'HQ PreDVD',
+          language: 'Tamil',
+          movieRating: '8.7/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Daksha (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Daksha%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Daksha%20(2025).mp4',
+        details: {
+          director: 'Vivekananda Vikranth',
+          starring: 'Thallada Sai Krishna, Shoban Bogaraju, Aayush Tejas, Kota Nakshatra',
+          genres: 'Horror, Thriller',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '7.7/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Dinasari (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Dinasari%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Dinasari%20(2025).mp4',
+        details: {
+          director: 'G Sankar',
+          starring: 'Srikanth, Cynthia Lourde, M. S. Bhaskar, Premji Amaren, Chaams, Radha Ravi, Meera Krishnan, Vinodhini Vaidynathan, KPY Chandini Tamilarasan, Navya',
+          genres: 'Drama',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '8.7/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Hathya (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Hathya%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Hathya%20(2025).mp4',
+        details: {
+          director: 'Srividya Basawa',
+          starring: 'Dhanya Balakrishna, Ravi Varma, Pooja Ramachandran, Bindu Chandramouli, Srikanth Iyengar',
+          genres: 'Crime, Drama, Thriller',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '9.4/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Lara (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Lara%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Lara%20(2025).mp4',
+        details: {
+          director: 'Mani Moorthi',
+          starring: 'Ashok Kumar Balakrishnan, M Karthikesan, Anusreya Rajan, Varshini Venkat, Venmathi Dileep Kumar, Mathew Varghese, Pradeep Bala, SK Babu',
+          genres: 'Suspense, Thriller',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '7.1/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+{
+        title: 'Neela Nira Sooriyan (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Neela%20Nira%20Sooriyan%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Neela%20Nira%20Sooriyan%20(2025).mp4',
+        details: {
+          director: 'Samyuktha Vijayan',
+          starring: 'Samyuktha Vijayan, Kitty Krishnamoorthy, Geetha Kailasam, Masanth Natarajan',
+          genres: 'Drama',
+          quality: 'HDRip',
+          language: 'Tamil',
+          movieRating: '8.4/10',
+          lastUpdated: '14 March 2025'
+        }
+},
+    ];
+
+    // Function to create video cards
+    function createVideoCards(data) {
+      const gallery = document.getElementById('gallery');
+      gallery.innerHTML = '';
+
+      if (data.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.classList.add('no-results');
+        noResults.innerHTML = `
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 15px">
+            <path d="M10 3H3V10H10V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21 3H14V10H21V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21 14H14V21H21V14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 14H3V21H10V14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p>No movies found. Try a different search term.</p>
+        `;
+        gallery.appendChild(noResults);
+        return;
+      }
+
+      data.forEach((video) => {
+        // Extract rating number for displaying stars
+        const ratingValue = parseFloat(video.details.movieRating) || 0;
+        
+        // Create card element
+        const card = document.createElement('div');
+        card.classList.add('card');
+        
+        // Create card image container
+        const imageContainer = document.createElement('div');
+        imageContainer.classList.add('card-image-container');
+        
+        // Create and add image
+        const image = document.createElement('img');
+        image.src = video.image;
+        image.alt = video.title;
+        imageContainer.appendChild(image);
+        
+        // Create and add quality badge
+        const qualityBadge = document.createElement('div');
+        qualityBadge.classList.add('quality-badge');
+        qualityBadge.textContent = video.details.quality;
+        imageContainer.appendChild(qualityBadge);
+        
+        // Create card content
+        const cardContent = document.createElement('div');
+        cardContent.classList.add('card-content');
+        
+        // Create and add title
+        const title = document.createElement('h2');
+        title.classList.add('card-title');
+        title.textContent = video.title;
+        cardContent.appendChild(title);
+        
+        // Create card details section
+        const cardDetails = document.createElement('div');
+        cardDetails.classList.add('card-details');
+        
+        // Create rating element
+        const rating = document.createElement('div');
+        rating.classList.add('rating');
+        
+        // Add star icon
+        const starIcon = document.createElement('span');
+        starIcon.classList.add('star-icon');
+        starIcon.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="gold" stroke="gold" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        `;
+        rating.appendChild(starIcon);
+        
+        // Add rating text
+        const ratingText = document.createElement('span');
+        ratingText.textContent = video.details.movieRating;
+        rating.appendChild(ratingText);
+        
+        cardDetails.appendChild(rating);
+        
+        // Create watch button
+        const watchButton = document.createElement('a');
+        watchButton.classList.add('watch-button');
+        watchButton.textContent = 'Watch';
+        
+        // Prepare link parameters
+        const details = encodeURIComponent(JSON.stringify(video.details));
+        watchButton.href = `player.html?video=${encodeURIComponent(video.video)}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${details}`;
+        
+        cardDetails.appendChild(watchButton);
+        cardContent.appendChild(cardDetails);
+        
+        // Assemble the card
+        card.appendChild(imageContainer);
+        card.appendChild(cardContent);
+        
+        // Add card to gallery
+        gallery.appendChild(card);
+      });
+    }
+
+    // Create video cards on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      createVideoCards(videoData);
+    });
+
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase().trim();
+      
+      if (searchTerm === '') {
+        createVideoCards(videoData);
+        return;
+      }
+      
+      const filteredData = videoData.filter((video) => {
+        return video.title.toLowerCase().includes(searchTerm) || 
+               (video.details.genres && video.details.genres.toLowerCase().includes(searchTerm)) ||
+               (video.details.director && video.details.director.toLowerCase().includes(searchTerm)) ||
+               (video.details.starring && video.details.starring.toLowerCase().includes(searchTerm));
+      });
+      
+      createVideoCards(filteredData);
+    });
+  </script>
+</body>
+</html>

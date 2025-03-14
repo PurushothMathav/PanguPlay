@@ -304,52 +304,6 @@
         padding: 3px 8px;
       }
     }
-	
-	.interaction-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 20px 0;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 8px;
-  }
-  
-  .view-count {
-    font-size: 16px;
-    color: #555;
-  }
-  
-  .rating-buttons {
-    display: flex;
-    gap: 15px;
-  }
-  
-  .rating-btn {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background: none;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    padding: 6px 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  
-  .rating-btn:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .rating-btn.active {
-    background-color: #e1f5fe;
-    border-color: #29b6f6;
-    color: #0288d1;
-  }
-  
-  .rating-btn.active svg {
-    stroke: #0288d1;
-  }
   </style>
 </head>
 <body>
@@ -372,22 +326,7 @@
           Your browser does not support the video tag.
         </video>
       </div>
-	  <!-- Add this HTML right after your video details section in player.html -->
-<div class="interaction-container">
-  <div class="view-count">
-    <span id="viewCount">0</span> views
-  </div>
-  <div class="rating-buttons">
-    <button id="likeButton" class="rating-btn">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
-      <span id="likeCount">0</span>
-    </button>
-    <button id="dislikeButton" class="rating-btn">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"></path></svg>
-      <span id="dislikeCount">0</span>
-    </button>
-  </div>
-</div>
+	  
 
       <div class="video-details-container">
         <div class="video-image-container">
@@ -462,87 +401,7 @@
       // Set video source
       const videoPlayer = document.getElementById('videoPlayer');
       videoPlayer.src = decodeURIComponent(videoUrl);
-     
-	 document.addEventListener('DOMContentLoaded', function() {
-    const videoId = videoTitle.replace(/\s+/g, '-').toLowerCase();
-    const likeButton = document.getElementById('likeButton');
-    const dislikeButton = document.getElementById('dislikeButton');
-    const likeCount = document.getElementById('likeCount');
-    const dislikeCount = document.getElementById('dislikeCount');
-    const viewCountElement = document.getElementById('viewCount');
-    
-    // Initialize from localStorage or set defaults
-    let videoStats = JSON.parse(localStorage.getItem(`videoStats_${videoId}`)) || {
-      likes: 0,
-      dislikes: 0,
-      views: 0,
-      userAction: null // 'liked', 'disliked', or null
-    };
-    
-    // Update view count - only count once per session
-    const viewedInSession = sessionStorage.getItem(`viewed_${videoId}`);
-    if (!viewedInSession) {
-      videoStats.views++;
-      sessionStorage.setItem(`viewed_${videoId}`, 'true');
-      saveStats();
-    }
-    
-    // Update UI
-    updateUI();
-    
-    // Like button handler
-    likeButton.addEventListener('click', function() {
-      if (videoStats.userAction === 'liked') {
-        // Unlike
-        videoStats.likes--;
-        videoStats.userAction = null;
-      } else {
-        // Like
-        if (videoStats.userAction === 'disliked') {
-          videoStats.dislikes--;
-        }
-        videoStats.likes++;
-        videoStats.userAction = 'liked';
-      }
-      saveStats();
-      updateUI();
-    });
-    
-    // Dislike button handler
-    dislikeButton.addEventListener('click', function() {
-      if (videoStats.userAction === 'disliked') {
-        // Un-dislike
-        videoStats.dislikes--;
-        videoStats.userAction = null;
-      } else {
-        // Dislike
-        if (videoStats.userAction === 'liked') {
-          videoStats.likes--;
-        }
-        videoStats.dislikes++;
-        videoStats.userAction = 'disliked';
-      }
-      saveStats();
-      updateUI();
-    });
-    
-    // Save stats to localStorage
-    function saveStats() {
-      localStorage.setItem(`videoStats_${videoId}`, JSON.stringify(videoStats));
-    }
-    
-    // Update UI based on current stats
-    function updateUI() {
-      likeCount.textContent = videoStats.likes;
-      dislikeCount.textContent = videoStats.dislikes;
-      viewCountElement.textContent = videoStats.views;
       
-      // Update button states
-      likeButton.classList.toggle('active', videoStats.userAction === 'liked');
-      dislikeButton.classList.toggle('active', videoStats.userAction === 'disliked');
-    }
-  });
-	 
       // Set video title
       document.getElementById('videoTitle').textContent = videoTitle;
       document.title = videoTitle + ' - PanguPlay';
