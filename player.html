@@ -179,55 +179,6 @@
       margin: 15px 0;
     }
 
-    /* New styles for like/dislike and view count */
-    .engagement-container {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-top: 10px;
-      margin-bottom: 15px;
-    }
-
-    .view-count {
-      display: flex;
-      align-items: center;
-      color: #bbbbbb;
-      font-size: 14px;
-    }
-
-    .view-count svg {
-      margin-right: 5px;
-    }
-
-    .like-dislike-container {
-      display: flex;
-      gap: 15px;
-    }
-
-    .like-button, .dislike-button {
-      background-color: transparent;
-      border: none;
-      color: #bbbbbb;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 14px;
-      transition: all 0.2s ease;
-    }
-
-    .like-button:hover, .dislike-button:hover {
-      color: white;
-    }
-
-    .like-button.active {
-      color: #4CAF50;
-    }
-
-    .dislike-button.active {
-      color: #F44336;
-    }
-
     /* Responsive design improvements */
     @media only screen and (max-width: 768px) {
       .container {
@@ -297,12 +248,6 @@
         justify-content: flex-start;
         margin-top: 5px;
       }
-
-      .engagement-container {
-        flex-wrap: wrap;
-        gap: 15px;
-        justify-content: center;
-      }
     }
 
     @media only screen and (max-width: 480px) {
@@ -358,15 +303,6 @@
         font-size: 13px;
         padding: 3px 8px;
       }
-
-      .engagement-container {
-        margin-top: 8px;
-        gap: 10px;
-      }
-
-      .view-count, .like-button, .dislike-button {
-        font-size: 13px;
-      }
     }
   </style>
 </head>
@@ -399,67 +335,47 @@
         <div class="video-details" id="videoDetails">
           <h2 id="videoTitle">Movie Title</h2>
           
-          <div class="engagement-container">
-            <div class="view-count">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <span id="viewCount">0</span> views
-            </div>
-            
-            <div class="like-dislike-container">
-              <button id="likeButton" class="like-button" onclick="handleLike()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M7 22H4C3.46957 22 2.96086 21.7893 2.58579 21.4142C2.21071 21.0391 2 20.5304 2 20V13C2 12.4696 2.21071 11.9609 2.58579 11.5858C2.96086 11.2107 3.46957 11 4 11H7M14 9V5C14 4.20435 13.6839 3.44129 13.1213 2.87868C12.5587 2.31607 11.7956 2 11 2L7 11V22H18.28C18.7623 22.0055 19.2304 21.8364 19.5979 21.524C19.9654 21.2116 20.2077 20.7769 20.28 20.3L21.66 11.3C21.7035 11.0134 21.6842 10.7207 21.6033 10.4423C21.5225 10.1638 21.3821 9.90629 21.1919 9.68751C21.0016 9.46873 20.7661 9.29393 20.5016 9.17522C20.2371 9.0565 19.9499 8.99672 19.66 9H14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span id="likeCount">0</span>
-              </button>
-              
-              <button id="dislikeButton" class="dislike-button" onclick="handleDislike()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17 2H20C20.5304 2 21.0391 2.21071 21.4142 2.58579C21.7893 2.96086 22 3.46957 22 4V11C22 11.5304 21.7893 12.0391 21.4142 12.4142C21.0391 12.7893 20.5304 13 20 13H17M10 15V19C10 19.7956 10.3161 20.5587 10.8787 21.1213C11.4413 21.6839 12.2044 22 13 22L17 13V2H5.72C5.23765 1.99448 4.76961 2.16373 4.4021 2.47615C4.03458 2.78857 3.79234 3.22319 3.72 3.7L2.34 12.7C2.29651 12.9866 2.31583 13.2793 2.39666 13.5577C2.4775 13.8362 2.61788 14.0937 2.80812 14.3125C2.99836 14.5313 3.23395 14.7061 3.49846 14.8248C3.76297 14.9435 4.05012 15.0033 4.34 15H10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span id="dislikeCount">0</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="detail-row">
-            <div class="detail-label">Year:</div>
-            <div class="detail-value" id="videoYear">2023</div>
-          </div>
-          
-          <div class="detail-row">
-            <div class="detail-label">Duration:</div>
-            <div class="detail-value" id="videoDuration">1h 59m</div>
-          </div>
-          
           <div class="detail-row">
             <div class="detail-label">Rating:</div>
             <div class="detail-value">
-              <span class="movie-rating" id="videoRating">8.5</span>
-            </div>
-          </div>
-          
-          <div class="detail-row">
-            <div class="detail-label">Genres:</div>
-            <div class="detail-value">
-              <div class="genres-list" id="videoGenres">
-                <span class="genre-tag">Action</span>
-                <span class="genre-tag">Adventure</span>
-                <span class="genre-tag">Sci-Fi</span>
-              </div>
+              <span id="movieRating" class="movie-rating">9.5/10</span>
             </div>
           </div>
           
           <div class="divider"></div>
           
           <div class="detail-row">
-            <div class="detail-label">Synopsis:</div>
-            <div class="detail-value" id="videoSynopsis">
-              Movie synopsis goes here...
+            <div class="detail-label">Director:</div>
+            <div id="director" class="detail-value">Director Name</div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-label">Starring:</div>
+            <div id="starring" class="detail-value">Actor Names</div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-label">Genres:</div>
+            <div class="detail-value">
+              <div id="genres" class="genres-list">
+                <!-- Genres will be added here dynamically -->
+              </div>
             </div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-label">Quality:</div>
+            <div id="quality" class="detail-value">Video Quality</div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-label">Language:</div>
+            <div id="language" class="detail-value">Video Language</div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-label">Updated:</div>
+            <div id="lastUpdated" class="detail-value">Last Updated Date</div>
           </div>
         </div>
       </div>
@@ -467,130 +383,72 @@
   </div>
 
   <script>
-    // Function to get URL parameters
-    function getUrlParams() {
-      let params = {};
-      window.location.search.substr(1).split('&').forEach(pair => {
-        if (pair === '') return;
-        let [key, value] = pair.split('=');
-        params[decodeURIComponent(key)] = decodeURIComponent(value || '');
-      });
-      return params;
-    }
-
-    // Function to navigate back to home
+    // Function to go back to home page
     function goToHome() {
-      window.location.href = "index.html";
+      window.location.href = 'index.html';
     }
-
-    // Like functionality
-    let likeCount = 0;
-    let dislikeCount = 0;
-    let liked = false;
-    let disliked = false;
-
-    function handleLike() {
-      const likeButton = document.getElementById('likeButton');
-      const dislikeButton = document.getElementById('dislikeButton');
-      const likeCountElement = document.getElementById('likeCount');
-      
-      if (liked) {
-        // Unlike
-        likeCount--;
-        liked = false;
-        likeButton.classList.remove('active');
-      } else {
-        // Like
-        likeCount++;
-        liked = true;
-        likeButton.classList.add('active');
-        
-        // If previously disliked, remove dislike
-        if (disliked) {
-          dislikeCount--;
-          disliked = false;
-          dislikeButton.classList.remove('active');
-          document.getElementById('dislikeCount').textContent = dislikeCount;
-        }
-      }
-      
-      likeCountElement.textContent = likeCount;
-    }
-
-    function handleDislike() {
-      const likeButton = document.getElementById('likeButton');
-      const dislikeButton = document.getElementById('dislikeButton');
-      const dislikeCountElement = document.getElementById('dislikeCount');
-      
-      if (disliked) {
-        // Remove dislike
-        dislikeCount--;
-        disliked = false;
-        dislikeButton.classList.remove('active');
-      } else {
-        // Dislike
-        dislikeCount++;
-        disliked = true;
-        dislikeButton.classList.add('active');
-        
-        // If previously liked, remove like
-        if (liked) {
-          likeCount--;
-          liked = false;
-          likeButton.classList.remove('active');
-          document.getElementById('likeCount').textContent = likeCount;
-        }
-      }
-      
-      dislikeCountElement.textContent = dislikeCount;
-    }
-
-    // Load video details on page load
-    window.onload = function() {
-      const params = getUrlParams();
-      const videoId = params.id || '1';
-      
-      // In a real application, you would fetch this data from an API or database
-      // For this example, we'll use hardcoded data
-      const videoData = {
-        title: "Sample Movie",
-        year: "2023",
-        duration: "1h 59m",
-        rating: "8.5",
-        genres: ["Action", "Adventure", "Sci-Fi"],
-        synopsis: "This is a sample movie description. In a world where nothing is as it seems, one hero must rise to save humanity from an unknown threat.",
-        image: "path/to/image.jpg",
-        videoUrl: "path/to/video.mp4",
-        quality: "HDRip",
-        views: 1245
-      };
-      
-      // Populate the page with video details
-      document.getElementById('videoTitle').textContent = videoData.title;
-      document.getElementById('videoYear').textContent = videoData.year;
-      document.getElementById('videoDuration').textContent = videoData.duration;
-      document.getElementById('videoRating').textContent = videoData.rating;
-      document.getElementById('videoSynopsis').textContent = videoData.synopsis;
-      document.getElementById('qualityBadge').textContent = videoData.quality;
-      document.getElementById('viewCount').textContent = videoData.views;
-      
+    
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoUrl = urlParams.get('video');
+    const videoTitle = urlParams.get('title');
+    const videoImage = urlParams.get('image');
+    const videoDetailsEncoded = urlParams.get('details');
+    
+    // Update the page with video information
+    if (videoUrl && videoTitle && videoImage && videoDetailsEncoded) {
       // Set video source
       const videoPlayer = document.getElementById('videoPlayer');
-      videoPlayer.src = videoData.videoUrl;
+      videoPlayer.src = decodeURIComponent(videoUrl);
       
+      // Set video title
+      document.getElementById('videoTitle').textContent = videoTitle;
+      document.title = videoTitle + ' - PanguPlay';
+      
+	  // In the player.html file, add this code right after setting the video source
+		videoPlayer.addEventListener('error', function(e) {
+		console.error('Video error:', videoPlayer.error);
+		alert('Error loading video: ' + videoPlayer.error.message);
+		});
+	  
       // Set video image
-      document.getElementById('videoImage').src = videoData.image;
+      document.getElementById('videoImage').src = decodeURIComponent(videoImage);
       
-      // Create genre tags
-      const genresContainer = document.getElementById('videoGenres');
-      genresContainer.innerHTML = '';
-      videoData.genres.forEach(genre => {
-        const genreTag = document.createElement('span');
-        genreTag.className = 'genre-tag';
-        genreTag.textContent = genre;
-        genresContainer.appendChild(genreTag);
-      });
-    };
+      // Parse and set video details
+      try {
+        const details = JSON.parse(decodeURIComponent(videoDetailsEncoded));
+        
+        // Set movie details
+        document.getElementById('director').textContent = details.director || 'Not Available';
+        document.getElementById('starring').textContent = details.starring || 'Not Available';
+        document.getElementById('quality').textContent = details.quality || 'Not Available';
+        document.getElementById('language').textContent = details.language || 'Not Available';
+        document.getElementById('lastUpdated').textContent = details.lastUpdated || 'Not Available';
+        document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
+        document.getElementById('qualityBadge').textContent = details.quality || 'HD';
+        
+        // Set genres as tags
+        const genresContainer = document.getElementById('genres');
+        genresContainer.innerHTML = '';
+        
+        if (details.genres) {
+          const genresList = details.genres.split(', ');
+          genresList.forEach(genre => {
+            const genreTag = document.createElement('span');
+            genreTag.className = 'genre-tag';
+            genreTag.textContent = genre;
+            genresContainer.appendChild(genreTag);
+          });
+        } else {
+          genresContainer.textContent = 'Not Available';
+        }
+      } catch (error) {
+        console.error('Error parsing video details:', error);
+      }
+    } else {
+      alert('Video information is incomplete. Returning to home page.');
+      goToHome();
+    }
   </script>
 </body>
-</html>  
+</html>
