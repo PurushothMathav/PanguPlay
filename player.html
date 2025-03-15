@@ -88,6 +88,43 @@
       border-radius: 10px;
     }
 
+    /* Episode navigation controls */
+    .episode-navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+
+    .episode-nav-button {
+      background-color: #ff4500;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .episode-nav-button:hover {
+      background-color: #ff6347;
+      transform: translateY(-2px);
+    }
+
+    .episode-nav-button:disabled {
+      background-color: #666;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .episode-nav-button svg {
+      width: 16px;
+      height: 16px;
+    }
+
     .video-details-container {
       display: flex;
       background-color: #303030;
@@ -242,6 +279,15 @@
       padding-right: 5px;
     }
 
+    .episodes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+
     .episode-card {
       background-color: #242424;
       border-radius: 8px;
@@ -299,6 +345,39 @@
       margin-top: auto;
     }
 
+    .list-episode-card {
+      display: flex;
+      background-color: #242424;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .list-episode-card:hover {
+      background-color: #2a2a2a;
+      transform: translateX(5px);
+    }
+
+    .list-episode-card.active {
+      border: 2px solid #ff4500;
+    }
+
+    .list-thumbnail {
+      width: 120px;
+      height: 70px;
+      object-fit: cover;
+    }
+
+    .list-episode-details {
+      padding: 10px;
+      text-align: left;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
     /* Mode switch styles */
     .mode-switch {
       margin-top: 20px;
@@ -325,6 +404,16 @@
 
     .mode-toggle-button.active {
       background-color: #ff4500;
+    }
+
+    .error-message {
+      color: #ff4500;
+      background-color: rgba(255, 69, 0, 0.1);
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+      text-align: center;
+      display: none;
     }
 
     /* Responsive design improvements */
@@ -407,6 +496,11 @@
 
       .episode-title {
         font-size: 14px;
+      }
+      
+      .episode-nav-button {
+        padding: 6px 12px;
+        font-size: 13px;
       }
     }
 
@@ -498,6 +592,65 @@
         font-size: 13px;
       }
     }
+
+    /* Error message styles */
+    .error-message {
+      color: #ff4500;
+      background-color: rgba(255, 69, 0, 0.1);
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+      text-align: center;
+      display: none;
+    }
+
+    /* Episode navigation buttons */
+    .episode-navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+
+    .episode-nav-button {
+      background-color: #ff4500;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .episode-nav-button:hover {
+      background-color: #ff6347;
+      transform: translateY(-2px);
+    }
+
+    .episode-nav-button:disabled {
+      background-color: #666;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .episode-nav-button svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Mobile browser detection banner */
+    .mobile-browser-banner {
+      background-color: rgba(255, 69, 0, 0.9);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      text-align: center;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -513,67 +666,95 @@
       <h1 class="heading">PanguPlay Video Player</h1>
     </div>
 
+    <!-- Mobile browser detection banner -->
+    <div class="mobile-browser-banner" id="mobileBrowserBanner">
+      First time using PanguPlay on mobile? Please allow video playback permissions.
+      <button onclick="dismissBanner()" style="background: white; color: #ff4500; border: none; border-radius: 3px; padding: 3px 8px; margin-left: 10px; font-weight: bold;">Dismiss</button>
+    </div>
+
+    <!-- Error message container -->
+    <div class="error-message" id="errorMessage">
+      An error occurred. Please try again or go back to home page.
+    </div>
+
     <div class="video-content">
       <div class="video-container">
         <video id="videoPlayer" controls preload="metadata" playsinline webkit-playsinline>
           <source src="" type="video/mp4">
           Your browser does not support the video tag.
         </video>
-      </div>
-      
-      <!-- Fix for the video-details section -->
-<div class="video-details-container">
-  <div class="video-image-container">
-    <img id="videoImage" src="" alt="Video Image" class="video-image">
-    <div id="qualityBadge" class="quality-badge">HDRip</div>
-  </div>
-  <div class="video-details" id="videoDetails">
-    <h2 id="videoTitle">Series Title</h2>
-    
-    <div class="detail-row">
-      <div class="detail-label">Rating:</div>
-      <div class="detail-value">
-        <span id="movieRating" class="movie-rating">9.5/10</span>
-      </div>
-    </div>
-    
-    <div class="divider"></div>
-    
-    <div class="detail-row">
-      <div class="detail-label">Director:</div>
-      <div id="director" class="detail-value">Director Name</div>
-    </div>
-    
-    <div class="detail-row">
-      <div class="detail-label">Starring:</div>
-      <div id="starring" class="detail-value">Actor Names</div>
-    </div>
-    
-    <div class="detail-row">
-      <div class="detail-label">Genres:</div>
-      <div class="detail-value">
-        <div id="genres" class="genres-list">
-          <!-- Genres will be added here dynamically -->
+        
+        <!-- Episode navigation controls -->
+        <div class="episode-navigation">
+          <button id="prevEpisodeBtn" class="episode-nav-button" disabled>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Previous Episode
+          </button>
+          <button id="nextEpisodeBtn" class="episode-nav-button">
+            Next Episode
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
         </div>
       </div>
-    </div>
-    
-    <div class="detail-row">
-      <div class="detail-label">Quality:</div>
-      <div id="quality" class="detail-value">Video Quality</div>
-    </div>
-    
-    <div class="detail-row">
-      <div class="detail-label">Language:</div>
-      <div id="language" class="detail-value">Video Language</div>
-    </div>
-    
-    <div class="detail-row">
-      <div class="detail-label">Updated:</div>
-      <div id="lastUpdated" class="detail-value">Last Updated Date</div>
-    </div>
-  </div>
-</div>
+      
+      <div class="video-details-container">
+        <div class="video-image-container">
+          <img id="videoImage" src="" alt="Video Image" class="video-image">
+          <div id="qualityBadge" class="quality-badge">HDRip</div>
+        </div>
+        <div class="video-details" id="videoDetails">
+          <h2 id="videoTitle">Series Title</h2>
+          
+          <div class="detail-row">
+            <div class="detail-label">Rating:</div>
+            <div class="detail-value">
+              <span id="movieRating" class="movie-rating">9.5/10</span>
+            </div>
+          </div>
+          
+          <div class="divider"></div>
+          
+          <div class="detail-row">
+            <div class="detail-label">Director:</div>
+            <div id="director" class="detail-value">Director Name</div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-label">Starring:</div>
+            <div id="starring" class="detail-value">Actor Names</div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-label">Genres:</div>
+            <div class="detail-value">
+              <div id="genres" class="genres-list">
+                <!-- Genres will be added here dynamically -->
+              </div>
+            </div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-label">Quality:</div>
+            <div id="quality" class="detail-value">Video Quality</div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-label">Language:</div>
+            <div id="language" class="detail-value">Video Language</div>
+          </div>
+          
+          <div class="detail-row">
+            <div class="detail-label">Updated:</div>
+            <div id="lastUpdated" class="detail-value">Last Updated Date</div>
+          </div>
+        </div>
+      </div>
       
       <!-- Episodes Section -->
       <div class="episodes-section">
@@ -602,114 +783,192 @@
       window.location.href = 'index.html';
     }
     
+    // Function to dismiss mobile browser banner
+    function dismissBanner() {
+      document.getElementById('mobileBrowserBanner').style.display = 'none';
+      localStorage.setItem('panguplay_banner_dismissed', 'true');
+    }
+    
+    // Check if user is on mobile browser
+    function isMobileBrowser() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+    
+    // Show error message
+    function showError(message) {
+      const errorElement = document.getElementById('errorMessage');
+      errorElement.textContent = message;
+      errorElement.style.display = 'block';
+      setTimeout(() => {
+        errorElement.style.display = 'none';
+      }, 5000); // Hide after 5 seconds
+    }
+    
     // Get URL parameters
-const urlParams = new URLSearchParams(window.location.search);
-const videoUrl = urlParams.get('video');
-const videoTitle = urlParams.get('title');
-const videoImage = urlParams.get('image');
-const videoDetailsEncoded = urlParams.get('details');
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoUrl = urlParams.get('video');
+    const videoTitle = urlParams.get('title');
+    const videoImage = urlParams.get('image');
+    const videoDetailsEncoded = urlParams.get('details');
 
-// Series specific parameters
-const seriesId = urlParams.get('id');
-const episodesEncoded = urlParams.get('episodes');
+    // Series specific parameters
+    const seriesId = urlParams.get('id');
+    const episodesEncoded = urlParams.get('episodes');
 
-// Check if this is a movie or series
-const isSeries = seriesId && episodesEncoded;
+    // Check if this is a movie or series
+    const isSeries = seriesId && episodesEncoded;
 
-// Initialize variables used for series
-let currentSeason = 1;
-let viewMode = 'grid';
-let episodes = [];
-let currentEpisodeId = null;
+    // Initialize variables used for series
+    let currentSeason = 1;
+    let viewMode = 'grid';
+    let episodes = [];
+    let currentEpisodeId = null;
+    let currentEpisodeIndex = 0;
 
-// Function to handle page setup
-function setupPage() {
-  // Set video title
-  document.getElementById('videoTitle').textContent = videoTitle;
-  document.title = videoTitle + ' - PanguPlay';
-  
-  // Set video image
-  document.getElementById('videoImage').src = decodeURIComponent(videoImage);
-  
-  // Get video player
-  const videoPlayer = document.getElementById('videoPlayer');
-  
-  // Add error handler for video player
-  videoPlayer.addEventListener('error', function(e) {
-    console.error('Video error:', videoPlayer.error);
-    alert('Error loading video: ' + videoPlayer.error.message);
-  });
-  
-  // Parse and set video details
-  try {
-    const details = JSON.parse(decodeURIComponent(videoDetailsEncoded));
-    
-    // Set video details
-    document.getElementById('director').textContent = details.director || 'Not Available';
-    document.getElementById('starring').textContent = details.starring || 'Not Available';
-    document.getElementById('quality').textContent = details.quality || 'Not Available';
-    document.getElementById('language').textContent = details.language || 'Not Available';
-    document.getElementById('lastUpdated').textContent = details.lastUpdated || 'Not Available';
-    document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
-    document.getElementById('qualityBadge').textContent = details.quality || 'HD';
-    
-    // Set genres as tags
-    const genresContainer = document.getElementById('genres');
-    genresContainer.innerHTML = '';
-    
-    if (details.genres) {
-      const genresList = details.genres.split(', ');
-      genresList.forEach(genre => {
-        const genreTag = document.createElement('span');
-        genreTag.className = 'genre-tag';
-        genreTag.textContent = genre;
-        genresContainer.appendChild(genreTag);
-      });
-    } else {
-      genresContainer.textContent = 'Not Available';
-    }
-    
-    // Handle series specific elements if this is a series
-    if (isSeries) {
-      // Parse episodes data for series
-      episodes = JSON.parse(decodeURIComponent(episodesEncoded));
-      
-      // Show episodes section
-      document.querySelector('.episodes-section').style.display = 'block';
-      
-      // Generate season buttons
-      generateSeasonButtons();
-      
-      // Load episodes for the first season
-      loadEpisodesForSeason(currentSeason);
-      
-      // If there are episodes, play the first one
-      if (episodes.length > 0) {
-        playEpisode(episodes[0].id);
+    // Function to handle page setup
+    function setupPage() {
+      // Show mobile browser banner if needed
+      if (isMobileBrowser() && !localStorage.getItem('panguplay_banner_dismissed')) {
+        document.getElementById('mobileBrowserBanner').style.display = 'block';
       }
-    } else {
-      // This is a movie, hide episodes section
-      document.querySelector('.episodes-section').style.display = 'none';
       
-      // Set video source directly for movies
-      videoPlayer.src = decodeURIComponent(videoUrl);
-      videoPlayer.load();
-      videoPlayer.play();
+      // Set video title
+      document.getElementById('videoTitle').textContent = videoTitle;
+      document.title = videoTitle + ' - PanguPlay';
+      
+      // Set video image
+      document.getElementById('videoImage').src = decodeURIComponent(videoImage);
+      
+      // Get video player
+      const videoPlayer = document.getElementById('videoPlayer');
+      
+      // Add error handler for video player
+      videoPlayer.addEventListener('error', function(e) {
+        console.error('Video error:', videoPlayer.error);
+        showError('Error loading video: ' + (videoPlayer.error ? videoPlayer.error.message : 'Unknown error'));
+      });
+      
+      // Parse and set video details
+      try {
+        const details = JSON.parse(decodeURIComponent(videoDetailsEncoded));
+        
+        // Set video details
+        document.getElementById('director').textContent = details.director || 'Not Available';
+        document.getElementById('starring').textContent = details.starring || 'Not Available';
+        document.getElementById('quality').textContent = details.quality || 'Not Available';
+        document.getElementById('language').textContent = details.language || 'Not Available';
+        document.getElementById('lastUpdated').textContent = details.lastUpdated || 'Not Available';
+        document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
+        document.getElementById('qualityBadge').textContent = details.quality || 'HD';
+        
+        // Set genres as tags
+        const genresContainer = document.getElementById('genres');
+        genresContainer.innerHTML = '';
+        
+        if (details.genres) {
+          const genresList = details.genres.split(', ');
+          genresList.forEach(genre => {
+            const genreTag = document.createElement('span');
+            genreTag.className = 'genre-tag';
+            genreTag.textContent = genre;
+            genresContainer.appendChild(genreTag);
+          });
+        } else {
+          genresContainer.textContent = 'Not Available';
+        }
+        
+        // Handle series specific elements if this is a series
+        if (isSeries) {
+          // Parse episodes data for series
+          try {
+            episodes = JSON.parse(decodeURIComponent(episodesEncoded));
+            
+            // Show episodes section
+            document.querySelector('.episodes-section').style.display = 'block';
+            
+            // Show episode navigation
+            document.querySelector('.episode-navigation').style.display = 'flex';
+            
+            // Generate season buttons
+            generateSeasonButtons();
+            
+            // Get episode ID from URL if specified
+            const episodeId = urlParams.get('episodeId');
+            if (episodeId) {
+              playEpisode(episodeId);
+            } else {
+              // If no episode specified, play the first one
+              if (episodes.length > 0) {
+                playEpisode(episodes[0].id);
+              }
+            }
+            
+            // Setup previous/next episode buttons
+            document.getElementById('prevEpisodeBtn').addEventListener('click', playPreviousEpisode);
+            document.getElementById('nextEpisodeBtn').addEventListener('click', playNextEpisode);
+            updateEpisodeNavButtons();
+          } catch (episodeError) {
+            console.error('Error parsing episodes data:', episodeError);
+            showError('Error loading episodes data. Some features may not work correctly.');
+          }
+        } else {
+          // This is a movie, hide episodes section and navigation
+          document.querySelector('.episodes-section').style.display = 'none';
+          document.querySelector('.episode-navigation').style.display = 'none';
+          
+          // Set video source directly for movies
+          videoPlayer.src = decodeURIComponent(videoUrl);
+          videoPlayer.load();
+          // Try to auto-play with muted fallback for mobile
+          const playPromise = videoPlayer.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(error => {
+              // Auto-play was prevented
+              console.log('Auto-play prevented, muting and trying again');
+              videoPlayer.muted = true;
+              videoPlayer.play().catch(e => {
+                console.error('Could not play video even when muted:', e);
+              });
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Error parsing video details:', error);
+        showError('Error loading video details. Please reload or return to home page.');
+      }
     }
-  } catch (error) {
-    console.error('Error parsing video details:', error);
-    alert('Error loading video details. Returning to home page.');
-    goToHome();
-  }
-}
 
-// Check if we have the minimum required parameters
-if (videoTitle && videoImage && videoDetailsEncoded) {
-  setupPage();
-} else {
-  alert('Video information is incomplete. Returning to home page.');
-  goToHome();
-}
+    // Check if we have the minimum required parameters
+    if (videoTitle && (videoImage || videoDetailsEncoded)) {
+      setupPage();
+    } else {
+      showError('Missing required video information. Please return to home page.');
+    }
+    
+    // Function to play previous episode
+    function playPreviousEpisode() {
+      if (currentEpisodeIndex > 0) {
+        currentEpisodeIndex--;
+        playEpisode(episodes[currentEpisodeIndex].id);
+      }
+    }
+    
+    // Function to play next episode
+    function playNextEpisode() {
+      if (currentEpisodeIndex < episodes.length - 1) {
+        currentEpisodeIndex++;
+        playEpisode(episodes[currentEpisodeIndex].id);
+      }
+    }
+    
+    // Function to update episode navigation buttons state
+    function updateEpisodeNavButtons() {
+      const prevButton = document.getElementById('prevEpisodeBtn');
+      const nextButton = document.getElementById('nextEpisodeBtn');
+      
+      prevButton.disabled = currentEpisodeIndex <= 0;
+      nextButton.disabled = currentEpisodeIndex >= episodes.length - 1;
+    }
     
     // Function to generate season buttons
     function generateSeasonButtons() {
@@ -721,7 +980,7 @@ if (videoTitle && videoImage && videoDetailsEncoded) {
       
       // Create button for each season
       seasons.forEach(season => {
-        const button = document.createElement('button');
+       const button = document.createElement('button');
         button.className = 'season-button' + (season === currentSeason ? ' active' : '');
         button.textContent = 'Season ' + season;
         button.addEventListener('click', () => {
@@ -743,8 +1002,8 @@ if (videoTitle && videoImage && videoDetailsEncoded) {
     
     // Function to load episodes for a specific season
     function loadEpisodesForSeason(season) {
-      const episodesGrid = document.getElementById('episodesGrid');
-      episodesGrid.innerHTML = '';
+      const episodesContainer = document.getElementById('episodesGrid');
+      episodesContainer.innerHTML = '';
       
       // Filter episodes by season
       const seasonEpisodes = episodes.filter(episode => episode.season === season);
@@ -752,49 +1011,101 @@ if (videoTitle && videoImage && videoDetailsEncoded) {
       // Sort episodes by episode number
       seasonEpisodes.sort((a, b) => a.episode - b.episode);
       
-      // Create episode cards
-      seasonEpisodes.forEach(episode => {
-        const episodeCard = document.createElement('div');
-        episodeCard.className = 'episode-card' + (episode.id === currentEpisodeId ? ' active' : '');
-        episodeCard.addEventListener('click', () => {
-          playEpisode(episode.id);
+      // Create episode cards based on the current view mode
+      if (viewMode === 'grid') {
+        episodesContainer.className = 'episodes-grid';
+        
+        // Create episode cards for grid view
+        seasonEpisodes.forEach(episode => {
+          const episodeCard = document.createElement('div');
+          episodeCard.className = 'episode-card' + (episode.id === currentEpisodeId ? ' active' : '');
+          episodeCard.addEventListener('click', () => {
+            playEpisode(episode.id);
+          });
+          
+          // Create thumbnail
+          const thumbnail = document.createElement('img');
+          thumbnail.className = 'episode-thumbnail';
+          thumbnail.src = episode.thumbnail || decodeURIComponent(videoImage); // Use episode thumbnail or series image
+          thumbnail.alt = `Season ${episode.season} Episode ${episode.episode}`;
+          thumbnail.onerror = function() {
+            this.src = decodeURIComponent(videoImage); // Fallback to series image
+          };
+          
+          // Create episode details container
+          const details = document.createElement('div');
+          details.className = 'episode-details';
+          
+          // Create episode number element
+          const number = document.createElement('div');
+          number.className = 'episode-number';
+          number.textContent = `S${episode.season.toString().padStart(2, '0')}E${episode.episode.toString().padStart(2, '0')}`;
+          
+          // Create episode title element
+          const title = document.createElement('div');
+          title.className = 'episode-title';
+          title.textContent = episode.title || `Episode ${episode.episode}`;
+          
+          // Create episode duration element
+          const duration = document.createElement('div');
+          duration.className = 'episode-duration';
+          duration.textContent = episode.duration || '';
+          
+          // Assemble episode card
+          details.appendChild(number);
+          details.appendChild(title);
+          details.appendChild(duration);
+          
+          episodeCard.appendChild(thumbnail);
+          episodeCard.appendChild(details);
+          
+          episodesContainer.appendChild(episodeCard);
         });
+      } else {
+        // List view
+        episodesContainer.className = 'episodes-list';
         
-        // Create thumbnail
-        const thumbnail = document.createElement('img');
-        thumbnail.className = 'episode-thumbnail';
-        thumbnail.src = episode.thumbnail || seriesImage; // Use episode thumbnail or series image as fallback
-        thumbnail.alt = `Season ${episode.season} Episode ${episode.episode}`;
-        
-        // Create episode details container
-        const details = document.createElement('div');
-        details.className = 'episode-details';
-        
-        // Create episode number element
-        const number = document.createElement('div');
-        number.className = 'episode-number';
-        number.textContent = `S${episode.season.toString().padStart(2, '0')}E${episode.episode.toString().padStart(2, '0')}`;
-        
-        // Create episode title element
-        const title = document.createElement('div');
-        title.className = 'episode-title';
-        title.textContent = episode.title || `Episode ${episode.episode}`;
-        
-        // Create episode duration element
-        const duration = document.createElement('div');
-        duration.className = 'episode-duration';
-        duration.textContent = episode.duration || '';
-        
-        // Assemble episode card
-        details.appendChild(number);
-        details.appendChild(title);
-        details.appendChild(duration);
-        
-        episodeCard.appendChild(thumbnail);
-        episodeCard.appendChild(details);
-        
-        episodesGrid.appendChild(episodeCard);
-      });
+        // Create episode cards for list view
+        seasonEpisodes.forEach(episode => {
+          const episodeCard = document.createElement('div');
+          episodeCard.className = 'list-episode-card' + (episode.id === currentEpisodeId ? ' active' : '');
+          episodeCard.addEventListener('click', () => {
+            playEpisode(episode.id);
+          });
+          
+          // Create thumbnail
+          const thumbnail = document.createElement('img');
+          thumbnail.className = 'list-thumbnail';
+          thumbnail.src = episode.thumbnail || decodeURIComponent(videoImage); // Use episode thumbnail or series image
+          thumbnail.alt = `Season ${episode.season} Episode ${episode.episode}`;
+          thumbnail.onerror = function() {
+            this.src = decodeURIComponent(videoImage); // Fallback to series image
+          };
+          
+          // Create episode details container
+          const details = document.createElement('div');
+          details.className = 'list-episode-details';
+          
+          // Create episode title with number
+          const title = document.createElement('div');
+          title.className = 'episode-title';
+          title.textContent = `S${episode.season.toString().padStart(2, '0')}E${episode.episode.toString().padStart(2, '0')} - ${episode.title || `Episode ${episode.episode}`}`;
+          
+          // Create episode duration element
+          const duration = document.createElement('div');
+          duration.className = 'episode-duration';
+          duration.textContent = episode.duration || '';
+          
+          // Assemble episode card
+          details.appendChild(title);
+          details.appendChild(duration);
+          
+          episodeCard.appendChild(thumbnail);
+          episodeCard.appendChild(details);
+          
+          episodesContainer.appendChild(episodeCard);
+        });
+      }
       
       // If grid is empty, show message
       if (seasonEpisodes.length === 0) {
@@ -802,54 +1113,99 @@ if (videoTitle && videoImage && videoDetailsEncoded) {
         message.textContent = 'No episodes available for this season.';
         message.style.gridColumn = '1 / -1';
         message.style.padding = '20px';
-        episodesGrid.appendChild(message);
+        episodesContainer.appendChild(message);
       }
     }
     
     // Function to play a specific episode
     function playEpisode(episodeId) {
-      const episode = episodes.find(ep => ep.id === episodeId);
+      // Find the episode by ID
+      const episodeIndex = episodes.findIndex(ep => ep.id === episodeId);
       
-      if (episode && episode.videoUrl) {
-        // Update current episode
+      if (episodeIndex !== -1) {
+        const episode = episodes[episodeIndex];
+        
+        // Update current episode tracking
         currentEpisodeId = episodeId;
+        currentEpisodeIndex = episodeIndex;
+        currentSeason = episode.season;
+        
+        // Update episode navigation buttons
+        updateEpisodeNavButtons();
         
         // Set video source
         const videoPlayer = document.getElementById('videoPlayer');
-        videoPlayer.src = episode.videoUrl;
-        videoPlayer.load(); // Reload the video
-        videoPlayer.play(); // Auto play
+        const previousTime = videoPlayer.currentTime; // Save current playback position
         
-        // Update active episode card
-        document.querySelectorAll('.episode-card').forEach(card => {
-          card.classList.remove('active');
-        });
-        
-        // Find and highlight the active episode card
-        const activeCards = document.querySelectorAll('.episode-card');
-        for (let i = 0; i < activeCards.length; i++) {
-          if (i === episodes.findIndex(ep => ep.id === episodeId && ep.season === currentSeason)) {
-            activeCards[i].classList.add('active');
-            break;
+        // Check if episode has a valid video URL
+        if (episode.videoUrl) {
+          videoPlayer.src = episode.videoUrl;
+          videoPlayer.load(); // Reload the video
+          
+          // Try to auto-play with muted fallback for mobile
+          const playPromise = videoPlayer.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(error => {
+              // Auto-play was prevented
+              console.log('Auto-play prevented, muting and trying again');
+              videoPlayer.muted = true;
+              videoPlayer.play().catch(e => {
+                console.error('Could not play video even when muted:', e);
+              });
+            });
           }
+          
+          // Update document title to include episode info
+          document.title = `${videoTitle} - S${episode.season}E${episode.episode} - PanguPlay`;
+          
+          // Update season selector if necessary
+          if (episode.season !== currentSeason) {
+            // Update season buttons
+            document.querySelectorAll('.season-button').forEach(btn => {
+              btn.classList.remove('active');
+              if (btn.textContent === `Season ${episode.season}`) {
+                btn.classList.add('active');
+              }
+            });
+            
+            // Load episodes for the new season
+            loadEpisodesForSeason(episode.season);
+          }
+          
+          // Update active episode card
+          document.querySelectorAll('.episode-card, .list-episode-card').forEach(card => {
+            card.classList.remove('active');
+          });
+          
+          // Find and highlight the active episode card
+          const activeCards = document.querySelectorAll(viewMode === 'grid' ? '.episode-card' : '.list-episode-card');
+          for (let i = 0; i < activeCards.length; i++) {
+            if (activeCards[i].querySelector(viewMode === 'grid' ? '.episode-number' : '.episode-title').textContent.includes(`S${episode.season.toString().padStart(2, '0')}E${episode.episode.toString().padStart(2, '0')}`)) {
+              activeCards[i].classList.add('active');
+              // Scroll the active card into view
+              activeCards[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+              break;
+            }
+          }
+          
+          // Update URL with the current episode ID (for sharing or refreshing)
+          const newUrl = new URL(window.location.href);
+          newUrl.searchParams.set('episodeId', episodeId);
+          history.replaceState(null, '', newUrl);
+        } else {
+          showError(`Episode ${episode.season}x${episode.episode} video is unavailable. Please try another episode.`);
         }
       } else {
-        console.error('Episode not found or video URL missing');
-        alert('Error loading episode. Please try another one.');
+        console.error('Episode not found:', episodeId);
+        showError('Episode not found. Please try another one.');
       }
     }
     
     // Function to switch between grid and list view modes
     function switchMode(mode) {
-      const episodesGrid = document.getElementById('episodesGrid');
+      if (mode === viewMode) return; // No change needed
       
-      if (mode === 'grid') {
-        episodesGrid.style.display = 'grid';
-      } else if (mode === 'list') {
-        episodesGrid.style.display = 'flex';
-        episodesGrid.style.flexDirection = 'column';
-        episodesGrid.style.gap = '10px';
-      }
+      viewMode = mode;
       
       // Update active button
       document.querySelectorAll('.mode-toggle-button').forEach(btn => {
@@ -857,12 +1213,61 @@ if (videoTitle && videoImage && videoDetailsEncoded) {
       });
       document.querySelector(`.mode-toggle-button[data-mode="${mode}"]`).classList.add('active');
       
-      // Update view mode
-      viewMode = mode;
-      
       // Reload episodes to apply the new layout
       loadEpisodesForSeason(currentSeason);
     }
+    
+    // Function to handle network error recovery
+    function handleNetworkError() {
+      // Add event listener for online status
+      window.addEventListener('online', function() {
+        console.log('Back online, attempting to reload video');
+        const videoPlayer = document.getElementById('videoPlayer');
+        
+        // Reload current video source
+        if (videoPlayer.src) {
+          videoPlayer.load();
+          videoPlayer.play().catch(e => {
+            console.error('Could not play video after coming back online:', e);
+          });
+        }
+        
+        // Hide error message if showing
+        document.getElementById('errorMessage').style.display = 'none';
+      });
+      
+      // Add event listener for offline status
+      window.addEventListener('offline', function() {
+        console.log('Device went offline');
+        showError('Network connection lost. Waiting for connection to resume playback.');
+      });
+    }
+    
+    // Setup network error handling
+    handleNetworkError();
+    
+    // Add event listener for video playback error recovery
+    document.getElementById('videoPlayer').addEventListener('error', function(e) {
+      // Check if we have a bad request error (HTTP 400)
+      if (e.target.error && e.target.error.code === 4) {
+        // Try reloading the video with a different approach
+        const videoElement = e.target;
+        console.log('Attempting to recover from video error');
+        
+        // Force a reload after a short delay
+        setTimeout(() => {
+          const currentSrc = videoElement.src;
+          videoElement.src = '';
+          videoElement.load();
+          videoElement.src = currentSrc;
+          videoElement.load();
+          videoElement.play().catch(err => {
+            console.error('Failed to recover from video error:', err);
+            showError('Video playback error. Please try refreshing the page.');
+          });
+        }, 1000);
+      }
+    });
   </script>
 </body>
 </html>
