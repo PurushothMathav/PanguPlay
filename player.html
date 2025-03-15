@@ -182,6 +182,151 @@
       margin: 15px 0;
     }
 
+    /* Episodes section styles */
+    .episodes-section {
+      margin-top: 30px;
+      background-color: #303030;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .episodes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .episodes-title {
+      font-size: 22px;
+      color: #ff4500;
+      margin: 0;
+      text-align: left;
+    }
+
+    .season-selector {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+
+    .season-button {
+      background-color: #424242;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .season-button.active {
+      background-color: #ff4500;
+    }
+
+    .season-button:hover:not(.active) {
+      background-color: #555555;
+    }
+
+    .episodes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 15px;
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+
+    .episode-card {
+      background-color: #242424;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .episode-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+      background-color: #2a2a2a;
+    }
+
+    .episode-card.active {
+      border: 2px solid #ff4500;
+    }
+
+    .episode-thumbnail {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+    }
+
+    .episode-details {
+      padding: 10px;
+      text-align: left;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .episode-number {
+      font-size: 14px;
+      color: #ff4500;
+      margin-bottom: 5px;
+    }
+
+    .episode-title {
+      font-size: 16px;
+      margin-bottom: 5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .episode-duration {
+      font-size: 12px;
+      color: #bbbbbb;
+      margin-top: auto;
+    }
+
+    /* Mode switch styles */
+    .mode-switch {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .mode-toggle {
+      display: inline-flex;
+      align-items: center;
+      background-color: #424242;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .mode-toggle-button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .mode-toggle-button.active {
+      background-color: #ff4500;
+    }
+
     /* Responsive design improvements */
     @media only screen and (max-width: 768px) {
       .container {
@@ -251,6 +396,18 @@
         justify-content: flex-start;
         margin-top: 5px;
       }
+
+      .episodes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      }
+
+      .episode-thumbnail {
+        height: 80px;
+      }
+
+      .episode-title {
+        font-size: 14px;
+      }
     }
 
     @media only screen and (max-width: 480px) {
@@ -306,9 +463,41 @@
         font-size: 13px;
         padding: 3px 8px;
       }
-    }
-	
 
+      .episodes-section {
+        padding: 15px;
+      }
+
+      .episodes-title {
+        font-size: 18px;
+      }
+
+      .episodes-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .episode-card {
+        border-radius: 6px;
+      }
+
+      .episode-details {
+        padding: 8px;
+      }
+
+      .episode-number {
+        font-size: 12px;
+      }
+
+      .episode-title {
+        font-size: 13px;
+      }
+
+      .season-button {
+        padding: 6px 12px;
+        font-size: 13px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -331,58 +520,77 @@
           Your browser does not support the video tag.
         </video>
       </div>
-	  
-	  
-      <div class="video-details-container">
-        <div class="video-image-container">
-          <img id="videoImage" src="" alt="Video Image" class="video-image">
-          <div id="qualityBadge" class="quality-badge">HDRip</div>
+      
+      <!-- Fix for the video-details section -->
+<div class="video-details-container">
+  <div class="video-image-container">
+    <img id="videoImage" src="" alt="Video Image" class="video-image">
+    <div id="qualityBadge" class="quality-badge">HDRip</div>
+  </div>
+  <div class="video-details" id="videoDetails">
+    <h2 id="videoTitle">Series Title</h2>
+    
+    <div class="detail-row">
+      <div class="detail-label">Rating:</div>
+      <div class="detail-value">
+        <span id="movieRating" class="movie-rating">9.5/10</span>
+      </div>
+    </div>
+    
+    <div class="divider"></div>
+    
+    <div class="detail-row">
+      <div class="detail-label">Director:</div>
+      <div id="director" class="detail-value">Director Name</div>
+    </div>
+    
+    <div class="detail-row">
+      <div class="detail-label">Starring:</div>
+      <div id="starring" class="detail-value">Actor Names</div>
+    </div>
+    
+    <div class="detail-row">
+      <div class="detail-label">Genres:</div>
+      <div class="detail-value">
+        <div id="genres" class="genres-list">
+          <!-- Genres will be added here dynamically -->
         </div>
-        <div class="video-details" id="videoDetails">
-          <h2 id="videoTitle">Movie Title</h2>
-          
-          <div class="detail-row">
-            <div class="detail-label">Rating:</div>
-            <div class="detail-value">
-              <span id="movieRating" class="movie-rating">9.5/10</span>
-            </div>
+      </div>
+    </div>
+    
+    <div class="detail-row">
+      <div class="detail-label">Quality:</div>
+      <div id="quality" class="detail-value">Video Quality</div>
+    </div>
+    
+    <div class="detail-row">
+      <div class="detail-label">Language:</div>
+      <div id="language" class="detail-value">Video Language</div>
+    </div>
+    
+    <div class="detail-row">
+      <div class="detail-label">Updated:</div>
+      <div id="lastUpdated" class="detail-value">Last Updated Date</div>
+    </div>
+  </div>
+</div>
+      
+      <!-- Episodes Section -->
+      <div class="episodes-section">
+        <div class="episodes-header">
+          <h3 class="episodes-title">Episodes</h3>
+          <div class="mode-toggle">
+            <button class="mode-toggle-button active" data-mode="grid" onclick="switchMode('grid')">Grid</button>
+            <button class="mode-toggle-button" data-mode="list" onclick="switchMode('list')">List</button>
           </div>
-          
-          <div class="divider"></div>
-          
-          <div class="detail-row">
-            <div class="detail-label">Director:</div>
-            <div id="director" class="detail-value">Director Name</div>
-          </div>
-          
-          <div class="detail-row">
-            <div class="detail-label">Starring:</div>
-            <div id="starring" class="detail-value">Actor Names</div>
-          </div>
-          
-          <div class="detail-row">
-            <div class="detail-label">Genres:</div>
-            <div class="detail-value">
-              <div id="genres" class="genres-list">
-                <!-- Genres will be added here dynamically -->
-              </div>
-            </div>
-          </div>
-          
-          <div class="detail-row">
-            <div class="detail-label">Quality:</div>
-            <div id="quality" class="detail-value">Video Quality</div>
-          </div>
-          
-          <div class="detail-row">
-            <div class="detail-label">Language:</div>
-            <div id="language" class="detail-value">Video Language</div>
-          </div>
-          
-          <div class="detail-row">
-            <div class="detail-label">Updated:</div>
-            <div id="lastUpdated" class="detail-value">Last Updated Date</div>
-          </div>
+        </div>
+        
+        <div class="season-selector" id="seasonSelector">
+          <!-- Season buttons will be added here dynamically -->
+        </div>
+        
+        <div class="episodes-grid" id="episodesGrid">
+          <!-- Episode cards will be added here dynamically -->
         </div>
       </div>
     </div>
@@ -395,65 +603,265 @@
     }
     
     // Get URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const videoUrl = urlParams.get('video');
-    const videoTitle = urlParams.get('title');
-    const videoImage = urlParams.get('image');
-    const videoDetailsEncoded = urlParams.get('details');
+const urlParams = new URLSearchParams(window.location.search);
+const videoUrl = urlParams.get('video');
+const videoTitle = urlParams.get('title');
+const videoImage = urlParams.get('image');
+const videoDetailsEncoded = urlParams.get('details');
+
+// Series specific parameters
+const seriesId = urlParams.get('id');
+const episodesEncoded = urlParams.get('episodes');
+
+// Check if this is a movie or series
+const isSeries = seriesId && episodesEncoded;
+
+// Initialize variables used for series
+let currentSeason = 1;
+let viewMode = 'grid';
+let episodes = [];
+let currentEpisodeId = null;
+
+// Function to handle page setup
+function setupPage() {
+  // Set video title
+  document.getElementById('videoTitle').textContent = videoTitle;
+  document.title = videoTitle + ' - PanguPlay';
+  
+  // Set video image
+  document.getElementById('videoImage').src = decodeURIComponent(videoImage);
+  
+  // Get video player
+  const videoPlayer = document.getElementById('videoPlayer');
+  
+  // Add error handler for video player
+  videoPlayer.addEventListener('error', function(e) {
+    console.error('Video error:', videoPlayer.error);
+    alert('Error loading video: ' + videoPlayer.error.message);
+  });
+  
+  // Parse and set video details
+  try {
+    const details = JSON.parse(decodeURIComponent(videoDetailsEncoded));
     
-    // Update the page with video information
-    if (videoUrl && videoTitle && videoImage && videoDetailsEncoded) {
-      // Set video source
-      const videoPlayer = document.getElementById('videoPlayer');
-      videoPlayer.src = decodeURIComponent(videoUrl);
-     
-	 // Set video title
-      document.getElementById('videoTitle').textContent = videoTitle;
-      document.title = videoTitle + ' - PanguPlay';
+    // Set video details
+    document.getElementById('director').textContent = details.director || 'Not Available';
+    document.getElementById('starring').textContent = details.starring || 'Not Available';
+    document.getElementById('quality').textContent = details.quality || 'Not Available';
+    document.getElementById('language').textContent = details.language || 'Not Available';
+    document.getElementById('lastUpdated').textContent = details.lastUpdated || 'Not Available';
+    document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
+    document.getElementById('qualityBadge').textContent = details.quality || 'HD';
+    
+    // Set genres as tags
+    const genresContainer = document.getElementById('genres');
+    genresContainer.innerHTML = '';
+    
+    if (details.genres) {
+      const genresList = details.genres.split(', ');
+      genresList.forEach(genre => {
+        const genreTag = document.createElement('span');
+        genreTag.className = 'genre-tag';
+        genreTag.textContent = genre;
+        genresContainer.appendChild(genreTag);
+      });
+    } else {
+      genresContainer.textContent = 'Not Available';
+    }
+    
+    // Handle series specific elements if this is a series
+    if (isSeries) {
+      // Parse episodes data for series
+      episodes = JSON.parse(decodeURIComponent(episodesEncoded));
       
-	  // In the player.html file, add this code right after setting the video source
-		videoPlayer.addEventListener('error', function(e) {
-		console.error('Video error:', videoPlayer.error);
-		alert('Error loading video: ' + videoPlayer.error.message);
-		});
-	  
-      // Set video image
-      document.getElementById('videoImage').src = decodeURIComponent(videoImage);
+      // Show episodes section
+      document.querySelector('.episodes-section').style.display = 'block';
       
-      // Parse and set video details
-      try {
-        const details = JSON.parse(decodeURIComponent(videoDetailsEncoded));
-        
-        // Set movie details
-        document.getElementById('director').textContent = details.director || 'Not Available';
-        document.getElementById('starring').textContent = details.starring || 'Not Available';
-        document.getElementById('quality').textContent = details.quality || 'Not Available';
-        document.getElementById('language').textContent = details.language || 'Not Available';
-        document.getElementById('lastUpdated').textContent = details.lastUpdated || 'Not Available';
-        document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
-        document.getElementById('qualityBadge').textContent = details.quality || 'HD';
-        
-        // Set genres as tags
-        const genresContainer = document.getElementById('genres');
-        genresContainer.innerHTML = '';
-        
-        if (details.genres) {
-          const genresList = details.genres.split(', ');
-          genresList.forEach(genre => {
-            const genreTag = document.createElement('span');
-            genreTag.className = 'genre-tag';
-            genreTag.textContent = genre;
-            genresContainer.appendChild(genreTag);
-          });
-        } else {
-          genresContainer.textContent = 'Not Available';
-        }
-      } catch (error) {
-        console.error('Error parsing video details:', error);
+      // Generate season buttons
+      generateSeasonButtons();
+      
+      // Load episodes for the first season
+      loadEpisodesForSeason(currentSeason);
+      
+      // If there are episodes, play the first one
+      if (episodes.length > 0) {
+        playEpisode(episodes[0].id);
       }
     } else {
-      alert('Video information is incomplete. Returning to home page.');
-      goToHome();
+      // This is a movie, hide episodes section
+      document.querySelector('.episodes-section').style.display = 'none';
+      
+      // Set video source directly for movies
+      videoPlayer.src = decodeURIComponent(videoUrl);
+      videoPlayer.load();
+      videoPlayer.play();
+    }
+  } catch (error) {
+    console.error('Error parsing video details:', error);
+    alert('Error loading video details. Returning to home page.');
+    goToHome();
+  }
+}
+
+// Check if we have the minimum required parameters
+if (videoTitle && videoImage && videoDetailsEncoded) {
+  setupPage();
+} else {
+  alert('Video information is incomplete. Returning to home page.');
+  goToHome();
+}
+    
+    // Function to generate season buttons
+    function generateSeasonButtons() {
+      const seasonSelector = document.getElementById('seasonSelector');
+      seasonSelector.innerHTML = '';
+      
+      // Get unique seasons from episodes
+      const seasons = [...new Set(episodes.map(episode => episode.season))].sort((a, b) => a - b);
+      
+      // Create button for each season
+      seasons.forEach(season => {
+        const button = document.createElement('button');
+        button.className = 'season-button' + (season === currentSeason ? ' active' : '');
+        button.textContent = 'Season ' + season;
+        button.addEventListener('click', () => {
+          currentSeason = season;
+          
+          // Update active button
+          document.querySelectorAll('.season-button').forEach(btn => {
+            btn.classList.remove('active');
+          });
+          button.classList.add('active');
+          
+          // Load episodes for selected season
+          loadEpisodesForSeason(season);
+        });
+        
+        seasonSelector.appendChild(button);
+      });
+    }
+    
+    // Function to load episodes for a specific season
+    function loadEpisodesForSeason(season) {
+      const episodesGrid = document.getElementById('episodesGrid');
+      episodesGrid.innerHTML = '';
+      
+      // Filter episodes by season
+      const seasonEpisodes = episodes.filter(episode => episode.season === season);
+      
+      // Sort episodes by episode number
+      seasonEpisodes.sort((a, b) => a.episode - b.episode);
+      
+      // Create episode cards
+      seasonEpisodes.forEach(episode => {
+        const episodeCard = document.createElement('div');
+        episodeCard.className = 'episode-card' + (episode.id === currentEpisodeId ? ' active' : '');
+        episodeCard.addEventListener('click', () => {
+          playEpisode(episode.id);
+        });
+        
+        // Create thumbnail
+        const thumbnail = document.createElement('img');
+        thumbnail.className = 'episode-thumbnail';
+        thumbnail.src = episode.thumbnail || seriesImage; // Use episode thumbnail or series image as fallback
+        thumbnail.alt = `Season ${episode.season} Episode ${episode.episode}`;
+        
+        // Create episode details container
+        const details = document.createElement('div');
+        details.className = 'episode-details';
+        
+        // Create episode number element
+        const number = document.createElement('div');
+        number.className = 'episode-number';
+        number.textContent = `S${episode.season.toString().padStart(2, '0')}E${episode.episode.toString().padStart(2, '0')}`;
+        
+        // Create episode title element
+        const title = document.createElement('div');
+        title.className = 'episode-title';
+        title.textContent = episode.title || `Episode ${episode.episode}`;
+        
+        // Create episode duration element
+        const duration = document.createElement('div');
+        duration.className = 'episode-duration';
+        duration.textContent = episode.duration || '';
+        
+        // Assemble episode card
+        details.appendChild(number);
+        details.appendChild(title);
+        details.appendChild(duration);
+        
+        episodeCard.appendChild(thumbnail);
+        episodeCard.appendChild(details);
+        
+        episodesGrid.appendChild(episodeCard);
+      });
+      
+      // If grid is empty, show message
+      if (seasonEpisodes.length === 0) {
+        const message = document.createElement('div');
+        message.textContent = 'No episodes available for this season.';
+        message.style.gridColumn = '1 / -1';
+        message.style.padding = '20px';
+        episodesGrid.appendChild(message);
+      }
+    }
+    
+    // Function to play a specific episode
+    function playEpisode(episodeId) {
+      const episode = episodes.find(ep => ep.id === episodeId);
+      
+      if (episode && episode.videoUrl) {
+        // Update current episode
+        currentEpisodeId = episodeId;
+        
+        // Set video source
+        const videoPlayer = document.getElementById('videoPlayer');
+        videoPlayer.src = episode.videoUrl;
+        videoPlayer.load(); // Reload the video
+        videoPlayer.play(); // Auto play
+        
+        // Update active episode card
+        document.querySelectorAll('.episode-card').forEach(card => {
+          card.classList.remove('active');
+        });
+        
+        // Find and highlight the active episode card
+        const activeCards = document.querySelectorAll('.episode-card');
+        for (let i = 0; i < activeCards.length; i++) {
+          if (i === episodes.findIndex(ep => ep.id === episodeId && ep.season === currentSeason)) {
+            activeCards[i].classList.add('active');
+            break;
+          }
+        }
+      } else {
+        console.error('Episode not found or video URL missing');
+        alert('Error loading episode. Please try another one.');
+      }
+    }
+    
+    // Function to switch between grid and list view modes
+    function switchMode(mode) {
+      const episodesGrid = document.getElementById('episodesGrid');
+      
+      if (mode === 'grid') {
+        episodesGrid.style.display = 'grid';
+      } else if (mode === 'list') {
+        episodesGrid.style.display = 'flex';
+        episodesGrid.style.flexDirection = 'column';
+        episodesGrid.style.gap = '10px';
+      }
+      
+      // Update active button
+      document.querySelectorAll('.mode-toggle-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(`.mode-toggle-button[data-mode="${mode}"]`).classList.add('active');
+      
+      // Update view mode
+      viewMode = mode;
+      
+      // Reload episodes to apply the new layout
+      loadEpisodesForSeason(currentSeason);
     }
   </script>
 </body>

@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Video Player - PanguPlay</title>
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js"></script>
   <style>
     /* Global Styles */
     body {
@@ -304,6 +307,8 @@
         padding: 3px 8px;
       }
     }
+	
+
   </style>
 </head>
 <body>
@@ -327,7 +332,7 @@
         </video>
       </div>
 	  
-
+	  
       <div class="video-details-container">
         <div class="video-image-container">
           <img id="videoImage" src="" alt="Video Image" class="video-image">
@@ -401,8 +406,8 @@
       // Set video source
       const videoPlayer = document.getElementById('videoPlayer');
       videoPlayer.src = decodeURIComponent(videoUrl);
-      
-      // Set video title
+     
+	 // Set video title
       document.getElementById('videoTitle').textContent = videoTitle;
       document.title = videoTitle + ' - PanguPlay';
       
