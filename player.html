@@ -332,10 +332,6 @@
         </video>
       </div>
 	  
-
-
-
-	  
 	  
       <div class="video-details-container">
         <div class="video-image-container">
@@ -393,131 +389,132 @@
   </div>
 
   <script>
-    // Function to go back to the home page
+    // Function to go back to home page
     function goToHome() {
-        window.location.href = 'index.html';
+      window.location.href = 'index.html';
     }
-
+    
     // Get URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const videoUrl = urlParams.get('video');
     const videoTitle = urlParams.get('title');
     const videoImage = urlParams.get('image');
     const videoDetailsEncoded = urlParams.get('details');
-
-    // Firebase Configuration
-    // Include your Firebase project configuration here
-    const firebaseConfig = {
-        apiKey: "AIzaSyD8hfmJ7t9sjTTVanSJ6iS4DGcfjNblf-o",
-        authDomain: "panguplay-8e0e7.firebaseapp.com",
-        projectId: "panguplay-8e0e7",
-        storageBucket: "panguplay-8e0e7.appspot.com",
-        messagingSenderId: "429184849754",
-        appId: "1:429184849754:web:8e18a7e6c727009c4c8563",
-        measurementId: "G-5MLTYBDN2M"
-    };
-
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-
-    // Initialize Firestore
-    const db = firebase.firestore();
-
-    // Function to update view count in Firestore
-    async function updateViewCount(videoTitle) {
-        try {
-            // Reference to Firestore collection
-            const docRef = db.collection('viewCounts').doc(videoTitle);
-
-            // Increment the view count
-            const docSnapshot = await docRef.get();
-            if (docSnapshot.exists) {
-                // Update the existing document
-                await docRef.update({
-                    viewCount: firebase.firestore.FieldValue.increment(1)
-                });
-            } else {
-                // Create a new document for this video
-                await docRef.set({
-                    viewCount: 1
-                });
-            }
-
-            // Fetch and display the updated view count
-            const updatedDoc = await docRef.get();
-            const viewCount = updatedDoc.data().viewCount;
-            console.log(`Updated view count for "${videoTitle}": ${viewCount}`);
-
-            // Display the view count on the page
-            const viewCountDisplay = document.createElement('div');
-            viewCountDisplay.textContent = `View Count: ${viewCount}`;
-            viewCountDisplay.style.marginTop = '10px';
-            document.querySelector('.video-details').appendChild(viewCountDisplay);
-        } catch (error) {
-            console.error('Error updating view count:', error);
-        }
-    }
-
+    
     // Update the page with video information
     if (videoUrl && videoTitle && videoImage && videoDetailsEncoded) {
-        // Set video source
-        const videoPlayer = document.getElementById('videoPlayer');
-        videoPlayer.src = decodeURIComponent(videoUrl);
+      // Set video source
+      const videoPlayer = document.getElementById('videoPlayer');
+      videoPlayer.src = decodeURIComponent(videoUrl);
+     
+	 // Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyD8hfmJ7t9sjTTVanSJ6iS4DGcfjNblf-o",
+  authDomain: "panguplay-8e0e7.firebaseapp.com",
+  projectId: "panguplay-8e0e7",
+  storageBucket: "panguplay-8e0e7.firebasestorage.app",
+  messagingSenderId: "429184849754",
+  appId: "1:429184849754:web:8e18a7e6c727009c4c8563",
+  measurementId: "G-5MLTYBDN2M"
+};
 
-        // Trigger view count update when video starts playing
-        videoPlayer.addEventListener('play', () => {
-            updateViewCount(videoTitle);
-        });
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
-        // Set video title
-        document.getElementById('videoTitle').textContent = videoTitle;
-        document.title = videoTitle + ' - PanguPlay';
+// Function to update view count in Firestore
+async function updateViewCount(videoTitle) {
+  try {
+    // Reference to Firestore collection
+    const docRef = db.collection('viewCounts').doc(videoTitle);
 
-        // Handle video errors
-        videoPlayer.addEventListener('error', function (e) {
-            console.error('Video error:', videoPlayer.error);
-            alert('Error loading video: ' + videoPlayer.error.message);
-        });
-
-        // Set video image
-        document.getElementById('videoImage').src = decodeURIComponent(videoImage);
-
-        // Parse and set video details
-        try {
-            const details = JSON.parse(decodeURIComponent(videoDetailsEncoded));
-
-            // Set movie details
-            document.getElementById('director').textContent = details.director || 'Not Available';
-            document.getElementById('starring').textContent = details.starring || 'Not Available';
-            document.getElementById('quality').textContent = details.quality || 'Not Available';
-            document.getElementById('language').textContent = details.language || 'Not Available';
-            document.getElementById('lastUpdated').textContent = details.lastUpdated || 'Not Available';
-            document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
-            document.getElementById('qualityBadge').textContent = details.quality || 'HD';
-
-            // Set genres as tags
-            const genresContainer = document.getElementById('genres');
-            genresContainer.innerHTML = '';
-
-            if (details.genres) {
-                const genresList = details.genres.split(', ');
-                genresList.forEach(genre => {
-                    const genreTag = document.createElement('span');
-                    genreTag.className = 'genre-tag';
-                    genreTag.textContent = genre;
-                    genresContainer.appendChild(genreTag);
-                });
-            } else {
-                genresContainer.textContent = 'Not Available';
-            }
-        } catch (error) {
-            console.error('Error parsing video details:', error);
-        }
+    // Increment the view count
+    const docSnapshot = await docRef.get();
+    if (docSnapshot.exists) {
+      // Update the existing document
+      await docRef.update({
+        viewCount: firebase.firestore.FieldValue.increment(1)
+      });
     } else {
-        alert('Video information is incomplete. Returning to home page.');
-        goToHome();
+      // Create a new document for this video
+      await docRef.set({
+        viewCount: 1
+      });
     }
-</script>
 
+    // Fetch and display the updated view count
+    const updatedDoc = await docRef.get();
+    const viewCount = updatedDoc.data().viewCount;
+    console.log(`Updated view count for "${videoTitle}": ${viewCount}`);
+
+    // Display the view count on the page
+    const viewCountDisplay = document.createElement('div');
+    viewCountDisplay.textContent = `View Count: ${viewCount}`;
+    viewCountDisplay.style.marginTop = '10px';
+    document.querySelector('.video-details').appendChild(viewCountDisplay);
+  } catch (error) {
+    console.error('Error updating view count:', error);
+  }
+}
+
+// Trigger the view count update when the video starts
+const videoPlayer = document.getElementById('videoPlayer');
+videoPlayer.addEventListener('play', () => {
+  const videoTitle = document.getElementById('videoTitle').textContent;
+  updateViewCount(videoTitle);
+});
+
+	 
+	 
+	 // Set video title
+      document.getElementById('videoTitle').textContent = videoTitle;
+      document.title = videoTitle + ' - PanguPlay';
+      
+	  // In the player.html file, add this code right after setting the video source
+		videoPlayer.addEventListener('error', function(e) {
+		console.error('Video error:', videoPlayer.error);
+		alert('Error loading video: ' + videoPlayer.error.message);
+		});
+	  
+      // Set video image
+      document.getElementById('videoImage').src = decodeURIComponent(videoImage);
+      
+      // Parse and set video details
+      try {
+        const details = JSON.parse(decodeURIComponent(videoDetailsEncoded));
+        
+        // Set movie details
+        document.getElementById('director').textContent = details.director || 'Not Available';
+        document.getElementById('starring').textContent = details.starring || 'Not Available';
+        document.getElementById('quality').textContent = details.quality || 'Not Available';
+        document.getElementById('language').textContent = details.language || 'Not Available';
+        document.getElementById('lastUpdated').textContent = details.lastUpdated || 'Not Available';
+        document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
+        document.getElementById('qualityBadge').textContent = details.quality || 'HD';
+        
+        // Set genres as tags
+        const genresContainer = document.getElementById('genres');
+        genresContainer.innerHTML = '';
+        
+        if (details.genres) {
+          const genresList = details.genres.split(', ');
+          genresList.forEach(genre => {
+            const genreTag = document.createElement('span');
+            genreTag.className = 'genre-tag';
+            genreTag.textContent = genre;
+            genresContainer.appendChild(genreTag);
+          });
+        } else {
+          genresContainer.textContent = 'Not Available';
+        }
+      } catch (error) {
+        console.error('Error parsing video details:', error);
+      }
+    } else {
+      alert('Video information is incomplete. Returning to home page.');
+      goToHome();
+    }
+  </script>
 </body>
 </html>
