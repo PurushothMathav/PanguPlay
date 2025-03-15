@@ -962,13 +962,57 @@
     }
     
     // Function to update episode navigation buttons state
-    function updateEpisodeNavButtons() {
-      const prevButton = document.getElementById('prevEpisodeBtn');
-      const nextButton = document.getElementById('nextEpisodeBtn');
-      
-      prevButton.disabled = currentEpisodeIndex <= 0;
-      nextButton.disabled = currentEpisodeIndex >= episodes.length - 1;
-    }
+function updateEpisodeNavButtons() {
+  const prevButton = document.getElementById('prevEpisodeBtn');
+  const nextButton = document.getElementById('nextEpisodeBtn');
+  
+  // Check if we have previous and next episodes
+  const hasPrevious = currentEpisodeIndex > 0;
+  const hasNext = currentEpisodeIndex < episodes.length - 1;
+  
+  // Enable/disable buttons based on episode availability
+  prevButton.disabled = !hasPrevious;
+  nextButton.disabled = !hasNext;
+  
+  // Update button text with episode numbers
+  if (hasPrevious) {
+    const prevEpisode = episodes[currentEpisodeIndex - 1];
+    prevButton.innerHTML = `
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Previous EP${prevEpisode.episode}
+    `;
+  } else {
+    prevButton.innerHTML = `
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Previous Episode
+    `;
+  }
+  
+  if (hasNext) {
+    const nextEpisode = episodes[currentEpisodeIndex + 1];
+    nextButton.innerHTML = `
+      Next EP${nextEpisode.episode}
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `;
+  } else {
+    nextButton.innerHTML = `
+      Next Episode
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `;
+  }
+}
     
     // Function to generate season buttons
     function generateSeasonButtons() {
