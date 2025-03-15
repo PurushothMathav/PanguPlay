@@ -803,6 +803,24 @@
         errorElement.style.display = 'none';
       }, 5000); // Hide after 5 seconds
     }
+
+// Function to update the header with current video information
+function updateHeaderTitle(title, isSeries = false, seasonNumber = null, episodeNumber = null, episodeTitle = null) {
+  const headerElement = document.querySelector('.heading');
+  
+  if (isSeries && seasonNumber !== null && episodeNumber !== null) {
+    // Format for series: S01E01 - Episode Title
+    const seasonFormatted = seasonNumber.toString().padStart(2, '0');
+    const episodeFormatted = episodeNumber.toString().padStart(2, '0');
+    const episodeTitleText = episodeTitle || `Episode ${episodeNumber}`;
+    
+    headerElement.textContent = `S${seasonFormatted}E${episodeFormatted} - ${episodeTitleText}`;
+  } else {
+    // Format for movies: Movie Title
+    headerElement.textContent = title;
+  }
+}
+
     
     // Get URL parameters
     const urlParams = new URLSearchParams(window.location.search);
@@ -825,19 +843,24 @@
     let currentEpisodeId = null;
     let currentEpisodeIndex = 0;
 
-    // Function to handle page setup
-    function setupPage() {
-      // Show mobile browser banner if needed
-      if (isMobileBrowser() && !localStorage.getItem('panguplay_banner_dismissed')) {
-        document.getElementById('mobileBrowserBanner').style.display = 'block';
-      }
-      
-      // Set video title
-      document.getElementById('videoTitle').textContent = videoTitle;
-      document.title = videoTitle + ' - PanguPlay';
-      
-      // Set video image
-      document.getElementById('videoImage').src = decodeURIComponent(videoImage);
+    // Update the setupPage function to call updateHeaderTitle
+	function setupPage() {
+  	// Show mobile browser banner if needed
+  	if (isMobileBrowser() && !localStorage.getItem('panguplay_banner_dismissed')) {
+  	  document.getElementById('mobileBrowserBanner').style.display = 'block';
+	  }
+  
+ 	 // Set video title in details section
+ 	 document.getElementById('videoTitle').textContent = videoTitle;
+ 	 document.title = videoTitle + ' - PanguPlay';
+  
+ 	 // Update header title for movies
+  	if (!isSeries) {
+  	  updateHeaderTitle(videoTitle);
+ 	 }
+  
+	  // Set video image
+ 	 document.getElementById('videoImage').src = decodeURIComponent(videoImage);
       
       // Get video player
       const videoPlayer = document.getElementById('videoPlayer');
@@ -1161,21 +1184,24 @@ function updateEpisodeNavButtons() {
       }
     }
     
-    // Function to play a specific episode
-    function playEpisode(episodeId) {
-      // Find the episode by ID
-      const episodeIndex = episodes.findIndex(ep => ep.id === episodeId);
-      
-      if (episodeIndex !== -1) {
-        const episode = episodes[episodeIndex];
-        
-        // Update current episode tracking
-        currentEpisodeId = episodeId;
-        currentEpisodeIndex = episodeIndex;
-        currentSeason = episode.season;
-        
-        // Update episode navigation buttons
-        updateEpisodeNavButtons();
+    // Modify the playEpisode function to update the header
+function playEpisode(episodeId) {
+  // Find the episode by ID
+  const episodeIndex = episodes.findIndex(ep => ep.id === episodeId);
+  
+  if (episodeIndex !== -1) {
+    const episode = episodes[episodeIndex];
+    
+    // Update current episode tracking
+    currentEpisodeId = episodeId;
+    currentEpisodeIndex = episodeIndex;
+    currentSeason = episode.season;
+    
+    // Update header title for series
+    updateHeaderTitle(videoTitle, true, episode.season, episode.episode, episode.title);
+    
+    // Update episode navigation buttons
+    updateEpisodeNavButtons();
         
         // Set video source
         const videoPlayer = document.getElementById('videoPlayer');
