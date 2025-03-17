@@ -1,1387 +1,1381 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>PanguPlay Video Gallery</title>
-   <!-- add icon link -->
-    <link rel="icon" href="https://storage.googleapis.com/panguplaybucket/PanguPlay.png" type="image/x-icon" />
+  <!-- add icon link -->
+  <link rel="icon" href="https://storage.googleapis.com/panguplaybucket/PanguPlay.png" type="image/x-icon" />
   <style>
     /* Global Styles */
     :root {
       --primary-color: #ff4500;
-      --dark-bg: #121212;
+      --primary-hover: #ff6347;
+      --background-dark: #121212;
       --card-bg: #202020;
-      --card-hover: #303030;
-      --text-color: #ffffff;
-      --text-secondary: #bbbbbb;
+      --card-hover: #2a2a2a;
+      --text-light: #ffffff;
+      --text-muted: #bbbbbb;
+      --badge-bg: rgba(255, 69, 0, 0.9);
     }
     
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
     
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--dark-bg);
-      color: var(--text-color);
+      background-color: var(--background-dark);
+      color: var(--text-light);
       line-height: 1.6;
     }
-
-    .container {
-      width: 92%;
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 20px 0;
-    }
-
+    
     /* Header Styles */
     .header {
-      text-align: center;
-      padding: 30px 0;
-      background-color: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-      margin-bottom: 30px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .title {
-      font-size: 42px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: var(--primary-color);
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    .search-container {
-      width: 90%;
-      max-width: 600px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    #searchInput {
-      width: 100%;
-      height: 50px;
-      padding: 0 20px 0 50px;
-      font-size: 16px;
-      border: none;
-      border-radius: 25px;
-      background-color: rgba(255, 255, 255, 0.1);
-      color: var(--text-color);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
-    }
-
-    #searchInput:focus {
-      outline: none;
-      background-color: rgba(255, 255, 255, 0.15);
+      background-color: rgba(32, 32, 32, 0.95);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
-
-    .search-icon {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-secondary);
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
-
-    /* Gallery Styles */
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo {
+      height: 40px;
+      margin-right: 10px;
+      filter: drop-shadow(0 0 5px rgba(255, 69, 0, 0.5));
+    }
+    
+    .site-title {
+      font-size: 24px;
+      font-weight: 700;
+      background: linear-gradient(45deg, #ff4500, #ff8c66);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(255, 69, 0, 0.3);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+    
+    .nav-link {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      transition: 0.3s ease;
+      padding: 5px 0;
+    }
+    
+    .nav-link:hover {
+      color: var(--primary-color);
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    /* Container */
+    .container {
+      max-width: 1400px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    
+    /* Section Title */
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin: 30px 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary-color);
+      position: relative;
+    }
+    
+    /* Gallery */
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 25px;
-      justify-content: center;
-      padding: 20px 0;
+      margin-top: 20px;
     }
-
+    
+    /* Card */
     .card {
       background-color: var(--card-bg);
       border-radius: 12px;
       overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
       height: 100%;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     }
-
+    
     .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-      background-color: var(--card-hover);
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(255, 69, 0, 0.2);
     }
-
+    
     .card-image-container {
       position: relative;
       overflow: hidden;
-      height: 330px;
+      padding-bottom: 150%; /* 2:3 aspect ratio */
     }
-
-    .card img {
+    
+    .card-image-container img {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
     }
-
-    .card:hover img {
+    
+    .card:hover .card-image-container img {
       transform: scale(1.05);
     }
-
-    .quality-badge {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background-color: var(--primary-color);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: bold;
-      z-index: 1;
-    }
-
+    
     .card-content {
       padding: 15px;
-      flex-grow: 1;
       display: flex;
       flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
     }
-
+    
     .card-title {
-      font-size: 18px;
-      font-weight: 600;
+      font-size: 16px;
       margin-bottom: 10px;
-      line-height: 1.3;
+      font-weight: 600;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-
+    
     .card-details {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-top: auto;
     }
-
+    
     .rating {
       display: flex;
       align-items: center;
-      color: var(--text-secondary);
+      gap: 5px;
+      color: var(--text-muted);
+      font-weight: 500;
       font-size: 14px;
     }
-
+    
     .star-icon {
-      color: gold;
-      margin-right: 5px;
+      color: #ffc107;
     }
-
+    
     .watch-button {
       background-color: var(--primary-color);
       color: white;
       border: none;
       padding: 8px 16px;
       border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .watch-button:hover {
+      background-color: var(--primary-hover);
+      transform: scale(1.05);
+    }
+    
+    /* Badges */
+    .quality-badge,
+    .type-badge {
+      position: absolute;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 4px;
+      z-index: 10;
+    }
+    
+    .quality-badge {
+      top: 10px;
+      right: 10px;
+      background-color: var(--badge-bg);
+      color: white;
+    }
+    
+    .type-badge {
+      top: 10px;
+      left: 10px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      backdrop-filter: blur(4px);
+    }
+    
+    /* Coming Soon Badge */
+    .coming-soon {
+      background: linear-gradient(135deg, #ff4500, #ff8f00);
+      color: white;
+    }
+    
+    /* Countdown Modal */
+    .countdown-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+    }
+    
+    .countdown-content {
+      background: linear-gradient(135deg, #202020, #303030);
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 69, 0, 0.3);
+      max-width: 500px;
+      width: 90%;
+      border: 1px solid rgba(255, 69, 0, 0.3);
+    }
+    
+    .countdown-content h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+    
+    .countdown-timer {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .time-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .time-value {
+      background-color: var(--primary-color);
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .time-label {
+      margin-top: 5px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    
+    .close-button {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 14px;
-      transition: background-color 0.3s ease;
-      text-decoration: none;
+      transition: all 0.3s ease;
+      margin-top: 20px;
+      backdrop-filter: blur(4px);
+    }
+    
+    .close-button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    /* Featured Section */
+    .featured-section {
+      margin-bottom: 40px;
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
+    
+    .featured-content {
+      position: relative;
+      height: 500px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+    }
+    
+    .featured-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.1) 100%);
+    }
+    
+    .featured-details {
+      position: relative;
+      padding: 40px;
+      width: 100%;
+      max-width: 600px;
+    }
+    
+    .featured-tag {
       display: inline-block;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 15px;
     }
-
-    .watch-button:hover {
-      background-color: #ff6347;
+    
+    .featured-title {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+      line-height: 1.2;
     }
+    
+    .featured-info {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+    
+    .featured-desc {
+      font-size: 16px;
+      margin-bottom: 25px;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+    
+    .featured-button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .featured-button:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 69, 0, 0.4);
+    }
+    
+    .featured-button svg {
+      width: 18px;
+      height: 18px;
+    }
+    
+    /* Category Tabs */
+    .category-tabs {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    .category-tabs::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .category-tab {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--text-light);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+    
+    .category-tab.active {
+      background-color: var(--primary-color);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+    }
+    
+    .category-tab:hover:not(.active) {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+	
+	/* Featured Slider styles */
+.featured-slider {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
 
-    .no-results {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 30px;
+.featured-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.featured-slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.featured-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+  z-index: 10;
+}
+
+.featured-nav:hover {
+  opacity: 1;
+  background-color: var(--primary-color);
+}
+
+.featured-prev {
+  left: 20px;
+}
+
+.featured-next {
+  right: 20px;
+}
+
+.featured-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.indicator.active {
+  background-color: var(--primary-color);
+  transform: scale(1.2);
+}
+	
+    
+    /* Footer */
+    .footer {
+      background-color: #1a1a1a;
+      padding: 40px 0 20px;
+      margin-top: 60px;
+      border-top: 1px solid #333;
+    }
+    
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    
+    .footer-section {
+      flex: 1;
+      min-width: 200px;
+      margin-bottom: 30px;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .footer-logo img {
+      height: 30px;
+      margin-right: 10px;
+    }
+    
+    .footer-logo-text {
       font-size: 20px;
-      color: var(--text-secondary);
+      font-weight: 700;
+      background: linear-gradient(45deg, #ff4500, #ff8c66);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-
-    /* Responsive Styles */
-    @media (max-width: 992px) {
+    
+    .footer-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    
+    .footer-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-link {
+      margin-bottom: 12px;
+    }
+    
+    .footer-link a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+    }
+    
+    .footer-link a:hover {
+      color: var(--primary-color);
+      transform: translateX(5px);
+    }
+    
+    .footer-link a svg {
+      margin-right: 8px;
+      font-size: 12px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--text-light);
+      transition: all 0.3s ease;
+    }
+    
+    .social-link:hover {
+      background-color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+    
+    .newsletter-form {
+      display: flex;
+      margin-top: 20px;
+    }
+    
+    .newsletter-input {
+      flex: 1;
+      padding: 10px 15px;
+      border: 1px solid #333;
+      background-color: #252525;
+      color: var(--text-light);
+      border-radius: 25px 0 0 25px;
+      outline: none;
+    }
+    
+    .newsletter-button {
+      background-color: var(--primary-color);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 0 25px 25px 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .newsletter-button:hover {
+      background-color: var(--primary-hover);
+    }
+    
+    .copyright {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    
+    /* Media Queries */
+    @media (max-width: 1200px) {
+      .featured-content {
+        height: 450px;
+      }
+      
+      .featured-title {
+        font-size: 32px;
+      }
+    }
+    
+    @media (max-width: 768px) {
       .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
         gap: 20px;
       }
       
-      .title {
-        font-size: 36px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        width: 95%;
-        padding: 15px 0;
+      .featured-content {
+        height: 400px;
       }
       
-      .header {
-        padding: 20px 0;
+      .featured-details {
+        padding: 25px;
       }
       
-      .title {
-        font-size: 32px;
+      .featured-title {
+        font-size: 28px;
       }
       
-      .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      .featured-desc {
+        font-size: 14px;
+      }
+      
+      .header-content {
+        flex-direction: column;
         gap: 15px;
       }
       
-      .card-image-container {
-        height: 240px;
+      .nav-links {
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: 10px;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
       }
       
-      .card-content {
-        padding: 10px;
+      .nav-links::-webkit-scrollbar {
+        display: none;
       }
-      
-      .card-title {
-        font-size: 16px;
-      }
+	  
+	  .featured-slider {
+    height: 400px;
+  }
     }
-
+    
     @media (max-width: 480px) {
-      .container {
-        width: 92%;
-        padding: 10px 0;
-      }
-      
-      .header {
-        padding: 15px 0;
-        margin-bottom: 20px;
-      }
-      
-      .title {
-        font-size: 28px;
-        margin-bottom: 15px;
-      }
-      
-      #searchInput {
-        height: 45px;
-        font-size: 14px;
-      }
-      
       .gallery {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
       }
       
-      .card-image-container {
-        height: 220px;
+      .featured-content {
+        height: 450px;
       }
       
-      .card-content {
-        padding: 8px;
+      .featured-details {
+        padding: 20px;
       }
       
-      .card-title {
-        font-size: 14px;
-        margin-bottom: 8px;
+      .featured-title {
+        font-size: 24px;
       }
       
-      .watch-button {
-        padding: 6px 12px;
-        font-size: 12px;
+      .featured-info {
+        flex-wrap: wrap;
+        gap: 10px;
       }
+      
+      .section-title {
+        font-size: 24px;
+      }
+	  
+	  .featured-slider {
+    height: 450px;
+  }
+  
+  .featured-indicators {
+    bottom: 10px;
+  }
+  
+  .indicator {
+    width: 8px;
+    height: 8px;
+  }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1 class="title">PanguPlay Video Gallery</h1>
-      <div class="search-container">
-        <div class="search-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo-container">
+        <img src="https://storage.googleapis.com/panguplaybucket/PanguPlay.png" alt="PanguPlay Logo" class="logo">
+        <h1 class="site-title">PanguPlay</h1>
+      </div>
+      <nav class="nav-links">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Movies</a>
+        <a href="#" class="nav-link">TV Shows</a>
+        <a href="#" class="nav-link">New Releases</a>
+        <a href="#" class="nav-link">Categories</a>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Countdown Modal -->
+  <div id="countdownModal" class="countdown-modal">
+    <div class="countdown-content">
+      <h2>Movie Coming Soon!</h2>
+      <div class="countdown-timer" id="countdown">
+        <div class="time-unit">
+          <div class="time-value" id="days">00</div>
+          <div class="time-label">Days</div>
         </div>
-        <input type="search" id="searchInput" placeholder="Search for movies...">
+        <div class="time-unit">
+          <div class="time-value" id="hours">00</div>
+          <div class="time-label">Hours</div>
+        </div>
+        <div class="time-unit">
+          <div class="time-value" id="minutes">00</div>
+          <div class="time-label">Minutes</div>
+        </div>
+        <div class="time-unit">
+          <div class="time-value" id="seconds">00</div>
+          <div class="time-label">Seconds</div>
+        </div>
+      </div>
+      <p>We'll notify you when this movie becomes available!</p>
+      <button class="close-button" onclick="closeCountdownModal()">Close</button>
+    </div>
+  </div>
+  
+  <div class="container">
+    <!-- Featured Section -->
+<section class="featured-section">
+  <div class="featured-slider" id="featuredSlider">
+    <!-- First featured movie -->
+    <div class="featured-slide">
+      <div class="featured-content" style="background-image: url('https://storage.googleapis.com/panguplaybucket/Images/Movies/16-03-2025/SweetHeart%20(2025).jpg')">
+        <div class="featured-overlay"></div>
+        <div class="featured-details">
+          <span class="featured-tag">Coming Today</span>
+          <h2 class="featured-title">SweetHeart (2025)</h2>
+          <div class="featured-info">
+            <span>Romantic, Comedy</span>
+            <span>Tamil</span>
+            <span>★ 8.4/10</span>
+          </div>
+          <p class="featured-desc">
+            Directed by Swineeth S. Sukumar, featuring Rio Raj, Gopika Ramesh, and Renji Panicker. A heartwarming romantic comedy about love, life, and unexpected connections.
+          </p>
+          <button class="featured-button" onclick="handleWatchButton('', 'true')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Watch Now
+          </button>
+        </div>
       </div>
     </div>
+
+    <!-- Second featured movie -->
+    <div class="featured-slide">
+      <div class="featured-content" style="background-image: url('https://storage.googleapis.com/panguplaybucket/Images/Movies/15-03-2025/Turbo%20(2025).jpg')">
+        <div class="featured-overlay"></div>
+        <div class="featured-details">
+          <span class="featured-tag">New Release</span>
+          <h2 class="featured-title">Turbo (2025)</h2>
+          <div class="featured-info">
+            <span>Action, Thriller</span>
+            <span>Malayalam</span>
+            <span>★ 7.9/10</span>
+          </div>
+          <p class="featured-desc">
+            Directed by Vivek Athreya, starring Mammootty and Raj B. Shetty. A high-octane action thriller that will keep you on the edge of your seat.
+          </p>
+          <button class="featured-button" onclick="handleWatchButton('https://storage.googleapis.com/panguplaybucket/Videos/15-03-2025/Turbo%20(2025).mp4', 'false')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Watch Now
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Third featured movie -->
+    <div class="featured-slide">
+      <div class="featured-content" style="background-image: url('https://storage.googleapis.com/panguplaybucket/Images/Movies/14-03-2025/Eagle%20(2025).jpg')">
+        <div class="featured-overlay"></div>
+        <div class="featured-details">
+          <span class="featured-tag">Trending</span>
+          <h2 class="featured-title">Eagle (2025)</h2>
+          <div class="featured-info">
+            <span>Action, Thriller</span>
+            <span>Telugu</span>
+            <span>★ 8.0/10</span>
+          </div>
+          <p class="featured-desc">
+            Directed by Karthik Gattamneni, starring Ravi Teja, Kavya Thapar, and Anupama Parameswaran. A pulse-pounding thriller with stunning action sequences.
+          </p>
+          <button class="featured-button" onclick="handleWatchButton('https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Eagle%20(2025).mp4', 'false')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Watch Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation arrows -->
+  <button class="featured-nav featured-prev" id="featuredPrev">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  <button class="featured-nav featured-next" id="featuredNext">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </button>
+
+  <!-- Indicators -->
+  <div class="featured-indicators" id="featuredIndicators">
+    <button class="indicator active" data-index="0"></button>
+    <button class="indicator" data-index="1"></button>
+    <button class="indicator" data-index="2"></button>
+  </div>
+</section>
     
+    <!-- Category Tabs -->
+    <div class="category-tabs">
+      <button class="category-tab active">All</button>
+      <button class="category-tab">Action</button>
+      <button class="category-tab">Comedy</button>
+      <button class="category-tab">Drama</button>
+      <button class="category-tab">Romance</button>
+      <button class="category-tab">Thriller</button>
+      <button class="category-tab">Horror</button>
+      <button class="category-tab">Sci-Fi</button>
+    </div>
+    
+    <!-- Latest Movies Section -->
+    <h2 class="section-title">Latest Movies</h2>
     <div class="gallery" id="gallery">
       <!-- Video cards will be generated here -->
     </div>
   </div>
-
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-logo">
+          <img src="https://storage.googleapis.com/panguplaybucket/PanguPlay.png" alt="PanguPlay Logo">
+          <span class="footer-logo-text">PanguPlay</span>
+        </div>
+        <p class="footer-desc">
+          Your premier destination for the latest movies and TV shows. Watch anytime, anywhere with PanguPlay.
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+          </a>
+          <a href="#" class="social-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+              <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-title">Quick Links</h3>
+        <ul class="footer-links">
+          <li class="footer-link"><a href="#">Home</a></li>
+          <li class="footer-link"><a href="#">Movies</a></li>
+          <li class="footer-link"><a href="#">TV Shows</a></li>
+          <li class="footer-link"><a href="#">New Releases</a></li>
+          <li class="footer-link"><a href="#">Popular</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-title">Categories</h3>
+        <ul class="footer-links">
+          <li class="footer-link"><a href="#">Action</a></li>
+          <li class="footer-link"><a href="#">Comedy</a></li>
+          <li class="footer-link"><a href="#">Drama</a></li>
+	  <li class="footer-link"><a href="#">Romance</a></li>
+          <li class="footer-link"><a href="#">Thriller</a></li>
+          <li class="footer-link"><a href="#">Horror</a></li>
+          <li class="footer-link"><a href="#">Sci-Fi</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-title">Support</h3>
+        <ul class="footer-links">
+          <li class="footer-link"><a href="#">FAQ</a></li>
+          <li class="footer-link"><a href="#">Help Center</a></li>
+          <li class="footer-link"><a href="#">Contact Us</a></li>
+          <li class="footer-link"><a href="#">Terms of Service</a></li>
+          <li class="footer-link"><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-title">Newsletter</h3>
+        <p class="footer-desc">Subscribe for updates on new releases and exclusive content.</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" class="newsletter-input" required>
+          <button type="submit" class="newsletter-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2025 PanguPlay. All Rights Reserved.</p>
+    </div>
+  </footer>
+  
   <script>
-	window.onload = function() {
-            // Ensure that this code runs only when the user reaches the main page
-            if (window.location.pathname === "/") {
-                // Push the current state to the history stack
-                history.pushState(null, null, window.location.href);
+	// Initialize featured slider
+function initFeaturedSlider() {
+  const slides = document.querySelectorAll('.featured-slide');
+  const indicators = document.querySelectorAll('.indicator');
+  const prevBtn = document.getElementById('featuredPrev');
+  const nextBtn = document.getElementById('featuredNext');
+  let currentSlide = 0;
+  let interval;
 
-                // Add an event listener to detect the back button press
-                window.addEventListener('popstate', function(event) {
-                    // Prevent going back to the previous pages
-                    history.pushState(null, null, window.location.href);
-                });
-            }
-        };
-	  
-    // Data for video cards
+  // Function to show a specific slide
+  function showSlide(index) {
+    // Remove active class from all slides
+    slides.forEach(slide => slide.classList.remove('active'));
+    indicators.forEach(indicator => indicator.classList.remove('active'));
+    
+    // Add active class to current slide
+    slides[index].classList.add('active');
+    indicators[index].classList.add('active');
+    
+    currentSlide = index;
+  }
+  
+  // Initialize the first slide
+  showSlide(0);
+  
+  // Event listeners for navigation
+  prevBtn.addEventListener('click', () => {
+    let newIndex = currentSlide - 1;
+    if (newIndex < 0) newIndex = slides.length - 1;
+    showSlide(newIndex);
+    resetInterval();
+  });
+  
+  nextBtn.addEventListener('click', () => {
+    let newIndex = currentSlide + 1;
+    if (newIndex >= slides.length) newIndex = 0;
+    showSlide(newIndex);
+    resetInterval();
+  });
+  
+  // Add event listeners to indicators
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      showSlide(index);
+      resetInterval();
+    });
+  });
+  
+  // Auto-rotate slides
+  function startInterval() {
+    interval = setInterval(() => {
+      let newIndex = currentSlide + 1;
+      if (newIndex >= slides.length) newIndex = 0;
+      showSlide(newIndex);
+    }, 6000); // Change slide every 6 seconds
+  }
+  
+  function resetInterval() {
+    clearInterval(interval);
+    startInterval();
+  }
+  
+  // Start auto-rotation
+  startInterval();
+  
+  // Pause auto-rotation when hovering over the slider
+  const slider = document.querySelector('.featured-slider');
+  slider.addEventListener('mouseenter', () => clearInterval(interval));
+  slider.addEventListener('mouseleave', startInterval);
+}
+
+// Call this function when the document is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+  // Existing code for loading gallery, etc.
+  loadGallery();
+  initCategoryTabs();
+  
+  // Initialize the featured slider
+  initFeaturedSlider();
+});
+  
+  
+  
+    // Data for video gallery
     const videoData = [
       {
-        title: 'Badava (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Badava%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Badava%20(2025).mp4',
+        type: "movie",
+        title: 'SweetHeart (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/16-03-2025/SweetHeart%20(2025).jpg',
+        video: '',
         details: {
-          director: 'K.V. Nandha',
-          starring: 'Vemal, Soori, Ramachandra Raju, Vinodhini Vaidyanathan, Devadarshini Chetan, Namo Narayanan, Garuda Ram, Shrita Rao',
-          genres: 'Drama',
-          quality: 'HQ PreDVD',
-          language: 'Tamil',
-          movieRating: '9.2/10',
-          lastUpdated: '14 March 2025'
-        }
-	 },
-	 {
-        title: '2K Love Story (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/2K%20Love%20Story%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/2K%20Love%20Story%20(2025).mp4',
-        details: {
-          director: 'Suseenthiran',
-          starring: 'Jagaveer, Meenakshi Govindarajan, Bala Saravanan, Antony Bhagyaraj, Jayaprakash, Vinodhini Vaidyanathan, GP Muthu',
-          genres: 'Romantic, Comedy, Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '9.0/10',
-          lastUpdated: '15 March 2025'
-        }
-},
-{
-        title: 'Agent (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/15-03-2025/Agent%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/15-03-2025/Agent%20(2025).mp4',
-        details: {
-          director: 'Surender Reddy',
-          starring: 'Akhil Akkineni, Mammootty, Sakshi Vaidya, Dino Morea, Vikramjeet Virk',
-          genres: 'Action, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '5.2/10',
-          lastUpdated: '15 March 2025'
-        }
-},
-{
-        title: 'Officer on Duty (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/15-03-2025/Officer%20on%20Duty%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/15-03-2025/Officer%20on%20Duty%20(2025).mp4',
-        details: {
-          director: 'Jithu Ashraf',
-          starring: 'Kunchacko Boban, Priyamani, Jagadish, Vishak Nair, Ramzan Muhammed, Unni Lalu, Meenakshi Anoop',
-          genres: 'Crime, Drama, Thriller',
-          quality: 'HQ PreDVD',
-          language: 'Tamil',
-          movieRating: '7.9/10',
-          lastUpdated: '15 March 2025'
-        }
-},
-	  {
-        title: 'Kaadhal Enbadhu Podhu Udamai (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Kaadhal%20Enbadhu%20Podhu%20Udamai%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Kaadhal%20Enbadhu%20Podhu%20Udamai%20(2025).mp4',
-        details: {
-          director: 'Jayaprakash Radhakrishnan',
-          starring: 'Vineeth, Rohini, Lijomol Jose, Anusha Prabhu, Kalesh Ramanand, Deepa Shankar',
-          genres: 'Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '9.1/10',
-          lastUpdated: '14 March 2025'
-        }
-	  },
-	  {
-        title: 'Ramam Raghavam (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Ramam%20Raghavam%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Ramam%20Raghavam%20(2025).mp4',
-        details: {
-          director: 'Dhanraj',
-          starring: 'Samuthirakani, Dhanraj, Mokksha, Harish Uthaman, Sunil Naidu, Srinivas Reddy, Prudhvi Raj, Vennela Kishore',
-          genres: 'Drama, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '9.3/10',
-          lastUpdated: '14 March 2025'
-        }
-	 },
-	 {
-        title: 'Sabdham (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/Sabdham%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Sabdham%20(2025).mp4',
-        details: {
-          director: 'Arivazhagan Venkatachalam',
-          starring: 'Simran, Lakshmi Menon, Aadhi',
-          genres: 'Horror, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '8.6/10',
-          lastUpdated: '14 March 2025'
-        }
-      },
-	  {
-        title: 'See saw (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/See%20saw%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/See%20saw%20(2025).mp4',
-        details: {
-          director: 'Guna Subramaniam',
-          starring: 'Natty Subramaniam, Nishant Russo, Padine Kumar, Nizhalgal Ravi, Jeeva Ravi, R. Aravindraj, Adhesh Bala',
-          genres: 'Crime, Drama, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '7.1/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Ponman (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Ponman%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Ponman%20(2025).mp4',
-        details: {
-          director: 'Jothish Shankar',
-          starring: 'Basil Joseph, Sajin Gopu, Lijomol Jose, Anand Manmadhan, Deepak Parambol',
-          genres: 'Dark Comedy, Action',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '7.8/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Be Happy (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Be%20Happy%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Be%20Happy%20(2025).mp4',
-        details: {
-          director: 'Remo DSouza',          
-		  starring: 'Abhishek Bachchan, Inayat Verma, Nora Fatehi, Nassar, Johnny Lever, Harleen Sethi',
-          genres: 'Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '8.1/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Rajakili (2024)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Rajakili%20(2024)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Rajakili%20(2024).mp4',
-        details: {
-          director: 'Umapathy Ramaiah',
-          starring: 'Thambi Ramaiah, Samuthirakani, Suveta Shrimpton, Deepa Shankar, Daniel Annie Pope, Pala. Karuppiah, Aadukalam Naren, Krish, Praveen G, Miyashree Sowmya',
-          genres: 'Drama, Family',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '7.5/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-	 {
-        title: 'Murmur (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/Murmur%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Murmur%20(2025).mp4',
-        details: {
-          director: 'Hemnath Narayanan',
-          starring: 'Richie Kapoor, Devaraj Arumugam,Yuvikha Rajendran',
-          genres: 'Horror, Thriller',
-          quality: 'HQ PreDVD',
-          language: 'Tamil',
-          movieRating: '7.9/10',
-          lastUpdated: '12 March 2025'
-        }
-      },
-	    {
-        title: 'Aghathiyaa (2025)',
-        image: './src/Thumbnail/Aghathiyaa (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Aghathiyaa%20(2025).mp4',
-        details: {
-          director: 'Pa. Vijay',
-          starring: 'Jiiva, Raashi Khanna',
-          genres: 'Action, Adventure, Fantasy, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '6.3/10',
-          lastUpdated: '11 March 2025'
-        }
-      },
-	    
-{
-        title: 'Baby and Baby (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Baby%20and%20Baby%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Baby%20and%20Baby%20(2025).mp4',
-        details: {
-          director: 'Prathap',
-          starring: 'Jai, Sathyaraj, Yogi Babu, Pragya Nagra, Sai Dhanyaa',
-          genres: 'Comedy, Drama',
-          quality: 'PreDVD',
-          language: 'Tamil',
-          movieRating: '7.2/10',
-          lastUpdated: '13 March 2025'
-        }
-},
-{
-        title: 'Fire (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Fire%20(2025_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Fire%20(2025.mp4',
-        details: {
-          director: 'Jsk Satish Kumar',
-          starring: 'Sakshi Agarwal, Suresh Chakravarthi, Rachitha Mahalakshmi, Balaji Murugadoss, Gayathri Shan, Singampuli, Chandini Tamilarasan',
-          genres: 'Crime, Mystery, Thriller',
-          quality: 'PreDVD',
-          language: 'Tamil',
-          movieRating: '9.1/10',
-          lastUpdated: '13 March 2025'
-        }
-},
-{
-        title: 'Kooran (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Kooran%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Kooran%20(2025).mp4',
-        details: {
-          director: 'Nithin Vemupati, Ramesh Rangaswamy',
-          starring: 'S.A. Chandrashekhar, Y.G. Mahendran, George Maryan, Balaji Sakthivel, Indraja Sankar, Sathyan, Saravana Subbiah',
-          genres: 'Drama, Thriller',
-          quality: 'PreDVD',
-          language: 'Tamil',
-          movieRating: '9.6/10',
-          lastUpdated: '13 March 2025'
-        }
-},
-{
-        title: 'Nilavuku Enmel Ennadi Kobam (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Nilavuku%20Enmel%20Ennadi%20Kobam%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Nilavuku%20Enmel%20Ennadi%20Kobam%20(2025).mp4',
-        details: {
-          director: 'Dhanush',
-          starring: 'Priyanka Arulmohan, Rabiya Khatoon, Venkatesh Menon, Pavish Narayan, Aadukalam Naren, Saranya Ponvannan, Ramya Ranganathan, R. Sarathkumar, Siddhartha Shankar, Anikha Surendran, Mathew Thomas, V S Prince, Ratan Priya Prakash Varrier',
-          genres: 'Comedy, Drama, Romance',
-          quality: 'PreDVD',
-          language: 'Tamil',
-          movieRating: '6.5/10',
-          lastUpdated: '13 March 2025'
-        }
-},
-{
-        title: 'Ramam Raghavam (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Ramam%20Raghavam%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Ramam%20Raghavam%20(2025).mp4',
-        details: {
-          director: 'Dhanraj',
-          starring: 'Samuthirakani, Dhanraj, Mokksha, Harish Uthaman, Sunil Naidu, Srinivas Reddy, Prudhvi Raj, Vennela Kishore',
-          genres: 'Drama, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '9.3/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-      {
-        title: 'Yamakaathaghi (2025)',
-        image: './src/Thumbnail/Yamakaathaghi (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Yamakaathaghi%20(2025).mp4',
-        details: {
-          director: 'Peppin George Jayaseelan',
-          starring: 'Roopa Koduvayur, Narendra Prasath',
-          genres: 'Mystery, Thriller, Horror',
-          quality: 'HQ PreDVD',
-          language: 'Tamil',
-          movieRating: '8.6/10',
-          lastUpdated: '11 March 2025'
-        }
-      },
-      {
-        title: 'Thandel (2025)',
-        image: './src/Thumbnail/Thandel (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Thandel%20(2025).mp4',
-        details: {
-          director: 'Chandoo Mondeti',
-          starring: 'Naga Chaitanya Akkineni, Sai Pallavi',
-          genres: 'Action, Drama, Romantic',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '9.0/10',
-          lastUpdated: '11 March 2025'
-        }
-      },
-      {
-        title: 'Niram Marum Ulagil (2025)',
-        image: './src/Thumbnail/Niram Marum Ulagil (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Niram%20Marum%20Ulagil%20(2025).mp4',
-        details: {
-          director: 'JB Britto',
-          starring: 'Rio Raj, Bharathiraja, Natarajan Subramaniam',
-          genres: 'Family, Drama',
-          quality: 'HQ PreDVD',
-          language: 'Tamil',
-          movieRating: '9.3/10',
-          lastUpdated: '11 March 2025'
-        }
-      },
-      {
-        title: 'Leg Piece (2025)',
-        image: './src/Thumbnail/Leg Piece (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Leg%20Piece%20(2025).mp4',
-        details: {
-          director: 'Srinath Alnath',
-          starring: 'Yogi Babu, John Vijay, Mime Gopi',
-          genres: 'Comedy, Drama',
-          quality: 'HQ PreDVD',
-          language: 'Tamil',
-          movieRating: '8.4/10',
-          lastUpdated: '11 March 2025'
-        }
-      },
-      {
-        title: 'Kingston (2025)',
-        image: './src/Thumbnail/Kingston (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Kingston%20(2025).mp4',
-        details: {
-          director: 'Kamal Prakash',
-          starring: 'G. V. Prakash Kumar, Divya Bharathi',
-          genres: 'Action, Adventure, Fantasy, Thriller',
-          quality: 'HQ PreDVD',
-          language: 'Tamil',
-          movieRating: '8.2/10',
-          lastUpdated: '11 March 2025'
-        }
-      },
-      {
-        title: 'Gentlewoman (2025)',
-        image: './src/Thumbnail/Gentlewoman (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Gentlewoman%20(2025).mp4',
-        details: {
-          director: 'Joshua Sethuraman',
-          starring: 'Lijomol Jose, Losliya Mariyanesan, Hari Krishnan',
-          genres: 'Drama, Mystery, Thriller',
-          quality: 'HQ PreDVD',
-          language: 'Tamil',
-          movieRating: '8.7/10',
-          lastUpdated: '11 March 2025'
-        }
-      },
-      {
-        title: 'Dragon (2025)',
-        image: './src/Thumbnail/Dragon (2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Dragon%20(2025).mp4',
-        details: {
-          director: 'Ashwath Marimuthu',
-          starring: 'Pradeep Ranganathan, Anupama Parameswaran',
-          genres: 'Comedy, Drama, Romance',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '9.5/10',
-          lastUpdated: '11 March 2025'
-        }
-      },
-	  {
-        title: 'Kudumbasthan (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/Kudumbasthan%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Kudumbasthan%20(2025).mp4'.replace(/ /g, '%20'),
-        details: {
-          director: 'Rajeshwar Kaliswamy',
-          starring: 'Manikandan K, Saanve Megghana, Guru Somasundaram',
-          genres: 'Comedy, Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '8.9/10',
-          lastUpdated: '12 March 2025'
-        }
-      },
-	  {
-        title: 'Kuzhanthaigal Munnetra Kazhagam (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/Kuzhanthaigal%20Munnetra%20Kazhagam%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Kuzhanthaigal%20Munnetra%20Kazhagam%20(2025).mp4',
-        details: {
-          director: 'Shankar Dayal N',
-          starring: 'Yogi Babu, Senthil',
-          genres: 'Drama, Political',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '5.5/10',
-          lastUpdated: '12 March 2025'
-        }
-      },
-	  {
-        title: 'Raja Bheema (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/Raja%20Bheema%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Raja%20Bheema%20(2025).mp4',
-        details: {
-          director: 'Naresh Sampath',
-          starring: 'Arav, Yogi Babu, Ashima Narwal',
-          genres: 'Action',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '7.5/10',
-          lastUpdated: '12 March 2025'
-        }
-      },
-	  {
-        title: 'Sankranthiki Vasthunam (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/Sankranthiki%20Vasthunam%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Sankranthiki%20Vasthunam%20(2025).mp4'.replace(/ /g, '%20'),
-        details: {
-          director: 'Anil Ravipudi',
-          starring: 'Aishwarya Rajesh, Venkatesh Daggubati, Meenaakshi Chaudhary',
-          genres: 'Action, Comedy',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '6.8/10',
-          lastUpdated: '12 March 2025'
-        }
-      },
-	  {
-        title: 'Vidaamuyarchi (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/Vidaamuyarchi%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Vidaamuyarchi%20(2025).mp4',
-        details: {
-          director: 'Magizh Thirumeni',
-          starring: 'Ajith Kumar, Trisha, Arjun',
-          genres: 'Action, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '8.3/10',
-          lastUpdated: '12 March 2025'
-        }
-      },
-	     {
-        title: 'Baapu - A Fathers Story (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/Baapu%20-%20A%20Fathers%20Story%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Baapu%20-%20A%20Fathers%20Story%20(2025).mp4',
-        details: {
-          director: 'K Dayakar Reddy',
-          starring: 'Brahmaji, Sudhakar Reddy Kethiri, Srinivas Avasarala, Aamani, Dhanya Balakrishna, Racha Ravi, Milkuri Gangavva, Mani Aegurla',
-          genres: 'Comedy, Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '8.3/10',
-          lastUpdated: '13 March 2025'
-        }
-      },
-	    {
-        title: 'Chitram Choodara (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/Chitram%20Choodara%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Chitram%20Choodara%20(2025).mp4',
-        details: {
-          director: 'RN Harshavardhan',
-          starring: 'Varun Sandesh, Sheetal Bhat, Ravi Babu, Tanikella Bharani, Sivaji Raja, Raja Ravindra, Dhanraj, Kasi Viswanath, Meena Kumari, Annapurnamma',
-          genres: 'Drama, Romantic',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '4.5/10',
-          lastUpdated: '13 March 2025'
-        }
-      },
-	    {
-        title: 'Laila (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/Laila%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Laila%20(2025).mp4',
-        details: {
-          director: 'Ram Narayan',
-          starring: 'Vishwak Sen, Akanksha Sharma',
-          genres: 'Action, Comedy, Drama, Romance',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '2.6/10',
-          lastUpdated: '12 March 2025'
-        }
-      },
-	    {
-        title: 'MataRaani Mounamidi (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/MataRaani%20Mounamidi%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/MataRaani%20Mounamidi%20(2025).mp4',
-        details: {
-          director: 'Suku Purvaj',
-          starring: 'Mahesh Datta, Soni Srivasthava, Archana Ananth',
-          genres: 'Horror, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '6.5/10',
-          lastUpdated: '13 March 2025'
-        }
-      },
-	   {
-        title: 'Captain America Brave New World (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Captain%20America%20Brave%20New%20World%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Captain%20America%20Brave%20New%20World%20(2025).mp4',
-        details: {
-          director: 'Julius Onah',
-          starring: 'Anthony Mackie, Harrison Ford, Danny Ramirez, Shira Haas, Carl Lumbly, Tim Blake Nelson, Giancarlo Esposito, Xosha Roquemore, Liv Tyler',
-          genres: 'Action, Adventure, Sci-Fi',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '6.0/10',
-          lastUpdated: '13 March 2025'
-        }
-},
-{
-        title: 'Daaku Maharaaj (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Daaku%20Maharaaj%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Daaku%20Maharaaj%20(2025).mp4',
-        details: {
-          director: 'Bobby Kolli',
-          starring: 'Nandamuri Balakrishna, Bobby Deol, Pragya Jaiswal, Shraddha Srinath, Sachin Khedekar, Makarand Deshpande, Urvashi Rautela, Aadukalam Naren, Nithin Mehta, Ravi Kishan, VTV Ganesh, Rishi, Chandini Chowdary',
-          genres: 'Action, Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '6.0/10',
-          lastUpdated: '13 March 2025'
-        }
-},
-{
-        title: 'Kadapuraa Kalaikuzhu (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Kadapuraa%20Kalaikuzhu%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Kadapuraa%20Kalaikuzhu%20(2025).mp4',
-        details: {
-          director: 'Raja Gurusamy',
-          starring: 'Munishkanth, Kaali Venkat, Mime Gopi, Hari Krishnan, Srilekha Rajendran, Swathi Muthu, Supergood Subramani, Anthakudi Ilayaraja',
-          genres: 'Comedy, Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '6.5/10',
-          lastUpdated: '13 March 2025'
-        }
-},
-{
-        title: 'Kalan (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Kalan%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Kalan%20(2025).mp4',
-        details: {
-          director: 'Veera Murugan',
-          starring: 'Appukutty, Cheran Raj, Sampath Ram, Deepa Shankar',
-          genres: 'Crime, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '5.4/10',
-          lastUpdated: '13 March 2025'
-        }
-},
-{
-        title: 'Meow (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Meow%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Meow%20(2025).mp4',
-        details: {
-          director: 'Lal Jose',
-          starring: 'Soubin Shahir, Mamta Mohandas, Harishree Yousuf, Salim Kumar',
-          genres: 'Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '6.5/10',
-          lastUpdated: '13 March 2025'
-        }
-},
-{
-        title: 'Bottle Radha (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Bottle%20Radha%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Bottle%20Radha%20(2025).mp4',
-        details: {
-          director: 'Dhinakaran Sivalingam',
-          starring: 'Guru Somasundaram, Sanchana Natarajan, John Vijay, Lollu Sabha Maaran, Merku Thodarchi Malai Antony, Pari Elavazhagan, Anbarasi',
-          genres: 'Comedy, Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '6.5/10',
-          lastUpdated: '13 March 2025'
-        }
-},
-{
-        title: 'Game Changer (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Game%20Changer%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Game%20Changer%20(2025).mp4',
-        details: {
-          director: 'S. Shankar',
-          starring: 'Ram Charan, Kiara Advani, Anjali, S. J. Suryah, Srikanth, Sunil, Jayaram, Samuthirakani',
-          genres: 'Action, Drama, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '5.6/10',
-          lastUpdated: '13 March 2025'
-        }
-},
-{
-        title: 'Kadhalikka Neramillai (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Kadhalikka%20Neramillai%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Kadhalikka%20Neramillai%20(2025).mp4',
-        details: {
-          director: 'Kiruthiga Udhayanidhi',
-          starring: 'Ravi Mohan, Nithya Menen, Yogi Babu, Vinay Rai, T.J. Bhanu, Lal',
+          director: 'Swineeth S. Sukumar',
+          starring: 'Rio Raj, Gopika Ramesh, Renji Panicker, Redin Kingsley',
           genres: 'Romantic, Comedy',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '6.2/10',
-          lastUpdated: '13 March 2025'
-        }
-},
-{
-        title: 'Madraskaaran (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Madraskaaran%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Madraskaaran%20(2025).mp4',
-        details: {
-          director: 'Vaali Mohan Das',
-          starring: 'Shane Nigam, Kalaiyarasan, Niharika Konidela, Aishwarya Dutta, Karunas, Pandiarajan, Super Subbarayan, Geetha Kailasam, Lallu, Deepa Shankar, Udayaraj, Palakshi',
-          genres: 'Action, Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '4.8/10',
-          lastUpdated: '13 March 2025'
-        }
-},
-{
-        title: 'Srikakulam Sherlock Holmes (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Srikakulam%20Sherlock%20Holmes%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Srikakulam%20Sherlock%20Holmes%20(2025).mp4',
-        details: {
-          director: 'Writer Mohan',
-          starring: 'Vennela Kishore, Ananya Nagalla, Siya Gowtam, Sneha Gupta, Ravi Teja Mahadasyam, Prabhakar, Muralidhar Goud',
-          genres: 'Comedy, Thriller',
-          quality: 'HDRip',
+          quality: 'Coming Today',
           language: 'Tamil',
           movieRating: '8.4/10',
-          lastUpdated: '13 March 2025'
+          lastUpdated: '16 March 2025'
         }
-},
-{
-        title: 'Vanangaan (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Vanangaan%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Vanangaan%20(2025).mp4',
-        details: {
-          director: 'Bala',
-          starring: 'Arun Vijay, Ridha, Roshni Prakash',
-          genres: 'Action, Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '6.2/10',
-          lastUpdated: '13 March 2025'
-        }
-},
-{
-        title: 'Dinasari (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Dinasari%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Dinasari%20(2025).mp4',
-        details: {
-          director: 'G. Sankar',
-          starring: 'Premgi Amaren, M.S. Bhaskar, Chaams, Meera Krishnan, Cynthia Lourde, Radha Ravi, Srikanth, Vinodhini Vaidyanathan',
-          genres: 'Drama',
-          quality: 'HQ PreDVD',
-          language: 'Tamil',
-          movieRating: '8.7/10',
-          lastUpdated: '13 March 2025'
-        }
-},{
-        title: 'Tharunam (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Tharunam%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Tharunam%20(2025).mp4',
-        details: {
-          director: 'Arvindh Srinivasan',
-          starring: 'Kishen Das, Smruthi Venkat, Raj Ayyappa, Bala Saravanan',
-          genres: 'Romance, Thriller',
-          quality: 'HQ PreDVD',
-          language: 'Tamil',
-          movieRating: '8.5/10',
-          lastUpdated: '13 March 2025'
-        }
-},
-{
-        title: '35 Chinna Vishayam Illa (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/35%20Chinna%20Vishayam%20Illa%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/35%20Chinna%20Vishayam%20Illa%20(2025).mp4',
-        details: {
-          director: 'Nanda Kishore Emani',
-          starring: 'Nivetha Thomas, Arundev Pothula, Vishwadev Rachakonda, Priyadarshi Pulikonda, Gautami, K. Bhagyaraj',
-          genres: 'Comedy, Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '7.2/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Bioscope (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Bioscope%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Bioscope%20(2025).mp4',
-        details: {
-          director: 'Sankagiri Rajkumar',
-          starring: 'Sankagiri Rajkumar, Manickam, Vellayammal, Muththayi, Cheran (guest appearance)',
-          genres: 'Comedy, Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '8.1/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Dhoom Dhaam (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Dhoom%20Dhaam%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Dhoom%20Dhaam%20(2025).mp4',
-        details: {
-          director: 'Rishab Seth',
-          starring: 'Yami Gautam Dhar, Pratik Gandhi, Eijaz Khan, Pavitra Sarkar, Neelu Kohli',
-          genres: 'Action, Comedy, Romance',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '6.4/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Madha Gaja Raja (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Madha%20Gaja%20Raja%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Madha%20Gaja%20Raja%20(2025).mp4',
-        details: {
-          director: 'Sundar C',
-          starring: 'Vishal, Anjali, Varalaxmi Sarathkumar, Santhanam, Sonu Sood, Manivannan, Subbaraju, Nithin Sathya, Sadagoppan Ramesh, Munna Simon, John Kokken',
-          genres: 'Action, Comedy',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '5.6/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Marco (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Marco%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Marco%20(2025).mp4',
-        details: {
-          director: 'Haneef Adeni',
-          starring: 'Unni Mukundan, Yukti Thareja, Kabir Duhan Singh, Anson Paul, Jagadeesh, Siddique',
-          genres: 'Action, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '8.1/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Operation Raavan (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Operation%20Raavan%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Operation%20Raavan%20(2025).mp4',
-        details: {
-          director: 'Venkata Satya',
-          starring: 'Rakshit Atluri, Sangeerthana Vipin, Radhika Sarathkumar, Charan Raj, Raghu Kunche',
-          genres: 'Crime, Mystery, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '2.0/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Rekhachithram (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Rekhachithram%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Rekhachithram%20(2025).mp4',
-        details: {
-          director: 'Jofin T. Chacko',
-          starring: 'Asif Ali, Anaswara Rajan, Manoj K. Jayan, Siddique, Jagadish, Saikumar, Harisree Ashokan, Indrans',
-          genres: 'Mystery, Crime, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '8.0/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Satchi Perumal (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Satchi%20Perumal%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Satchi%20Perumal%20(2025).mp4',
-        details: {
-          director: 'RP. Vinnu',
-          starring: 'Ashok Rangarajan, V P. Rajasekar, Pandiamma, Verra Paramasivam',
-          genres: 'Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '8.9/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'The Mehta Boys (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/The%20Mehta%20Boys%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/The%20Mehta%20Boys%20(2025).mp4',
-        details: {
-          director: 'Boman Irani',
-          starring: 'Boman Irani, Avinash Tiwary, Shreya Chaudhry, Puja Sarup, Harssh Singh',
-          genres: 'Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '8.1/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Tik Tok (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Tik%20Tok%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Tik%20Tok%20(2025).mp4',
-        details: {
-          director: 'Mathanakumar',
-          starring: 'Priyanka Arulmohan, Rajaji, Sushma Raj',
-          genres: 'Horror',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '7.6/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Vaagai (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Vaagai%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Vaagai%20(2025).mp4',
-        details: {
-          director: 'Ram Sevaa',
-          starring: 'Gaana Bala, Tarushi Jha, Chitra Lakshmanan, J U Niranjan, Pattimandram Raja, Karuthama Rajasri, Ramakrishnan, Sujatha Sivakumar',
-          genres: 'Romance',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '9.0/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Mr House Keeping (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Mr%20House%20Keeping%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Mr%20House%20Keeping%20(2025).mp4',
-        details: {
-          director: 'Arun Ravichandran',
-          starring: 'Hari Bhaskar, Losliya Mariyanesan, Ilavarasu, Sha Ra, Rayan',
-          genres: 'Comedy, Drama, Romance',
-          quality: 'HQ PreDVD',
-          language: 'Tamil',
-          movieRating: '7.4/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Nesippaya (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Nesippaya%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Nesippaya%20(2025).mp4',
-        details: {
-          director: 'Vishnuvardhan',
-          starring: 'Akash Murali, Aditi Shankar, R. Sarathkumar, Prabhu, Khushbu Sundar',
-          genres: 'Romantic Action Thriller',
-          quality: 'HQ PreDVD',
-          language: 'Tamil',
-          movieRating: '9.3/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Vallan (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Vallan%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Vallan%20(2025).mp4',
-        details: {
-          director: 'VR Mani Seiyon',
-          starring: 'Sundar C, Tanya Hope, Hebah Patel, Kamal Kamaraju, Abhirami Venkatachalam, Chandini Tamilarasan, Thalaivaasal Vijay, Jayakumar, TSK',
-          genres: 'Action, Crime, Thriller',
-          quality: 'HQ PreDVD',
-          language: 'Tamil',
-          movieRating: '8.7/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Daksha (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Daksha%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Daksha%20(2025).mp4',
-        details: {
-          director: 'Vivekananda Vikranth',
-          starring: 'Thallada Sai Krishna, Shoban Bogaraju, Aayush Tejas, Kota Nakshatra',
-          genres: 'Horror, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '7.7/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Dinasari (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Dinasari%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Dinasari%20(2025).mp4',
-        details: {
-          director: 'G Sankar',
-          starring: 'Srikanth, Cynthia Lourde, M. S. Bhaskar, Premji Amaren, Chaams, Radha Ravi, Meera Krishnan, Vinodhini Vaidynathan, KPY Chandini Tamilarasan, Navya',
-          genres: 'Drama',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '8.7/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Hathya (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Hathya%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Hathya%20(2025).mp4',
-        details: {
-          director: 'Srividya Basawa',
-          starring: 'Dhanya Balakrishna, Ravi Varma, Pooja Ramachandran, Bindu Chandramouli, Srikanth Iyengar',
-          genres: 'Crime, Drama, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '9.4/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
-        title: 'Lara (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Lara%20(2025)_Resized.png',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Lara%20(2025).mp4',
-        details: {
-          director: 'Mani Moorthi',
-          starring: 'Ashok Kumar Balakrishnan, M Karthikesan, Anusreya Rajan, Varshini Venkat, Venmathi Dileep Kumar, Mathew Varghese, Pradeep Bala, SK Babu',
-          genres: 'Suspense, Thriller',
-          quality: 'HDRip',
-          language: 'Tamil',
-          movieRating: '7.1/10',
-          lastUpdated: '14 March 2025'
-        }
-},
-{
+      },
+      {
+        type: "movie",
         title: 'Neela Nira Sooriyan (2025)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/14-03-2025/Neela%20Nira%20Sooriyan%20(2025)_Resized.png',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Neela%20Nira%20Sooriyan%20(2025).mp4',
         details: {
           director: 'Samyuktha Vijayan',
-          starring: 'Samyuktha Vijayan, Kitty Krishnamoorthy, Geetha Kailasam, Masanth Natarajan',
+          starring: 'Samyuktha Vijayan, Kitty Krishnamoorthy, Geetha Kailasam',
           genres: 'Drama',
           quality: 'HDRip',
           language: 'Tamil',
           movieRating: '8.4/10',
           lastUpdated: '14 March 2025'
         }
-},
+      },
+      {
+        type: "movie",
+        title: 'Turbo (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/15-03-2025/Turbo%20(2025).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/15-03-2025/Turbo%20(2025).mp4',
+        details: {
+          director: 'Vivek Athreya',
+          starring: 'Mammootty, Raj B. Shetty, Kannada Kishore',
+          genres: 'Action, Thriller',
+          quality: 'HDRip',
+          language: 'Malayalam',
+          movieRating: '7.9/10',
+          lastUpdated: '15 March 2025'
+        }
+      },
+      {
+        type: "movie",
+        title: 'Mr. Bachchan (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/15-03-2025/Mr.%20Bachchan%20(2025).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/15-03-2025/Mr.%20Bachchan%20(2025).mp4',
+        details: {
+          director: 'Srujan Lokesh',
+          starring: 'Srujan Lokesh, Chaithra Achar, Manohar, Rangayana Raghu',
+          genres: 'Comedy, Drama',
+          quality: 'HDRip',
+          language: 'Kannada',
+          movieRating: '7.5/10',
+          lastUpdated: '15 March 2025'
+        }
+      },
+      {
+        type: "movie",
+        title: 'Blink (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/15-03-2025/Blink%20(2025).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/15-03-2025/Blink%20(2025).mp4',
+        details: {
+          director: 'Srinivas Raju',
+          starring: 'Diganth Manchale, Chaitra Reddy, Arjun Janya',
+          genres: 'Horror, Thriller',
+          quality: 'HDRip',
+          language: 'Kannada',
+          movieRating: '7.8/10',
+          lastUpdated: '15 March 2025'
+        }
+      },
+      {
+        type: "movie",
+        title: 'Aakasam Lo Oka Tara (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/14-03-2025/Aakasam%20Lo%20Oka%20Tara%20(2025).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Aakasam%20Lo%20Oka%20Tara%20(2025).mp4',
+        details: {
+          director: 'Pavan Sadineni',
+          starring: 'Shiva Kandukuri, Malavika Satheesan, Riya Suman',
+          genres: 'Romantic, Drama',
+          quality: 'HDRip',
+          language: 'Telugu',
+          movieRating: '7.2/10',
+          lastUpdated: '14 March 2025'
+        }
+      },
+      {
+        type: "movie",
+        title: 'Eagle (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/14-03-2025/Eagle%20(2025).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Eagle%20(2025).mp4',
+        details: {
+          director: 'Karthik Gattamneni',
+          starring: 'Ravi Teja, Kavya Thapar, Anupama Parameswaran',
+          genres: 'Action, Thriller',
+          quality: 'HDRip',
+          language: 'Telugu',
+          movieRating: '8.0/10',
+          lastUpdated: '14 March 2025'
+        }
+      },
+      {
+        type: "series",
+        title: 'Made in Heaven S2 (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Series/17-03-2025/Made%20in%20Heaven%20S2%20(2025).jpg',
+        video: '',
+        details: {
+          director: 'Zoya Akhtar, Reema Kagti',
+          starring: 'Sobhita Dhulipala, Arjun Mathur, Jim Sarbh',
+          genres: 'Drama',
+          quality: 'Coming Tomorrow',
+          language: 'Hindi',
+          movieRating: '9.2/10',
+          lastUpdated: '17 March 2025'
+        }
+      }
     ];
 
-    // Function to create video cards
-    function createVideoCards(data) {
+    // Function to handle watch button click
+    function handleWatchButton(videoUrl, isComingSoon) {
+      if (isComingSoon === 'true') {
+        document.getElementById('countdownModal').style.display = 'flex';
+        // Set countdown to tomorrow at noon
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow.setHours(12, 0, 0, 0);
+        
+        // Update countdown timer
+        const countdownTimer = document.getElementById('countdown');
+        if (countdownTimer) {
+          startCountdown(tomorrow);
+        }
+      } else {
+        // Navigate to video player with parameters
+        window.location.href = videoUrl;
+      }
+    }
+
+    // Function to close the countdown modal
+    function closeCountdownModal() {
+      document.getElementById('countdownModal').style.display = 'none';
+    }
+
+    // Function to start countdown timer
+    function startCountdown(targetDate) {
+      function updateCountdown() {
+        const currentTime = new Date();
+        const difference = targetDate - currentTime;
+        
+        if (difference > 0) {
+          const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+          
+          document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+          document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+          document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+          document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+        } else {
+          clearInterval(interval);
+          document.getElementById('days').innerHTML = '00';
+          document.getElementById('hours').innerHTML = '00';
+          document.getElementById('minutes').innerHTML = '00';
+          document.getElementById('seconds').innerHTML = '00';
+        }
+      }
+      
+      // Update the countdown every second
+      updateCountdown();
+      const interval = setInterval(updateCountdown, 1000);
+    }
+
+    // Function to load gallery content
+    function loadGallery() {
       const gallery = document.getElementById('gallery');
       gallery.innerHTML = '';
-
-      if (data.length === 0) {
-        const noResults = document.createElement('div');
-        noResults.classList.add('no-results');
-        noResults.innerHTML = `
-          <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 15px">
-            <path d="M10 3H3V10H10V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M21 3H14V10H21V3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M21 14H14V21H21V14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M10 14H3V21H10V14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <p>No movies found. Try a different search term.</p>
-        `;
-        gallery.appendChild(noResults);
-        return;
-      }
-
-      data.forEach((video) => {
-        // Extract rating number for displaying stars
-        const ratingValue = parseFloat(video.details.movieRating) || 0;
+      
+      videoData.forEach(video => {
+        const detailsEncoded = encodeURIComponent(JSON.stringify(video.details));
+        const isComingSoon = (!video.video || video.video.trim() === "");
+        const videoUrl = isComingSoon ? "" : `player.html?video=${encodeURIComponent(video.video)}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${detailsEncoded}`;
         
-        // Create card element
         const card = document.createElement('div');
-        card.classList.add('card');
-        
-        // Create card image container
-        const imageContainer = document.createElement('div');
-        imageContainer.classList.add('card-image-container');
-        
-        // Create and add image
-        const image = document.createElement('img');
-        image.src = video.image;
-        image.alt = video.title;
-        imageContainer.appendChild(image);
-        
-        // Create and add quality badge
-        const qualityBadge = document.createElement('div');
-        qualityBadge.classList.add('quality-badge');
-        qualityBadge.textContent = video.details.quality;
-        imageContainer.appendChild(qualityBadge);
-        
-        // Create card content
-        const cardContent = document.createElement('div');
-        cardContent.classList.add('card-content');
-        
-        // Create and add title
-        const title = document.createElement('h2');
-        title.classList.add('card-title');
-        title.textContent = video.title;
-        cardContent.appendChild(title);
-        
-        // Create card details section
-        const cardDetails = document.createElement('div');
-        cardDetails.classList.add('card-details');
-        
-        // Create rating element
-        const rating = document.createElement('div');
-        rating.classList.add('rating');
-        
-        // Add star icon
-        const starIcon = document.createElement('span');
-        starIcon.classList.add('star-icon');
-        starIcon.innerHTML = `
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="gold" stroke="gold" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-image-container">
+            <img src="${video.image}" alt="${video.title}">
+            <div class="quality-badge ${isComingSoon ? 'coming-soon' : ''}">${video.details.quality}</div>
+            <div class="type-badge">${video.type === 'movie' ? 'MOVIE' : 'SERIES'}</div>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">${video.title}</h3>
+            <div class="card-details">
+              <div class="rating">
+                <span class="star-icon">★</span>
+                ${video.details.movieRating}
+              </div>
+              <button class="watch-button" onclick="handleWatchButton('${videoUrl}', '${isComingSoon}')">
+                ${isComingSoon ? 'Coming Soon' : 'Watch'}
+              </button>
+            </div>
+          </div>
         `;
-        rating.appendChild(starIcon);
-        
-        // Add rating text
-        const ratingText = document.createElement('span');
-        ratingText.textContent = video.details.movieRating;
-        rating.appendChild(ratingText);
-        
-        cardDetails.appendChild(rating);
-        
-        // Create watch button
-        const watchButton = document.createElement('a');
-        watchButton.classList.add('watch-button');
-        watchButton.textContent = 'Watch';
-        
-        // Prepare link parameters
-        const details = encodeURIComponent(JSON.stringify(video.details));
-        watchButton.href = `player.html?video=${encodeURIComponent(video.video)}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${details}`;
-        
-        cardDetails.appendChild(watchButton);
-        cardContent.appendChild(cardDetails);
-        
-        // Assemble the card
-        card.appendChild(imageContainer);
-        card.appendChild(cardContent);
-        
-        // Add card to gallery
         gallery.appendChild(card);
       });
     }
 
-    // Create video cards on page load
-    window.addEventListener('DOMContentLoaded', () => {
-      createVideoCards(videoData);
-    });
-
-    // Search functionality
-    const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', (e) => {
-      const searchTerm = e.target.value.toLowerCase().trim();
-      
-      if (searchTerm === '') {
-        createVideoCards(videoData);
-        return;
-      }
-      
-      const filteredData = videoData.filter((video) => {
-        return video.title.toLowerCase().includes(searchTerm) || 
-               (video.details.genres && video.details.genres.toLowerCase().includes(searchTerm)) ||
-               (video.details.director && video.details.director.toLowerCase().includes(searchTerm)) ||
-               (video.details.starring && video.details.starring.toLowerCase().includes(searchTerm));
+    // Initialize category tabs functionality
+    function initCategoryTabs() {
+      const tabs = document.querySelectorAll('.category-tab');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          // Remove active class from all tabs
+          tabs.forEach(t => t.classList.remove('active'));
+          // Add active class to clicked tab
+          this.classList.add('active');
+          
+          // Filter gallery based on selected category (Not implemented in this version)
+          // Future enhancement: Add filtering functionality
+        });
       });
-      
-      createVideoCards(filteredData);
+    }
+
+    // Initialize everything when the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      loadGallery();
+      initCategoryTabs();
     });
   </script>
 </body>
