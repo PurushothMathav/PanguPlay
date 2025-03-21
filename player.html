@@ -753,6 +753,11 @@
             <div class="detail-label">Updated:</div>
             <div id="lastUpdated" class="detail-value">Last Updated Date</div>
           </div>
+		  
+		  <div class="detail-row">
+            <div class="detail-label">Size:</div>
+            <div id="fileSize" class="detail-value">File size</div>
+          </div>
         </div>
       </div>
       
@@ -883,6 +888,7 @@ function updateHeaderTitle(title, isSeries = false, seasonNumber = null, episode
         document.getElementById('lastUpdated').textContent = details.lastUpdated || 'Not Available';
         document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
         document.getElementById('qualityBadge').textContent = details.quality || 'HD';
+		document.getElementById('fileSize').textContent = details.fileSize || 'Not Available';
         
         // Set genres as tags
         const genresContainer = document.getElementById('genres');
