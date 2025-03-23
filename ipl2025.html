@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PanguPlay IPL2025 Live</title>
+    <style>
+        :root {
+            --primary-color: #5716a4;
+            --secondary-color: #ff4500;
+            --accent-color: #f50796;
+            --light-color: #ffffff;
+            --dark-color: #1a1a1a;
+            --gradient: linear-gradient(135deg, #5716a4, #7e36ad, #9e55b7, #ba74c3, #d295d0);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--gradient);
+            color: var(--light-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            padding: 15px 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            margin-bottom: 20px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo {
+            max-width: 200px;
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .back-button {
+            position: relative;
+            left: 0;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 69, 0, 0.4);
+        }
+
+        .back-button:hover {
+            background-color: #ff6347;
+            transform: translateX(-5px);
+            box-shadow: 0 6px 12px rgba(255, 69, 0, 0.6);
+        }
+
+        .back-button svg {
+            margin-right: 5px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 720px;
+            height: 450px;
+            margin: 20px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .video-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border-color: var(--accent-color);
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+            border-radius: 8px;
+        }
+
+        .iframe-wrapper {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        iframe {
+            border-radius: 8px;
+        }
+
+        .note {
+            max-width: 720px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            color: var(--dark-color);
+            text-align: center;
+            border-left: 4px solid var(--accent-color);
+        }
+		
+		.stream-title {
+    margin-top: 10px;
+    font-size: 28px;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    /* Replace the current gradient with a brighter, more visible color */
+    <!-- background: linear-gradient(to right, #ff6a00, #ff2676); -->
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+        
+        <!-- .stream-title {
+            margin-top: 10px;
+            font-size: 28px;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: bold;
+            letter-spacing: 1px;
+        } -->
+        
+        /* Animated background elements */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .circle1 {
+            width: 300px;
+            height: 300px;
+            left: -150px;
+            top: 10%;
+            animation-delay: 0s;
+        }
+        
+        .circle2 {
+            width: 200px;
+            height: 200px;
+            right: -100px;
+            top: 30%;
+            animation-delay: 2s;
+        }
+        
+        .circle3 {
+            width: 150px;
+            height: 150px;
+            left: 20%;
+            bottom: -75px;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.8; }
+            100% { transform: translateY(0) rotate(360deg); opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+	<script disable-devtool-auto=
+'true'
+
+src=
+'https://cdn.jsdelivr.net/npm/disable-devtool'
+clear-log=
+'true'
+disable-select=
+
+'true' disable-copy=
+'true'
+
+disable-cut=
+
+'true' disable-paste=
+
+'true'></script>
+
+
+
+
+    <!-- Background animation elements -->
+    <div class="bg-animation">
+        <div class="bg-circle circle1"></div>
+        <div class="bg-circle circle2"></div>
+        <div class="bg-circle circle3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <button class="back-button" onclick="goToHome()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Home
+                </button>
+                <img src="https://storage.googleapis.com/panguplaybucket/logo.png" alt="PanguPlay IPL2025 Live Stream" class="logo">
+            </div>
+        </header>
+        
+        <h1 class="stream-title">IPL 2025 LIVE STREAM</h1>
+    </div>
+
+    <div class="video-container">
+        <div class="iframe-wrapper">
+            <iframe 
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation allow-fullscreen"
+                allow="fullscreen"
+                allowfullscreen
+                frameborder="0" 
+                marginheight="0" 
+                marginwidth="0" 
+                height="450" 
+                width="720"
+                src="https://cdn.crichdplays.ru/embed2.php?id=starsp" 
+                name="iframe_a" 
+                scrolling="no">
+                Your Browser Does not Support Iframe
+            </iframe>
+        </div>
+        <div class="video-overlay"></div>
+    </div>
+    
+    <div class="note">
+        <p>Enjoy watching IPL 2025 without any interruptions! This stream is protected from redirects.</p>
+    </div>
+
+    <script>
+        function goToHome() {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
