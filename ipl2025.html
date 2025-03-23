@@ -118,11 +118,11 @@
             border: none;
         }
 
-        /* Video control buttons */
+        /* Video control buttons - Moved to bottom right */
         .video-controls {
             position: absolute;
             bottom: 10px;
-            left: 10px;
+            right: 10px;
             z-index: 20;
             display: flex;
             gap: 10px;
@@ -149,6 +149,16 @@
             z-index: 10;
             background-color: transparent;
             cursor: default;
+        }
+
+        /* Exception area for controls - no blocking in bottom right */
+        .control-area {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 180px;
+            height: 60px;
+            z-index: 9;
         }
 
         /* Special notification when user tries to click on redirect areas */
@@ -215,13 +225,43 @@
             
             .video-controls {
                 bottom: 5px;
-                left: 5px;
+                right: 5px;
             }
             
             .control-button {
                 padding: 4px 8px;
                 font-size: 12px;
             }
+            
+            .control-area {
+                width: 140px;
+                height: 50px;
+            }
+        }
+        
+        /* Fullscreen in landscape orientation */
+        :fullscreen .video-container {
+            width: 100vw;
+            height: 100vh;
+            padding-bottom: 0;
+        }
+        
+        :-webkit-full-screen .video-container {
+            width: 100vw;
+            height: 100vh;
+            padding-bottom: 0;
+        }
+        
+        :-moz-full-screen .video-container {
+            width: 100vw;
+            height: 100vh;
+            padding-bottom: 0;
+        }
+        
+        :-ms-fullscreen .video-container {
+            width: 100vw;
+            height: 100vh;
+            padding-bottom: 0;
         }
     </style>
 </head>
@@ -261,7 +301,10 @@
             <!-- Unmute prompt that users can click -->
             <div class="unmute-prompt" id="unmute-prompt">CLICK HERE TO UNMUTE</div>
             
-            <!-- Our custom video controls -->
+            <!-- Area reserved for controls - no blocking here -->
+            <div class="control-area" id="control-area"></div>
+            
+            <!-- Our custom video controls - now in bottom right -->
             <div class="video-controls" id="video-controls">
                 <button class="control-button" id="mute-toggle">Unmute</button>
                 <button class="control-button" id="fullscreen-toggle">Fullscreen</button>
@@ -290,39 +333,52 @@
             const muteToggle = document.getElementById('mute-toggle');
             const fullscreenToggle = document.getElementById('fullscreen-toggle');
             const blockNotice = document.getElementById('block-notice');
+            const controlArea = document.getElementById('control-area');
             
-            // Create redirect blockers for known ad areas
+            // Track muted state
+            let isMuted = true;
+            
+            // Create redirect blockers for known ad areas except the control area
             function createBlockers() {
+                // Bottom area - cover everything except bottom right corner for controls
+                const bottomBlocker = document.createElement('div');
+                bottomBlocker.className = 'redirect-blocker';
+                bottomBlocker.style.bottom = '0';
+                bottomBlocker.style.left = '0';
+                bottomBlocker.style.width = 'calc(100% - 180px)'; // Leave space for controls on right
+                bottomBlocker.style.height = '60px';
+                
                 // Top area (often has overlays/ads)
                 const topBlocker = document.createElement('div');
                 topBlocker.className = 'redirect-blocker';
                 topBlocker.style.top = '0';
                 topBlocker.style.left = '0';
                 topBlocker.style.width = '100%';
-                topBlocker.style.height = '60px'; // Height of top area to block
+                topBlocker.style.height = '60px';
                 
-                // Side areas (often have overlays/ads)
+                // Side areas (often has overlays/ads)
                 const leftBlocker = document.createElement('div');
                 leftBlocker.className = 'redirect-blocker';
                 leftBlocker.style.top = '60px';
                 leftBlocker.style.left = '0';
                 leftBlocker.style.width = '60px';
-                leftBlocker.style.height = 'calc(100% - 60px)';
+                leftBlocker.style.height = 'calc(100% - 120px)'; // Account for top and bottom
                 
                 const rightBlocker = document.createElement('div');
                 rightBlocker.className = 'redirect-blocker';
                 rightBlocker.style.top = '60px';
                 rightBlocker.style.right = '0';
                 rightBlocker.style.width = '60px';
-                rightBlocker.style.height = 'calc(100% - 60px)';
+                rightBlocker.style.height = 'calc(100% - 120px)'; // Account for top and bottom
                 
                 // Add blockers to container
                 videoContainer.appendChild(topBlocker);
                 videoContainer.appendChild(leftBlocker);
                 videoContainer.appendChild(rightBlocker);
+                videoContainer.appendChild(bottomBlocker);
                 
                 // Add event listeners to blockers
-                [topBlocker, leftBlocker, rightBlocker].forEach(blocker => {
+                [topBlocker, leftBlocker, rightBlocker, bottomBlocker].forEach(blocker => {
                     blocker.addEventListener('click', blockRedirect);
                     blocker.addEventListener('touchstart', blockRedirect, { passive: false });
                 });
@@ -350,62 +406,171 @@
                 unmutePrompt.style.display = 'none';
             });
             
-            // Function to attempt unmuting the video
+            // Improved function to attempt unmuting the video - multiple strategies
             function unmuteVideo() {
                 try {
-                    // First try to access iframe directly
+                    // Strategy 1: Direct iframe access
                     const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
                     if (iframeDoc) {
-                        const videoElement = iframeDoc.querySelector('video');
-                        if (videoElement) {
-                            videoElement.muted = false;
+                        // Try to find all video and audio elements
+                        const videoElements = iframeDoc.querySelectorAll('video, audio');
+                        if (videoElements.length > 0) {
+                            videoElements.forEach(element => {
+                                element.muted = false;
+                                if (element.paused) element.play();
+                            });
+                            isMuted = false;
                             muteToggle.textContent = "Mute";
+                            return true;
                         }
                     }
                 } catch (e) {
-                    console.log("Trying alternative unmute method");
-                    
-                    // If we can't access iframe directly, use postMessage API
+                    console.log("Direct iframe access failed, trying alternative methods");
+                }
+                
+                try {
+                    // Strategy 2: postMessage API
                     iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+                    iframe.contentWindow.postMessage('{"method":"setVolume","value":"1"}', '*');
                     
-                    // Update button text
+                    // Strategy 3: YouTube specific API (if it's YouTube embedded)
+                    iframe.contentWindow.postMessage('{"event":"listening","id":1}', '*');
+                    setTimeout(() => {
+                        iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+                    }, 100);
+                    
+                    // Strategy 4: HTML5 Video Player API
+                    iframe.contentWindow.postMessage('unmute', '*');
+                    
+                    isMuted = false;
                     muteToggle.textContent = "Mute";
+                    return true;
+                } catch (e) {
+                    console.log("PostMessage methods failed:", e);
+                }
+                
+                // Final fallback: reload iframe with autoplay and muted=false parameters
+                try {
+                    if (iframe.src.indexOf('?') > -1) {
+                        iframe.src = iframe.src + '&muted=0&autoplay=1';
+                    } else {
+                        iframe.src = iframe.src + '?muted=0&autoplay=1';
+                    }
+                    isMuted = false;
+                    muteToggle.textContent = "Mute";
+                    return true;
+                } catch (e) {
+                    console.log("All unmute methods failed:", e);
+                    return false;
                 }
             }
             
-            // Toggle mute/unmute
-            muteToggle.addEventListener('click', function() {
+            // Function to mute the video - multiple strategies
+            function muteVideo() {
                 try {
+                    // Strategy 1: Direct iframe access
                     const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
                     if (iframeDoc) {
-                        const videoElement = iframeDoc.querySelector('video');
-                        if (videoElement) {
-                            videoElement.muted = !videoElement.muted;
-                            muteToggle.textContent = videoElement.muted ? "Unmute" : "Mute";
+                        const videoElements = iframeDoc.querySelectorAll('video, audio');
+                        if (videoElements.length > 0) {
+                            videoElements.forEach(element => {
+                                element.muted = true;
+                            });
+                            isMuted = true;
+                            muteToggle.textContent = "Unmute";
+                            return true;
                         }
                     }
                 } catch (e) {
-                    // Fallback method
-                    if (muteToggle.textContent === "Unmute") {
-                        iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-                        muteToggle.textContent = "Mute";
-                    } else {
+                    console.log("Direct iframe access failed, trying alternative methods");
+                }
+                
+                try {
+                    // Strategy 2: postMessage API
+                    iframe.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
+                    iframe.contentWindow.postMessage('{"method":"setVolume","value":"0"}', '*');
+                    
+                    // Strategy 3: YouTube specific API
+                    iframe.contentWindow.postMessage('{"event":"listening","id":1}', '*');
+                    setTimeout(() => {
                         iframe.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
-                        muteToggle.textContent = "Unmute";
-                    }
+                    }, 100);
+                    
+                    // Strategy 4: HTML5 Video Player API
+                    iframe.contentWindow.postMessage('mute', '*');
+                    
+                    isMuted = true;
+                    muteToggle.textContent = "Unmute";
+                    return true;
+                } catch (e) {
+                    console.log("PostMessage methods failed:", e);
+                    return false;
+                }
+            }
+            
+            // Toggle mute/unmute with improved functionality
+            muteToggle.addEventListener('click', function() {
+                if (isMuted) {
+                    unmuteVideo();
+                } else {
+                    muteVideo();
                 }
             });
             
-            // Toggle fullscreen
+            // Improved fullscreen toggle with orientation lock for mobile
             fullscreenToggle.addEventListener('click', function() {
-                if (videoContainer.requestFullscreen) {
-                    videoContainer.requestFullscreen();
-                } else if (videoContainer.mozRequestFullScreen) {
-                    videoContainer.mozRequestFullScreen();
-                } else if (videoContainer.webkitRequestFullscreen) {
-                    videoContainer.webkitRequestFullscreen();
-                } else if (videoContainer.msRequestFullscreen) {
-                    videoContainer.msRequestFullscreen();
+                try {
+                    // First check if we're already in fullscreen
+                    const isFullscreen = document.fullscreenElement || 
+                                        document.webkitFullscreenElement || 
+                                        document.mozFullScreenElement || 
+                                        document.msFullscreenElement;
+                    
+                    if (!isFullscreen) {
+                        // Try to enter fullscreen
+                        if (videoContainer.requestFullscreen) {
+                            videoContainer.requestFullscreen({navigationUI: "hide"});
+                        } else if (videoContainer.webkitRequestFullscreen) {
+                            videoContainer.webkitRequestFullscreen({navigationUI: "hide"});
+                        } else if (videoContainer.mozRequestFullScreen) {
+                            videoContainer.mozRequestFullScreen({navigationUI: "hide"});
+                        } else if (videoContainer.msRequestFullscreen) {
+                            videoContainer.msRequestFullscreen({navigationUI: "hide"});
+                        }
+                        
+                        // Force landscape orientation for mobile devices
+                        try {
+                            if (screen.orientation && screen.orientation.lock) {
+                                screen.orientation.lock('landscape').catch(e => {
+                                    console.log("Could not lock orientation: ", e);
+                                });
+                            }
+                        } catch (e) {
+                            console.log("Orientation API not supported");
+                        }
+                    } else {
+                        // Exit fullscreen
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        } else if (document.webkitExitFullscreen) {
+                            document.webkitExitFullscreen();
+                        } else if (document.mozCancelFullScreen) {
+                            document.mozCancelFullScreen();
+                        } else if (document.msExitFullscreen) {
+                            document.msExitFullscreen();
+                        }
+                        
+                        // Release orientation lock
+                        try {
+                            if (screen.orientation && screen.orientation.unlock) {
+                                screen.orientation.unlock();
+                            }
+                        } catch (e) {
+                            console.log("Orientation API not supported");
+                        }
+                    }
+                } catch (e) {
+                    console.log("Fullscreen error:", e);
                 }
             });
             
@@ -416,16 +581,18 @@
                     // Create blockers for problematic areas
                     createBlockers();
                     
-                    // Some videos auto-play muted - attempt to detect this
+                    // Try to detect if video is already playing with sound
                     try {
                         const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
                         if (iframeDoc) {
                             const videoElement = iframeDoc.querySelector('video');
-                            if (videoElement && videoElement.muted) {
-                                // Leave unmute prompt visible
-                            } else {
-                                // Hide unmute prompt if video is already playing with sound
-                                unmutePrompt.style.display = 'none';
+                            if (videoElement) {
+                                isMuted = videoElement.muted;
+                                if (!isMuted) {
+                                    // Hide unmute prompt if video is already playing with sound
+                                    unmutePrompt.style.display = 'none';
+                                    muteToggle.textContent = "Mute";
+                                }
                             }
                         }
                     } catch (e) {
@@ -438,25 +605,38 @@
             // Add additional mobile-specific protection
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
                 document.addEventListener('touchstart', function(e) {
-                    // If the touch is outside the safe video area, analyze it
+                    // Get the control area dimensions
+                    const controlAreaRect = controlArea.getBoundingClientRect();
+                    
+                    // If the touch is in the bottom right control area, allow it
                     const touch = e.touches[0];
+                    if (touch.clientX >= controlAreaRect.left && 
+                        touch.clientX <= controlAreaRect.right && 
+                        touch.clientY >= controlAreaRect.top && 
+                        touch.clientY <= controlAreaRect.bottom) {
+                        return true;
+                    }
+                    
+                    // Otherwise check if it's in the video container
                     const videoRect = videoContainer.getBoundingClientRect();
                     
-                    // Calculate safe area (avoiding edges)
+                    // Calculate safe area (central part of video)
                     const safeLeft = videoRect.left + 60;
                     const safeRight = videoRect.right - 60;
                     const safeTop = videoRect.top + 60;
+                    const safeBottom = videoRect.bottom - 60;
                     
-                    // If touch is in potentially dangerous area
-                    if (e.target.closest('.redirect-blocker') || 
-                        touch.clientX < safeLeft || 
-                        touch.clientX > safeRight || 
-                        touch.clientY < safeTop) {
-                        // Only if we're touching inside the video container
-                        if (touch.clientX >= videoRect.left && 
-                            touch.clientX <= videoRect.right && 
-                            touch.clientY >= videoRect.top && 
-                            touch.clientY <= videoRect.bottom) {
+                    // If touch is in potentially dangerous area of video container
+                    if (touch.clientX >= videoRect.left && 
+                        touch.clientX <= videoRect.right && 
+                        touch.clientY >= videoRect.top && 
+                        touch.clientY <= videoRect.bottom) {
+                        
+                        // If not in the safe central area
+                        if (touch.clientX < safeLeft || 
+                            touch.clientX > safeRight || 
+                            touch.clientY < safeTop ||
+                            touch.clientY > safeBottom) {
                             e.preventDefault();
                             blockNotice.style.opacity = '1';
                             setTimeout(() => {
@@ -466,6 +646,25 @@
                         }
                     }
                 }, { passive: false });
+            }
+            
+            // Listen for fullscreen change events to update UI
+            document.addEventListener('fullscreenchange', handleFullscreenChange);
+            document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+            document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+            document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+            
+            function handleFullscreenChange() {
+                const isFullscreen = document.fullscreenElement || 
+                                   document.webkitFullscreenElement || 
+                                   document.mozFullScreenElement || 
+                                   document.msFullscreenElement;
+                                   
+                if (isFullscreen) {
+                    fullscreenToggle.textContent = "Exit Fullscreen";
+                } else {
+                    fullscreenToggle.textContent = "Fullscreen";
+                }
             }
         });
     </script>
