@@ -144,15 +144,47 @@
         }
 
         .note {
-            width: 90%;
-            max-width: 800px;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 12px;
-            border-radius: 8px;
-            margin: 15px auto;
-            color: var(--dark-color);
-            text-align: center;
-        }
+    width: 90%;
+    max-width: 800px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px auto;
+    color: var(--dark-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.note p {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.note ol {
+    padding-left: 30px;
+    margin: 10px 0;
+}
+
+.note li {
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.note strong {
+    color: var(--secondary-color);
+}
+
+.image-item {
+    list-style-type: none;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.image-item img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
 
         /* Mobile Responsive Fixes */
         @media (max-width: 768px) {
@@ -169,11 +201,7 @@
                 margin: 5px auto;
             }
             
-            .note {
-                font-size: 14px;
-                padding: 10px;
-                margin: 10px auto;
-            }
+            
             
             .video-controls {
                 bottom: 5px;
@@ -184,9 +212,15 @@
                 padding: 4px 8px;
                 font-size: 12px;
             }
+			
+			.note {
+        width: 95%;
+        padding: 12px;
+    }
         }
         
         
+
     </style>
 </head>
 <body>
@@ -231,9 +265,22 @@
     </div>
         
         <div class="note">
-            <p>Enjoy watching IPL 2025!</p>
+			<p><strong>Note:</strong> To unmute audio follow below steps</p>
+        <ol>
+            <li>The Video Player has a <code>too many redirects</code> attribute </li>
+            <li>Turn on autorotate to change landscape mode</li>
+			<li class="image-item">
+				<img src="intruction.jpg" alt="Instruction image" width="300">
+			</li>
+			<li>Click that x button</li>
+        </ol>
+        <p>Now mute/unmute and all other controls will work fine</p>
+		<p>Enjoy watching IPL 2025!</p>
+           
         </div>
     </div>
+	
+		
 
     <script>
         // Function to navigate to home page
