@@ -361,6 +361,38 @@
         font-size: 12px;
       }
     }
+	
+	/* Add this to your existing CSS styles section */
+.new-badge {
+  position: absolute;
+  top: 10px;
+  left: 80px; /* Positioned to the right of the type badge */
+  background-color: #ff0000; /* Red background */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 1;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+	
+	
   </style>
 </head>
 <body>
@@ -2105,24 +2137,136 @@
     ];
     
     // Function to load videos to gallery
-    function loadGallery(filter = 'all') {
-      const gallery = document.getElementById('gallery');
-      gallery.innerHTML = ''; // Clear existing content
+function loadGallery(filter = 'all') {
+  const gallery = document.getElementById('gallery');
+  gallery.innerHTML = ''; // Clear existing content
+  
+  // Filter videos based on selected type
+  let filteredVideos = filter === 'all' 
+    ? videoData 
+    : videoData.filter(video => video.type === filter);
+  
+  // Sort videos by last updated date (newest first)
+  filteredVideos = filteredVideos.sort((a, b) => {
+    const dateA = new Date(convertDateFormat(a.details.lastUpdated));
+    const dateB = new Date(convertDateFormat(b.details.lastUpdated));
+    return dateB - dateA; // Descending order (newest first)
+  });
+  
+  if (filteredVideos.length === 0) {
+    gallery.innerHTML = '<div class="no-results">No videos found.</div>';
+    return;
+  }
+  
+  // Find the most recently updated movie date
+  const newestMovieDate = new Date(convertDateFormat(filteredVideos[0].details.lastUpdated));
+  newestMovieDate.setHours(0, 0, 0, 0); // Set to beginning of day for fair comparison
+  
+  // Generate cards for each video
+  filteredVideos.forEach((video) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    
+    // Check if this movie was updated on the same day as the newest movie
+    const movieDate = new Date(convertDateFormat(video.details.lastUpdated));
+    movieDate.setHours(0, 0, 0, 0); // Set to beginning of day
+    const isNew = movieDate.getTime() === newestMovieDate.getTime();
+    
+    // Prepare details for passing to player
+    const detailsEncoded = encodeURIComponent(JSON.stringify(video.details));
+    
+    // Determine link URL based on video type
+    let videoUrl;
+    if (video.type === 'movie') {
+      videoUrl = `player.html?video=${encodeURIComponent(video.video)}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${detailsEncoded}`;
+    } else {
+      // For series, encode episode information
+      const episodesEncoded = encodeURIComponent(JSON.stringify(video.episodes));
+      videoUrl = `player.html?id=${video.id}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${detailsEncoded}&episodes=${episodesEncoded}`;
+    }
+    
+    // Create card HTML
+    card.innerHTML = `
+      <div class="card-image-container">
+        <img src="${video.image}" alt="${video.title}" loading="lazy">
+        <div class="quality-badge">${video.details.quality}</div>
+        <div class="type-badge">${video.type === 'movie' ? 'MOVIE' : 'SERIES'}</div>
+        ${isNew ? '<div class="new-badge">NEW</div>' : ''}
+      </div>
+      <div class="card-content">
+        <h3 class="card-title">${video.title}</h3>
+        <div class="card-details">
+          <div class="rating">
+            <span class="star-icon">★</span>
+            ${video.details.movieRating}
+          </div>
+          <a href="${videoUrl}" class="watch-button">Watch</a>
+        </div>
+      </div>
+    `;
+    
+    gallery.appendChild(card);
+  });
+}
+
+// Also update the search function to maintain tag only on newest movie
+function setupSearch() {
+  const searchInput = document.getElementById('searchInput');
+  
+  searchInput.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase().trim();
+    
+    if (searchTerm === '') {
+      // If search is empty, show all videos based on active filter
+      const activeFilter = document.querySelector('.filter-button.active').getAttribute('data-filter');
+      loadGallery(activeFilter);
+      return;
+    }
+    
+    // Get active filter
+    const activeFilter = document.querySelector('.filter-button.active').getAttribute('data-filter');
+    
+    // Filter videos based on search term and active filter
+    let filteredVideos = videoData.filter(video => {
+      // Check if video matches active filter
+      const matchesFilter = activeFilter === 'all' || video.type === activeFilter;
       
-      // Filter videos based on selected type
-      const filteredVideos = filter === 'all' 
-        ? videoData 
-        : videoData.filter(video => video.type === filter);
+      // Check if video title matches search term
+      const matchesSearch = video.title.toLowerCase().includes(searchTerm);
       
-      if (filteredVideos.length === 0) {
-        gallery.innerHTML = '<div class="no-results">No videos found.</div>';
-        return;
-      }
+      return matchesFilter && matchesSearch;
+    });
+    
+    // Sort videos by last updated date (newest first)
+    filteredVideos = filteredVideos.sort((a, b) => {
+      const dateA = new Date(convertDateFormat(a.details.lastUpdated));
+      const dateB = new Date(convertDateFormat(b.details.lastUpdated));
+      return dateB - dateA; // Descending order (newest first)
+    });
+    
+    // Display filtered results
+    const gallery = document.getElementById('gallery');
+    gallery.innerHTML = '';
+    
+    if (filteredVideos.length === 0) {
+      gallery.innerHTML = '<div class="no-results">No matching videos found.</div>';
+      return;
+    }
+    
+    // Find the most recently updated movie date
+    if (filteredVideos.length > 0) {
+      const newestMovieDate = new Date(convertDateFormat(filteredVideos[0].details.lastUpdated));
+      newestMovieDate.setHours(0, 0, 0, 0); // Set to beginning of day for fair comparison
       
-      // Generate cards for each video
-      filteredVideos.forEach(video => {
+      // Generate cards for filtered videos
+      filteredVideos.forEach((video) => {
         const card = document.createElement('div');
         card.className = 'card';
+        
+        // Check if this movie was updated on the same day as the newest movie
+        const movieDate = new Date(convertDateFormat(video.details.lastUpdated));
+        movieDate.setHours(0, 0, 0, 0); // Set to beginning of day
+        const isNew = movieDate.getTime() === newestMovieDate.getTime();
         
         // Prepare details for passing to player
         const detailsEncoded = encodeURIComponent(JSON.stringify(video.details));
@@ -2143,6 +2287,7 @@
             <img src="${video.image}" alt="${video.title}" loading="lazy">
             <div class="quality-badge">${video.details.quality}</div>
             <div class="type-badge">${video.type === 'movie' ? 'MOVIE' : 'SERIES'}</div>
+            ${isNew ? '<div class="new-badge">NEW</div>' : ''}
           </div>
           <div class="card-content">
             <h3 class="card-title">${video.title}</h3>
@@ -2159,106 +2304,73 @@
         gallery.appendChild(card);
       });
     }
-    
-    // Function to filter gallery based on button click
-    function setupFilters() {
-      const filterButtons = document.querySelectorAll('.filter-button');
+  });
+}
+
+// Define the missing convertDateFormat function
+function convertDateFormat(dateString) {
+  // Convert date formats like "22 March 2025" to "2025-03-22" for proper sorting
+  const months = {
+    'January': '01', 'February': '02', 'March': '03', 'April': '04',
+    'May': '05', 'June': '06', 'July': '07', 'August': '08',
+    'September': '09', 'October': '10', 'November': '11', 'December': '12'
+  };
+  
+  const parts = dateString.split(' ');
+  if (parts.length === 3) {
+    const day = parts[0].padStart(2, '0');
+    const month = months[parts[1]] || '01';
+    const year = parts[2];
+    return `${year}-${month}-${day}`;
+  }
+  
+  return dateString; // Return original if format doesn't match
+}
+
+// Also, make sure the setupFilters function is defined
+function setupFilters() {
+  const filterButtons = document.querySelectorAll('.filter-button');
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Remove active class from all buttons
+      filterButtons.forEach(btn => btn.classList.remove('active'));
       
-      filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          // Remove active class from all buttons
-          filterButtons.forEach(btn => btn.classList.remove('active'));
-          
-          // Add active class to clicked button
-          this.classList.add('active');
-          
-          // Get filter value
-          const filter = this.getAttribute('data-filter');
-          
-          // Apply filter
-          loadGallery(filter);
-        });
-      });
-    }
-    
-    // Function to handle search
-    function setupSearch() {
-      const searchInput = document.getElementById('searchInput');
+      // Add active class to clicked button
+      this.classList.add('active');
       
-      searchInput.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase().trim();
-        
-        if (searchTerm === '') {
-          // If search is empty, show all videos based on active filter
-          const activeFilter = document.querySelector('.filter-button.active').getAttribute('data-filter');
-          loadGallery(activeFilter);
-          return;
-        }
-        
-        // Get active filter
-        const activeFilter = document.querySelector('.filter-button.active').getAttribute('data-filter');
-        
-        // Filter videos based on search term and active filter
-        const filteredVideos = videoData.filter(video => {
-          // Check if video matches active filter
-          const matchesFilter = activeFilter === 'all' || video.type === activeFilter;
-          
-          // Check if video title matches search term
-          const matchesSearch = video.title.toLowerCase().includes(searchTerm);
-          
-          return matchesFilter && matchesSearch;
-        });
-        
-        // Display filtered results
-        const gallery = document.getElementById('gallery');
-        gallery.innerHTML = '';
-        
-        if (filteredVideos.length === 0) {
-          gallery.innerHTML = '<div class="no-results">No matching videos found.</div>';
-          return;
-        }
-        
-        // Generate cards for filtered videos
-        filteredVideos.forEach(video => {
-          const card = document.createElement('div');
-          card.className = 'card';
-          
-          // Prepare details for passing to player
-          const detailsEncoded = encodeURIComponent(JSON.stringify(video.details));
-          
-          // Determine link URL based on video type
-          let videoUrl;
-          if (video.type === 'movie') {
-            videoUrl = `player.html?video=${encodeURIComponent(video.video)}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${detailsEncoded}`;
-          } else {
-            // For series, encode episode information
-            const episodesEncoded = encodeURIComponent(JSON.stringify(video.episodes));
-            videoUrl = `player.html?id=${video.id}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${detailsEncoded}&episodes=${episodesEncoded}`;
-          }
-          
-          // Create card HTML
-          card.innerHTML = `
-            <div class="card-image-container">
-              <img src="${video.image}" alt="${video.title}" loading="lazy">
-              <div class="quality-badge">${video.details.quality}</div>
-              <div class="type-badge">${video.type === 'movie' ? 'MOVIE' : 'SERIES'}</div>
-            </div>
-            <div class="card-content">
-              <h3 class="card-title">${video.title}</h3>
-              <div class="card-details">
-                <div class="rating">
-                  <span class="star-icon">★</span>
-                  ${video.details.movieRating}
-                </div>
-                <a href="${videoUrl}" class="watch-button">Watch</a>
-              </div>
-            </div>
-          `;
-          
-          gallery.appendChild(card);
-        });
-      });
-    }
+      // Load gallery with selected filter
+      const filter = this.getAttribute('data-filter');
+      loadGallery(filter);
+    });
+  });
+}
+
+// CSS for enhanced flashing animation
+const style = document.createElement('style');
+style.textContent = `
+.new-badge {
+  position: absolute;
+  top: 10px;
+  left: 80px; /* Positioned to the right of the type badge */
+  background-color: #ff0000; /* Red background */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 1;
+  animation: flash-animation 1s infinite;
+}
+
+@keyframes flash-animation {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
+}
+`;
+
+document.head.appendChild(style);
     
     // Initialize gallery and filters when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
