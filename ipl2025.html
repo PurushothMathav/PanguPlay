@@ -186,30 +186,7 @@
             }
         }
         
-        /* Fullscreen in landscape orientation */
-        :fullscreen .video-container {
-            width: 100vw;
-            height: 100vh;
-            padding-bottom: 0;
-        }
         
-        :-webkit-full-screen .video-container {
-            width: 100vw;
-            height: 100vh;
-            padding-bottom: 0;
-        }
-        
-        :-moz-full-screen .video-container {
-            width: 100vw;
-            height: 100vh;
-            padding-bottom: 0;
-        }
-        
-        :-ms-fullscreen .video-container {
-            width: 100vw;
-            height: 100vh;
-            padding-bottom: 0;
-        }
     </style>
 </head>
 <body>
@@ -231,23 +208,27 @@
     <div class="container">
         <h1 class="stream-title">IPL 2025 LIVE STREAM</h1>
         
-        <div class="video-container" id="video-container">
-            <div class="iframe-wrapper">
-                <iframe 
-                    id="stream-iframe"
-                    sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation allow-fullscreen"
-                    allowfullscreen
-                    src="https://cdn.crichdplays.ru/embed2.php?id=starsp"
-                    scrolling="no">
-                    Your Browser Does not Support Iframe
-                </iframe>
-            </div>
-            
-            <!-- Our custom video controls - only fullscreen button now -->
-            <div class="video-controls" id="video-controls">
-                <button class="control-button" id="fullscreen-toggle">Fullscreen</button>
-            </div>
+        <div class="video-container">
+        <!-- The iframe with sandbox attributes to limit its capabilities -->
+        <div class="iframe-wrapper">
+            <iframe 
+    sandbox="allow-scripts allow-same-origin allow-fullscreen" 
+    allowfullscreen
+    frameborder="0" 
+    marginheight="0" 
+    marginwidth="0" 
+    height="450" 
+    width="720"
+    src="https://cdn.crichdplays.ru/embed2.php?id=starsp" 
+    name="iframe_a" 
+    scrolling="no">
+    Your Browser Does not Support Iframe
+</iframe>
         </div>
+        
+        <!-- Transparent overlay div that normally would capture clicks -->
+        <div class="video-overlay"></div>
+    </div>
         
         <div class="note">
             <p>Enjoy watching IPL 2025!</p>
@@ -259,88 +240,7 @@
         function goToHome() {
             window.location.href = "index.html";
         }
-        
-        // Wait for DOM to be fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            const videoContainer = document.getElementById('video-container');
-            const fullscreenToggle = document.getElementById('fullscreen-toggle');
-            
-            // Fullscreen toggle functionality
-            fullscreenToggle.addEventListener('click', function() {
-                try {
-                    // First check if we're already in fullscreen
-                    const isFullscreen = document.fullscreenElement || 
-                                        document.webkitFullscreenElement || 
-                                        document.mozFullScreenElement || 
-                                        document.msFullscreenElement;
-                    
-                    if (!isFullscreen) {
-                        // Try to enter fullscreen
-                        if (videoContainer.requestFullscreen) {
-                            videoContainer.requestFullscreen({navigationUI: "hide"});
-                        } else if (videoContainer.webkitRequestFullscreen) {
-                            videoContainer.webkitRequestFullscreen({navigationUI: "hide"});
-                        } else if (videoContainer.mozRequestFullScreen) {
-                            videoContainer.mozRequestFullScreen({navigationUI: "hide"});
-                        } else if (videoContainer.msRequestFullscreen) {
-                            videoContainer.msRequestFullscreen({navigationUI: "hide"});
-                        }
-                        
-                        // Force landscape orientation for mobile devices
-                        try {
-                            if (screen.orientation && screen.orientation.lock) {
-                                screen.orientation.lock('landscape').catch(e => {
-                                    console.log("Could not lock orientation: ", e);
-                                });
-                            }
-                        } catch (e) {
-                            console.log("Orientation API not supported");
-                        }
-                    } else {
-                        // Exit fullscreen
-                        if (document.exitFullscreen) {
-                            document.exitFullscreen();
-                        } else if (document.webkitExitFullscreen) {
-                            document.webkitExitFullscreen();
-                        } else if (document.mozCancelFullScreen) {
-                            document.mozCancelFullScreen();
-                        } else if (document.msExitFullscreen) {
-                            document.msExitFullscreen();
-                        }
-                        
-                        // Release orientation lock
-                        try {
-                            if (screen.orientation && screen.orientation.unlock) {
-                                screen.orientation.unlock();
-                            }
-                        } catch (e) {
-                            console.log("Orientation API not supported");
-                        }
-                    }
-                } catch (e) {
-                    console.log("Fullscreen error:", e);
-                }
-            });
-            
-            // Listen for fullscreen change events to update UI
-            document.addEventListener('fullscreenchange', handleFullscreenChange);
-            document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
-            document.addEventListener('mozfullscreenchange', handleFullscreenChange);
-            document.addEventListener('MSFullscreenChange', handleFullscreenChange);
-            
-            function handleFullscreenChange() {
-                const isFullscreen = document.fullscreenElement || 
-                                   document.webkitFullscreenElement || 
-                                   document.mozFullScreenElement || 
-                                   document.msFullscreenElement;
-                                   
-                if (isFullscreen) {
-                    fullscreenToggle.textContent = "Exit Fullscreen";
-                } else {
-                    fullscreenToggle.textContent = "Fullscreen";
-                }
-            }
-        });
+       
     </script>
 </body>
 </html>
