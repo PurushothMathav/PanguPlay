@@ -504,44 +504,7 @@
             { id: 'hosanna', name: 'Hosanna', category: 'religious', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/hosanna/live/embed' },
             { id: 'holy-god-tv', name: 'Holy God TV', category: 'religious', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/holy-god-tv/live/embed' },
             { id: 'athavan-tv-hd', name: 'Athavan TV HD', category: 'tamil', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/athavan-tv-hd/live/embed' },
-            { id: 'thalaa-tv', name: 'Thalaa TV', category: 'tamil', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/thalaa-tv/live/embed' },
-			
-			
-	
-    { 
-        id: 'news7tamil', 
-        name: 'News7 Tamil', 
-        category: 'news', 
-        youtubeUrl: 'https://www.youtube.com/embed/ndiKNJRWYrs?rel=0&modestbranding=1&iv_load_policy=3&controls=1&disablekb=0&showinfo=0&enablejsapi=1&origin=https://purushothmathav.github.io&autoplay=1'
-    },
-    { 
-        id: 'sunnews', 
-        name: 'Sun News', 
-        category: 'news', 
-        youtubeUrl: 'https://www.youtube.com/embed/9M02G5c6x6w?rel=0&modestbranding=1&iv_load_policy=3&controls=1&disablekb=0&showinfo=0&enablejsapi=1&origin=https://purushothmathav.github.io&autoplay=1'
-    },
-	{ 
-        id: 'sathiyamtv', 
-        name: 'Sathiyam TV', 
-        category: 'news', 
-        youtubeUrl: 'https://www.youtube.com/embed/DyRLbWtPvUQ?rel=0&modestbranding=1&iv_load_policy=3&controls=1&disablekb=0&showinfo=0&enablejsapi=1&origin=https://purushothmathav.github.io&autoplay=1'
-    },
-	{ 
-        id: 'rajnewstamil', 
-        name: 'Raj News Tamil', 
-        category: 'news', 
-        youtubeUrl: 'https://www.youtube.com/embed/qyeB_g2bcvs?rel=0&modestbranding=1&iv_load_policy=3&controls=1&disablekb=0&showinfo=0&enablejsapi=1&origin=https://purushothmathav.github.io&autoplay=1'
-    },
-	{ 
-        id: 'news18tamilnadu', 
-        name: 'News18 Tamilnadu', 
-        category: 'news', 
-        youtubeUrl: 'https://www.youtube.com/embed/dUJx4aDoIQo?rel=0&modestbranding=1&iv_load_policy=3&controls=1&disablekb=0&showinfo=0&enablejsapi=1&origin=https://purushothmathav.github.io&autoplay=1'
-    },
-   
-			
-			
-			
+            { id: 'thalaa-tv', name: 'Thalaa TV', category: 'tamil', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/thalaa-tv/live/embed' }
         ];
 
         // DOM elements
@@ -594,7 +557,7 @@
             });
         }
 
-         // Modify the loadChannel function to handle YouTube URLs
+        // Load channel
         function loadChannel(channelId, channelName) {
             // Show loading overlay
             loadingOverlay.classList.remove('hidden');
@@ -614,14 +577,10 @@
             // Get the channel object
             const channel = channels.find(c => c.id === channelId);
             
-            // Create new iframe with appropriate URL
+            // Create new iframe with appropriate URL based on channel type
             const iframe = document.createElement('iframe');
             
-            if (channel.youtubeUrl) {
-                // For YouTube live channels
-                iframe.setAttribute('src', channel.youtubeUrl);
-                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-            } else if (channel.baseUrl) {
+            if (channel.baseUrl) {
                 // For Tamil/YuppTV channels
                 iframe.setAttribute('src', channel.baseUrl);
                 iframe.setAttribute('allow', 'encrypted-media');
@@ -634,7 +593,6 @@
             
             iframe.setAttribute('allowfullscreen', 'true');
             iframe.setAttribute('scrolling', 'no');
-            iframe.setAttribute('frameborder', '0');
             
             // Add iframe to container
             playerContainer.appendChild(iframe);
