@@ -69,6 +69,7 @@
         
         .content {
             display: flex;
+            flex-direction: column;
         }
         
         @media (min-width: 768px) {
@@ -264,97 +265,6 @@
             color: rgba(255, 255, 255, 0.7);
         }
         
-		
-		
-		
-		/* Loading Text */
-		.loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            z-index: 9999;
-        }
-
-        .loading-text {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
-            text-align: center;
-            width: 100%;
-            height: 100px;
-            line-height: 100px;
-        }
-
-        .loading-text span {
-            display: inline-block;
-            margin: 0 5px;
-            color: #e657ff;
-            font-family: 'Quattrocento Sans', sans-serif;
-        }
-
-        .loading-text span:nth-child(1) {
-            filter: blur(0px);
-            animation: blur-text 1.5s 0s infinite linear alternate;
-        }
-
-        .loading-text span:nth-child(2) {
-            filter: blur(0px);
-            animation: blur-text 1.5s 0.2s infinite linear alternate;
-        }
-
-        .loading-text span:nth-child(3) {
-            filter: blur(0px);
-            animation: blur-text 1.5s 0.4s infinite linear alternate;
-        }
-
-        .loading-text span:nth-child(4) {
-            filter: blur(0px);
-            animation: blur-text 1.5s 0.6s infinite linear alternate;
-        }
-
-        .loading-text span:nth-child(5) {
-            filter: blur(0px);
-            animation: blur-text 1.5s 0.8s infinite linear alternate;
-        }
-
-        .loading-text span:nth-child(6) {
-            filter: blur(0px);
-            animation: blur-text 1.5s 1s infinite linear alternate;
-        }
-
-        .loading-text span:nth-child(7) {
-            filter: blur(0px);
-            animation: blur-text 1.5s 1.2s infinite linear alternate;
-        }
-
-        .loading-text span:nth-child(8) {
-            filter: blur(0px);
-            animation: blur-text 1.5s 1.4s infinite linear alternate;
-        }
-
-        .loading-text span:nth-child(9) {
-            filter: blur(0px);
-            animation: blur-text 1.5s 1.6s infinite linear alternate;
-        }
-        @keyframes blur-text {
-            0% {
-                filter: blur(0px);
-            }
-
-            100% {
-                filter: blur(4px);
-            }
-        }
-		
-		
-		
-		
         /* Home button responsive styles */
         @media (max-width: 768px) {
             header {
@@ -371,7 +281,6 @@
                 transform: translateX(-50%) translateY(-2px);
             }
         }
-		
     </style>
 </head>
 <body>
@@ -389,15 +298,10 @@
                 <div class="menu-header">
                     <input type="text" class="menu-search" id="channelSearch" placeholder="Search channels...">
                     <select class="category-selector" id="categorySelector">
-						<option value="all">All Channels</option>
-						<option value="ipl">IPL</option>
+                        <option value="all">All Channels</option>
                         <option value="cricket">Cricket</option>
                         <option value="football">Football</option>
                         <option value="sports">General Sports</option>
-                        <option value="tamil">Tamil Channels</option>
-                        <option value="news">Tamil News</option>
-                        <option value="religious">Tamil Religious</option>
-						
                     </select>
                 </div>
                 <ul class="channel-list" id="channelList">
@@ -416,20 +320,8 @@
                 
                 <div class="iframe-container" id="playerContainer">
                     <div class="no-channel-selected" id="noChannelMessage">
-                        <div id="loading" class="loading">
-<div class="loading-text">
-<span class="loading-text-words">P</span>
-<span class="loading-text-words">A</span>
-<span class="loading-text-words">N</span>
-<span class="loading-text-words">G</span>
-<span class="loading-text-words">U</span>
-<span class="loading-text-words"></span>
-<span class="loading-text-words">P</span>
-<span class="loading-text-words">L</span>
-<span class="loading-text-words">A</span>
-<span class="loading-text-words">Y</span>
-</div>
-</div>
+                        <h3>Select a channel from the menu</h3>
+                        <p>Choose your favorite sports channel to start watching</p>
                     </div>
                     <!-- The iframe will be inserted here by JavaScript -->
                 </div>
@@ -448,15 +340,14 @@
     <script>
         // Channel data
         const channels = [
-            // Sports Channels
-            { id: 'starsp', name: 'Star Sports 1', categories: ['cricket', 'ipl'] },
-            { id: 'starsp2', name: 'Star Sports 2', categories: ['cricket', 'ipl'] },
-            { id: 'starsp3', name: 'Star Sports 1 Hindi', categories: ['cricket', 'ipl'] },
-            { id: 'starsp1tam', name: 'Star Sports 1 Tamil', categories: ['cricket', 'ipl'] },
-            { id: 'starsp1tel', name: 'Star Sports 1 Telugu', categories: ['cricket', 'ipl'] },
-            { id: 'willow', name: 'Willow', categories: ['cricket', 'ipl'] },
-            { id: 'willowextra', name: 'Willow Extra', categories: ['cricket', 'ipl'] },
-            { id: 'skysp2', name: 'Sky Sports Cricket', categories: ['cricket', 'ipl'] },
+            { id: 'starsp', name: 'Star Sports 1', category: 'cricket' },
+            { id: 'starsp2', name: 'Star Sports 2', category: 'cricket' },
+            { id: 'starsp3', name: 'Star Sports 1 Hindi', category: 'cricket' },
+            { id: 'starsp1tam', name: 'Star Sports 1 Tamil', category: 'cricket' },
+            { id: 'starsp1tel', name: 'Star Sports 1 Telugu', category: 'cricket' },
+            { id: 'willow', name: 'Willow', category: 'cricket' },
+            { id: 'willowextra', name: 'Willow Extra', category: 'cricket' },
+            { id: 'skysp2', name: 'Sky Sports Cricket', category: 'cricket' },
             { id: 'skysp1', name: 'Sky Sports Main Event', category: 'sports' },
             { id: 'skyfb', name: 'Sky Sports Football', category: 'football' },
             { id: 'skyarena', name: 'Sky Sports Arena', category: 'sports' },
@@ -483,27 +374,7 @@
             { id: 'ten1', name: 'Sony Ten 1', category: 'sports' },
             { id: 'viaplaysp1', name: 'Premier Sports 1', category: 'sports' },
             { id: 'viaplaysp2', name: 'Premier Sports 2', category: 'sports' },
-            { id: 'geosuper', name: 'Geo Super', category: 'sports' },
-            
-            // Tamil TV Channels (added from the text file)
-            { id: 'puthiyathalaimurai', name: 'Puthiya Thalaimurai', category: 'news', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/puthiyathalaimurai/live/embed' },
-            { id: 'polimer-news', name: 'Polimer News', category: 'news', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/polimer-news/live/embed' },
-            { id: 'murasu', name: 'Murasu', category: 'tamil', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/murasu/live/embed' },
-            { id: 'peppers-tv', name: 'Peppers TV', category: 'tamil', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/peppers-tv/live/embed' },
-            { id: 'moon-tv', name: 'Moon TV', category: 'tamil', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/moon-tv/live/embed' },
-            { id: 'nambikkai', name: 'Nambikkai TV', category: 'religious', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/nambikkai/live/embed' },
-            { id: 'sivan-temple-tv', name: 'Sivan Temple TV', category: 'religious', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/sivan-temple-tv/live/embed' },
-            { id: 'seithigal-tv', name: 'Seithigal TV', category: 'news', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/seithigal-tv/live/embed' },
-            { id: 'thanthi-tv', name: 'Thanthi TV', category: 'news', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/thanthi-tv/live/embed' },
-            { id: 'sri-sankara-tamil', name: 'Sri Sankara Tamil', category: 'religious', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/sri-sankara-tamil/live/embed' },
-            { id: 'madha-tv', name: 'Madha TV', category: 'religious', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/madha-tv/live/embed' },
-            { id: 'svbc-2', name: 'SVBC 2', category: 'religious', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/svbc-2/live/embed' },
-            { id: 'angel-tv', name: 'Angel TV', category: 'religious', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/angel-tv/live/embed' },
-            { id: 'swasthik-tv', name: 'Swasthik TV', category: 'religious', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/swasthik-tv/live/embed' },
-            { id: 'hosanna', name: 'Hosanna', category: 'religious', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/hosanna/live/embed' },
-            { id: 'holy-god-tv', name: 'Holy God TV', category: 'religious', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/holy-god-tv/live/embed' },
-            { id: 'athavan-tv-hd', name: 'Athavan TV HD', category: 'tamil', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/athavan-tv-hd/live/embed' },
-            { id: 'thalaa-tv', name: 'Thalaa TV', category: 'tamil', baseUrl: 'https://www.yupptv.com/yupptvnew/channels/thalaa-tv/live/embed' }
+            { id: 'geosuper', name: 'Geo Super', category: 'sports' }
         ];
 
         // DOM elements
@@ -516,14 +387,12 @@
         const loadingOverlay = document.getElementById('loadingOverlay');
         const refreshBtn = document.getElementById('refreshBtn');
         const fullscreenBtn = document.getElementById('fullscreenBtn');
-        const loadingElement = document.getElementById('loading');
         
         let currentIframe = null;
         let activeChannelId = null;
-        let channelSelected = false;
 
         // Populate channel list
-        function populateChannelList(filteredChannels) {
+        function populateChannelList(filteredChannels = channels) {
             channelList.innerHTML = '';
             
             filteredChannels.forEach(channel => {
@@ -544,12 +413,6 @@
                         item.classList.remove('active');
                     });
                     listItem.classList.add('active');
-                    
-                    // Hide the loading screen when a channel is clicked
-                    channelSelected = true;
-                    if (loadingElement) {
-                        loadingElement.style.display = 'none';
-                    }
                 });
                 
                 channelList.appendChild(listItem);
@@ -573,23 +436,10 @@
             // Hide no channel message
             noChannelMessage.classList.add('hidden');
             
-            // Get the channel object
-            const channel = channels.find(c => c.id === channelId);
-            
-            // Create new iframe with appropriate URL based on channel type
+            // Create new iframe with sandbox attributes to block redirects and ads
             const iframe = document.createElement('iframe');
-            
-            if (channel.baseUrl) {
-                // For Tamil/YuppTV channels
-                iframe.setAttribute('src', channel.baseUrl);
-                iframe.setAttribute('allow', 'encrypted-media');
-                iframe.setAttribute('gesture', 'media');
-            } else {
-                // For sports channels
-                iframe.setAttribute('src', `https://cdn.crichdplays.ru/embed2.php?id=${channelId}`);
-                iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts');
-            }
-            
+            iframe.setAttribute('src', `https://cdn.crichdplays.ru/embed2.php?id=${channelId}`);
+            iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts');
             iframe.setAttribute('allowfullscreen', 'true');
             iframe.setAttribute('scrolling', 'no');
             
@@ -616,15 +466,9 @@
             let filteredChannels = channels;
             
             if (category !== 'all') {
-                filteredChannels = filteredChannels.filter(channel => 
-                    // Check if channel has categories array or single category
-                    channel.categories ? 
-    channel.categories.includes(category) : 
-    channel.category === category
-);
+                filteredChannels = filteredChannels.filter(channel => channel.category === category);
             }
             
-            // Also apply search filter if there's a search term
             if (searchTerm) {
                 filteredChannels = filteredChannels.filter(channel => 
                     channel.name.toLowerCase().includes(searchTerm)
@@ -634,23 +478,17 @@
             populateChannelList(filteredChannels);
         });
 
-        // Filter channels by search term
+        // Search channels
         channelSearch.addEventListener('input', () => {
             const searchTerm = channelSearch.value.toLowerCase();
             const category = categorySelector.value;
             
             let filteredChannels = channels;
             
-            // Apply category filter if not 'all'
             if (category !== 'all') {
-                filteredChannels = filteredChannels.filter(channel => 
-                    channel.categories ? 
-                        channel.categories.includes(category) : 
-                        channel.category === category
-                );
+                filteredChannels = filteredChannels.filter(channel => channel.category === category);
             }
             
-            // Apply search filter
             if (searchTerm) {
                 filteredChannels = filteredChannels.filter(channel => 
                     channel.name.toLowerCase().includes(searchTerm)
@@ -660,37 +498,29 @@
             populateChannelList(filteredChannels);
         });
 
-        // Refresh button functionality
+        // Refresh button
         refreshBtn.addEventListener('click', () => {
             if (activeChannelId) {
-                const activeChannel = channels.find(c => c.id === activeChannelId);
-                loadChannel(activeChannelId, activeChannel.name);
+                const channelName = channels.find(c => c.id === activeChannelId).name;
+                loadChannel(activeChannelId, channelName);
             }
         });
 
-        // Fullscreen button functionality
+        // Fullscreen button
         fullscreenBtn.addEventListener('click', () => {
-            if (currentIframe) {
-                if (currentIframe.requestFullscreen) {
-                    currentIframe.requestFullscreen();
-                } else if (currentIframe.webkitRequestFullscreen) {
-                    currentIframe.webkitRequestFullscreen();
-                } else if (currentIframe.mozRequestFullScreen) {
-                    currentIframe.mozRequestFullScreen();
-                } else if (currentIframe.msRequestFullscreen) {
-                    currentIframe.msRequestFullscreen();
-                }
+            if (!currentIframe) return;
+            
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                currentIframe.requestFullscreen().catch(err => {
+                    console.error('Error attempting to enable fullscreen:', err);
+                });
             }
         });
 
-        // Initialize channel list
+        // Initialize
         populateChannelList();
-        
-        // Hide loading screen after a delay
-        setTimeout(() => {
-            document.getElementById('loading').style.display = 'none';
-        }, 2500);
     </script>
 </body>
-</html>
 </html>

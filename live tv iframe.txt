@@ -110,3 +110,107 @@ geo super
 <iframe frameborder="0" marginheight="0" marginwidth="0" height="520" src="https://cdn.crichdplays.ru/embed2.php?id=geosuper" name="iframe_a" scrolling="no" width="640">Your Browser Do not Support Iframe</iframe>
 
 
+
+
+
+
+puthiyathalaimurai
+<iframe src=https://www.yupptv.com/yupptvnew/channels/puthiyathalaimurai/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+polimer news
+<iframe src=https://www.yupptv.com/yupptvnew/channels/polimer-news/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+murasu
+<iframe src=https://www.yupptv.com/yupptvnew/channels/murasu/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+peppers
+<iframe src=https://www.yupptv.com/yupptvnew/channels/peppers-tv/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+moon
+<iframe src=https://www.yupptv.com/yupptvnew/channels/moon-tv/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+nambikkai
+<iframe src=https://www.yupptv.com/yupptvnew/channels/nambikkai/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+sivan
+<iframe src=https://www.yupptv.com/yupptvnew/channels/sivan-temple-tv/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+seithigal
+<iframe src=https://www.yupptv.com/yupptvnew/channels/seithigal-tv/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+thanthi
+<iframe src=https://www.yupptv.com/yupptvnew/channels/thanthi-tv/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+sri-sankara-tamil
+<iframe src=https://www.yupptv.com/yupptvnew/channels/sri-sankara-tamil/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+madha-tv
+<iframe src=https://www.yupptv.com/yupptvnew/channels/madha-tv/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+svbc-2
+<iframe src=https://www.yupptv.com/yupptvnew/channels/svbc-2/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+angel-tv
+<iframe src=https://www.yupptv.com/yupptvnew/channels/angel-tv/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+swasthik-tv
+<iframe src=https://www.yupptv.com/yupptvnew/channels/swasthik-tv/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+hosanna
+<iframe src=https://www.yupptv.com/yupptvnew/channels/hosanna/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+holy-god-tv
+<iframe src=https://www.yupptv.com/yupptvnew/channels/holy-god-tv/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+athavan-tv-hd
+<iframe src=https://www.yupptv.com/yupptvnew/channels/athavan-tv-hd/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+ibc-radio
+<iframe src=https://www.yupptv.com/yupptvnew/channels/ibc-radio/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+
+thalaa-tv
+<iframe src=https://www.yupptv.com/yupptvnew/channels/thalaa-tv/live/embed frameborder="0"  width="560"  height="315"  gesture="media"  allow="encrypted-media"  allowfullscreen></iframe>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
