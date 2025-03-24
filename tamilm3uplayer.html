@@ -69,7 +69,6 @@
             transform: translateY(-2px);
         }
 		
-		
         .channel-btn {
             background-color: #2C2D3A;
             color: #A0A0A0;
@@ -86,9 +85,23 @@
             display: none !important;
         }
 		
-		
-        /* Home button responsive styles */
+        /* Mobile Responsive Styles */
         @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column !important;
+            }
+            
+            .channel-sidebar {
+                width: 100% !important;
+                max-height: 300px;
+                margin-bottom: 15px;
+            }
+            
+            .video-container {
+                flex: 1;
+                width: 100% !important;
+            }
+            
             header {
                 padding-top: 60px; /* Make room for the home button */
             }
@@ -103,7 +116,6 @@
                 transform: translateX(-50%) translateY(-2px);
             }
         }
-		
     </style>
 </head>
 <body class="font-sans">
@@ -116,9 +128,9 @@
             <p>Watch your favorite Tamil channels</p>
         </header>
 
-        <div class="flex flex-1 overflow-hidden">
+        <div class="flex flex-1 overflow-hidden main-container">
             <!-- Channel List -->
-            <div class="w-64 bg-[#252637] p-4 space-y-2 overflow-y-auto">
+            <div class="w-64 bg-[#252637] p-4 space-y-2 overflow-y-auto channel-sidebar">
                 <input 
                     id="channel-search" 
                     type="text" 
@@ -135,7 +147,7 @@
             </div>
 
             <!-- Video Player -->
-            <div class="flex-1 p-4">
+            <div class="flex-1 p-4 video-container">
                 <div class="bg-[#252637] rounded-lg overflow-hidden h-full flex flex-col">
                     <div id="current-channel" class="bg-[#1E1E2C] text-white p-4 text-center">
                         No Channel Selected
