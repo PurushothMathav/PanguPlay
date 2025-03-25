@@ -593,63 +593,95 @@
                 channelList.appendChild(listItem);
             });
         }
-
-         // Modify the loadChannel function to handle YouTube URLs
-        function loadChannel(channelId, channelName) {
-            // Show loading overlay
-            loadingOverlay.classList.remove('hidden');
-            
-            // Update current channel title
-            currentChannel.textContent = channelName;
-            activeChannelId = channelId;
-            
-            // Remove existing iframe if any
-            if (currentIframe) {
-                currentIframe.remove();
-            }
-            
-            // Hide no channel message
-            noChannelMessage.classList.add('hidden');
-            
-            // Get the channel object
-            const channel = channels.find(c => c.id === channelId);
-            
-            // Create new iframe with appropriate URL
-            const iframe = document.createElement('iframe');
-            
-            if (channel.youtubeUrl) {
-                // For YouTube live channels
-                iframe.setAttribute('src', channel.youtubeUrl);
-                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-            } else if (channel.baseUrl) {
-                // For Tamil/YuppTV channels
-                iframe.setAttribute('src', channel.baseUrl);
-                iframe.setAttribute('allow', 'encrypted-media');
-                iframe.setAttribute('gesture', 'media');
-            } else {
-                // For sports channels
-                iframe.setAttribute('src', `https://cdn.crichdplays.ru/embed2.php?id=${channelId}`);
-                iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts');
-            }
-            
-            iframe.setAttribute('allowfullscreen', 'true');
-            iframe.setAttribute('scrolling', 'no');
-            iframe.setAttribute('frameborder', '0');
-            
-            // Add iframe to container
-            playerContainer.appendChild(iframe);
-            currentIframe = iframe;
-            
-            // Hide loading overlay after iframe loads
-            iframe.onload = () => {
-                loadingOverlay.classList.add('hidden');
-            };
-            
-            // Set a timeout in case the iframe never fires onload
-            setTimeout(() => {
-                loadingOverlay.classList.add('hidden');
-            }, 8000);
+			
+			
+		function loadChannel(channelId, channelName) {
+    // Show loading overlay
+    loadingOverlay.classList.remove('hidden');
+    
+    // Update current channel title
+    currentChannel.textContent = channelName;
+    activeChannelId = channelId;
+    
+    // Remove existing iframe if any
+    if (currentIframe) {
+        currentIframe.remove();
+    }
+    
+    // Hide no channel message
+    noChannelMessage.classList.add('hidden');
+    
+    // Get the channel object
+    const channel = channels.find(c => c.id === channelId);
+    
+    // Create new iframe with appropriate URL
+    const iframe = document.createElement('iframe');
+    
+    // Enhanced iframe configuration
+    iframe.setAttribute('allowfullscreen', 'true');
+    iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+    iframe.setAttribute('referrerpolicy', 'no-referrer');
+    iframe.setAttribute('scrolling', 'no');
+    iframe.setAttribute('frameborder', '0');
+    
+    try {
+        if (channel.youtubeUrl) {
+            // For YouTube live channels
+            iframe.setAttribute('src', channel.youtubeUrl + '&enablejsapi=1');
+        } else if (channel.baseUrl) {
+            // For Tamil/YuppTV channels
+            iframe.setAttribute('src', channel.baseUrl);
+        } else {
+            // For sports channels
+            // Use a more generic embed approach
+            iframe.setAttribute('src', `https://cdn.crichdplays.ru/embed2.php?id=${channelId}`);
+            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-top-navigation');
         }
+        
+        // Add error event listener
+        iframe.addEventListener('error', (event) => {
+            console.error('Iframe loading error:', event);
+            loadingOverlay.classList.add('hidden');
+            noChannelMessage.textContent = 'Unable to load channel. Please try again.';
+            noChannelMessage.classList.remove('hidden');
+        });
+        
+        // Add load event listener
+        iframe.onload = () => {
+            console.log('Iframe loaded successfully');
+            loadingOverlay.classList.add('hidden');
+        };
+        
+        // Add timeout handling
+        const loadTimeout = setTimeout(() => {
+            console.warn('Iframe loading timed out');
+            loadingOverlay.classList.add('hidden');
+            noChannelMessage.textContent = 'Channel loading took too long. Please refresh.';
+            noChannelMessage.classList.remove('hidden');
+        }, 10000);
+        
+        // Remove timeout if loaded successfully
+        iframe.onload = () => {
+            clearTimeout(loadTimeout);
+            loadingOverlay.classList.add('hidden');
+        };
+        
+        // Add to player container
+        playerContainer.appendChild(iframe);
+        currentIframe = iframe;
+        
+    } catch (error) {
+        console.error('Error loading channel:', error);
+        loadingOverlay.classList.add('hidden');
+        noChannelMessage.textContent = 'An error occurred while loading the channel.';
+        noChannelMessage.classList.remove('hidden');
+    }
+}	
+			
+			
+			
+				
+         
 
         // Filter channels by category
         categorySelector.addEventListener('change', () => {
