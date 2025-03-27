@@ -6,8 +6,8 @@ Watch Latest Movies, TV Shows, Live TV for free without Ads. Your ultimate desti
 panguplay, live tv, tamil movies, tv shows, tamil, live, tv shows, videogallery, pangu play, movie download, download, watch online, free movies, streaming
     
 <!-- Canonical Link -->
-<link rel="canonical" href="https://purushothmathav.github.io/PanguPlay">
+https://purushothmathav.github.io/PanguPlay
     
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="https://purushothmathav.github.io/PanguPlay/favicon.png">
+https://purushothmathav.github.io/PanguPlay/favicon.png
     
