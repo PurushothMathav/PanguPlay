@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add visible loading indicator while Disqus loads
     disqusThread.innerHTML = `
-      <div style="text-align: center; padding: 20px; color: #b3b3b3;">
+      <div style="text-align: center; padding: 20px; color: #f9f9f9;">
         <p>Loading comments...</p>
         <div style="margin: 15px auto; width: 40px; height: 40px; border: 3px solid #e50914; border-radius: 50%; border-top-color: transparent; animation: disqus-spinner 1s linear infinite;"></div>
       </div>
