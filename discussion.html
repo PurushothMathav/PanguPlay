@@ -4,634 +4,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Discussion - PanguPlay</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #e50914;
-            --primary-hover: #f42c36;
-            --dark-bg: #0f0f0f;
-            --light-bg: #1a1a1a;
+            --dark-bg: #141414;
+            --light-bg: #232323;
             --text-color: #ffffff;
-            --text-secondary: #b3b3b3;
             --border-color: #333;
-            --card-bg: #232323;
-            --gradient-overlay: linear-gradient(to right, rgba(229, 9, 20, 0.8), rgba(30, 30, 30, 0.8));
-            --modal-bg: rgba(15, 15, 15, 0.95);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
         }
         
         body {
-            font-family: 'Poppins', 'Arial', sans-serif;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
             background-color: var(--dark-bg);
             color: var(--text-color);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
         }
         
         header {
-            background-color: rgba(20, 20, 20, 0.95);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        header.scrolled {
-            padding: 0.5rem 0;
-            background-color: rgba(15, 15, 15, 0.98);
+            background-color: var(--light-bg);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
         
         .container {
-            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 1rem;
+	 text-align: center;
         }
         
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        
+        
+        /* Make Disqus more readable on dark backgrounds */
+        #disqus_thread {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
         }
         
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
         
-        .logo i {
-            margin-right: 0.5rem;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
         
         .nav-links a {
             color: var(--text-color);
             text-decoration: none;
+            margin-right: 1rem;
             font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.5rem 0;
         }
         
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: var(--primary-color);
-            bottom: 0;
-            left: 0;
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover:after,
-        .active-nav:after {
-            width: 100%;
+        .nav-links a:hover {
+            color: var(--primary-color);
         }
         
         .active-nav {
             color: var(--primary-color) !important;
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-color);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        main {
-            flex: 1;
-            padding: 2rem 0;
-        }
-        
-        .page-title {
-            text-align: center;
-            margin-bottom: 2rem;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-        
-        .page-title:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: var(--primary-color);
-        }
-        
-        .discussion-card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .discussion-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        }
-        
-        .card-header {
-            background: var(--gradient-overlay);
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .card-title {
-            font-size: 1.5rem;
-            margin: 0;
-        }
-        
-        .card-content {
-            padding: 1.5rem;
-        }
-        
-        #disqus_thread {
-            padding: 1.5rem;
-            background-color: rgba(255, 255, 255, 0.03);
-            border-radius: 6px;
-            margin-top: 1rem;
-        }
-        
-        .btn {
-            padding: 0.6rem 1.2rem;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        .btn:hover {
-            background-color: var(--primary-hover);
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-        }
-        
-        .btn-outline:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        footer {
-            background-color: var(--light-bg);
-            padding: 2rem 0;
-            margin-top: auto;
-        }
-        
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .footer-links {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: var(--primary-color);
-        }
-        
-        .social-icons {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .social-icons a {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
-        }
-        
-        .social-icons a:hover {
-            color: var(--primary-color);
-        }
-        
-        .copyright {
-            text-align: center;
-            margin-top: 1.5rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px);
-        }
-        
-        .modal.active {
-            display: flex;
-        }
-        
-        .modal-content {
-            background-color: var(--modal-bg);
-            border-radius: 8px;
-            width: 90%;
-            max-width: 600px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
-            position: relative;
-            animation: modalFadeIn 0.3s ease;
-        }
-        
-        .modal-header {
-            padding: 1.5rem;
-            background: var(--gradient-overlay);
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .modal-title {
-            font-size: 1.5rem;
-            margin: 0;
-        }
-        
-        .close-modal {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        
-        .close-modal:hover {
-            color: var(--primary-color);
-        }
-        
-        .modal-body {
-            padding: 1.5rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 0.8rem;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--text-color);
-            font-family: inherit;
-            transition: border-color 0.3s ease;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-        
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        .form-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-        }
-        
-        .category-select {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--text-color);
-        }
-        
-        .category-select option {
-            background-color: var(--dark-bg);
-        }
-        
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 3px;
         }
         
         @media (max-width: 768px) {
-            .header-content {
+            .movie-info {
                 flex-direction: column;
                 align-items: flex-start;
             }
             
-            .nav-links {
-                flex-direction: column;
-                width: 100%;
-                gap: 0.5rem;
-                margin-top: 1rem;
-                display: none;
+            .movie-poster {
+                align-self: center;
+                margin-bottom: 1rem;
             }
             
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-                position: absolute;
-                right: 1rem;
-                top: 1rem;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-            
-            .footer-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .form-actions {
-                flex-direction: column;
+            .related-movies {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             }
         }
-        
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .container {
-                width: 95%;
-            }
+
+ .intro {
+            margin-bottom: 30px;
         }
-        
-        /* Animation classes */
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
+
+.comments-container {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.8em;
+            color: #777;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
         }
+h1 {
+           margin-top: 40px;
+            text-align: center;
+
+        }
+
+
     </style>
 </head>
 <body>
-    <header id="header">
+    <header>
         <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-play-circle"></i> PanguPlay
-                </a>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <nav class="nav-links" id="navLinks">
-                    <a href="index.html">Home</a>
-                    <a href="ipl2025.html">Live TV</a>
-                    <a href="#" class="active-nav">Discussions</a>
-                    
-                </nav>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="ipl2025.html">Live TV</a>
+                <a href="#" class="active-nav">Discussions</a>
+               
             </div>
         </div>
+	<h1>Join the Discussion</h1>
+
     </header>
     
-    <main class="fade-in">
-        <div class="container">
-            <h1 class="page-title">Community Discussions</h1>
-            
-            <div class="discussion-card">
-                <div class="card-header">
-                    <h2 class="card-title">Join the Conversation</h2>
-                    <button id="createTopicBtn" class="btn btn-outline">Create New Topic</button>
-                </div>
-                <div class="card-content">
-                    <p>Share your thoughts, reviews, and opinions about your favorite movies and shows. Connect with other PanguPlay users and discover new content through engaging discussions.</p>
-                    
-                    <!-- Disqus Comment Section -->
-                    <div id="disqus_thread"></div>
-					<script src="js/disqus-integration.js"></script>
-                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-                </div>
-            </div>
-        </div>
-    </main>
-    
-    <!-- Create Topic Modal -->
-    <div id="createTopicModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Create New Discussion Topic</h3>
-                <button class="close-modal" id="closeModal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="topicForm">
-                    <div class="form-group">
-                        <label for="topicTitle" class="form-label">Topic Title</label>
-                        <input type="text" id="topicTitle" class="form-control" placeholder="Enter a descriptive title" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="topicCategory" class="form-label">Category</label>
-                        <select id="topicCategory" class="form-control category-select" required>
-                            <option value="">Select a category</option>
-                            <option value="movies">Movies</option>
-                            <option value="series">TV Series</option>
-                            <option value="actors">Actors & Actresses</option>
-                            <option value="directors">Directors</option>
-                            <option value="general">General Discussion</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="topicContent" class="form-label">Content</label>
-                        <textarea id="topicContent" class="form-control" placeholder="Share your thoughts, questions, or opinions..." required></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="topicTags" class="form-label">Tags (optional)</label>
-                        <input type="text" id="topicTags" class="form-control" placeholder="Enter tags separated by commas (e.g., action, 2025, review)">
-                    </div>
-                    
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-outline" id="cancelBtn">Cancel</button>
-                        <button type="submit" class="btn">Create Topic</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+     <div class="comments-container">
+        <!-- Disqus Comment Section -->
+        <div id="disqus_thread"></div>
+        <script>
+            /**
+            * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+            * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+            */
+            /*
+            var disqus_config = function () {
+                this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            };
+            */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                s.src = 'https://panguplay.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
     
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-links">
-                    <a href="#">About Us</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Help Center</a>
-                    <a href="#">Contact</a>
-                </div>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2025 PanguPlay. All rights reserved.</p>
-            </div>
-        </div>
+        <p>&copy; 2025 PanguPlay. All rights reserved.</p>
     </footer>
 
-    <script id="dsq-count-scr" src="//panguplay.disqus.com/count.js" async></script>
-    <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-        
-        // Header scroll effect
-        const header = document.getElementById('header');
-        
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-        
-        // Modal functionality
-        const createTopicBtn = document.getElementById('createTopicBtn');
-        const createTopicModal = document.getElementById('createTopicModal');
-        const closeModal = document.getElementById('closeModal');
-        const cancelBtn = document.getElementById('cancelBtn');
-        const topicForm = document.getElementById('topicForm');
-        
-        // Open modal
-        createTopicBtn.addEventListener('click', () => {
-            createTopicModal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        });
-        
-        // Close modal functions
-        function closeTopicModal() {
-            createTopicModal.classList.remove('active');
-            document.body.style.overflow = ''; // Re-enable scrolling
-        }
-        
-        closeModal.addEventListener('click', closeTopicModal);
-        cancelBtn.addEventListener('click', closeTopicModal);
-        
-        // Close modal when clicking outside
-        createTopicModal.addEventListener('click', (e) => {
-            if (e.target === createTopicModal) {
-                closeTopicModal();
-            }
-        });
-        
-        // Form submission
-        topicForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Get form values
-            const title = document.getElementById('topicTitle').value;
-            const category = document.getElementById('topicCategory').value;
-            const content = document.getElementById('topicContent').value;
-            const tags = document.getElementById('topicTags').value;
-            
-            // Here you would typically send this data to your server
-            // For now, we'll simulate success and create a new topic in the UI
-            
-            // Create a new discussion topic element
-            const newTopicHTML = `
-                <div class="discussion-card fade-in">
-                    <div class="card-header">
-                        <h2 class="card-title">${title}</h2>
-                        <span class="category-badge">${category}</span>
-                    </div>
-                    <div class="card-content">
-                        <p>${content}</p>
-                        <div class="topic-tags">
-                            ${tags.split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('')}
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // Reset form
-            topicForm.reset();
-            
-            // Close modal
-            closeTopicModal();
-            
-            // Show success message
-            alert('Your topic has been created successfully!');
-            
-            // In a real implementation, you might:
-            // 1. Send data to a server API
-            // 2. Wait for success response
-            // 3. Update the UI or redirect to the new topic page
-        });
-    </script>
+<script id="dsq-count-scr" src="//panguplay.disqus.com/count.js" async></script>
 </body>
 </html>
