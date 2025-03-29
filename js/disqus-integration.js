@@ -1,29 +1,30 @@
-// Disqus OAuth Configuration
+// Disqus Configuration - Simplified for security
 const DISQUS_CONFIG = {
-  apiKey: '1Qk4ezR8TniXSSmvY5WHuh16zq44dlNcLI2VU7wNQIN3mupnkZwGiqQku4IWoHdb',
-  apiSecret: 'mGW2Ria8C2Exq9s1MtObiuf36EFCkktAfIqkYkRassXFqMNSYzzz9NC69e2WAsh5',
-  authorizeUrl: 'https://disqus.com/api/oauth/2.0/authorize/',
-  accessTokenUrl: 'https://disqus.com/api/oauth/2.0/access_token/',
+  // Never expose API secrets in client-side code
+  // These should be managed server-side
   callbackUrl: 'https://purushothmathav.github.io/PanguPlay/discussion.html'
 };
 
-// Initialize Disqus with OAuth
+// Initialize Disqus
 function initDisqus() {
-  // Create Disqus config object
+  // Reset Disqus if it was previously loaded
+  if (window.DISQUS) {
+    window.DISQUS.reset({
+      reload: true,
+      config: function() {
+        this.page.url = window.location.href;
+        this.page.identifier = 'panguplay-discussions';
+        this.page.title = 'PanguPlay Community Discussions';
+      }
+    });
+    return;
+  }
+  
+  // Create Disqus config object - simplified without OAuth
   window.disqus_config = function() {
     this.page.url = window.location.href;
-    this.page.identifier = 'panguplay-discussions'; // Unique identifier for this page
+    this.page.identifier = 'panguplay-discussions'; 
     this.page.title = 'PanguPlay Community Discussions';
-    
-    // OAuth authentication settings
-    this.sso = {
-      name: 'PanguPlay',
-      button: 'https://purushothmathav.github.io/PanguPlay/assets/login-button.png',
-      url: DISQUS_CONFIG.authorizeUrl,
-      logout: 'https://purushothmathav.github.io/PanguPlay/logout',
-      width: '800',
-      height: '400'
-    };
   };
   
   // Load the Disqus embed script
@@ -33,56 +34,23 @@ function initDisqus() {
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
   })();
-  
-  // Also load the comment count script
-  (function() {
-    var s = document.createElement('script');
-    s.id = 'dsq-count-scr';
-    s.src = 'https://panguplay.disqus.com/count.js';
-    s.async = true;
-    document.body.appendChild(s);
-  })();
 }
 
-// Handle OAuth authentication flow
-function handleDisqusAuth() {
-  // Check if we're returning from OAuth authorization
-  const urlParams = new URLSearchParams(window.location.search);
-  const authCode = urlParams.get('code');
-  
-  if (authCode) {
-    // Exchange authorization code for access token
-    fetch(DISQUS_CONFIG.accessTokenUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: new URLSearchParams({
-        'grant_type': 'authorization_code',
-        'client_id': DISQUS_CONFIG.apiKey,
-        'client_secret': DISQUS_CONFIG.apiSecret,
-        'redirect_uri': DISQUS_CONFIG.callbackUrl,
-        'code': authCode
-      })
-    })
-    .then(response => response.json())
-    .then(data => {
-      // Store the access token
-      localStorage.setItem('disqus_access_token', data.access_token);
-      
-      // Initialize Disqus with the token
-      initDisqus();
-    })
-    .catch(error => {
-      console.error('Disqus authentication error:', error);
-      // Initialize Disqus without authentication as fallback
-      initDisqus();
-    });
-  } else {
-    // No auth code, just initialize Disqus normally
+// Main function
+document.addEventListener('DOMContentLoaded', function() {
+  // Check if Disqus container exists
+  if (document.getElementById('disqus_thread')) {
     initDisqus();
+    
+    // Add error handling to detect loading problems
+    window.addEventListener('error', function(event) {
+      if (event.target.src && event.target.src.indexOf('disqus.com') !== -1) {
+        const disqusThread = document.getElementById('disqus_thread');
+        disqusThread.innerHTML = '<div style="color: #b3b3b3; text-align: center; padding: 20px;">' +
+          '<p>We\'re having trouble loading comments. Please try refreshing the page or check if your ad blocker is preventing Disqus from loading.</p>' +
+          '<button onclick="initDisqus()" style="background-color: #e50914; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Retry Loading Comments</button>' +
+          '</div>';
+      }
+    }, true);
   }
-}
-
-// Call the authentication handler when page loads
-document.addEventListener('DOMContentLoaded', handleDisqusAuth);
+});
