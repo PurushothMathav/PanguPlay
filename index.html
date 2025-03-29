@@ -98,6 +98,163 @@
       color: var(--text-color);
       line-height: 1.6;
     }
+	
+	
+	
+	.banner-container {
+      width: 100%;
+      background-color: #1a365d;
+      color: white;
+      padding: 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      min-height: 40px;
+      height: auto;
+    }
+    
+    .breaking-news {
+      display: flex;
+      align-items: center;
+      min-height: 40px;
+      height: 100%;
+    }
+    
+    .breaking-label {
+      background-color: #e53e3e;
+      color: white;
+      font-weight: bold;
+      padding: 8px 10px;
+      margin-right: 10px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 1px;
+      z-index: 10;
+      position: relative;
+    }
+    
+    .news-ticker-container {
+      position: relative;
+      width: calc(100% - 120px);
+      overflow: hidden;
+    }
+    
+    .news-scroll-wrapper {
+      position: relative;
+      display: flex;
+      width: max-content;
+      animation: tickerMove 60s linear infinite;
+    }
+    
+    /* Pause animation when user hovers/touches - helps with accessibility */
+    .news-scroll-wrapper:hover {
+      animation-play-state: paused;
+    }
+    
+    .news-scroll {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+    
+    .news-item {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      font-size: 16px;
+    }
+    
+    .separator {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background-color: #e53e3e;
+      border-radius: 50%;
+      margin: 0 15px;
+    }
+    
+    /* Create masking effect so text disappears behind the label */
+    .mask {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 120px; /* Width of the breaking news label plus margin */
+      background-color: #1a365d;
+      z-index: 5;
+    }
+    
+    @keyframes tickerMove {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%); /* Move exactly one ticker width */
+      }
+    }
+    
+    .timestamp {
+      font-size: 12px;
+      margin-left: 5px;
+      /* Add animation for flashing effect */
+      animation: flash 1s ease-in-out infinite;
+      font-weight: bold;
+      color: #ffeb3b; /* Yellow color for better visibility */
+    }
+    
+    /* Add keyframes for flashing effect */
+    @keyframes flash {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.3;
+      }
+    }
+    
+    /* Media query for small screens */
+    @media (max-width: 480px) {
+      .breaking-label {
+        font-size: 12px;
+        padding: 6px 8px;
+        margin-right: 8px;
+      }
+      
+      .news-item {
+        font-size: 14px;
+      }
+      
+      .timestamp {
+        font-size: 10px;
+      }
+      
+      .separator {
+        width: 5px;
+        height: 5px;
+        margin: 0 10px;
+      }
+      
+      .mask {
+        width: 100px;
+      }
+      
+      .news-ticker-container {
+        width: calc(100% - 100px);
+      }
+    }
+    
+    /* Reduce motion option for accessibility */
+    @media (prefers-reduced-motion) {
+      .news-scroll-wrapper {
+        animation-duration: 120s; /* Slower movement for those who prefer reduced motion */
+      }
+      
+      .timestamp {
+        animation-duration: 2s; /* Slower flashing */
+      }
+    }
+	
 
     .container {
       width: 92%;
@@ -470,58 +627,44 @@
   </style>
 </head>
 <body>
-<div id="importantMessageBanner" style="background-color: #ff4500; color: white; padding: 12px; text-align: center; position: relative; font-weight: bold; margin-bottom: 15px; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-  ⚠️ Important: If you're experiencing "400 Bad Request" errors when watching series, please clear your browser cookies and cache. This error is caused by cookies exceeding size limits. <a href="#" onclick="showCookieInstructions(); return false;" style="color: white; text-decoration: underline;">Click here for instructions</a>.
-  <button onclick="dismissMessage()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: white; color: #ff4500; border: none; border-radius: 3px; padding: 4px 8px; cursor: pointer; font-weight: bold;">Dismiss</button>
-</div>
 
-<!-- Cookie clearing instructions modal - Add this before the closing </body> tag -->
-<div id="cookieInstructionsModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;">
-  <div style="background-color: #202020; border-radius: 10px; padding: 20px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
-    <h3 style="color: #ff4500; margin-top: 0;">How to Fix the 400 Bad Request</h3>
+  <div class="banner-container">
+    <!-- Mask to hide text as it scrolls behind breaking news label -->
+    <div class="mask"></div>
     
-    <div style="text-align: left; color: white;">
-      <h4>Easy Step</h4>
-      <ol style="padding-left: 20px;">
-        <li>Play any Movie</li>
-        <li>Go back to main page</li>
-        <li>Now play series</li>
-        <li>It Works now</li>
-      </ol>
-
-
-      <h4>On Chrome (Desktop):</h4>
-      <ol style="padding-left: 20px;">
-        <li>Press Ctrl+Shift+Delete (Windows) or Cmd+Shift+Delete (Mac)</li>
-        <li>Set time range to "All time"</li>
-        <li>Check "Cookies and site data" and "Cached images and files"</li>
-        <li>Click "Clear data"</li>
-        <li>Restart your browser</li>
-      </ol>
-
-      <h4>On Chrome (Mobile):</h4>
-      <ol style="padding-left: 20px;">
-        <li>Tap the three dots menu → Settings</li>
-        <li>Go to Privacy and Security → Clear browsing data</li>
-        <li>Check "Cookies and site data" and "Cached images and files"</li>
-        <li>Set time range to "All time"</li>
-        <li>Tap "Clear data"</li>
-      </ol>
-
-      <h4>On Safari (iOS):</h4>
-      <ol style="padding-left: 20px;">
-        <li>Go to Settings → Safari</li>
-        <li>Tap "Clear History and Website Data"</li>
-        <li>Confirm by tapping "Clear"</li>
-      </ol>
-
-      <h4>Alternative: Try Private/Incognito Mode</h4>
-      <p>Opening the site in a private/incognito window may also solve the issue without clearing cookies.</p>
+    <div class="breaking-news">
+      <div class="breaking-label">What's New</div>
+      <div class="news-ticker-container">
+        <div class="news-scroll-wrapper">
+          <!-- First copy of the ticker -->
+          <div class="news-scroll">
+            <div class="news-item">Movie : Veera Dheera Sooran: Part 2 (2025)<span class="timestamp">New</span></div>
+            <div class="separator"></div>
+            <div class="news-item">Movie : Garudan (2024) <span class="timestamp">New</span></div>
+            <div class="separator"></div>
+            <div class="news-item">Movie : Premika (2017) <span class="timestamp">New</span></div>
+            <div class="separator"></div>
+            <div class="news-item">Movie : Star (2025) <span class="timestamp">New</span></div>
+            <div class="separator"></div>
+          </div>
+          
+          <!-- Exact duplicate of the ticker - this creates the seamless loop -->
+          <div class="news-scroll">
+            <div class="news-item">Movie : Venom The Last Dance (2024) <span class="timestamp">New</span></div>
+            <div class="separator"></div>
+            <div class="news-item">Movie : Vijay LLB The Advocate (2024)<span class="timestamp">New</span></div>
+            <div class="separator"></div>
+            <div class="news-item">Series : Madurai Paiyanum Chennai Ponnum (2025)<span class="timestamp">New</span></div>
+            <div class="separator"></div>
+            <div class="news-item">Series : Om Kaali Jai Kaali (2025)<span class="timestamp">New</span></div>
+            <div class="separator"></div>
+          </div>
+        </div>
+      </div>
     </div>
-    
-    <button onclick="closeInstructions()" style="background-color: #ff4500; color: white; border: none; padding: 8px 15px; border-radius: 50px; cursor: pointer; font-weight: bold; margin-top: 15px;">Close</button>
   </div>
-</div>
+
+
   <div class="container">
     <div class="header">
       <h1 class="title">PanguPlay Video Gallery</h1>
