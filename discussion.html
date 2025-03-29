@@ -11,6 +11,7 @@
             --light-bg: #232323;
             --text-color: #ffffff;
             --border-color: #333;
+            --comment-bg: rgba(255, 255, 255, 0.08);
         }
         
         body {
@@ -31,25 +32,23 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 1rem;
-	 text-align: center;
+            text-align: center;
         }
         
-        
-        
-        /* Make Disqus more readable on dark backgrounds */
         #disqus_thread {
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: var(--comment-bg);
             border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease-in-out;
         }
-        
-        
         
         .nav-links a {
             color: var(--text-color);
             text-decoration: none;
             margin-right: 1rem;
             font-weight: 500;
+            transition: color 0.3s;
         }
         
         .nav-links a:hover {
@@ -63,30 +62,22 @@
         }
         
         @media (max-width: 768px) {
-            .movie-info {
-                flex-direction: column;
-                align-items: flex-start;
+            .container {
+                padding: 0.5rem;
             }
             
-            .movie-poster {
-                align-self: center;
-                margin-bottom: 1rem;
-            }
-            
-            .related-movies {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            #disqus_thread {
+                padding: 15px;
             }
         }
 
- .intro {
-            margin-bottom: 30px;
-        }
-
-.comments-container {
-            background-color: #f9f9f9;
+        .comments-container {
+            background-color: var(--comment-bg);
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 8px;
+            margin-top: 20px;
         }
+        
         footer {
             margin-top: 40px;
             text-align: center;
@@ -95,13 +86,11 @@
             padding-top: 20px;
             border-top: 1px solid #eee;
         }
-h1 {
-           margin-top: 40px;
+        
+        h1 {
+            margin-top: 40px;
             text-align: center;
-
         }
-
-
     </style>
 </head>
 <body>
@@ -111,28 +100,15 @@ h1 {
                 <a href="index.html">Home</a>
                 <a href="ipl2025.html">Live TV</a>
                 <a href="#" class="active-nav">Discussions</a>
-               
             </div>
         </div>
-	<h1>Join the Discussion</h1>
-
+        <h1>Join the Discussion</h1>
     </header>
     
-     <div class="comments-container">
-        <!-- Disqus Comment Section -->
+    <div class="comments-container">
         <div id="disqus_thread"></div>
         <script>
-            /**
-            * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-            * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-            */
-            /*
-            var disqus_config = function () {
-                this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
-                this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-            };
-            */
-            (function() { // DON'T EDIT BELOW THIS LINE
+            (function() { 
                 var d = document, s = d.createElement('script');
                 s.src = 'https://panguplay.disqus.com/embed.js';
                 s.setAttribute('data-timestamp', +new Date());
@@ -146,6 +122,6 @@ h1 {
         <p>&copy; 2025 PanguPlay. All rights reserved.</p>
     </footer>
 
-<script id="dsq-count-scr" src="//panguplay.disqus.com/count.js" async></script>
+    <script id="dsq-count-scr" src="//panguplay.disqus.com/count.js" async></script>
 </body>
 </html>
