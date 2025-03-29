@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('error', function(event) {
       if (event.target.src && event.target.src.indexOf('disqus.com') !== -1) {
         disqusThread.innerHTML = `
-          <div style="text-align: center; padding: 20px; color: #b3b3b3;">
+          <div style="text-align: center; padding: 20px; color: #f9f9f9;">
             <p>Unable to load comments. This might be due to:</p>
             <ul style="list-style: none; padding: 0;">
               <li style="margin: 10px 0;">- Ad blocker preventing Disqus</li>
