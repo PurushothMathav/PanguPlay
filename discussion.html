@@ -16,6 +16,7 @@
             --border-color: #333;
             --card-bg: #232323;
             --gradient-overlay: linear-gradient(to right, rgba(229, 9, 20, 0.8), rgba(30, 30, 30, 0.8));
+            --modal-bg: rgba(15, 15, 15, 0.95);
         }
         
         * {
@@ -32,6 +33,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
         
         header {
@@ -257,6 +259,120 @@
             font-size: 0.9rem;
         }
         
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: var(--modal-bg);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            background: var(--gradient-overlay);
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        
+        .category-select {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+        }
+        
+        .category-select option {
+            background-color: var(--dark-bg);
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -291,6 +407,10 @@
                 flex-wrap: wrap;
                 justify-content: center;
             }
+            
+            .form-actions {
+                flex-direction: column;
+            }
         }
         
         @media (min-width: 769px) and (max-width: 1024px) {
@@ -324,7 +444,7 @@
                     <a href="index.html">Home</a>
                     <a href="ipl2025.html">Live TV</a>
                     <a href="#" class="active-nav">Discussions</a>
-                  
+                    
                 </nav>
             </div>
         </div>
@@ -337,26 +457,64 @@
             <div class="discussion-card">
                 <div class="card-header">
                     <h2 class="card-title">Join the Conversation</h2>
-                    <a href="#" class="btn btn-outline">Create New Topic</a>
+                    <button id="createTopicBtn" class="btn btn-outline">Create New Topic</button>
                 </div>
                 <div class="card-content">
                     <p>Share your thoughts, reviews, and opinions about your favorite movies and shows. Connect with other PanguPlay users and discover new content through engaging discussions.</p>
                     
                     <!-- Disqus Comment Section -->
                     <div id="disqus_thread"></div>
-                    <script>
-                        (function() {
-                            var d = document, s = d.createElement('script');
-                            s.src = 'https://panguplay.disqus.com/embed.js';
-                            s.setAttribute('data-timestamp', +new Date());
-                            (d.head || d.body).appendChild(s);
-                        })();
-                    </script>
+					<script src="js/disqus-integration.js"></script>
                     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                 </div>
             </div>
         </div>
     </main>
+    
+    <!-- Create Topic Modal -->
+    <div id="createTopicModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create New Discussion Topic</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="topicForm">
+                    <div class="form-group">
+                        <label for="topicTitle" class="form-label">Topic Title</label>
+                        <input type="text" id="topicTitle" class="form-control" placeholder="Enter a descriptive title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="topicCategory" class="form-label">Category</label>
+                        <select id="topicCategory" class="form-control category-select" required>
+                            <option value="">Select a category</option>
+                            <option value="movies">Movies</option>
+                            <option value="series">TV Series</option>
+                            <option value="actors">Actors & Actresses</option>
+                            <option value="directors">Directors</option>
+                            <option value="general">General Discussion</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="topicContent" class="form-label">Content</label>
+                        <textarea id="topicContent" class="form-control" placeholder="Share your thoughts, questions, or opinions..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="topicTags" class="form-label">Tags (optional)</label>
+                        <input type="text" id="topicTags" class="form-control" placeholder="Enter tags separated by commas (e.g., action, 2025, review)">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancelBtn">Cancel</button>
+                        <button type="submit" class="btn">Create Topic</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     
     <footer>
         <div class="container">
@@ -400,6 +558,79 @@
             } else {
                 header.classList.remove('scrolled');
             }
+        });
+        
+        // Modal functionality
+        const createTopicBtn = document.getElementById('createTopicBtn');
+        const createTopicModal = document.getElementById('createTopicModal');
+        const closeModal = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const topicForm = document.getElementById('topicForm');
+        
+        // Open modal
+        createTopicBtn.addEventListener('click', () => {
+            createTopicModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        });
+        
+        // Close modal functions
+        function closeTopicModal() {
+            createTopicModal.classList.remove('active');
+            document.body.style.overflow = ''; // Re-enable scrolling
+        }
+        
+        closeModal.addEventListener('click', closeTopicModal);
+        cancelBtn.addEventListener('click', closeTopicModal);
+        
+        // Close modal when clicking outside
+        createTopicModal.addEventListener('click', (e) => {
+            if (e.target === createTopicModal) {
+                closeTopicModal();
+            }
+        });
+        
+        // Form submission
+        topicForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const title = document.getElementById('topicTitle').value;
+            const category = document.getElementById('topicCategory').value;
+            const content = document.getElementById('topicContent').value;
+            const tags = document.getElementById('topicTags').value;
+            
+            // Here you would typically send this data to your server
+            // For now, we'll simulate success and create a new topic in the UI
+            
+            // Create a new discussion topic element
+            const newTopicHTML = `
+                <div class="discussion-card fade-in">
+                    <div class="card-header">
+                        <h2 class="card-title">${title}</h2>
+                        <span class="category-badge">${category}</span>
+                    </div>
+                    <div class="card-content">
+                        <p>${content}</p>
+                        <div class="topic-tags">
+                            ${tags.split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Reset form
+            topicForm.reset();
+            
+            // Close modal
+            closeTopicModal();
+            
+            // Show success message
+            alert('Your topic has been created successfully!');
+            
+            // In a real implementation, you might:
+            // 1. Send data to a server API
+            // 2. Wait for success response
+            // 3. Update the UI or redirect to the new topic page
         });
     </script>
 </body>
