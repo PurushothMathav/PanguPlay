@@ -1,55 +1,70 @@
-// Disqus Configuration - Simplified for security
-const DISQUS_CONFIG = {
-  // Never expose API secrets in client-side code
-  // These should be managed server-side
-  callbackUrl: 'https://purushothmathav.github.io/PanguPlay/discussion.html'
-};
+/**
+ * Minimal Disqus implementation that bypasses the custom integration
+ * and uses the recommended embed pattern directly
+ */
 
-// Initialize Disqus
-function initDisqus() {
-  // Reset Disqus if it was previously loaded
-  if (window.DISQUS) {
-    window.DISQUS.reset({
-      reload: true,
-      config: function() {
-        this.page.url = window.location.href;
-        this.page.identifier = 'panguplay-discussions';
-        this.page.title = 'PanguPlay Community Discussions';
-      }
-    });
-    return;
-  }
-  
-  // Create Disqus config object - simplified without OAuth
-  window.disqus_config = function() {
-    this.page.url = window.location.href;
-    this.page.identifier = 'panguplay-discussions'; 
-    this.page.title = 'PanguPlay Community Discussions';
-  };
-  
-  // Load the Disqus embed script
-  (function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://panguplay.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-  })();
-}
-
-// Main function
+// Remove any existing Disqus scripts to start fresh
 document.addEventListener('DOMContentLoaded', function() {
-  // Check if Disqus container exists
-  if (document.getElementById('disqus_thread')) {
-    initDisqus();
+  // Clear the existing Disqus thread div
+  const disqusThread = document.getElementById('disqus_thread');
+  if (disqusThread) {
+    disqusThread.innerHTML = '';
     
-    // Add error handling to detect loading problems
+    // Remove any existing Disqus scripts
+    document.querySelectorAll('script[src*="disqus.com"]').forEach(script => {
+      script.remove();
+    });
+    
+    // Reset any Disqus variables that might be causing conflicts
+    window.DISQUS = undefined;
+    window.disqus_config = undefined;
+    window.disqus_shortname = undefined;
+    
+    // Insert direct embed code
+    const disqusConfig = document.createElement('script');
+    disqusConfig.innerHTML = `
+      var disqus_config = function() {
+        this.page.url = "${window.location.href.split('?')[0].split('#')[0]}";
+        this.page.identifier = "panguplay-discussions-${window.location.pathname.replace(/[^a-zA-Z0-9]/g, '-')}";
+        this.page.title = "PanguPlay Community Discussions";
+      };
+    `;
+    document.head.appendChild(disqusConfig);
+    
+    // Load the Disqus embed script using the recommended pattern
+    const disqusEmbed = document.createElement('script');
+    disqusEmbed.src = 'https://panguplay.disqus.com/embed.js';
+    disqusEmbed.setAttribute('data-timestamp', +new Date());
+    disqusEmbed.async = true;
+    document.body.appendChild(disqusEmbed);
+    
+    // Add visible loading indicator while Disqus loads
+    disqusThread.innerHTML = `
+      <div style="text-align: center; padding: 20px; color: #b3b3b3;">
+        <p>Loading comments...</p>
+        <div style="margin: 15px auto; width: 40px; height: 40px; border: 3px solid #e50914; border-radius: 50%; border-top-color: transparent; animation: disqus-spinner 1s linear infinite;"></div>
+      </div>
+      <style>
+        @keyframes disqus-spinner {
+          to {transform: rotate(360deg);}
+        }
+      </style>
+    `;
+    
+    // Add error detection
     window.addEventListener('error', function(event) {
       if (event.target.src && event.target.src.indexOf('disqus.com') !== -1) {
-        const disqusThread = document.getElementById('disqus_thread');
-        disqusThread.innerHTML = '<div style="color: #b3b3b3; text-align: center; padding: 20px;">' +
-          '<p>We\'re having trouble loading comments. Please try refreshing the page or check if your ad blocker is preventing Disqus from loading.</p>' +
-          '<button onclick="initDisqus()" style="background-color: #e50914; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Retry Loading Comments</button>' +
-          '</div>';
+        disqusThread.innerHTML = `
+          <div style="text-align: center; padding: 20px; color: #b3b3b3;">
+            <p>Unable to load comments. This might be due to:</p>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin: 10px 0;">- Ad blocker preventing Disqus</li>
+              <li style="margin: 10px 0;">- Network connection issues</li>
+              <li style="margin: 10px 0;">- Disqus service temporarily unavailable</li>
+            </ul>
+            <button onclick="location.reload();" style="background-color: #e50914; color: white; border: none; padding: 8px 16px; margin-top: 15px; border-radius: 4px; cursor: pointer;">Reload Page</button>
+          </div>
+        `;
       }
     }, true);
   }
