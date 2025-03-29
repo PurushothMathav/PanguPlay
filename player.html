@@ -651,6 +651,19 @@
       text-align: center;
       display: none;
     }
+	
+	.stream-link {
+  color: #ff6600;
+  text-decoration: none;
+  word-break: break-all; /* Ensures long URLs break properly */
+  transition: color 0.2s;
+}
+
+.stream-link:hover {
+  color: #ff8833;
+  text-decoration: underline;
+}
+	
   </style>
 </head>
 <body>
@@ -758,6 +771,11 @@
             <div class="detail-label">Size:</div>
             <div id="fileSize" class="detail-value">File size</div>
           </div>
+		  
+		  <div class="detail-row">
+            <div class="detail-label">Stream:</div>
+            <div id="streamURL" class="detail-value">Stream URL</div>
+          </div>
         </div>
       </div>
       
@@ -782,23 +800,12 @@
     </div>
   </div>
 
-<script disable-devtool-auto=
-'true'
-
-src=
-'https://cdn.jsdelivr.net/npm/disable-devtool'
-clear-log=
-'true'
-disable-select=
-
-'true' disable-copy=
-'true'
-
-disable-cut=
-
-'true' disable-paste=
-
-'true'></script>
+<script disable-devtool-auto='true' src='https://cdn.jsdelivr.net/npm/disable-devtool'
+clear-log='true'
+disable-select='true' 
+disable-copy='true'
+disable-cut='true' 
+disable-paste='true'></script>
 
 
   <script>
@@ -908,10 +915,13 @@ function updateHeaderTitle(title, isSeries = false, seasonNumber = null, episode
         document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
         document.getElementById('qualityBadge').textContent = details.quality || 'HD';
 		document.getElementById('fileSize').textContent = details.fileSize || 'Not Available';
-        
+		<!-- document.getElementById('streamURL').textContent = details.streamURL || 'Not Available'; -->
+		document.getElementById('streamURL').innerHTML = `<a href="${details.streamURL}" target="_blank" class="stream-link">${details.streamURL}</a>` || 'Not Available'; 
+		
         // Set genres as tags
         const genresContainer = document.getElementById('genres');
         genresContainer.innerHTML = '';
+        
         
         if (details.genres) {
           const genresList = details.genres.split(', ');
