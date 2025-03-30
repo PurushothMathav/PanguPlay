@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="referrer" content="no-referrer">
 	<meta name="title" content="PanguPlay Live TV">
 <meta name="description" content="Watch Latest Movies, TV Shows, Live TV for free without Ads.">
 <meta name="keywords" content="movies,tamil,tv,shows,pangu,play,ipl,live,tv,free,download,watch,online">
@@ -33,6 +34,162 @@
             line-height: 1.6;
         }
         
+		.banner-container {
+      width: 100%;
+      background-color: #1a365d;
+      color: white;
+      padding: 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+      min-height: 40px;
+      height: auto;
+    }
+    
+    .breaking-news {
+      display: flex;
+      align-items: center;
+      min-height: 40px;
+      height: 100%;
+    }
+    
+    .breaking-label {
+      background-color: #e53e3e;
+      color: white;
+      font-weight: bold;
+      padding: 8px 10px;
+      margin-right: 10px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 1px;
+      z-index: 10;
+      position: relative;
+    }
+    
+    .news-ticker-container {
+      position: relative;
+      width: calc(100% - 120px);
+      overflow: hidden;
+    }
+    
+    .news-scroll-wrapper {
+      position: relative;
+      display: flex;
+      width: max-content;
+      animation: tickerMove 60s linear infinite;
+    }
+    
+    /* Pause animation when user hovers/touches - helps with accessibility */
+    .news-scroll-wrapper:hover {
+      animation-play-state: paused;
+    }
+    
+    .news-scroll {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+    
+    .news-item {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      font-size: 16px;
+    }
+    
+    .separator {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background-color: #e53e3e;
+      border-radius: 50%;
+      margin: 0 15px;
+    }
+    
+    /* Create masking effect so text disappears behind the label */
+    .mask {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 120px; /* Width of the breaking news label plus margin */
+      background-color: #1a365d;
+      z-index: 5;
+    }
+    
+    @keyframes tickerMove {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%); /* Move exactly one ticker width */
+      }
+    }
+    
+    .timestamp {
+      font-size: 12px;
+      margin-left: 5px;
+      /* Add animation for flashing effect */
+      animation: flash 1s ease-in-out infinite;
+      font-weight: bold;
+      color: #ffeb3b; /* Yellow color for better visibility */
+    }
+    
+    /* Add keyframes for flashing effect */
+    @keyframes flash {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.3;
+      }
+    }
+    
+    /* Media query for small screens */
+    @media (max-width: 480px) {
+      .breaking-label {
+        font-size: 12px;
+        padding: 6px 8px;
+        margin-right: 8px;
+      }
+      
+      .news-item {
+        font-size: 14px;
+      }
+      
+      .timestamp {
+        font-size: 10px;
+      }
+      
+      .separator {
+        width: 5px;
+        height: 5px;
+        margin: 0 10px;
+      }
+      
+      .mask {
+        width: 100px;
+      }
+      
+      .news-ticker-container {
+        width: calc(100% - 100px);
+      }
+    }
+    
+    /* Reduce motion option for accessibility */
+    @media (prefers-reduced-motion) {
+      .news-scroll-wrapper {
+        animation-duration: 120s; /* Slower movement for those who prefer reduced motion */
+      }
+      
+      .timestamp {
+        animation-duration: 2s; /* Slower flashing */
+      }
+    }
+		
+		
+		
         .container {
             width: 100%;
             max-width: 1200px;
@@ -486,6 +643,41 @@
     </style>
 </head>
 <body>
+
+	<div class="banner-container">
+    <!-- Mask to hide text as it scrolls behind breaking news label -->
+    <div class="mask"></div>
+    
+    <div class="breaking-news">
+      <div class="breaking-label">Requirement </div>
+      <div class="news-ticker-container">
+        <div class="news-scroll-wrapper">
+          <!-- First copy of the ticker -->
+          <div class="news-scroll">
+			<div class="news-item">In order to watch live sports channels, you must connected to vpn. otherwise Video might not play<span class="timestamp">New</span></div>
+			<div class="separator"></div>
+			<div class="news-item">In order to watch live sports channels, you must connected to vpn. otherwise Video might not play<span class="timestamp">New</span></div>
+			<div class="separator"></div>
+			<div class="news-item">In order to watch live sports channels, you must connected to vpn. otherwise Video might not play<span class="timestamp">New</span></div>
+			<div class="separator"></div>
+			<div class="news-item">In order to watch live sports channels, you must connected to vpn. otherwise Video might not play<span class="timestamp">New</span></div>
+			<div class="separator"></div>
+			<div class="news-item">In order to watch live sports channels, you must connected to vpn. otherwise Video might not play<span class="timestamp">New</span></div>
+			<div class="separator"></div>
+			<div class="news-item">In order to watch live sports channels, you must connected to vpn. otherwise Video might not play<span class="timestamp">New</span></div>
+			<div class="separator"></div>
+			<div class="news-item">In order to watch live sports channels, you must connected to vpn. otherwise Video might not play<span class="timestamp">New</span></div>
+			<div class="separator"></div>
+			<div class="news-item">In order to watch live sports channels, you must connected to vpn. otherwise Video might not play<span class="timestamp">New</span></div>
+			<div class="separator"></div>
+			<div class="news-item">In order to watch live sports channels, you must connected to vpn. otherwise Video might not play<span class="timestamp">New</span></div>
+			<div class="separator"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div class="container">
         <header>
             <a href="index.html" class="home-button">
@@ -772,8 +964,10 @@
             // For sports channels
             // Use a more generic embed approach
             iframe.setAttribute('src', `https://cdn.crichdplays.ru/embed2.php?id=${channelId}`);
-            iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-top-navigation');
-        }
+			// iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-top-navigation allow-forms allow-popups allow-presentation allow-modals allow-downloads'); 
+			//iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; web-share; fullscreen; camera; microphone');
+			iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-top-navigation allow-presentation allow-modals'); 
+		}
         
         // Add error event listener
         iframe.addEventListener('error', (event) => {
