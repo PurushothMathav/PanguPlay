@@ -12,6 +12,7 @@
 <meta name="language" content="English">
 <meta name="author" content="Purushoth Mathav">
     <title>PanguPlay Live TV</title>
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #1a1a2e;
@@ -146,70 +147,57 @@
       }
     }
     
-    /* Media query for small screens */
-    @media (max-width: 480px) {
-      .breaking-label {
-        font-size: 12px;
-        padding: 6px 8px;
-        margin-right: 8px;
-      }
-      
-      .news-item {
-        font-size: 14px;
-      }
-      
-      .timestamp {
-        font-size: 10px;
-      }
-      
-      .separator {
-        width: 5px;
-        height: 5px;
-        margin: 0 10px;
-      }
-      
-      .mask {
-        width: 100px;
-      }
-      
-      .news-ticker-container {
-        width: calc(100% - 100px);
-      }
-    }
     
-    /* Reduce motion option for accessibility */
-    @media (prefers-reduced-motion) {
-      .news-scroll-wrapper {
-        animation-duration: 120s; /* Slower movement for those who prefer reduced motion */
-      }
-      
-      .timestamp {
-        animation-duration: 2s; /* Slower flashing */
-      }
-    }
 		
 		
 		
-        .container {
+        <!-- .container {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-        }
+        } -->
         
-        header {
+       <!--  header {
             text-align: center;
             padding: 20px 0;
             margin-bottom: 20px;
             position: relative;
-        }
+        } -->
         
-        header h1 {
+       <!--  header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
-        }
+        } -->
         
-        .home-button {
+		<!-- :root {
+            --primary-color: #e50914;
+            --primary-hover: #ff1a25;
+            --dark-bg: #0d0d0d;
+            --light-bg: #1a1a1a;
+            --text-color: #ffffff;
+            --text-muted: #b3b3b3;
+            --border-color: #333;
+            --comment-bg: #1e1e1e;
+            --comment-text: #e6e6e6;
+            --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --gradient: linear-gradient(135deg, #e50914 0%, #b81d24 100%);
+        }
+		
+		
+		
+		body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        } -->
+		
+		
+        <!-- .home-button {
             position: absolute;
             top: 20px;
             left: 0;
@@ -229,7 +217,7 @@
         .home-button:hover {
             background-color: #d32e4b;
             transform: translateY(-2px);
-        }
+        } -->
         
         .content {
             display: flex;
@@ -517,14 +505,14 @@
             }
         }
 		
-:root {
+<!-- :root {
     --primary-color: #1a2b3c;
     --secondary-color: #2c3e50;
     --accent-color: #3498db;
     --text-color: #ecf0f1;
     --background-color: #34495e;
     --hover-color: #2980b9;
-}
+} -->
 
 .widget-container {
     background-color: var(--background-color);
@@ -622,6 +610,147 @@
     border-radius: 20px;
 }
 		
+	
+		header {
+            background: var(--gradient);
+            padding: 1.5rem 0;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+		
+	.header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.5em;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: white;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .active-nav {
+            color: white !important;
+            font-weight: 600;
+        }
+        
+        .active-nav::after {
+            width: 100% !important;
+        }
+        	
+		/* Media query for small screens */
+    @media (max-width: 480px) {
+      .breaking-label {
+        font-size: 12px;
+        padding: 6px 8px;
+        margin-right: 8px;
+      }
+      
+      .news-item {
+        font-size: 14px;
+      }
+      
+      .timestamp {
+        font-size: 10px;
+      }
+      
+      .separator {
+        width: 5px;
+        height: 5px;
+        margin: 0 10px;
+      }
+      
+      .mask {
+        width: 100px;
+      }
+      
+      .news-ticker-container {
+        width: calc(100% - 100px);
+      }
+	  
+	  .container {
+                padding: 0 1rem;
+            }
+            
+            .nav-links {
+                gap: 0.8rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links a {
+                font-size: 0.95rem;
+            }
+	  
+	  
+    }
+	
+	
+	
+	/* Reduce motion option for accessibility */
+    @media (prefers-reduced-motion) {
+      .news-scroll-wrapper {
+        animation-duration: 120s; /* Slower movement for those who prefer reduced motion */
+      }
+      
+      .timestamp {
+        animation-duration: 2s; /* Slower flashing */
+      }
+    }
+		
+		
+		
+		
 		
         /* Home button responsive styles */
         @media (max-width: 768px) {
@@ -629,14 +758,13 @@
                 padding-top: 60px; /* Make room for the home button */
             }
             
-            .home-button {
-                top: 10px;
-                left: 50%;
-                transform: translateX(-50%);
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
             }
             
-            .home-button:hover {
-                transform: translateX(-50%) translateY(-2px);
+            .nav-links {
+                gap: 1rem;
             }
         }
 		
@@ -679,13 +807,28 @@
   </div>
 
     <div class="container">
-        <header>
+        <!-- <header>
             <a href="index.html" class="home-button">
                 <span>⌂</span> Home
             </a>
             <h1>PanguPlay Live TV</h1>
             <p>Watch your favorite sports channels</p>
-        </header>
+        </header> -->
+		<header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <i class="fas fa-play-circle"></i> PanguPlay Live TV
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#" class="active-nav">Live TV</a>
+                <a href="discussion.html">Discussions</a>
+            </div>
+        </div>
+    </header>
+		
+		
+		
         
         <div class="content">
             <div class="menu">
