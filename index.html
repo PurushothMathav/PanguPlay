@@ -736,21 +736,15 @@
         <div class="news-scroll-wrapper">
           <!-- First copy of the ticker -->
           <div class="news-scroll">
-			<div class="news-item">Movie : Test (2025)<span class="timestamp">New</span></div>
+			<div class="news-item">Movie : Fear (2024)<span class="timestamp">New</span></div>
             <div class="separator"></div>
-			<div class="news-item">Movie : Krishna Gadu Ante Oka Range (2025)<span class="timestamp">New</span></div>
+			<div class="news-item">Tamil Dub : Ordinary Angels (2024)<span class="timestamp">New</span></div>
             <div class="separator"></div>
-			<div class="news-item">Movie : Kaafir (2025)<span class="timestamp">New</span></div>
+			<div class="news-item">Tamil Dub : Sniper G.R.I.T. (2023)<span class="timestamp">New</span></div>
             <div class="separator"></div>
-			<div class="news-item">Movie : Kadaisi Thotta (2025)<span class="timestamp">New</span></div>
+			<div class="news-item">Movie : Vettu (2025)<span class="timestamp">New</span></div>
             <div class="separator"></div>
-			<div class="news-item">Movie : Murmur (2025)<span class="timestamp">New</span></div>
-            <div class="separator"></div>
-			<div class="news-item">Movie : River of Blood (2024)<span class="timestamp">New</span></div>
-            <div class="separator"></div>
-			<div class="news-item">Movie : Terrifier 3 (2024)<span class="timestamp">New</span></div>
-            <div class="separator"></div>
-			<div class="news-item">Movie : The Book of Clarence (2023)<span class="timestamp">New</span></div>
+			<div class="news-item">Tamil Dub : The Merciless (2017)<span class="timestamp">New</span></div>
             <div class="separator"></div>
           </div>
           
@@ -816,6 +810,7 @@
         <button class="filter-button active" data-filter="all">All</button>
         <button class="filter-button" data-filter="movie">Movies</button>
         <button class="filter-button" data-filter="series">TV Series</button>
+		<button class="filter-button" data-filter="dubbed">Tamil Dub</button>
       </div>
     </div>
     
@@ -865,6 +860,91 @@ disable-cut=
     // Data for video cards - now includes both movies and series
     const videoData = [
       // Movies
+	  {
+        type: "movie",
+		title: 'Fear (2024)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/Fear%20(2024).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Fear%20(2024).mp4',
+        details: {
+          director: 'Haritha Gogineni',
+          starring: 'Vedhika, Arvind Krishna, Jayaprakash, Pavitra Lokesh, Sayaji Shinde',
+          genres: 'Psychological Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '8.5/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.4 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Fear%20(2024).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Ordinary Angels (2024)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/Ordinary%20Angels%20(2024).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Ordinary%20Angels%20(2024).mp4',
+        details: {
+          director: 'Jon Gunn',
+          starring: 'Hilary Swank, Alan Ritchson, Nancy Travis, Tamala Jones',
+          genres: 'Biography, Drama',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.4/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.2 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Ordinary%20Angels%20(2024).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Sniper G.R.I.T. (2023)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/Sniper%20G.R.I.T.%20(2023).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Sniper%20G.R.I.T.%20(2023).mp4',
+        details: {
+          director: 'Oliver Thompson',
+          starring: 'Chad Michael Collins, Ryan Robbins, Luna Fujimoto, Dennis Haysbert, Josh Brener',
+          genres: 'Action, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.1/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Sniper%20G.R.I.T.%20(2023).mp4'
+        }
+	},
+	{
+        type: "movie",
+		title: 'Vettu (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/Vettu%20(2025).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Vettu%20(2025).mp4',
+        details: {
+          director: 'Amma Rajasekhar',
+          starring: 'Ester Noronha, Amma Raagin Raj, Ankitha Naskar, Mukku Avinash',
+          genres: 'Action, Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '9/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.4 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Vettu%20(2025).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Merciless (2017)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/The%20Merciless%20(2017).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Merciless%20(2017).mp4',
+        details: {
+          director: 'Byun Sung-hyun',
+          starring: 'Sol Kyung-gu, Im Si-wan, Kim Hee-won, Jeon Hye-jin',
+          genres: 'Action, Crime, Drama',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '8.3/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Merciless%20(2017).mp4'
+        }
+	},
 	  {
         type: "movie",
 		title: 'Test (2025)',
@@ -951,7 +1031,7 @@ disable-cut=
         }
 	},
 	{
-        type: "movie",
+        type: "dubbed",
 		title: 'River of Blood (2024)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/River%20of%20Blood%20(2024).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/River%20of%20Blood%20(2024).mp4',
@@ -968,7 +1048,7 @@ disable-cut=
         }
 	},
 	{
-        type: "movie",
+        type: "dubbed",
 		title: 'Terrifier 3 (2024)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/Terrifier%203%20(2024).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Terrifier%203%20(2024).mp4',
@@ -986,7 +1066,7 @@ disable-cut=
 	},
 	
 	{
-        type: "movie",
+        type: "dubbed",
 		title: 'The Book of Clarence (2023)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/The%20Book%20of%20Clarence%20(2023).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Book%20of%20Clarence%20(2023).mp4',
@@ -1057,7 +1137,7 @@ disable-cut=
         }
 	},
 	{
-        type: "movie",
+        type: "dubbed",
 		title: 'The Duelist (2016)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/The%20Duelist%20(2016).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Duelist%20(2016).mp4',
@@ -1074,7 +1154,7 @@ disable-cut=
         }
 	},
 	{
-        type: "movie",
+        type: "dubbed",
 		title: 'The Invitation (2022)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/The%20Invitation%20(2022).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Invitation%20(2022).mp4',
@@ -1127,7 +1207,7 @@ disable-cut=
         }
 	},
 	{
-        type: "movie",
+        type: "dubbed",
 		title: 'The Life List (2025)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/29-03-2025/The%20Life%20List%20(2025).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/29-03-2025/The%20Life%20List%20(2025).mp4',
@@ -1199,7 +1279,7 @@ disable-cut=
         }
 	},
 	{
-        type: "movie",
+        type: "dubbed",
 		title: 'Premika (2017)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/28-03-2025/Premika%20(2017).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/28-03-2025/Premika%20(2017).mp4',
@@ -1234,7 +1314,7 @@ disable-cut=
 	},
 	
 	{
-        type: "movie",
+        type: "dubbed",
 		title: 'Venom The Last Dance (2024)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/28-03-2025/Venom%20The%20Last%20Dance%20(2024).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/28-03-2025/Venom%20The%20Last%20Dance%20(2024).mp4',
@@ -1285,7 +1365,7 @@ disable-cut=
         }
 	  },
 	  {
-        type: "movie",
+        type: "dubbed",
 		title: 'Twilight of the Warriors Walled In (2024)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/27-03-2025/Twilight%20of%20the%20Warriors%20Walled%20In%20(2024).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/27-03-2025/Twilight%20of%20the%20Warriors%20Walled%20In%20(2024).mp4',
@@ -1302,7 +1382,7 @@ disable-cut=
         }
 	  },
 	  {
-        type: "movie",
+        type: "dubbed",
 		title: 'Den of Thieves 2: Pantera (2025)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/27-03-2025/Den%20of%20Thieves%20Pantera%20(2025).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/27-03-2025/Den%20of%20Thieves%202%20%20Pantera%20(2025).mp4',
@@ -1319,7 +1399,7 @@ disable-cut=
         }
 	  },
 	  {
-        type: "movie",
+        type: "dubbed",
 		title: 'Holland (2025)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/27-03-2025/Holland%20(2025).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/27-03-2025/Holland%20(2025).mp4',
@@ -1514,7 +1594,7 @@ disable-cut=
       },
 	  
 	  {
-        type: "movie",
+        type: "dubbed",
 		title: 'Revelations (2025)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/21-03-2025/Revelations%20(2025).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/21-03-2025/Revelations%20(2025).mp4',
@@ -1580,7 +1660,7 @@ disable-cut=
         }
 	  },
 	  {
-        type: "movie",
+        type: "dubbed",
 		title: 'Prisons (2024)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/21-03-2025/Prisons%20(2024).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/21-03-2025/Prisons%20(2024).mp4',
@@ -2782,7 +2862,7 @@ disable-cut=
 },
 
 {
-        type: "movie",
+        type: "dubbed",
 		title: 'Mufasa The Lion King (2024)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/26-03-2025/Mufasa%20The%20Lion%20King%20(2024).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/26-03-2025/Mufasa%20The%20Lion%20King%20(2024).mp4',
@@ -3061,7 +3141,7 @@ disable-cut=
         }
       },
 	   {
-        type: "movie",
+        type: "dubbed",
 		title: 'Captain America Brave New World (2025)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Captain%20America%20Brave%20New%20World%20(2025)_Resized.png',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Captain%20America%20Brave%20New%20World%20(2025).mp4',
