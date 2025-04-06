@@ -3641,8 +3641,7 @@ disable-cut=
 
     ];
     
-    // Function to load videos to gallery
-function loadGallery(filter = 'all') {
+    function loadGallery(filter = 'all') {
   const gallery = document.getElementById('gallery');
   gallery.innerHTML = ''; // Clear existing content
   
@@ -3682,7 +3681,8 @@ function loadGallery(filter = 'all') {
     
     // Determine link URL based on video type
     let videoUrl;
-    if (video.type === 'movie') {
+    if (video.type === 'movie' || video.type === 'dubbed') {
+      // Both regular movies and dubbed movies use the same player flow
       videoUrl = `player.html?video=${encodeURIComponent(video.video)}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${detailsEncoded}`;
     } else {
       // For series, encode episode information
@@ -3690,12 +3690,21 @@ function loadGallery(filter = 'all') {
       videoUrl = `player.html?id=${video.id}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${detailsEncoded}&episodes=${episodesEncoded}`;
     }
     
-    // Create card HTML
+    // Create card HTML with appropriate type badge
+    let typeBadgeText;
+    if (video.type === 'movie') {
+      typeBadgeText = 'MOVIE';
+    } else if (video.type === 'dubbed') {
+      typeBadgeText = 'DUBBED';
+    } else {
+      typeBadgeText = 'SERIES';
+    }
+    
     card.innerHTML = `
       <div class="card-image-container">
         <img src="${video.image}" alt="${video.title}" loading="lazy">
         <div class="quality-badge">${video.details.quality}</div>
-        <div class="type-badge">${video.type === 'movie' ? 'MOVIE' : 'SERIES'}</div>
+        <div class="type-badge">${typeBadgeText}</div>
         ${isNew ? '<div class="new-badge">NEW</div>' : ''}
       </div>
       <div class="card-content">
