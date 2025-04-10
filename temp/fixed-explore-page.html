@@ -1,941 +1,552 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- 
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- Primary Meta Tags -->
-    <title>PanguPlay - Free Movies, TV Shows, Live TV</title>
-    <meta name="title" content="PanguPlay - Free Movies, TV Shows, Live TV">
-    <meta name="description" content="PanguPlay - Watch Latest Movies, TV Shows, Live TV for free without Ads. Your ultimate destination for entertainment.">
-    
-    <!-- Keywords -->
-    <meta name="keywords" content="panguplay, live tv, tamil movies, tv shows, tamil, live, tv shows, videogallery, pangu play, movie download, download, watch online, free movies, streaming">
-    
-    <!-- Open Graph / Facebook Meta Tags -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://purushothmathav.github.io/PanguPlay">
-    <meta property="og:title" content="PanguPlay - Free Movies, TV Shows, Live TV">
-    <meta property="og:description" content="Watch Latest Movies, TV Shows, Live TV for free without Ads. Your ultimate destination for entertainment.">
-    <meta property="og:image" content="https://purushothmathav.github.io/PanguPlay/images/og-image.jpg">
-    
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://purushothmathav.github.io/PanguPlay">
-    <meta name="twitter:title" content="PanguPlay - Free Movies, TV Shows, Live TV">
-    <meta name="twitter:description" content="Watch Latest Movies, TV Shows, Live TV for free without Ads. Your ultimate destination for entertainment.">
-    <meta name="twitter:image" content="https://purushothmathav.github.io/PanguPlay/images/twitter-image.jpg">
-    
-    <!-- Robots Meta Tag -->
-    <meta name="robots" content="index, follow">
-    
-    <!-- Geo Meta Tags -->
-    <meta name="geo.region" content="IN">
-    <meta name="geo.placename" content="India">
-    
-    <!-- Language and Content-Type -->
-    <meta http-equiv="content-language" content="en-us">
-    <meta name="language" content="English">
-    
-    <!-- Canonical Link -->
-    <link rel="canonical" href="https://purushothmathav.github.io/PanguPlay">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://purushothmathav.github.io/PanguPlay/favicon.png">
-    
-    <!-- Additional SEO and Accessibility Tags -->
-    <meta name="author" content="Purushothmathav">
-    <meta name="copyright" content="©2024 PanguPlay">
-    
-    <!-- Mobile App Meta Tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    
-    <!-- Structured Data - Organization -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "PanguPlay",
-        "url": "https://purushothmathav.github.io/PanguPlay",
-        "description": "Watch Latest Movies, TV Shows, Live TV for free without Ads",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://purushothmathav.github.io/PanguPlay/search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
-    }
-    </script>
-    <!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-59SJ522E11"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-		gtag('config', 'G-59SJ522E11');
-	</script>
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PanguPlay - Explore</title>
   <style>
-    /* Global Styles */
     :root {
-      --primary-color: #ff4500;
-      --dark-bg: #121212;
-      --card-bg: #202020;
-      --card-hover: #303030;
+      --primary-color: #ff6b00;
+      --secondary-color: #0d1117;
       --text-color: #ffffff;
-      --text-secondary: #bbbbbb;
+      --card-bg: #1a1f25;
+      --button-hover: #ff8533;
     }
     
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--dark-bg);
+      background-color: var(--secondary-color);
       color: var(--text-color);
       line-height: 1.6;
     }
-	
-	<!-- /* Fireworks overlay styles - renamed to avoid conflicts */
-    .fireworks-overlay {
-      position: fixed; /* Fixed position covers the entire viewport */
+    
+    header {
+      background-color: #161b22;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      position: sticky;
       top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1000; /* High z-index to appear on top */
-      background: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
-      opacity: 1;
-      transition: opacity 1s ease-in-out;
-      pointer-events: none; /* Allow clicks to pass through to elements below */
-    }
-
-    .wishes-message {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #fff;
-      font-size: 40px;
-      text-align: center;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-      z-index: 1001; /* Above the overlay */
-      animation: fadeInOut 5s ease-in-out forwards;
-      pointer-events: none;
-    }
-
-    .firework {
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      animation: explode 1.5s ease-out forwards;
-      pointer-events: none;
-    }
-
-    @keyframes fadeInOut {
-      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-      10% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-      80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-      100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
-    }
-
-    @keyframes explode {
-      0% { transform: translate(0, 0); opacity: 1; }
-      100% { transform: translate(var(--x), var(--y)); opacity: 0; }
-    } -->
-	
-	
-	
-	
-	.banner-container {
-      width: 100%;
-      background-color: #1a365d;
-      color: white;
-      padding: 0;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      position: relative;
-      overflow: hidden;
-      min-height: 40px;
-      height: auto;
+      z-index: 1000;
     }
     
-    .breaking-news {
+    .logo img {
+      height: 40px;
+    }
+    
+    .menu {
       display: flex;
       align-items: center;
-      min-height: 40px;
-      height: 100%;
+      gap: 1.5rem;
     }
     
-    .breaking-label {
-      background-color: #e53e3e;
-      color: white;
-      font-weight: bold;
-      padding: 8px 10px;
-      margin-right: 10px;
-      white-space: nowrap;
-      text-transform: uppercase;
-      font-size: 14px;
-      letter-spacing: 1px;
-      z-index: 10;
-      position: relative;
-    }
-    
-    .news-ticker-container {
-      position: relative;
-      width: calc(100% - 120px);
-      overflow: hidden;
-    }
-    
-    .news-scroll-wrapper {
-      position: relative;
-      display: flex;
-      width: max-content;
-      animation: tickerMove 60s linear infinite;
-    }
-    
-    /* Pause animation when user hovers/touches - helps with accessibility */
-    .news-scroll-wrapper:hover {
-      animation-play-state: paused;
-    }
-    
-    .news-scroll {
-      display: flex;
-      align-items: center;
-      white-space: nowrap;
-    }
-    
-    .news-item {
-      display: flex;
-      align-items: center;
-      white-space: nowrap;
-      font-size: 16px;
-    }
-    
-    .separator {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      background-color: #e53e3e;
-      border-radius: 50%;
-      margin: 0 15px;
-    }
-    
-    /* Create masking effect so text disappears behind the label */
-    .mask {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 120px; /* Width of the breaking news label plus margin */
-      background-color: #1a365d;
-      z-index: 5;
-    }
-    
-    @keyframes tickerMove {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%); /* Move exactly one ticker width */
-      }
-    }
-    
-    .timestamp {
-      font-size: 12px;
-      margin-left: 5px;
-      /* Add animation for flashing effect */
-      animation: flash 1s ease-in-out infinite;
-      font-weight: bold;
-      color: #ffeb3b; /* Yellow color for better visibility */
-    }
-    
-    /* Add keyframes for flashing effect */
-    @keyframes flash {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.3;
-      }
-    }
-    
-    /* Media query for small screens */
-    @media (max-width: 480px) {
-      .breaking-label {
-        font-size: 12px;
-        padding: 6px 8px;
-        margin-right: 8px;
-      }
-      
-      .news-item {
-        font-size: 14px;
-      }
-      
-      .timestamp {
-        font-size: 10px;
-      }
-      
-      .separator {
-        width: 5px;
-        height: 5px;
-        margin: 0 10px;
-      }
-      
-      .mask {
-        width: 100px;
-      }
-      
-      .news-ticker-container {
-        width: calc(100% - 100px);
-      }
-    }
-    
-    /* Reduce motion option for accessibility */
-    @media (prefers-reduced-motion) {
-      .news-scroll-wrapper {
-        animation-duration: 20s; /* Slower movement for those who prefer reduced motion */
-      }
-      
-      .timestamp {
-        animation-duration: 2s; /* Slower flashing */
-      }
-    }
-	
-
-    .container {
-      width: 92%;
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 20px 0;
-    }
-
-    /* Header Styles */
-    .header {
-      text-align: center;
-      padding: 30px 0;
-      background-color: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-      margin-bottom: 30px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .title {
-      font-size: 42px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: var(--primary-color);
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    .search-container {
-      width: 90%;
-      max-width: 600px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    #searchInput {
-      width: 100%;
-      height: 50px;
-      padding: 0 20px 0 50px;
-      font-size: 16px;
-      border: none;
-      border-radius: 25px;
-      background-color: rgba(255, 255, 255, 0.1);
+    .menu a {
       color: var(--text-color);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
     }
-
-    #searchInput:focus {
-      outline: none;
-      background-color: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    
+    .menu a:hover {
+      color: var(--primary-color);
     }
-
-    .search-icon {
+    
+    .menu a i {
+      font-size: 1.2rem;
+    }
+    
+    .search-container {
+      position: relative;
+      margin-right: 1rem;
+    }
+    
+    .search-container input {
+      background-color: #2c3137;
+      border: none;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      color: var(--text-color);
+      width: 200px;
+    }
+    
+    .search-container button {
       position: absolute;
-      left: 15px;
+      right: 10px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--text-secondary);
-    }
-
-    /* Filter Styles */
-    .filter-container {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    .filter-buttons {
-      display: flex;
-      background-color: rgba(0, 0, 0, 0.3);
-      border-radius: 25px;
-      overflow: hidden;
-    }
-
-    .filter-button {
       background: none;
       border: none;
       color: var(--text-color);
-      padding: 10px 20px;
       cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
     }
-
+    
+    .user-profile {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    .user-profile img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+    
+    .filter-section {
+      padding: 1rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border-bottom: 1px solid #333;
+    }
+    
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      width: 100%;
+    }
+    
+    .filter-button {
+      background-color: #2c3137;
+      border: none;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      color: var(--text-color);
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+    
+    .filter-button .count {
+      margin-left: 5px;
+      opacity: 0.7;
+      font-size: 0.75rem;
+    }
+    
     .filter-button.active {
       background-color: var(--primary-color);
     }
-
-    .filter-button:hover:not(.active) {
-      background-color: rgba(255, 69, 0, 0.2);
+    
+    .filter-button:hover {
+      background-color: var(--button-hover);
     }
-
-    /* Gallery Styles */
-    .gallery {
+    
+    .gallery-container {
+      padding: 2rem;
+    }
+    
+    #gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 25px;
-      justify-content: center;
-      padding: 20px 0;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
     }
-
+    
     .card {
       background-color: var(--card-bg);
-      border-radius: 12px;
+      border-radius: 8px;
       overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
-
+    
     .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-      background-color: var(--card-hover);
+      transform: translateY(-5px);
     }
-
+    
     .card-image-container {
       position: relative;
+      aspect-ratio: 2/3;
       overflow: hidden;
-      height: 330px;
     }
-
-    .card img {
+    
+    .card-image-container img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
+      transition: transform 0.3s ease;
     }
-
-    .card:hover img {
+    
+    .card:hover .card-image-container img {
       transform: scale(1.05);
     }
-
-    .quality-badge {
+    
+    .quality-badge, .type-badge, .new-badge {
       position: absolute;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+    
+    .quality-badge {
       top: 10px;
       right: 10px;
-      background-color: var(--primary-color);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: bold;
-      z-index: 1;
+      background-color: rgba(0, 0, 0, 0.7);
     }
-
+    
     .type-badge {
-      position: absolute;
       top: 10px;
       left: 10px;
-      background-color: rgba(0, 0, 0, 0.7);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: bold;
-      z-index: 1;
+      background-color: var(--primary-color);
     }
-
+    
+    .new-badge {
+      top: 10px;
+      left: 80px;
+      background-color: #ff0000;
+      animation: flash-animation 1s infinite;
+    }
+    
+    @keyframes flash-animation {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    
     .card-content {
-      padding: 15px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
+      padding: 1rem;
     }
-
+    
     .card-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      line-height: 1.3;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-
+    
     .card-details {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: auto;
     }
-
+    
     .rating {
       display: flex;
       align-items: center;
-      color: var(--text-secondary);
-      font-size: 14px;
+      gap: 4px;
+      font-size: 0.8rem;
     }
-
+    
     .star-icon {
-      color: gold;
-      margin-right: 5px;
+      color: var(--primary-color);
     }
-
+    
     .watch-button {
       background-color: var(--primary-color);
       color: white;
       border: none;
-      padding: 8px 16px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 14px;
-      transition: background-color 0.3s ease;
+      border-radius: 4px;
+      padding: 5px 10px;
+      font-size: 0.8rem;
       text-decoration: none;
-      display: inline-block;
+      transition: background-color 0.3s ease;
     }
-
+    
     .watch-button:hover {
-      background-color: #ff6347;
+      background-color: var(--button-hover);
     }
-
+    
     .no-results {
       grid-column: 1 / -1;
       text-align: center;
-      padding: 30px;
-      font-size: 20px;
-      color: var(--text-secondary);
+      padding: 2rem;
+      font-size: 1.2rem;
+      color: #888;
     }
-
-    /* Responsive Styles */
-    @media (max-width: 992px) {
-      .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 20px;
-      }
-      
-      .title {
-        font-size: 36px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        width: 95%;
-        padding: 15px 0;
-      }
-      
-      .header {
-        padding: 20px 0;
-      }
-      
-      .title {
-        font-size: 32px;
-      }
-      
-      .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 15px;
-      }
-      
-      .card-image-container {
-        height: 240px;
-      }
-      
-      .card-content {
-        padding: 10px;
-      }
-      
-      .card-title {
-        font-size: 16px;
-      }
-
-      .filter-button {
-        padding: 8px 15px;
-        font-size: 14px;
-      }
-	  
-	  #backToTopBtn {
-        bottom: 20px;
-        right: 20px;
-        padding: 10px;
-        font-size: 16px;
-        width: 40px;
-        height: 40px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        width: 92%;
-        padding: 10px 0;
-      }
-      
-      .header {
-        padding: 15px 0;
-        margin-bottom: 20px;
-      }
-      
-      .title {
-        font-size: 28px;
-        margin-bottom: 15px;
-      }
-      
-      #searchInput {
-        height: 45px;
-        font-size: 14px;
-      }
-      
-      .gallery {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-      }
-      
-      .card-image-container {
-        height: 220px;
-      }
-      
-      .card-content {
-        padding: 8px;
-      }
-      
-      .card-title {
-        font-size: 14px;
-        margin-bottom: 8px;
-      }
-      
-      .watch-button {
-        padding: 6px 12px;
-        font-size: 12px;
-      }
-
-      .filter-container {
-        margin-bottom: 15px;
-      }
-
-      .filter-button {
-        padding: 6px 12px;
-        font-size: 12px;
-      }
-    }
-	
-	/* Add this to your existing CSS styles section */
-.new-badge {
-  position: absolute;
-  top: 10px;
-  left: 80px; /* Positioned to the right of the type badge */
-  background-color: #ff0000; /* Red background */
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: bold;
-  z-index: 1;
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.05);
-    opacity: 0.9;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-	
-	
-	.button-style {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .button-style:hover {
-    background-color: #45a049;
-  }
-	
-/* Back to top button styling */
+    
     #backToTopBtn {
-      display: none; /* Hidden by default */
+      display: none;
       position: fixed;
-      bottom: 30px;
-      right: 30px;
+      bottom: 20px;
+      right: 20px;
       z-index: 99;
       border: none;
       outline: none;
-      background-color: #1a365d;
+      background-color: var(--primary-color);
       color: white;
       cursor: pointer;
-      padding: 15px;
+      padding: 10px;
       border-radius: 50%;
       font-size: 18px;
-      width: 50px;
-      height: 50px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      transition: background-color 0.3s, transform 0.3s;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }
     
     #backToTopBtn:hover {
-      background-color: #0f2042;
-      transform: translateY(-3px);
+      background-color: var(--button-hover);
     }
     
-    /* Adding arrow icon inside button */
-    #backToTopBtn::after {
-      content: "↑";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }	
-	
-	.count {
-  font-size: 0.9em;
-  color: #888;
-  margin-left: 4px;
-}
-
-.tab-button.active {
-  color: #your-accent-color;
-  border-bottom: 2px solid #your-accent-color;
-}
-
-.filter-button .count {
-  font-size: 0.9em;
-  color: #888;
-  margin-left: 4px;
-}
+    #importantMessageBanner {
+      display: none;
+      background-color: #2c3137;
+      padding: 10px 15px;
+      text-align: center;
+      position: relative;
+    }
+    
+    #importantMessageBanner button {
+      background: none;
+      border: none;
+      color: var(--primary-color);
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    
+    #cookieInstructionsModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1001;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background-color: var(--card-bg);
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    
+    .modal-content h2 {
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+    
+    .modal-content button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      margin-top: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .menu {
+        display: none;
+      }
+      
+      #gallery {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      }
+      
+      .card-title {
+        font-size: 0.8rem;
+      }
+      
+      .filter-section {
+        padding: 1rem;
+      }
+      
+      .gallery-container {
+        padding: 1rem;
+      }
+    }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-	
-	
-	
-	
-  <div class="banner-container">
-    <!-- Mask to hide text as it scrolls behind breaking news label -->
-    <div class="mask"></div>
-    
-    <div class="breaking-news">
-      <div class="breaking-label">What's New</div>
-      <div class="news-ticker-container">
-        <div class="news-scroll-wrapper">
-          <!-- First copy of the ticker -->
-          <div class="news-scroll">
-			<div class="news-item">Movie : Good Bad Ugly (2025) <span class="timestamp">New</span></div>
-            <div class="separator"></div>
-			<div class="news-item">Movie : Ka.Mu - Ka.Pi (2025) <span class="timestamp">New</span></div>
-            <div class="separator"></div>
-			<div class="news-item">Movie : Saaree (2025) <span class="timestamp">New</span></div>
-            <div class="separator"></div>
-			<div class="news-item">Movie : EMI (2025) <span class="timestamp">New</span></div>
-            <div class="separator"></div>
-          </div>
-          
-          <!-- Exact duplicate of the ticker - this creates the seamless loop -->
-          <div class="news-scroll">
-			<div class="news-item">Series : Office (2025) <span class="timestamp">New</span></div>
-            <div class="separator"></div>
-			<div class="news-item">Series : Seruppugal Jaakirathai (2025) <span class="timestamp">New</span></div>
-            <div class="separator"></div>
-            <div class="news-item">Series : Madurai Paiyanum Chennai Ponnum (2025)<span class="timestamp">New</span></div>
-            <div class="separator"></div>
-            <div class="news-item">Series : Om Kaali Jai Kaali (2025)<span class="timestamp">New</span></div>
-            <div class="separator"></div>
-          </div>
-        </div>
-      </div>
+  <!-- Important Message Banner 
+  <div id="importantMessageBanner">
+    Important: Please clear your cookies and disable adblockers to ensure smooth playback.
+    <button onclick="dismissMessage()">×</button>
+    <button onclick="showCookieInstructions()">How?</button>
+  </div> -->
+  
+  <!-- Header with Navigation -->
+  <header>
+    <div class="logo">
+      <img src="https://via.placeholder.com/150x40/ff6b00/ffffff?text=KissKH" alt="KissKH Logo">
+    </div>
+    <div class="menu">
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
+      <a href="request.html"><i class="fas fa-comment-alt"></i> Request Drama</a>
+      <a href="theme.html"><i class="fas fa-palette"></i> Theme</a>
+      <a href="explore.html" class="active"><i class="fas fa-compass"></i> Explore</a>
+    </div>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search...">
+      <button><i class="fas fa-search"></i></button>
+    </div>
+    <div class="user-profile">
+      <img src="https://via.placeholder.com/32/888888/ffffff?text=U" alt="User">
+    </div>
+  </header>
+  
+  <!-- Filter Section -->
+  <section class="filter-section">
+    <div class="filter-row" id="type-filters">
+      <button class="filter-button active" data-filter="all">All</button>
+      <button class="filter-button" data-filter="series">TVSeries</button>
+      <button class="filter-button" data-filter="movie">Movie</button>
+      <button class="filter-button" data-filter="anime">Anime</button>
+      <button class="filter-button" data-filter="dubbed">Hollywood</button>
+    </div>
+    <div class="filter-row" id="subtitle-filters">
+      <button class="filter-button active" data-filter="subtitles">All Subtitles</button>
+      <button class="filter-button" data-filter="english">English</button>
+      <button class="filter-button" data-filter="khmer">Khmer</button>
+      <button class="filter-button" data-filter="indonesian">Indonesian</button>
+      <button class="filter-button" data-filter="malay">Malay</button>
+      <button class="filter-button" data-filter="thai">Thai</button>
+      <button class="filter-button" data-filter="arabic">Arabic</button>
+    </div>
+    <div class="filter-row" id="region-filters">
+      <button class="filter-button active" data-filter="regions">All Regions</button>
+      <button class="filter-button" data-filter="india">India</button>
+      <button class="filter-button" data-filter="south-korea">South Korea</button>
+      <button class="filter-button" data-filter="chinese">Chinese</button>
+      <button class="filter-button" data-filter="united-states">United States</button>
+      <button class="filter-button" data-filter="thailand">Thailand</button>
+      <button class="filter-button" data-filter="philippine">Philippine</button>
+      <button class="filter-button" data-filter="japanese">Japanese</button>
+      <button class="filter-button" data-filter="hong-kong">Hong Kong</button>
+      <button class="filter-button" data-filter="taiwan">Taiwan</button>
+     
+    </div>
+    <div class="filter-row" id="status-filters">
+      <button class="filter-button active" data-filter="all-status">All</button>
+      <button class="filter-button" data-filter="ongoing">Ongoing</button>
+      <button class="filter-button" data-filter="completed">Completed</button>
+      <button class="filter-button" data-filter="upcoming">Upcoming</button>
+    </div>
+    <div class="filter-row" id="sort-filters">
+      <button class="filter-button" data-filter="popular">Popular</button>
+      <button class="filter-button active" data-filter="last-update">Last Update</button>
+      <button class="filter-button" data-filter="release-date">Release Date</button>
+    </div>
+  </section>
+  
+  <!-- Gallery Container -->
+  <div class="gallery-container">
+    <div id="gallery">
+      <!-- Gallery items will be dynamically generated here -->
     </div>
   </div>
-
-
-  <div class="container">
-    <div class="header">
-      <h1 class="title">PanguPlay Video Gallery</h1>
-	  <div style="text-align: center; margin: 20px 0;">
-    <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank" style="text-decoration: none;">
-        <button style="
-            background: linear-gradient(90deg, #0077b5, #00acee);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        " 
-        onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0px 6px 8px rgba(0, 0, 0, 0.3)';" 
-        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0px 4px 6px rgba(0, 0, 0, 0.2)';">
-            ✈️ Join Us on Telegram
-        </button>
-    </a>
-	
-	<a href="ipl2025.html" class="button-style">Go to IPL Page</a>
-	<a href="discussion.html" class="button-style">discussion</a>
-	<!-- <a href="tamilm3uplayer.html" class="button-style">Live TV</a> -->
-
-	</div>
-
-
-      <div class="search-container">
-        <div class="search-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <input type="search" id="searchInput" placeholder="Search for movies or series...">
-      </div>
-    </div>
-    
-    <div class="filter-container">
-      <div class="filter-buttons">
-        <button class="filter-button active" data-filter="all">All</button>
-        <button class="filter-button" data-filter="movie">Movies</button>
-        <button class="filter-button" data-filter="series">TV Series</button>
-		<button class="filter-button" data-filter="dubbed">Tamil Dub</button>
-      </div>
-    </div>
-    
-    <div class="gallery" id="gallery">
-      <!-- Video cards will be generated here -->
+  
+  <!-- Back to Top Button -->
+  <button id="backToTopBtn" title="Go to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+  
+  <!-- Cookie Instructions Modal -->
+  <div id="cookieInstructionsModal">
+    <div class="modal-content">
+      <h2>How to Clear Cookies</h2>
+      <p>To ensure the best experience on our site, please follow these instructions:</p>
+      <h3>For Chrome:</h3>
+      <ol>
+        <li>Click the three dots in the top right corner</li>
+        <li>Go to Settings > Privacy and Security</li>
+        <li>Click "Clear browsing data"</li>
+        <li>Select "Cookies and other site data"</li>
+        <li>Click "Clear data"</li>
+      </ol>
+      <h3>For Firefox:</h3>
+      <ol>
+        <li>Click the menu button in the top right</li>
+        <li>Select "Options" or "Preferences"</li>
+        <li>Go to "Privacy & Security"</li>
+        <li>Under "Cookies and Site Data", click "Clear Data"</li>
+      </ol>
+      <h3>Disable Adblockers:</h3>
+      <p>Please disable your adblocker for our site or whitelist our domain to ensure all content loads properly.</p>
+      <button onclick="closeInstructions()">Close</button>
     </div>
   </div>
-
-<!-- Back to top button -->
-  <button id="backToTopBtn" title="Go to top"></button>
-
-<script disable-devtool-auto='true'
-src='https://cdn.jsdelivr.net/npm/disable-devtool'
-clear-log='true'
-disable-select='true' 
-disable-copy='true'
-disable-cut='true' 
-disable-paste='true'>
-</script>
-
-
-
+  
   <script>
-    window.onload = function() {
-      // Ensure that this code runs only when the user reaches the main page
-      if (window.location.pathname === "/") {
-        // Push the current state to the history stack
-        history.pushState(null, null, window.location.href);
-
-        // Add an event listener to detect the back button press
-        window.addEventListener('popstate', function(event) {
-          // Prevent going back to the previous pages
-          history.pushState(null, null, window.location.href);
-        });
-      }
-    };
-    
-    // Data for video cards - now includes both movies and series
-    const videoData = [
-      // Movies
-	  
-	  {
-        type: "movie",
-		title: 'Good Bad Ugly (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/Good%20Bad%20Ugly%20(2025).jpg',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Good%20Bad%20Ugly%20(2025).mp4',
-        details: {
-          director: 'Adhik Ravichandran',
-          starring: 'Ajith Kumar, Trisha Krishnan, Arjun Das, Sunil, Jackie Shroff, Priya Prakash Varrier, Karthikeya Dev',
-          genres: 'Action, Comedy, Drama',
-          quality: 'PreDVD',
-          language: 'Tamil',
-          movieRating: '9.3/10',
-          lastUpdated: '10 April 2025',
-		  fileSize: '1.7 GB',
-		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Good%20Bad%20Ugly%20(2025).mp4'
-        }
-	},
-	  
-	  {
-        type: "movie",
-		title: 'Ka.Mu - Ka.Pi (2025)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/Ka.Mu%20-%20Ka.Pi%20(2025).jpg',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Ka.Mu%20-%20Ka.Pi%20(2025).mp4',
-        details: {
-          director: 'Pushpanathan Arumugam',
-          starring: 'Vignesh Ravi, Trichy Saravana Kumar (TSK), Saranya Ravichandran, Priya Dharshini',
-          genres: 'Drama, Romance',
-          quality: 'PreDVD',
-          language: 'Tamil',
-          movieRating: '8/10',
-          lastUpdated: '07 April 2025',
-		  fileSize: '0.9 GB',
-		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Ka.Mu%20-%20Ka.Pi%20(2025).mp4'
-        }
-	},
-	  
-	  {
-        type: "dubbed",
-		title: 'Ant-Man and the Wasp: Quantumania (2023)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Ant%20Man%20and%20the%20Wasp%20Quantumania%20(2023).jpg',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Ant%20Man%20and%20the%20Wasp%20%20Quantumania%20(2023).mp4',
-        details: {
-          director: 'Peyton Reed',
-          starring: 'Paul Rudd, Evangeline Lilly, Michael Douglas, Michelle Pfeiffer, Kathryn Newton, Jonathan Majors, Bill Murray',
-          genres: 'Action, Adventure, Comedy, Sci-Fi',
-          quality: 'HD',
-          language: 'Tamil',
-          movieRating: '6.0/10',
-          lastUpdated: '05 April 2025',
-		  fileSize: '1.3 GB',
-		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Ant%20Man%20and%20the%20Wasp%20%20Quantumania%20(2023).mp4'
-        }
-	},
-	{
-        type: "dubbed",
-		title: 'Asterix & Obelix: The Middle Kingdom (2023)',
-        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Asterix%20%26%20Obelix%20The%20Middle%20Kingdom%20(2023).jpg',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Asterix%20%26%20Obelix%20%20The%20Middle%20Kingdom%20(2023).mp4',
-        details: {
-          director: 'Guillaume Canet',
-          starring: 'Guillaume Canet, Gilles Lellouche, Vincent Cassel, Marion Cotillard, Jonathan Cohen, Julie Chen',
-          genres: 'Adventure, Comedy, Family',
-          quality: 'HD',
-          language: 'Tamil',
-          movieRating: '5.1/10',
-          lastUpdated: '05 April 2025',
-		  fileSize: '1.1 GB',
-		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Asterix%20%26%20Obelix%20%20The%20Middle%20Kingdom%20(2023).mp4'
-        }
-	},
-	{
+    // Video data
+const videoData = [
+  {
+    type: "movie",
+    title: 'Ka.Mu - Ka.Pi (2025)',
+    image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/Ka.Mu%20-%20Ka.Pi%20(2025).jpg',
+    video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Ka.Mu%20-%20Ka.Pi%20(2025).mp4',
+    details: {
+      director: 'Pushpanathan Arumugam',
+      starring: 'Vignesh Ravi, Trichy Saravana Kumar (TSK), Saranya Ravichandran, Priya Dharshini',
+      genres: 'Drama, Romance',
+      quality: 'PreDVD',
+      language: 'Tamil',
+      movieRating: '8/10',
+      lastUpdated: '07 April 2025',
+      fileSize: '0.9 GB',
+      streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Ka.Mu%20-%20Ka.Pi%20(2025).mp4'
+    },
+    subtitle: 'english',
+    region: 'india',
+    status: 'completed'
+  },
+  {
+    type: "dubbed",
+    title: 'Ant-Man and the Wasp: Quantumania (2023)',
+    image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Ant%20Man%20and%20the%20Wasp%20Quantumania%20(2023).jpg',
+    video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Ant%20Man%20and%20the%20Wasp%20%20Quantumania%20(2023).mp4',
+    details: {
+      director: 'Peyton Reed',
+      starring: 'Paul Rudd, Evangeline Lilly, Michael Douglas, Michelle Pfeiffer, Kathryn Newton, Jonathan Majors, Bill Murray',
+      genres: 'Action, Adventure, Comedy, Sci-Fi',
+      quality: 'HD',
+      language: 'Tamil',
+      movieRating: '6.0/10',
+      lastUpdated: '05 April 2025',
+      fileSize: '1.3 GB',
+      streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Ant%20Man%20and%20the%20Wasp%20%20Quantumania%20(2023).mp4'
+    },
+    subtitle: 'khmer',
+    region: 'united-states',
+    status: 'completed'
+  },
+  {
+    type: "dubbed",
+    title: 'Asterix & Obelix: The Middle Kingdom (2023)',
+    image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Asterix%20%26%20Obelix%20The%20Middle%20Kingdom%20(2023).jpg',
+    video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Asterix%20%26%20Obelix%20%20The%20Middle%20Kingdom%20(2023).mp4',
+    details: {
+      director: 'Guillaume Canet',
+      starring: 'Guillaume Canet, Gilles Lellouche, Vincent Cassel, Marion Cotillard, Jonathan Cohen, Julie Chen',
+      genres: 'Adventure, Comedy, Family',
+      quality: 'HD',
+      language: 'Tamil',
+      movieRating: '5.1/10',
+      lastUpdated: '05 April 2025',
+      fileSize: '1.1 GB',
+      streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Asterix%20%26%20Obelix%20%20The%20Middle%20Kingdom%20(2023).mp4'
+    },
+    subtitle: 'indonesian',
+    region: 'hong-kong',
+    status: 'completed'
+  },
+  {
         type: "dubbed",
 		title: 'Avatar: The Way of Water (2022)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Avatar%20The%20Way%20of%20Water%20(2022).jpg',
@@ -951,6 +562,7 @@ disable-paste='true'>
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Avatar%20%20The%20Way%20of%20Water%20(2022).mp4'
         }
+ 
 	},
 	{
         type: "dubbed",
@@ -1605,7 +1217,7 @@ disable-paste='true'>
         }
 	},
 	{
-        type: "dubbed",
+        type: "anime",
 		title: 'Ice Age (2002)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Ice%20Age%20(2002).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20(2002).mp4',
@@ -1622,7 +1234,7 @@ disable-paste='true'>
         }
 	},
 	{
-        type: "dubbed",
+        type: "anime",
 		title: 'Ice Age: Collision Course (2016)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Ice%20Age%20Collision%20Course%20(2016).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20Collision%20Course%20(2016).mp4',
@@ -1639,7 +1251,7 @@ disable-paste='true'>
         }
 	},
 	{
-        type: "dubbed",
+        type: "anime",
 		title: 'Ice Age: Continental Drift (2012)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Ice%20Age%20Continental%20Drift%20(2012).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20Continental%20Drift%20(2012).mp4',
@@ -1656,7 +1268,7 @@ disable-paste='true'>
         }
 	},
 	{
-        type: "dubbed",
+        type: "anime",
 		title: 'Ice Age: Dawn of the Dinosaurs (2009)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Ice%20Age%20Dawn%20of%20the%20Dinosaurs%20(2009).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20Dawn%20of%20the%20Dinosaurs%20(2009).mp4',
@@ -1673,7 +1285,7 @@ disable-paste='true'>
         }
 	},
 	{
-        type: "dubbed",
+        type: "anime",
 		title: 'Ice Age: The Meltdown (2006)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Ice%20Age%20The%20Meltdown%20(2006).jpg',
         video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20The%20Meltdown%20(2006).mp4',
@@ -2594,7 +2206,10 @@ disable-paste='true'>
           lastUpdated: '04 April 2025',
 		  fileSize: '1.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Test%20(2025).mp4'
-        }
+        },
+    subtitle: 'english',
+    region: 'india',
+    status: 'completed'
 	},
 	{
         type: "movie",
@@ -2611,7 +2226,10 @@ disable-paste='true'>
           lastUpdated: '04 April 2025',
 		  fileSize: '1.4 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Krishna%20Gadu%20Ante%20Oka%20Range%20(2025).mp4'
-        }
+        },
+    subtitle: 'english',
+    region: 'india',
+    status: 'completed'
 	},
 	{
         type: "movie",
@@ -2628,7 +2246,10 @@ disable-paste='true'>
           lastUpdated: '04 April 2025',
 		  fileSize: '0.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Kaafir%20(2025).mp4'
-        }
+        },
+    subtitle: 'english',
+    region: 'india',
+    status: 'completed'
 	},
 	{
         type: "movie",
@@ -2645,7 +2266,10 @@ disable-paste='true'>
           lastUpdated: '04 April 2025',
 		  fileSize: '1.3 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Kadaisi%20Thotta%20(2025).mp4'
-        }
+        },
+    subtitle: 'english',
+    region: 'india',
+    status: 'completed'
 	},
 	{
         type: "movie",
@@ -5274,15 +4898,44 @@ disable-paste='true'>
 
 
     ];
-    
-	// Function to update filter button counts and load gallery
+
+// Function to update filter button counts and load gallery
 function initializeGallery() {
   // Count videos for each category
   const counts = {
     all: videoData.length,
-    movie: videoData.filter(video => video.type === 'movie').length,
     series: videoData.filter(video => video.type === 'series').length,
-    dubbed: videoData.filter(video => video.type === 'dubbed').length
+    movie: videoData.filter(video => video.type === 'movie').length,
+    anime: videoData.filter(video => video.type === 'anime').length,
+    hollywood: videoData.filter(video => video.region === 'united-states').length,
+    dubbed: videoData.filter(video => video.type === 'dubbed').length,
+    
+    // Subtitle counts
+    subtitles: videoData.length,
+    english: videoData.filter(video => video.subtitle === 'english').length,
+    khmer: videoData.filter(video => video.subtitle === 'khmer').length,
+    indonesian: videoData.filter(video => video.subtitle === 'indonesian').length,
+    malay: videoData.filter(video => video.subtitle === 'malay').length,
+    thai: videoData.filter(video => video.subtitle === 'thai').length,
+    arabic: videoData.filter(video => video.subtitle === 'arabic').length,
+    
+    // Region counts
+    regions: videoData.length,
+    'south-korea': videoData.filter(video => video.region === 'south-korea').length,
+    chinese: videoData.filter(video => video.region === 'chinese').length,
+    'united-states': videoData.filter(video => video.region === 'united-states').length,
+    thailand: videoData.filter(video => video.region === 'thailand').length,
+    philippine: videoData.filter(video => video.region === 'philippine').length,
+    japanese: videoData.filter(video => video.region === 'japanese').length,
+    'hong-kong': videoData.filter(video => video.region === 'hong-kong').length,
+    taiwan: videoData.filter(video => video.region === 'taiwan').length,
+	india: videoData.filter(video => video.region === 'india').length,
+    
+    // Status counts
+    'all-status': videoData.length,
+    ongoing: videoData.filter(video => video.status === 'ongoing').length,
+    completed: videoData.filter(video => video.status === 'completed').length,
+    upcoming: videoData.filter(video => video.status === 'upcoming').length
   };
   
   // Update filter button text with counts
@@ -5290,472 +4943,247 @@ function initializeGallery() {
   filterButtons.forEach(button => {
     const filter = button.getAttribute('data-filter');
     if (counts[filter] !== undefined) {
-      // Keep original text and append count
-      const originalText = button.textContent;
-      button.innerHTML = `${originalText} <span class="count">(${counts[filter]})</span>`;
+      // Add count as a span to avoid modifying the original text
+      const countSpan = document.createElement('span');
+      countSpan.className = 'count';
+      countSpan.textContent = `(${counts[filter]})`;
+      button.appendChild(countSpan);
     }
   });
   
-  // Load the default gallery (all videos)
-  loadGallery('all');
+  // Load the default gallery
+  loadGallery();
   
   // Add click events to filter buttons
   filterButtons.forEach(button => {
     button.addEventListener('click', function() {
       const filter = this.getAttribute('data-filter');
       
-      // Update active button styling
-      filterButtons.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
+      // Find which row this button belongs to
+      const filterRow = this.closest('.filter-row');
       
-      // Load filtered gallery
-      loadGallery(filter);
-    });
-  });
-}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    function loadGallery(filter = 'all') {
-  const gallery = document.getElementById('gallery');
-  gallery.innerHTML = ''; // Clear existing content
-  
-  // Filter videos based on selected type
-  let filteredVideos = filter === 'all' 
-    ? videoData 
-    : videoData.filter(video => video.type === filter);
-  
-  // Sort videos by last updated date (newest first)
-  filteredVideos = filteredVideos.sort((a, b) => {
-    const dateA = new Date(convertDateFormat(a.details.lastUpdated));
-    const dateB = new Date(convertDateFormat(b.details.lastUpdated));
-    return dateB - dateA; // Descending order (newest first)
-  });
-  
-  if (filteredVideos.length === 0) {
-    gallery.innerHTML = '<div class="no-results">No videos found.</div>';
-    return;
-  }
-  
-  // Find the most recently updated movie date
-  const newestMovieDate = new Date(convertDateFormat(filteredVideos[0].details.lastUpdated));
-  newestMovieDate.setHours(0, 0, 0, 0); // Set to beginning of day for fair comparison
-  
-  // Generate cards for each video
-  filteredVideos.forEach((video) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    
-    // Check if this movie was updated on the same day as the newest movie
-    const movieDate = new Date(convertDateFormat(video.details.lastUpdated));
-    movieDate.setHours(0, 0, 0, 0); // Set to beginning of day
-    const isNew = movieDate.getTime() === newestMovieDate.getTime();
-    
-    // Prepare details for passing to player
-    const detailsEncoded = encodeURIComponent(JSON.stringify(video.details));
-    
-    // Determine link URL based on video type
-    let videoUrl;
-    if (video.type === 'movie' || video.type === 'dubbed') {
-      // Both regular movies and dubbed movies use the same player flow
-      videoUrl = `player.html?video=${encodeURIComponent(video.video)}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${detailsEncoded}`;
-    } else {
-      // For series, encode episode information
-      const episodesEncoded = encodeURIComponent(JSON.stringify(video.episodes));
-      videoUrl = `player.html?id=${video.id}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${detailsEncoded}&episodes=${episodesEncoded}`;
-    }
-    
-    // Create card HTML with appropriate type badge
-    let typeBadgeText;
-    if (video.type === 'movie') {
-      typeBadgeText = 'MOVIE';
-    } else if (video.type === 'dubbed') {
-      typeBadgeText = 'DUBBED';
-    } else {
-      typeBadgeText = 'SERIES';
-    }
-    
-    card.innerHTML = `
-      <div class="card-image-container">
-        <img src="${video.image}" alt="${video.title}" loading="lazy">
-        <div class="quality-badge">${video.details.quality}</div>
-        <div class="type-badge">${typeBadgeText}</div>
-        ${isNew ? '<div class="new-badge">NEW</div>' : ''}
-      </div>
-      <div class="card-content">
-        <h3 class="card-title">${video.title}</h3>
-        <div class="card-details">
-          <div class="rating">
-            <span class="star-icon">★</span>
-            ${video.details.movieRating}
-          </div>
-          <a href="${videoUrl}" class="watch-button">Watch</a>
-        </div>
-      </div>
-    `;
-    
-    gallery.appendChild(card);
-  });
-}
-
-// Call initializeGallery when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', initializeGallery);
-
-function setupSearch() {
-  const searchInput = document.getElementById('searchInput');
-  
-  searchInput.addEventListener('input', function() {
-    const searchTerm = this.value.toLowerCase().trim();
-    
-    if (searchTerm === '') {
-      // If search is empty, show all videos based on active filter
-      const activeFilter = document.querySelector('.filter-button.active').getAttribute('data-filter');
-      loadGallery(activeFilter);
-      return;
-    }
-    
-    // Get active filter
-    const activeFilter = document.querySelector('.filter-button.active').getAttribute('data-filter');
-    
-    // Filter videos based on search term and active filter
-    let filteredVideos = videoData.filter(video => {
-      // Check if video matches active filter
-      const matchesFilter = activeFilter === 'all' || video.type === activeFilter;
-      
-      // Check if video title matches search term
-      const matchesSearch = video.title.toLowerCase().includes(searchTerm);
-      
-      return matchesFilter && matchesSearch;
-    });
-    
-    // Sort videos by last updated date (newest first)
-    filteredVideos = filteredVideos.sort((a, b) => {
-      const dateA = new Date(convertDateFormat(a.details.lastUpdated));
-      const dateB = new Date(convertDateFormat(b.details.lastUpdated));
-      return dateB - dateA; // Descending order (newest first)
-    });
-    
-    // Display filtered results
-    const gallery = document.getElementById('gallery');
-    gallery.innerHTML = '';
-    
-    if (filteredVideos.length === 0) {
-      gallery.innerHTML = '<div class="no-results">No matching videos found.</div>';
-      return;
-    }
-    
-    // Find the most recently updated movie date
-    if (filteredVideos.length > 0) {
-      const newestMovieDate = new Date(convertDateFormat(filteredVideos[0].details.lastUpdated));
-      newestMovieDate.setHours(0, 0, 0, 0); // Set to beginning of day for fair comparison
-      
-      // Generate cards for filtered videos
-      filteredVideos.forEach((video) => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        
-        // Check if this movie was updated on the same day as the newest movie
-        const movieDate = new Date(convertDateFormat(video.details.lastUpdated));
-        movieDate.setHours(0, 0, 0, 0); // Set to beginning of day
-        const isNew = movieDate.getTime() === newestMovieDate.getTime();
-        
-        // Prepare details for passing to player
-        const detailsEncoded = encodeURIComponent(JSON.stringify(video.details));
-        
-        // Determine link URL based on video type
-        let videoUrl;
-        if (video.type === 'movie' || video.type === 'dubbed') {
-          // Both regular movies and dubbed movies use the same player flow
-          videoUrl = `player.html?video=${encodeURIComponent(video.video)}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${detailsEncoded}`;
-        } else {
-          // For series, encode episode information
-          const episodesEncoded = encodeURIComponent(JSON.stringify(video.episodes));
-          videoUrl = `player.html?id=${video.id}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${detailsEncoded}&episodes=${episodesEncoded}`;
-        }
-        
-        // Create card HTML with appropriate type badge
-        let typeBadgeText;
-        if (video.type === 'movie') {
-          typeBadgeText = 'MOVIE';
-        } else if (video.type === 'dubbed') {
-          typeBadgeText = 'DUBBED';
-        } else {
-          typeBadgeText = 'SERIES';
-        }
-        
-        card.innerHTML = `
-          <div class="card-image-container">
-            <img src="${video.image}" alt="${video.title}" loading="lazy">
-            <div class="quality-badge">${video.details.quality}</div>
-            <div class="type-badge">${typeBadgeText}</div>
-            ${isNew ? '<div class="new-badge">NEW</div>' : ''}
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">${video.title}</h3>
-            <div class="card-details">
-              <div class="rating">
-                <span class="star-icon">★</span>
-                ${video.details.movieRating}
-              </div>
-              <a href="${videoUrl}" class="watch-button">Watch</a>
-            </div>
-          </div>
-        `;
-        
-        gallery.appendChild(card);
-      });
-    }
-  });
-}
-
-// Define the missing convertDateFormat function
-function convertDateFormat(dateString) {
-  // Convert date formats like "22 March 2025" to "2025-03-22" for proper sorting
-  const months = {
-    'January': '01', 'February': '02', 'March': '03', 'April': '04',
-    'May': '05', 'June': '06', 'July': '07', 'August': '08',
-    'September': '09', 'October': '10', 'November': '11', 'December': '12'
-  };
-  
-  const parts = dateString.split(' ');
-  if (parts.length === 3) {
-    const day = parts[0].padStart(2, '0');
-    const month = months[parts[1]] || '01';
-    const year = parts[2];
-    return `${year}-${month}-${day}`;
-  }
-  
-  return dateString; // Return original if format doesn't match
-}
-
-// Also, make sure the setupFilters function is defined
-function setupFilters() {
-  const filterButtons = document.querySelectorAll('.filter-button');
-  
-  filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      // Remove active class from all buttons
-      filterButtons.forEach(btn => btn.classList.remove('active'));
+      // Remove active class only from buttons in the same row
+      const buttonsInSameRow = filterRow.querySelectorAll('.filter-button');
+      buttonsInSameRow.forEach(b => b.classList.remove('active'));
       
       // Add active class to clicked button
       this.classList.add('active');
       
-      // Load gallery with selected filter
-      const filter = this.getAttribute('data-filter');
-      loadGallery(filter);
+      // Load filtered gallery
+      loadGallery();
     });
   });
 }
 
-// CSS for enhanced flashing animation
-const style = document.createElement('style');
-style.textContent = `
-.new-badge {
-  position: absolute;
-  top: 10px;
-  left: 80px; /* Positioned to the right of the type badge */
-  background-color: #ff0000; /* Red background */
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: bold;
-  z-index: 1;
-  animation: flash-animation 1s infinite;
-}
-
-@keyframes flash-animation {
-  0% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.2); }
-  100% { opacity: 1; transform: scale(1); }
-}
-`;
-
-document.head.appendChild(style);
+function loadGallery() {
+  const gallery = document.getElementById('gallery');
+  gallery.innerHTML = ''; // Clear existing content
+  
+  // Get active filters for each category
+  const activeTypeFilter = document.querySelector('#type-filters .filter-button.active').getAttribute('data-filter');
+  const activeSubtitleFilter = document.querySelector('#subtitle-filters .filter-button.active').getAttribute('data-filter');
+  const activeRegionFilter = document.querySelector('#region-filters .filter-button.active').getAttribute('data-filter');
+  const activeStatusFilter = document.querySelector('#status-filters .filter-button.active').getAttribute('data-filter');
+  const activeSortFilter = document.querySelector('#sort-filters .filter-button.active').getAttribute('data-filter');
+  
+  // Filter videos based on all active filters
+  let filteredVideos = videoData.filter(video => {
+    // Special case for "hollywood" filter which maps to united-states region
+    if (activeTypeFilter === 'hollywood') {
+      return video.region === 'united-states' && 
+             (activeSubtitleFilter === 'subtitles' || video.subtitle === activeSubtitleFilter) &&
+             (activeStatusFilter === 'all-status' || video.status === activeStatusFilter);
+    }
     
-    // Initialize gallery and filters when DOM is loaded
-    document.addEventListener('DOMContentLoaded', function() {
-      loadGallery();
-      setupFilters();
-      setupSearch();
+    // Normal filter matching
+    const matchesType = activeTypeFilter === 'all' || video.type === activeTypeFilter;
+    const matchesSubtitle = activeSubtitleFilter === 'subtitles' || video.subtitle === activeSubtitleFilter;
+    const matchesRegion = activeRegionFilter === 'regions' || video.region === activeRegionFilter;
+    const matchesStatus = activeStatusFilter === 'all-status' || video.status === activeStatusFilter;
+    
+    return matchesType && matchesSubtitle && matchesRegion && matchesStatus;
+  });
+  
+  // Apply sorting
+  if (activeSortFilter === 'popular') {
+    filteredVideos.sort((a, b) => parseFloat(b.details.movieRating) - parseFloat(a.details.movieRating));
+  } else if (activeSortFilter === 'last-update') {
+    filteredVideos.sort((a, b) => {
+      const dateA = new Date(a.details.lastUpdated);
+      const dateB = new Date(b.details.lastUpdated);
+      return dateB - dateA;
     });
-	
-	// Check if the message has been dismissed before
-function checkBannerDismissed() {
-  return localStorage.getItem('panguplay_banner_dismissed') === 'true';
-}
-
-// Function to dismiss message with 24-hour expiration
-function dismissMessage() {
-  document.getElementById('importantMessageBanner').style.display = 'none';
-  localStorage.setItem('panguplay_banner_dismissed', 'true');
-  // Set expiration for 24 hours
-  const expirationDate = new Date();
-  expirationDate.setDate(expirationDate.getDate() + 1); // 1 day
-  localStorage.setItem('panguplay_banner_dismissed_expiry', expirationDate.getTime());
-}
-
-// Function to auto-dismiss banner after 5 seconds
-function setupAutoDismissBanner() {
-  if (!checkBannerDismissed()) {
-    document.getElementById('importantMessageBanner').style.display = 'block';
+  } else if (activeSortFilter === 'release-date') {
+    // For this demo, we'll just use the title which includes the year
+    filteredVideos.sort((a, b) => {
+      const yearA = a.title.match(/\d{4}/) ? parseInt(a.title.match(/\d{4}/)[0]) : 0;
+      const yearB = b.title.match(/\d{4}/) ? parseInt(b.title.match(/\d{4}/)[0]) : 0;
+      return yearB - yearA;
+    });
+  }
+  
+  // Display search results or "no results" message
+  if (filteredVideos.length === 0) {
+    gallery.innerHTML = '<div class="no-results">No videos match your filters. Please try different filters.</div>';
+    return;
+  }
+  
+  // Create HTML for each video card
+  filteredVideos.forEach(video => {
+    const isNew = new Date(video.details.lastUpdated) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000); // Within last 7 days
+    const cardElement = document.createElement('div');
+    cardElement.className = 'card';
     
-    // Set timeout to hide it after 5 seconds
-    setTimeout(function() {
-      dismissMessage();
-    }, 5000);
+    // For series, link to series page, for movies link directly to video
+    const linkUrl = video.type === 'series' ? `series.html?id=${video.id}` : video.video;
+    
+    cardElement.innerHTML = `
+      <a href="${linkUrl}">
+        <div class="card-image-container">
+          <img src="${video.image}" alt="${video.title}">
+          <div class="quality-badge">${video.details.quality}</div>
+          <div class="type-badge">${video.type.toUpperCase()}</div>
+          ${isNew ? '<div class="new-badge">NEW</div>' : ''}
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">${video.title}</h3>
+          <div class="card-details">
+            <div class="rating">
+              <i class="fas fa-star star-icon"></i>
+              <span>${video.details.movieRating}</span>
+            </div>
+            <a href="${linkUrl}" class="watch-button">
+              <i class="fas fa-play"></i> ${video.type === 'series' ? 'Watch' : 'Play'}
+            </a>
+          </div>
+        </div>
+      </a>
+    `;
+    
+    gallery.appendChild(cardElement);
+  });
+}
+
+// Search function
+document.getElementById('searchInput').addEventListener('input', function() {
+  const searchTerm = this.value.toLowerCase();
+  
+  if (searchTerm.length < 2) {
+    // Reset filters and reload gallery if search is cleared
+    if (searchTerm.length === 0) {
+      resetFilters();
+      loadGallery();
+    }
+    return;
+  }
+  
+  const gallery = document.getElementById('gallery');
+  gallery.innerHTML = ''; // Clear existing content
+  
+  // Filter videos by search term
+  const searchResults = videoData.filter(video => 
+    video.title.toLowerCase().includes(searchTerm) || 
+    video.details.genres.toLowerCase().includes(searchTerm) ||
+    video.details.starring.toLowerCase().includes(searchTerm)
+  );
+  
+  if (searchResults.length === 0) {
+    gallery.innerHTML = '<div class="no-results">No videos match your search. Try different keywords.</div>';
+    return;
+  }
+  
+  // Create HTML for each search result
+  searchResults.forEach(video => {
+    const isNew = new Date(video.details.lastUpdated) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const cardElement = document.createElement('div');
+    cardElement.className = 'card';
+    
+    const linkUrl = video.type === 'series' ? `series.html?id=${video.id}` : video.video;
+    
+    cardElement.innerHTML = `
+      <a href="${linkUrl}">
+        <div class="card-image-container">
+          <img src="${video.image}" alt="${video.title}">
+          <div class="quality-badge">${video.details.quality}</div>
+          <div class="type-badge">${video.type.toUpperCase()}</div>
+          ${isNew ? '<div class="new-badge">NEW</div>' : ''}
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">${video.title}</h3>
+          <div class="card-details">
+            <div class="rating">
+              <i class="fas fa-star star-icon"></i>
+              <span>${video.details.movieRating}</span>
+            </div>
+            <a href="${linkUrl}" class="watch-button">
+              <i class="fas fa-play"></i> ${video.type === 'series' ? 'Watch' : 'Play'}
+            </a>
+          </div>
+        </div>
+      </a>
+    `;
+    
+    gallery.appendChild(cardElement);
+  });
+});
+
+function resetFilters() {
+  // Reset all filter buttons to their default states
+  document.querySelectorAll('.filter-row').forEach(row => {
+    const buttons = row.querySelectorAll('.filter-button');
+    buttons.forEach(button => button.classList.remove('active'));
+    buttons[0].classList.add('active'); // Set first button in each row as active
+  });
+}
+
+// Back to top button functionality
+window.onscroll = function() {
+  scrollFunction();
+};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("backToTopBtn").style.display = "block";
   } else {
-    document.getElementById('importantMessageBanner').style.display = 'none';
+    document.getElementById("backToTopBtn").style.display = "none";
   }
 }
 
-// Function to show cookie instructions modal
+document.getElementById("backToTopBtn").addEventListener("click", function() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+});
+
+// Important message banner functionality
+function showImportantMessage() {
+  const banner = document.getElementById('importantMessageBanner');
+  const lastShown = localStorage.getItem('messageLastShown');
+  
+  // Show message if not dismissed in last 24 hours
+  if (!lastShown || (Date.now() - parseInt(lastShown)) > 24 * 60 * 60 * 1000) {
+    banner.style.display = 'block';
+  }
+}
+
+function dismissMessage() {
+  document.getElementById('importantMessageBanner').style.display = 'none';
+  localStorage.setItem('messageLastShown', Date.now());
+}
+
 function showCookieInstructions() {
   document.getElementById('cookieInstructionsModal').style.display = 'flex';
 }
 
-// Function to close instructions modal
 function closeInstructions() {
   document.getElementById('cookieInstructionsModal').style.display = 'none';
 }
 
-// Check for expired dismissal
-window.addEventListener('DOMContentLoaded', function() {
-  const expiryTime = localStorage.getItem('panguplay_banner_dismissed_expiry');
-  if (expiryTime && new Date().getTime() > parseInt(expiryTime)) {
-    // Reset dismissal status if expired
-    localStorage.removeItem('panguplay_banner_dismissed');
-    localStorage.removeItem('panguplay_banner_dismissed_expiry');
-  }
-  
-  // Load gallery and set up components
-  loadGallery();
-  setupFilters();
-  setupSearch();
-  
-  // Set up auto-dismiss for banner
-  setupAutoDismissBanner();
-});
+// Initialize the page
+window.onload = function() {
+  initializeGallery();
+  showImportantMessage();
+};
 
-// Get the button
-    const backToTopButton = document.getElementById("backToTopBtn");
-    
-    // When the user scrolls down 300px from the top of the document, show the button
-    window.onscroll = function() {scrollFunction()};
-    
-    function scrollFunction() {
-      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        backToTopButton.style.display = "block";
-      } else {
-        backToTopButton.style.display = "none";
-      }
-    }
-    
-    // When the user clicks on the button, scroll to the top of the document
-    backToTopButton.addEventListener("click", function() {
-      // For smooth scrolling
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-      
-      // Alternative method for older browsers
-      // document.body.scrollTop = 0; // For Safari
-      // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    });
-	
-	
-  </script>
-	
-	
-	 <!-- Fireworks Script -->
-  <!-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Check if we've shown the animation in this session
-      const hasShownAnimation = sessionStorage.getItem('ramalanWishesShown');
-      
-      // Only show if we haven't shown it yet in this session
-      if (!hasShownAnimation) {
-        // Mark that we've shown the animation
-        sessionStorage.setItem('ramalanWishesShown', 'true');
-        
-        // Create the overlay elements
-        const overlay = document.createElement('div');
-        overlay.className = 'fireworks-overlay';
-        overlay.id = 'fireworksOverlay';
-        
-        const message = document.createElement('div');
-        message.className = 'wishes-message';
-        message.innerHTML = '<h1>✨ Happy Ramalan ✨</h1><p>May your dreams come true!</p>';
-        
-        // Add elements to the body
-        document.body.appendChild(overlay);
-        document.body.appendChild(message);
-        
-        // Create fireworks function
-        function createFirework() {
-          const colors = ['#ff0', '#f0f', '#0ff', '#f00', '#0f0', '#00f'];
-          
-          // Random position for firework
-          const x = Math.random() * window.innerWidth;
-          const y = Math.random() * window.innerHeight / 2;
-          
-          // Create explosion
-          for (let i = 0; i < 30; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const distance = Math.random() * 100 + 50;
-            
-            const firework = document.createElement('div');
-            firework.className = 'firework';
-            firework.style.left = x + 'px';
-            firework.style.top = y + 'px';
-            firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            firework.style.setProperty('--x', Math.cos(angle) * distance + 'px');
-            firework.style.setProperty('--y', Math.sin(angle) * distance + 'px');
-            
-            overlay.appendChild(firework);
-            
-            // Remove firework element after animation
-            setTimeout(() => {
-              firework.remove();
-            }, 1500);
-          }
-        }
-        
-        // Create initial fireworks
-        for (let i = 0; i < 5; i++) {
-          setTimeout(() => {
-            createFirework();
-          }, i * 300);
-        }
-        
-        // Continue creating fireworks
-        const interval = setInterval(() => {
-          createFirework();
-        }, 500);
-        
-        // Hide the overlay after 10 seconds
-        setTimeout(() => {
-          clearInterval(interval);
-          overlay.style.opacity = 0;
-          message.style.opacity = 0;
-          
-          // Remove elements after fade out
-          setTimeout(() => {
-            overlay.remove();
-            message.remove();
-          }, 1000);
-        }, 5000);
-      }
-    }); -->
-  </script>
+</script>
 </body>
 </html>
