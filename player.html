@@ -270,7 +270,7 @@
       background-color: #555555;
     }
 
-    .episodes-grid {
+    <!-- .episodes-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       gap: 15px;
@@ -286,7 +286,7 @@
       max-height: 400px;
       overflow-y: auto;
       padding-right: 5px;
-    }
+    } -->
 
     .episode-card {
       background-color: #242424;
@@ -922,10 +922,10 @@
       <div class="episodes-section">
         <div class="episodes-header">
           <h3 class="episodes-title">Episodes</h3>
-          <div class="mode-toggle">
-            <button class="mode-toggle-button active" data-mode="grid" onclick="switchMode('grid')">Grid</button>
-            <button class="mode-toggle-button" data-mode="list" onclick="switchMode('list')">List</button>
-          </div>
+          <!-- <div class="mode-toggle"> -->
+            <!-- <button class="mode-toggle-button active" data-mode="grid" onclick="switchMode('grid')">Grid</button> -->
+            <!-- <button class="mode-toggle-button" data-mode="list" onclick="switchMode('list')">List</button> -->
+          <!-- </div> -->
         </div>
         
         <div class="season-selector" id="seasonSelector">
@@ -1213,154 +1213,111 @@ function updateEpisodeNavButtons() {
   }
 }
     
-    // Function to generate season buttons
-    function generateSeasonButtons() {
-      const seasonSelector = document.getElementById('seasonSelector');
-      seasonSelector.innerHTML = '';
+  
+	
+	
+	
+	<!-- // Function to generate season buttons -->
+<!-- function generateSeasonButtons() { -->
+  <!-- const seasonSelector = document.getElementById('seasonSelector'); -->
+  <!-- seasonSelector.innerHTML = ''; -->
+  
+  <!-- // Get unique seasons from episodes -->
+  <!-- const seasons = [...new Set(episodes.map(episode => episode.season))].sort((a, b) => a - b); -->
+  
+  <!-- // Create button for each season -->
+  <!-- seasons.forEach(season => { -->
+    <!-- const button = document.createElement('button'); -->
+    <!-- button.className = 'season-button' + (season === currentSeason ? ' active' : ''); -->
+    <!-- button.textContent = 'Season ' + season; -->
+    <!-- button.addEventListener('click', () => { -->
+      <!-- currentSeason = season; -->
       
-      // Get unique seasons from episodes
-      const seasons = [...new Set(episodes.map(episode => episode.season))].sort((a, b) => a - b);
+      <!-- // Update active button -->
+      <!-- document.querySelectorAll('.season-button').forEach(btn => { -->
+        <!-- btn.classList.remove('active'); -->
+      <!-- }); -->
+      <!-- button.classList.add('active'); -->
       
-      // Create button for each season
-      seasons.forEach(season => {
-       const button = document.createElement('button');
-        button.className = 'season-button' + (season === currentSeason ? ' active' : '');
-        button.textContent = 'Season ' + season;
-        button.addEventListener('click', () => {
-          currentSeason = season;
-          
-          // Update active button
-          document.querySelectorAll('.season-button').forEach(btn => {
-            btn.classList.remove('active');
-          });
-          button.classList.add('active');
-          
-          // Load episodes for selected season
-          loadEpisodesForSeason(season);
-        });
-        
-        seasonSelector.appendChild(button);
-      });
+      <!-- // Load episodes for selected season -->
+      <!-- loadEpisodesForSeason(season); -->
+    <!-- }); -->
+    
+    <!-- seasonSelector.appendChild(button); -->
+  <!-- }); -->
+<!-- } -->
+
+function generateSeasonButtons() {
+  // Skip rendering season buttons entirely
+  document.getElementById('seasonSelector').style.display = 'none';
+
+  // Load all episodes at once
+  loadEpisodesForSeason('all');
+}
+
+
+// Function to load episodes for a specific season using button layout
+function loadEpisodesForSeason(season) {
+  const episodesContainer = document.getElementById('episodesGrid');
+  episodesContainer.innerHTML = '';
+  
+  // Set container class for the episodes buttons
+  episodesContainer.className = 'episodes-buttons-container';
+  
+  // Add season header
+  const seasonHeader = document.createElement('div');
+  seasonHeader.className = 'season-header';
+  //seasonHeader.innerHTML = `<h2>Episode</h2><div class="total-episodes">Total ${episodes.filter(ep => ep.season === season).length}</div>`;
+  episodesContainer.appendChild(seasonHeader);
+  
+  // Filter episodes by season
+  <!-- const seasonEpisodes = episodes.filter(episode => episode.season === season); -->
+  const seasonEpisodes = (season === 'all') ? episodes : episodes.filter(episode => episode.season === season);
+
+  
+  // Sort episodes by episode number
+  seasonEpisodes.sort((a, b) => a.episode - b.episode);
+  
+  // Create episode buttons layout
+  const buttonsWrapper = document.createElement('div');
+  buttonsWrapper.className = 'episode-buttons-wrapper';
+  
+  seasonEpisodes.forEach(episode => {
+    const episodeButton = document.createElement('div');
+    episodeButton.className = 'episode-button-item' + (episode.id === currentEpisodeId ? ' active' : '');
+    
+    const button = document.createElement('button');
+    button.className = 'episode-button';
+    button.textContent = episode.episode;
+    
+    // Add play indicator (could be a small icon or marker)
+    if (episode.id === currentEpisodeId) {
+      const indicator = document.createElement('span');
+      indicator.className = 'playing-indicator';
+      button.appendChild(indicator);
     }
     
-    // Function to load episodes for a specific season
-    function loadEpisodesForSeason(season) {
-      const episodesContainer = document.getElementById('episodesGrid');
-      episodesContainer.innerHTML = '';
-      
-      // Filter episodes by season
-      const seasonEpisodes = episodes.filter(episode => episode.season === season);
-      
-      // Sort episodes by episode number
-      seasonEpisodes.sort((a, b) => a.episode - b.episode);
-      
-      // Create episode cards based on the current view mode
-      if (viewMode === 'grid') {
-        episodesContainer.className = 'episodes-grid';
-        
-        // Create episode cards for grid view
-        seasonEpisodes.forEach(episode => {
-          const episodeCard = document.createElement('div');
-          episodeCard.className = 'episode-card' + (episode.id === currentEpisodeId ? ' active' : '');
-          episodeCard.addEventListener('click', () => {
-            playEpisode(episode.id);
-          });
-          
-          // Create thumbnail
-          const thumbnail = document.createElement('img');
-          thumbnail.className = 'episode-thumbnail';
-          thumbnail.src = episode.thumbnail || decodeURIComponent(videoImage); // Use episode thumbnail or series image
-          thumbnail.alt = `Season ${episode.season} Episode ${episode.episode}`;
-          thumbnail.onerror = function() {
-            this.src = decodeURIComponent(videoImage); // Fallback to series image
-          };
-          
-          // Create episode details container
-          const details = document.createElement('div');
-          details.className = 'episode-details';
-          
-          // Create episode number element
-          const number = document.createElement('div');
-          number.className = 'episode-number';
-          number.textContent = `S${episode.season.toString().padStart(2, '0')}E${episode.episode.toString().padStart(2, '0')}`;
-          
-          // Create episode title element
-          const title = document.createElement('div');
-          title.className = 'episode-title';
-          title.textContent = episode.title || `Episode ${episode.episode}`;
-          
-          // Create episode duration element
-          const duration = document.createElement('div');
-          duration.className = 'episode-duration';
-          duration.textContent = episode.duration || '';
-          
-          // Assemble episode card
-          details.appendChild(number);
-          details.appendChild(title);
-          details.appendChild(duration);
-          
-          episodeCard.appendChild(thumbnail);
-          episodeCard.appendChild(details);
-          
-          episodesContainer.appendChild(episodeCard);
-        });
-      } else {
-        // List view
-        episodesContainer.className = 'episodes-list';
-        
-        // Create episode cards for list view
-        seasonEpisodes.forEach(episode => {
-          const episodeCard = document.createElement('div');
-          episodeCard.className = 'list-episode-card' + (episode.id === currentEpisodeId ? ' active' : '');
-          episodeCard.addEventListener('click', () => {
-            playEpisode(episode.id);
-          });
-          
-          // Create thumbnail
-          const thumbnail = document.createElement('img');
-          thumbnail.className = 'list-thumbnail';
-          thumbnail.src = episode.thumbnail || decodeURIComponent(videoImage); // Use episode thumbnail or series image
-          thumbnail.alt = `Season ${episode.season} Episode ${episode.episode}`;
-          thumbnail.onerror = function() {
-            this.src = decodeURIComponent(videoImage); // Fallback to series image
-          };
-          
-          // Create episode details container
-          const details = document.createElement('div');
-          details.className = 'list-episode-details';
-          
-          // Create episode title with number
-          const title = document.createElement('div');
-          title.className = 'episode-title';
-          title.textContent = `S${episode.season.toString().padStart(2, '0')}E${episode.episode.toString().padStart(2, '0')} - ${episode.title || `Episode ${episode.episode}`}`;
-          
-          // Create episode duration element
-          const duration = document.createElement('div');
-          duration.className = 'episode-duration';
-          duration.textContent = episode.duration || '';
-          
-          // Assemble episode card
-          details.appendChild(title);
-          details.appendChild(duration);
-          
-          episodeCard.appendChild(thumbnail);
-          episodeCard.appendChild(details);
-          
-          episodesContainer.appendChild(episodeCard);
-        });
-      }
-      
-      // If grid is empty, show message
-      if (seasonEpisodes.length === 0) {
-        const message = document.createElement('div');
-        message.textContent = 'No episodes available for this season.';
-        message.style.gridColumn = '1 / -1';
-        message.style.padding = '20px';
-        episodesContainer.appendChild(message);
-      }
-    }
+    episodeButton.appendChild(button);
     
-    // Modify the playEpisode function to update the header
+    episodeButton.addEventListener('click', () => {
+      playEpisode(episode.id);
+    });
+    
+    buttonsWrapper.appendChild(episodeButton);
+  });
+  
+  episodesContainer.appendChild(buttonsWrapper);
+  
+  // If no episodes available, show message
+  if (seasonEpisodes.length === 0) {
+    const message = document.createElement('div');
+    message.textContent = 'No episodes available for this season.';
+    message.className = 'no-episodes-message';
+    episodesContainer.appendChild(message);
+  }
+}
+
+// Function to play selected episode
 function playEpisode(episodeId) {
   // Find the episode by ID
   const episodeIndex = episodes.findIndex(ep => ep.id === episodeId);
@@ -1378,91 +1335,168 @@ function playEpisode(episodeId) {
     
     // Update episode navigation buttons
     updateEpisodeNavButtons();
-        
-        // Set video source
-        const videoPlayer = document.getElementById('videoPlayer');
-        const previousTime = videoPlayer.currentTime; // Save current playback position
-        
-        // Check if episode has a valid video URL
-        if (episode.videoUrl) {
-          videoPlayer.src = episode.videoUrl;
-          videoPlayer.load(); // Reload the video
-          
-          // Try to auto-play with muted fallback for mobile
-          const playPromise = videoPlayer.play();
-          if (playPromise !== undefined) {
-            playPromise.catch(error => {
-              // Auto-play was prevented
-              console.log('Auto-play prevented, muting and trying again');
-              videoPlayer.muted = true;
-              videoPlayer.play().catch(e => {
-                console.error('Could not play video even when muted:', e);
-              });
-            });
-          }
-          
-          // Update document title to include episode info
-          document.title = `${videoTitle} - S${episode.season}E${episode.episode} - PanguPlay`;
-          
-          // Update season selector if necessary
-          if (episode.season !== currentSeason) {
-            // Update season buttons
-            document.querySelectorAll('.season-button').forEach(btn => {
-              btn.classList.remove('active');
-              if (btn.textContent === `Season ${episode.season}`) {
-                btn.classList.add('active');
-              }
-            });
-            
-            // Load episodes for the new season
-            loadEpisodesForSeason(episode.season);
-          }
-          
-          // Update active episode card
-          document.querySelectorAll('.episode-card, .list-episode-card').forEach(card => {
-            card.classList.remove('active');
-          });
-          
-          // Find and highlight the active episode card
-          const activeCards = document.querySelectorAll(viewMode === 'grid' ? '.episode-card' : '.list-episode-card');
-          for (let i = 0; i < activeCards.length; i++) {
-            if (activeCards[i].querySelector(viewMode === 'grid' ? '.episode-number' : '.episode-title').textContent.includes(`S${episode.season.toString().padStart(2, '0')}E${episode.episode.toString().padStart(2, '0')}`)) {
-              activeCards[i].classList.add('active');
-              // Scroll the active card into view
-              activeCards[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
-              break;
-            }
-          }
-          
-          // Update URL with the current episode ID (for sharing or refreshing)
-          const newUrl = new URL(window.location.href);
-          newUrl.searchParams.set('episodeId', episodeId);
-          history.replaceState(null, '', newUrl);
-        } else {
-          showError(`Episode ${episode.season}x${episode.episode} video is unavailable. Please try another episode.`);
-        }
-      } else {
-        console.error('Episode not found:', episodeId);
-        showError('Episode not found. Please try another one.');
-      }
-    }
     
-    // Function to switch between grid and list view modes
-    function switchMode(mode) {
-      if (mode === viewMode) return; // No change needed
+    // Set video source
+    const videoPlayer = document.getElementById('videoPlayer');
+    
+    // Check if episode has a valid video URL
+    if (episode.videoUrl) {
+      videoPlayer.src = episode.videoUrl;
+      videoPlayer.load(); // Reload the video
       
-      viewMode = mode;
+      // Try to auto-play with muted fallback for mobile
+      const playPromise = videoPlayer.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          // Auto-play was prevented
+          console.log('Auto-play prevented, muting and trying again');
+          videoPlayer.muted = true;
+          videoPlayer.play().catch(e => {
+            console.error('Could not play video even when muted:', e);
+          });
+        });
+      }
       
-      // Update active button
-      document.querySelectorAll('.mode-toggle-button').forEach(btn => {
+      // Update document title to include episode info
+      document.title = `${videoTitle} - S${episode.season}E${episode.episode} - PanguPlay`;
+      
+      // Update season selector if necessary
+      if (episode.season !== currentSeason) {
+        // Update season buttons
+        document.querySelectorAll('.season-button').forEach(btn => {
+          btn.classList.remove('active');
+          if (btn.textContent === `Season ${episode.season}`) {
+            btn.classList.add('active');
+          }
+        });
+        
+        // Load episodes for the new season
+        loadEpisodesForSeason(episode.season);
+      }
+      
+      // Update active episode button
+      document.querySelectorAll('.episode-button-item').forEach(btn => {
         btn.classList.remove('active');
       });
-      document.querySelector(`.mode-toggle-button[data-mode="${mode}"]`).classList.add('active');
       
-      // Reload episodes to apply the new layout
-      loadEpisodesForSeason(currentSeason);
+      // Find and highlight the active episode button
+      const episodeButtons = document.querySelectorAll('.episode-button-item');
+      for (let i = 0; i < episodeButtons.length; i++) {
+        if (episodeButtons[i].querySelector('.episode-button').textContent == episode.episode) {
+          episodeButtons[i].classList.add('active');
+          break;
+        }
+      }
+      
+      // Update URL with the current episode ID (for sharing or refreshing)
+      const newUrl = new URL(window.location.href);
+      newUrl.searchParams.set('episodeId', episodeId);
+      history.replaceState(null, '', newUrl);
+    } else {
+      showError(`Episode ${episode.season}x${episode.episode} video is unavailable. Please try another episode.`);
+    }
+  } else {
+    console.error('Episode not found:', episodeId);
+    showError('Episode not found. Please try another one.');
+  }
+}
+
+// Add the CSS to style the episode buttons
+function addEpisodeButtonStyles() {
+  const styleEl = document.createElement('style');
+  styleEl.textContent = `
+    .episodes-buttons-container {
+      width: 100%;
+      background-color: #333;
+      padding: 15px;
+      border-radius: 5px;
     }
     
+    .season-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      margin-bottom: 15px;
+    }
+    
+    .season-header h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+    
+    .total-episodes {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+    
+    .episode-buttons-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .episode-button-item {
+      position: relative;
+    }
+    
+    .episode-button {
+      width: 50px;
+      height: 50px;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .episode-button:hover {
+      background-color: #555;
+    }
+    
+    .episode-button-item.active .episode-button {
+      background-color: #666;
+      box-shadow: 0 0 0 2px #fff;
+    }
+    
+    .playing-indicator {
+      width: 8px;
+      height: 8px;
+      background-color: #fff;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+    }
+    
+    .no-episodes-message {
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+  `;
+  document.head.appendChild(styleEl);
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
     // Function to handle network error recovery
     function handleNetworkError() {
       // Add event listener for online status
@@ -1519,6 +1553,8 @@ function playEpisode(episodeId) {
   
   <script>
         document.addEventListener('DOMContentLoaded', function() {
+		
+			addEpisodeButtonStyles();
             // Get the elements
             const instructionBtn = document.getElementById('instructionBtn');
             const instructionModal = document.getElementById('instructionModal');
