@@ -1343,6 +1343,13 @@ function playEpisode(episodeId) {
     if (episode.videoUrl) {
       videoPlayer.src = episode.videoUrl;
       videoPlayer.load(); // Reload the video
+	  
+	  // Update the stream URL display with episode's stream URL
+      if (episode.streamURL) {
+        document.getElementById('streamURL').innerHTML = `<a href="${episode.streamURL}" target="_blank" class="stream-link">${episode.streamURL}</a>`;
+      } else {
+        document.getElementById('streamURL').textContent = 'Not available for this episode';
+      }
       
       // Try to auto-play with muted fallback for mobile
       const playPromise = videoPlayer.play();
