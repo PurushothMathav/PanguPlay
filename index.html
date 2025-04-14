@@ -149,61 +149,65 @@
     } -->
 	
 	
-    /* Overlay background */
     .fireworks-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      z-index: 9998;
-      overflow: hidden;
-      pointer-events: none;
-      opacity: 1;
-      transition: opacity 1s ease;
-    }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 9998;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
 
-    /* Firework particle */
-    .firework {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      animation: explode 1.5s ease-out forwards;
-    }
+.firework {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: explode 1.5s ease-out forwards;
+}
 
-    @keyframes explode {
-      0% {
-        transform: translate(0, 0) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translate(var(--x), var(--y)) scale(0.5);
-        opacity: 0;
-      }
-    }
+@keyframes explode {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(0.5);
+    opacity: 0;
+  }
+}
 
-    /* Message image styling */
-    .wishes-message {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9999;
-      opacity: 1;
-      transition: opacity 1s ease;
-    }
+.wishes-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 1s ease;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* Optional: so it doesn't block clicks */
+}
 
-    .wishes-message img {
-      max-width: 90vw;
-      max-height: 70vh;
-      border-radius: 16px;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
-    }
-	
-	
-	
+.wishes-message img {
+  max-width: 400px;
+  width: 90%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+  display: block;
+}
+
 	.banner-container {
       width: 100%;
       background-color: #1a365d;
@@ -920,6 +924,25 @@ disable-paste='true'>
     // Data for video cards - now includes both movies and series
     const videoData = [
       // Movies
+	  
+	  {
+        type: "movie",
+		title: 'Black (2024)',
+        image: 'https://m.media-amazon.com/images/M/MV5BOGM5N2FkNGMtNmYzMS00MGRiLWI5ZDItOTRmNThiYWNlNDZhXkEyXkFqcGc@._V1_FMjpg_UY4096_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Black%20(2024).mp4',
+        details: {
+          director: 'KG Balasubramani',
+          starring: 'Jiiva, Priya Bhavani Shankar, Vivek Prasanna, Yog Japee, Swayam Siddha',
+          genres: 'Science Fiction, Horror',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '/10',
+          lastUpdated: '12 April 2025',
+		  fileSize: '1.7 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Black%20(2024).mp4'
+        }
+	},
+	  
 	  
 	  {
         type: "movie",
@@ -4684,7 +4707,7 @@ disable-paste='true'>
 		{
     type: "series",
     id: "mpcp2",
-    title: 'Madurai Paiyanum Chennai Ponnum (2025) E11-15',
+    title: 'Madurai Paiyanum Chennai Ponnum (2025) E11-17',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/Madurai%20Paiyanum%20Chennai%20Ponnum%20S01/Madurai%20Paiyanum%20Chennai%20Ponnum%20(2025).jpg',
     details: 
 	{
@@ -4694,7 +4717,7 @@ disable-paste='true'>
 		language: 'Tamil',
         quality: 'HD',
         movieRating: '8.1/10',
-        lastUpdated: '05 April 2025'
+        lastUpdated: '14 April 2025'
     },
     episodes: [
         
@@ -4738,7 +4761,22 @@ disable-paste='true'>
             videoUrl: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Madurai%20Paiyanum%20Chennai%20Ponnum%20S01/S01E15.mp4",
 			streamURL: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Madurai%20Paiyanum%20Chennai%20Ponnum%20S01/S01E15.mp4"
         },
-		
+		{
+            id: "mc-s1e16",
+            season: 1,
+            episode: 16,
+            title: "The Brewing Love",
+            videoUrl: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Madurai%20Paiyanum%20Chennai%20Ponnum%20S01/Season%2001%20%20Epi%2016.mp4",
+			streamURL: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Madurai%20Paiyanum%20Chennai%20Ponnum%20S01/Season%2001%20%20Epi%2016.mp4"
+        },
+		{
+            id: "mc-s1e17",
+            season: 1,
+            episode: 17,
+            title: "The Changing Tides",
+            videoUrl: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Madurai%20Paiyanum%20Chennai%20Ponnum%20S01/Season%2001%20%20Epi%2017.mp4",
+			streamURL: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Madurai%20Paiyanum%20Chennai%20Ponnum%20S01/Season%2001%20%20Epi%2017.mp4"
+        },
 		
         ]
 },
@@ -5192,7 +5230,7 @@ disable-paste='true'>
 {
     type: "series",
     id: "officep3",
-    title: 'Office (2025) E21-28',
+    title: 'Office (2025) E21-32',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/15-3-2025/Office/Office%20(2025).jpg',
     details: 
 	{
@@ -5202,7 +5240,7 @@ disable-paste='true'>
 		language: 'Tamil',
         quality: 'HD',
         movieRating: '7/10',
-        lastUpdated: '04 April 2025'
+        lastUpdated: '14 April 2025'
     },
     episodes: [
         
@@ -5269,6 +5307,38 @@ disable-paste='true'>
             title: "The Uninvited Guests",
             videoUrl: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Office%20S01/S01E28%20The%20Uninvited%20Guests.mp4",
 			streamURL: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Office%20S01/S01E28%20The%20Uninvited%20Guests.mp4"
+        },
+		{
+            id: "o-s1e29",
+            season: 1,
+            episode: 29,
+            title: "Bro Code Broken",
+            videoUrl: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Office%20S01/Office%202025%20Epi%2029.mp4",
+			streamURL: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Office%20S01/Office%202025%20Epi%2029.mp4"
+        },
+		{
+            id: "o-s1e30",
+            season: 1,
+            episode: 30,
+            title: "Staged and Confused",
+            videoUrl: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Office%20S01/Office%202025%20Epi%2030.mp4",
+			streamURL: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Office%20S01/Office%202025%20Epi%2030.mp4"
+        },
+		{
+            id: "o-s1e31",
+            season: 1,
+            episode: 31,
+            title: "Wrong Switch",
+            videoUrl: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Office%20S01/Office%202025%20Epi%2031.mp4",
+			streamURL: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Office%20S01/Office%202025%20Epi%2031.mp4"
+        },
+		{
+            id: "o-s1e29",
+            season: 1,
+            episode: 32,
+            title: "Shortcut Denied",
+            videoUrl: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Office%20S01/Office%202025%20Epi%2032.mp4",
+			streamURL: "https://storage.googleapis.com/panguplaybucket/Videos/TV%20Series/Office%20S01/Office%202025%20Epi%2032.mp4"
         },
 		
         ]
@@ -6754,9 +6824,13 @@ window.addEventListener('DOMContentLoaded', function() {
   
   <script>
 document.addEventListener('DOMContentLoaded', function () {
+
+  const now = new Date();
+  const expirationDate = new Date('2025-04-14T23:59:59'); // Set your expiry date/time here
   const hasShownAnimation = sessionStorage.getItem('ramalanWishesShown');
 
-  if (!hasShownAnimation) {
+  // Run only if before expiry and animation hasn't shown yet
+  if (now < expirationDate && !hasShownAnimation) {
     sessionStorage.setItem('ramalanWishesShown', 'true');
 
     // Create overlay
@@ -6769,14 +6843,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const message = document.createElement('div');
     message.className = 'wishes-message';
     message.innerHTML = `
-      <img src="https://img.freepik.com/premium-vector/tamil-new-year-puthandu-2024-wishes_884014-13.jpg?w=360" alt="Happy Ramalan">
+      <img src="https://img.freepik.com/premium-vector/tamil-new-year-puthandu-2024-wishes_884014-13.jpg?w=360" alt="Happy Tamil New Year">
     `;
     document.body.appendChild(message);
 
     // Firework creation function
     function createFirework() {
       const colors = ['#ff0', '#f0f', '#0ff', '#f00', '#0f0', '#00f', '#ffa500'];
-
       const x = Math.random() * window.innerWidth;
       const y = Math.random() * window.innerHeight / 2;
 
@@ -6826,6 +6899,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 </script>
+
   
 </body>
 </html>
