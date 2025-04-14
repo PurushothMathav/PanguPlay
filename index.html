@@ -149,6 +149,59 @@
     } -->
 	
 	
+    /* Overlay background */
+    .fireworks-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.85);
+      z-index: 9998;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+
+    /* Firework particle */
+    .firework {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      animation: explode 1.5s ease-out forwards;
+    }
+
+    @keyframes explode {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--x), var(--y)) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    /* Message image styling */
+    .wishes-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+
+    .wishes-message img {
+      max-width: 90vw;
+      max-height: 70vh;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+    }
+	
 	
 	
 	.banner-container {
@@ -6698,5 +6751,81 @@ window.addEventListener('DOMContentLoaded', function() {
       }
     }); -->
   </script>
+  
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const hasShownAnimation = sessionStorage.getItem('ramalanWishesShown');
+
+  if (!hasShownAnimation) {
+    sessionStorage.setItem('ramalanWishesShown', 'true');
+
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'fireworks-overlay';
+    overlay.id = 'fireworksOverlay';
+    document.body.appendChild(overlay);
+
+    // Create message with image
+    const message = document.createElement('div');
+    message.className = 'wishes-message';
+    message.innerHTML = `
+      <img src="https://img.freepik.com/premium-vector/tamil-new-year-puthandu-2024-wishes_884014-13.jpg?w=360" alt="Happy Ramalan">
+    `;
+    document.body.appendChild(message);
+
+    // Firework creation function
+    function createFirework() {
+      const colors = ['#ff0', '#f0f', '#0ff', '#f00', '#0f0', '#00f', '#ffa500'];
+
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight / 2;
+
+      for (let i = 0; i < 40; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 120 + 60;
+
+        const firework = document.createElement('div');
+        firework.className = 'firework';
+        firework.style.left = `${x}px`;
+        firework.style.top = `${y}px`;
+        firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        firework.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
+        firework.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
+
+        overlay.appendChild(firework);
+
+        setTimeout(() => {
+          firework.remove();
+        }, 1500);
+      }
+    }
+
+    // Initial burst
+    for (let i = 0; i < 6; i++) {
+      setTimeout(() => {
+        createFirework();
+      }, i * 300);
+    }
+
+    // Ongoing fireworks
+    const interval = setInterval(() => {
+      createFirework();
+    }, 500);
+
+    // End animation after 6 seconds
+    setTimeout(() => {
+      clearInterval(interval);
+      overlay.style.opacity = 0;
+      message.style.opacity = 0;
+
+      setTimeout(() => {
+        overlay.remove();
+        message.remove();
+      }, 1000);
+    }, 6000);
+  }
+});
+</script>
+  
 </body>
 </html>
