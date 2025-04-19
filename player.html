@@ -1213,39 +1213,6 @@ function updateEpisodeNavButtons() {
   }
 }
     
-  
-	
-	
-	
-	<!-- // Function to generate season buttons -->
-<!-- function generateSeasonButtons() { -->
-  <!-- const seasonSelector = document.getElementById('seasonSelector'); -->
-  <!-- seasonSelector.innerHTML = ''; -->
-  
-  <!-- // Get unique seasons from episodes -->
-  <!-- const seasons = [...new Set(episodes.map(episode => episode.season))].sort((a, b) => a - b); -->
-  
-  <!-- // Create button for each season -->
-  <!-- seasons.forEach(season => { -->
-    <!-- const button = document.createElement('button'); -->
-    <!-- button.className = 'season-button' + (season === currentSeason ? ' active' : ''); -->
-    <!-- button.textContent = 'Season ' + season; -->
-    <!-- button.addEventListener('click', () => { -->
-      <!-- currentSeason = season; -->
-      
-      <!-- // Update active button -->
-      <!-- document.querySelectorAll('.season-button').forEach(btn => { -->
-        <!-- btn.classList.remove('active'); -->
-      <!-- }); -->
-      <!-- button.classList.add('active'); -->
-      
-      <!-- // Load episodes for selected season -->
-      <!-- loadEpisodesForSeason(season); -->
-    <!-- }); -->
-    
-    <!-- seasonSelector.appendChild(button); -->
-  <!-- }); -->
-<!-- } -->
 
 function generateSeasonButtons() {
   // Skip rendering season buttons entirely
@@ -1490,21 +1457,7 @@ function addEpisodeButtonStyles() {
   document.head.appendChild(styleEl);
 }
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    // Function to handle network error recovery
+	// Function to handle network error recovery
     function handleNetworkError() {
       // Add event listener for online status
       window.addEventListener('online', function() {
@@ -1559,9 +1512,82 @@ function addEpisodeButtonStyles() {
   
   
   <script>
+		// Add this function to your script to handle keyboard shortcuts
+    function setupKeyboardShortcuts() {
+      const videoPlayer = document.getElementById('videoPlayer');
+      
+      // Auto-focus video on page load
+      window.addEventListener('load', function() {
+        // Delay focus slightly to ensure video is fully loaded
+        setTimeout(() => {
+          videoPlayer.focus();
+        }, 1000);
+      });
+      
+      // Listen for keyboard events on the document
+      document.addEventListener('keydown', function(event) {
+        // Only process if no input field has focus
+        if (document.activeElement.tagName !== 'INPUT' && 
+            document.activeElement.tagName !== 'TEXTAREA' && 
+            !document.activeElement.isContentEditable) {
+          
+          switch(event.key) {
+            case ' ':  // Space key
+            case 'k':  // YouTube-style play/pause
+              event.preventDefault();
+              if (videoPlayer.paused) {
+                videoPlayer.play();
+              } else {
+                videoPlayer.pause();
+              }
+              break;
+              
+            case 'ArrowRight':  // Right arrow - seek forward
+              event.preventDefault();
+              videoPlayer.currentTime = Math.min(videoPlayer.duration, videoPlayer.currentTime + 10);
+              break;
+              
+            case 'ArrowLeft':  // Left arrow - seek backward
+              event.preventDefault();
+              videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 10);
+              break;
+              
+            case 'f':  // F key - fullscreen
+            case 'F':
+              event.preventDefault();
+              if (document.fullscreenElement) {
+                document.exitFullscreen();
+              } else {
+                videoPlayer.requestFullscreen().catch(err => {
+                  console.error('Error attempting to enable fullscreen:', err);
+                });
+              }
+              break;
+              
+            case 'm':  // M key - mute toggle
+            case 'M':
+              event.preventDefault();
+              videoPlayer.muted = !videoPlayer.muted;
+              break;
+              
+            case 'ArrowUp':  // Up arrow - volume up
+              event.preventDefault();
+              videoPlayer.volume = Math.min(1, videoPlayer.volume + 0.1);
+              break;
+              
+            case 'ArrowDown':  // Down arrow - volume down
+              event.preventDefault();
+              videoPlayer.volume = Math.max(0, videoPlayer.volume - 0.1);
+              break;
+          }
+        }
+      });
+    }
+  
         document.addEventListener('DOMContentLoaded', function() {
 		
 			addEpisodeButtonStyles();
+			setupKeyboardShortcuts();
             // Get the elements
             const instructionBtn = document.getElementById('instructionBtn');
             const instructionModal = document.getElementById('instructionModal');
