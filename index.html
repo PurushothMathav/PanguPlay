@@ -811,14 +811,17 @@
         <div class="news-scroll-wrapper">
           <!-- First copy of the ticker -->
           <div class="news-scroll">
-			<div class="news-item">Movie : Good Bad Ugly (2025) <span class="timestamp">New</span></div>
+			<div class="news-item">Movie : Ten Hours (2025) PreDVD <span class="timestamp">New</span></div>
             <div class="separator"></div>
-			<div class="news-item">Movie : Ka.Mu - Ka.Pi (2025) <span class="timestamp">New</span></div>
+			<div class="news-item">Movie : Shivangi Lioness (2025) HD <span class="timestamp">New</span></div>
             <div class="separator"></div>
-			<div class="news-item">Movie : Saaree (2025) <span class="timestamp">New</span></div>
+			<div class="news-item">Movie : Tuk Tuk (2025) HD <span class="timestamp">New</span></div>
             <div class="separator"></div>
-			<div class="news-item">Movie : EMI (2025) <span class="timestamp">New</span></div>
+			<div class="news-item">Movie : Veera Dheera Sooran: Part 2 (2025) HD <span class="timestamp">New</span></div>
             <div class="separator"></div>
+			<div class="news-item">Movie : Niram Marum Ulagil (2025) HD <span class="timestamp">New</span></div>
+            <div class="separator"></div>
+			
           </div>
           
           <!-- Exact duplicate of the ticker - this creates the seamless loop -->
@@ -924,7 +927,23 @@ disable-paste='true'>
     // Data for video cards - now includes both movies and series
     const videoData = [
       // Movies
-	  
+	{
+        type: "movie",
+		title: 'Ten Hours (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNzQ1YmVjNjAtZDRhYi00MDk0LThjYjEtNWM0Y2ZmZWEwNzUxXkEyXkFqcGc@._V1_FMjpg_UY2048_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Ten%20Hours%20(2025)%20-%201080p.mp4',
+        details: {
+          director: 'Ilayaraja Kaliyaperumal',
+          starring: 'Sibi Sathyaraj, Gajaraj, Dileepan, Jeeva Ravi, Saravana Subbiah, Raj Ayyappa, Aadukalam Murugadoss',
+          genres: 'Crime, Thriller',
+          quality: 'PreDVD',
+          language: 'Tamil',
+          movieRating: '7.6/10',
+          lastUpdated: '20 April 2025',
+		  fileSize: '2.2 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Ten%20Hours%20(2025)%20-%201080p.mp4'
+        }
+	},  
 	  
 	{
         type: "movie",
@@ -5326,7 +5345,7 @@ disable-paste='true'>
 		language: 'Tamil',
         quality: 'HD',
         movieRating: '7/10',
-        lastUpdated: '14 April 2025'
+        lastUpdated: '10 April 2025'
     },
     episodes: [
         
