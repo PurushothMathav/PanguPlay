@@ -797,159 +797,7 @@
   </style>
   
   
- <style>
-  /* New Navigation Bar Styles */
-  .nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  }
 
-  .nav-logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #fff;
-    text-decoration: none;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-  }
-
-  .nav-link {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    font-weight: 600;
-    padding: 8px 12px;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-  }
-
-  .nav-link:hover {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .nav-link.active {
-    color: #fff;
-    background: var(--primary-color);
-  }
-
-  /* Search Container */
-  .search-container {
-      width: 90%;
-      max-width: 500px;
-      position: relative;
-      margin-top: 10px;
-  }
-
-  .search-container input[type="search"] {
-      width: 100%;
-      height: 44px;
-      padding: 0 15px 0 45px;
-      font-size: 0.95rem;
-      border-radius: 22px;
-      border: 1px solid #ccc;
-      outline: none;
-      background: #fff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  }
-
-  .search-icon {
-      position: absolute;
-      top: 50%;
-      left: 16px;
-      transform: translateY(-50%);
-      pointer-events: none;
-      color: #666;
-  }
-  
-  .telegram-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
-    background: linear-gradient(90deg, #0088cc, #00aced);
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 14px;
-    transition: all 0.2s ease;
-    border: none;
-    cursor: pointer;
-  }
-
-  .telegram-btn:hover {
-    background: linear-gradient(90deg, #0077b5, #0099e6);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-
-  .telegram-btn:active {
-    transform: translateY(0);
-    box-shadow: none;
-  }
-
-  .telegram-btn svg {
-    width: 18px;
-    height: 18px;
-    fill: currentColor;
-  }
-
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .nav-container {
-      flex-direction: column;
-      gap: 15px;
-    }
-    
-    .nav-links {
-      width: 100%;
-      justify-content: space-between;
-    }
-    
-    .search-container {
-      margin-left: 0;
-      width: 100%;
-    }
-	
-	.search-container input[type="search"] {
-          height: 40px;
-          font-size: 0.9rem;
-          padding-left: 40px;
-      }
-	
-	.telegram-btn {
-      padding: 8px 12px;
-      font-size: 13px;
-    }
-    
-    .telegram-btn svg {
-      width: 16px;
-      height: 16px;
-    }
-  }
-  
-   @media (max-width: 480px) {
-      .search-container input[type="search"] {
-          height: 36px;
-          font-size: 0.85rem;
-          padding-left: 38px;
-      }
-      .search-icon {
-          left: 12px;
-      }
-  }
-</style> 
   
 </head>
 <body>
@@ -998,37 +846,52 @@
 
 
   <div class="container">
-  <div class="nav-container">
-    <a href="#" class="nav-logo">PanguPlay</a>
-    
-    <div class="nav-links">
-      <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank" class="nav-link">
-        
-        Telegram
-      </a>
-      <a href="ipl2025.html" class="nav-link">IPL</a>
-      <a href="discussion.html" class="nav-link">Discussion</a>
-      
+    <div class="header">
+      <h1 class="title">PanguPlay Video Gallery</h1>
+	  <div style="text-align: center; margin: 20px 0;">
+    <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank" style="text-decoration: none;">
+        <button style="
+            background: linear-gradient(90deg, #0077b5, #00acee);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        " 
+        onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0px 6px 8px rgba(0, 0, 0, 0.3)';" 
+        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0px 4px 6px rgba(0, 0, 0, 0.2)';">
+            ✈️ Join Us on Telegram
+        </button>
+    </a>
+	
+	<a href="ipl2025.html" class="button-style">Go to IPL Page</a>
+	<a href="discussion.html" class="button-style">discussion</a>
+	<!-- <a href="tamilm3uplayer.html" class="button-style">Live TV</a> -->
+
+	</div>
+
+
       <div class="search-container">
         <div class="search-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <input type="search" id="searchInput" placeholder="Search...">
+        <input type="search" id="searchInput" placeholder="Search for movies or series...">
       </div>
     </div>
-  </div>
-  
-  <div class="filter-container">
-    <div class="filter-buttons">
-      <button class="filter-button active" data-filter="all">All</button>
-      <button class="filter-button" data-filter="movie">Movies</button>
-      <button class="filter-button" data-filter="series">TV Series</button>
-      <button class="filter-button" data-filter="dubbed">Tamil Dub</button>
+    
+    <div class="filter-container">
+      <div class="filter-buttons">
+        <button class="filter-button active" data-filter="all">All</button>
+        <button class="filter-button" data-filter="movie">Movies</button>
+        <button class="filter-button" data-filter="series">TV Series</button>
+      </div>
     </div>
-  </div>
     
     <div class="gallery" id="gallery">
       <!-- Video cards will be generated here -->
