@@ -1,749 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- 
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- Primary Meta Tags -->
-    <title>PanguPlay - Free Movies, TV Shows, Live TV</title>
-    <meta name="title" content="PanguPlay - Free Movies, TV Shows, Live TV">
-    <meta name="description" content="PanguPlay - Watch Latest Movies, TV Shows, Live TV for free without Ads. Your ultimate destination for entertainment.">
-    
-    <!-- Keywords -->
-    <meta name="keywords" content="panguplay, live tv, tamil movies, tv shows, tamil, live, tv shows, videogallery, pangu play, movie download, download, watch online, free movies, streaming">
-    
-    <!-- Open Graph / Facebook Meta Tags -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://purushothmathav.github.io/PanguPlay">
-    <meta property="og:title" content="PanguPlay - Free Movies, TV Shows, Live TV">
-    <meta property="og:description" content="Watch Latest Movies, TV Shows, Live TV for free without Ads. Your ultimate destination for entertainment.">
-    <meta property="og:image" content="https://purushothmathav.github.io/PanguPlay/images/og-image.jpg">
-    
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://purushothmathav.github.io/PanguPlay">
-    <meta name="twitter:title" content="PanguPlay - Free Movies, TV Shows, Live TV">
-    <meta name="twitter:description" content="Watch Latest Movies, TV Shows, Live TV for free without Ads. Your ultimate destination for entertainment.">
-    <meta name="twitter:image" content="https://purushothmathav.github.io/PanguPlay/images/twitter-image.jpg">
-    
-    <!-- Robots Meta Tag -->
-    <meta name="robots" content="index, follow">
-    
-    <!-- Geo Meta Tags -->
-    <meta name="geo.region" content="IN">
-    <meta name="geo.placename" content="India">
-    
-    <!-- Language and Content-Type -->
-    <meta http-equiv="content-language" content="en-us">
-    <meta name="language" content="English">
-    
-    <!-- Canonical Link -->
-    <link rel="canonical" href="https://purushothmathav.github.io/PanguPlay">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://purushothmathav.github.io/PanguPlay/favicon.png">
-    
-    <!-- Additional SEO and Accessibility Tags -->
-    <meta name="author" content="Purushothmathav">
-    <meta name="copyright" content="©2024 PanguPlay">
-    
-    <!-- Mobile App Meta Tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    
-    <!-- Structured Data - Organization -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "PanguPlay",
-        "url": "https://purushothmathav.github.io/PanguPlay",
-        "description": "Watch Latest Movies, TV Shows, Live TV for free without Ads",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://purushothmathav.github.io/PanguPlay/search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
-    }
-    </script>
-    <!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-59SJ522E11"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-		gtag('config', 'G-59SJ522E11');
-	</script>
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PanguPlay - Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.css"/>
   <style>
-    /* Global Styles */
-    :root {
-      --primary-color: #ff4500;
-      --dark-bg: #121212;
-      --card-bg: #202020;
-      --card-hover: #303030;
-      --text-color: #ffffff;
-      --text-secondary: #bbbbbb;
-    }
-    
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--dark-bg);
-      color: var(--text-color);
-      line-height: 1.6;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #121212; color: #fff; font-family: Arial, sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; }
+
+    /* Navbar */
+    .navbar { background: #1f1f1f; display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; position: sticky; top: 0; z-index: 1000; }
+    .nav-left, .nav-right { display: flex; align-items: center; }
+    .nav-logo { font-weight: bold; font-size: 20px; }
+    .nav-links { display: flex; gap: 15px; margin-left: 20px; }
+    .nav-links a { padding: 5px 10px; border-radius: 5px; transition: 0.3s; }
+    .nav-links a:hover { background: #333; }
+    .menu-icon { font-size: 24px; cursor: pointer; display: none; }
+    .search-bar { position: relative; margin-left: 20px; }
+    .search-bar input { padding: 5px 10px; border: none; border-radius: 20px; outline: none; }
+    .search-results { position: absolute; top: 110%; background: #2a2a2a; width: 200px; border-radius: 8px; overflow: hidden; display: none; right: 0; }
+    .search-results div { padding: 10px; border-bottom: 1px solid #444; cursor: pointer; }
+    .search-results div:hover { background: #333; }
+	
+	.search-bar { position: relative; display: flex; align-items: center; }
+	#searchInput { padding-right: 30px; /* Make space for the button */ }
+	#clearButton { position: absolute; right: 5px; background: none; border: none; font-size: 16px; cursor: pointer; display: none; /* Initially hidden */ }
+
+
+    /* Mobile Menu */
+    .mobile-menu { position: fixed; left: -250px; top: 0; width: 250px; height: 100%; background: #1f1f1f; display: flex; flex-direction: column; padding: 20px; transition: 0.3s; z-index: 2000; }
+    .mobile-menu a { margin: 15px 0; font-size: 18px; }
+
+    /* Sections */
+    .section { padding: 20px 15px; }
+    .section h2 { margin-bottom: 15px; font-size: 18px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+    .card { background: #1f1f1f; border-radius: 10px; overflow: hidden; transition: 0.3s; font-size: 12px; text-align: center; cursor: pointer; }
+    .card:hover { transform: scale(1.05); }
+    .view-all-btn { background: #ff4500; border: none; color: #fff; padding: 5px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; margin-left: 10px; }
+
+    /* Swiper */
+    .swiper { width: 100%; height: 200px; margin-bottom: 20px; }
+
+    footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f; margin-top: 20px; }
+
+    @media(max-width:768px) {
+      .nav-links { display: none; }
+      .menu-icon { display: block; }
     }
 	
-	<!-- /* Fireworks overlay styles - renamed to avoid conflicts */
-    .fireworks-overlay {
-      position: fixed; /* Fixed position covers the entire viewport */
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1000; /* High z-index to appear on top */
-      background: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
-      opacity: 1;
-      transition: opacity 1s ease-in-out;
-      pointer-events: none; /* Allow clicks to pass through to elements below */
-    }
-
-    .wishes-message {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #fff;
-      font-size: 40px;
-      text-align: center;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-      z-index: 1001; /* Above the overlay */
-      animation: fadeInOut 5s ease-in-out forwards;
-      pointer-events: none;
-    }
-
-    .firework {
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      animation: explode 1.5s ease-out forwards;
-      pointer-events: none;
-    }
-
-    @keyframes fadeInOut {
-      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-      10% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-      80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-      100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
-    }
-
-    @keyframes explode {
-      0% { transform: translate(0, 0); opacity: 1; }
-      100% { transform: translate(var(--x), var(--y)); opacity: 0; }
-    } -->
-	
-	
-    .fireworks-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.85);
-  z-index: 9998;
-  overflow: hidden;
-  pointer-events: none;
-  opacity: 1;
-  transition: opacity 1s ease;
-}
-
-.firework {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  animation: explode 1.5s ease-out forwards;
-}
-
-@keyframes explode {
-  0% {
-    transform: translate(0, 0) scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(var(--x), var(--y)) scale(0.5);
-    opacity: 0;
-  }
-}
-
-.wishes-message {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-  opacity: 1;
-  transition: opacity 1s ease;
-  background: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none; /* Optional: so it doesn't block clicks */
-}
-
-.wishes-message img {
-  max-width: 400px;
-  width: 90%;
-  height: auto;
-  border-radius: 16px;
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
-  display: block;
-}
-
-	.banner-container {
-      width: 100%;
-      background-color: #1a365d;
-      color: white;
-      padding: 0;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      position: relative;
-      overflow: hidden;
-      min-height: 40px;
-      height: auto;
-    }
-    
-    .breaking-news {
-      display: flex;
-      align-items: center;
-      min-height: 40px;
-      height: 100%;
-    }
-    
-    .breaking-label {
-      background-color: #e53e3e;
-      color: white;
-      font-weight: bold;
-      padding: 8px 10px;
-      margin-right: 10px;
-      white-space: nowrap;
-      text-transform: uppercase;
-      font-size: 14px;
-      letter-spacing: 1px;
-      z-index: 10;
-      position: relative;
-    }
-    
-    .news-ticker-container {
-      position: relative;
-      width: calc(100% - 120px);
-      overflow: hidden;
-    }
-    
-    .news-scroll-wrapper {
-      position: relative;
-      display: flex;
-      width: max-content;
-      animation: tickerMove 60s linear infinite;
-    }
-    
-    /* Pause animation when user hovers/touches - helps with accessibility */
-    .news-scroll-wrapper:hover {
-      animation-play-state: paused;
-    }
-    
-    .news-scroll {
-      display: flex;
-      align-items: center;
-      white-space: nowrap;
-    }
-    
-    .news-item {
-      display: flex;
-      align-items: center;
-      white-space: nowrap;
-      font-size: 16px;
-    }
-    
-    .separator {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      background-color: #e53e3e;
-      border-radius: 50%;
-      margin: 0 15px;
-    }
-    
-    /* Create masking effect so text disappears behind the label */
-    .mask {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 120px; /* Width of the breaking news label plus margin */
-      background-color: #1a365d;
-      z-index: 5;
-    }
-    
-    @keyframes tickerMove {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%); /* Move exactly one ticker width */
-      }
-    }
-    
-    .timestamp {
-      font-size: 12px;
-      margin-left: 5px;
-      /* Add animation for flashing effect */
-      animation: flash 1s ease-in-out infinite;
-      font-weight: bold;
-      color: #ffeb3b; /* Yellow color for better visibility */
-    }
-    
-    /* Add keyframes for flashing effect */
-    @keyframes flash {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.3;
-      }
-    }
-    
-    /* Media query for small screens */
-    @media (max-width: 480px) {
-      .breaking-label {
-        font-size: 12px;
-        padding: 6px 8px;
-        margin-right: 8px;
-      }
-      
-      .news-item {
-        font-size: 14px;
-      }
-      
-      .timestamp {
-        font-size: 10px;
-      }
-      
-      .separator {
-        width: 5px;
-        height: 5px;
-        margin: 0 10px;
-      }
-      
-      .mask {
-        width: 100px;
-      }
-      
-      .news-ticker-container {
-        width: calc(100% - 100px);
-      }
-    }
-    
-    /* Reduce motion option for accessibility */
-    @media (prefers-reduced-motion) {
-      .news-scroll-wrapper {
-        animation-duration: 20s; /* Slower movement for those who prefer reduced motion */
-      }
-      
-      .timestamp {
-        animation-duration: 2s; /* Slower flashing */
-      }
-    }
-	
-
-    .container {
-      width: 92%;
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 20px 0;
-    }
-
-    /* Header Styles */
-    .header {
-      text-align: center;
-      padding: 30px 0;
-      background-color: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-      margin-bottom: 30px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .title {
-      font-size: 42px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: var(--primary-color);
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    .search-container {
-      width: 90%;
-      max-width: 600px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    #searchInput {
-      width: 100%;
-      height: 50px;
-      padding: 0 20px 0 50px;
-      font-size: 16px;
-      border: none;
-      border-radius: 25px;
-      background-color: rgba(255, 255, 255, 0.1);
-      color: var(--text-color);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
-    }
-
-    #searchInput:focus {
-      outline: none;
-      background-color: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-secondary);
-    }
-
-    /* Filter Styles */
-    .filter-container {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    .filter-buttons {
-      display: flex;
-      background-color: rgba(0, 0, 0, 0.3);
-      border-radius: 25px;
-      overflow: hidden;
-    }
-
-    .filter-button {
-      background: none;
-      border: none;
-      color: var(--text-color);
-      padding: 10px 20px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    .filter-button.active {
-      background-color: var(--primary-color);
-    }
-
-    .filter-button:hover:not(.active) {
-      background-color: rgba(255, 69, 0, 0.2);
-    }
-
-    /* Gallery Styles */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 25px;
-      justify-content: center;
-      padding: 20px 0;
-    }
-
-    .card {
-      background-color: var(--card-bg);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-      background-color: var(--card-hover);
-    }
-
-    .card-image-container {
-      position: relative;
-      overflow: hidden;
-      height: 330px;
-    }
-
-    .card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .card:hover img {
-      transform: scale(1.05);
-    }
-
-    .quality-badge {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background-color: var(--primary-color);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: bold;
-      z-index: 1;
-    }
-
-    .type-badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background-color: rgba(0, 0, 0, 0.7);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: bold;
-      z-index: 1;
-    }
-
-    .card-content {
-      padding: 15px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      line-height: 1.3;
-    }
-
-    .card-details {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: auto;
-    }
-
-    .rating {
-      display: flex;
-      align-items: center;
-      color: var(--text-secondary);
-      font-size: 14px;
-    }
-
-    .star-icon {
-      color: gold;
-      margin-right: 5px;
-    }
-
-    .watch-button {
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 14px;
-      transition: background-color 0.3s ease;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .watch-button:hover {
-      background-color: #ff6347;
-    }
-
-    .no-results {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 30px;
-      font-size: 20px;
-      color: var(--text-secondary);
-    }
-
-    /* Responsive Styles */
-    @media (max-width: 992px) {
-      .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 20px;
-      }
-      
-      .title {
-        font-size: 36px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        width: 95%;
-        padding: 15px 0;
-      }
-      
-      .header {
-        padding: 20px 0;
-      }
-      
-      .title {
-        font-size: 32px;
-      }
-      
-      .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 15px;
-      }
-      
-      .card-image-container {
-        height: 240px;
-      }
-      
-      .card-content {
-        padding: 10px;
-      }
-      
-      .card-title {
-        font-size: 16px;
-      }
-
-      .filter-button {
-        padding: 8px 15px;
-        font-size: 14px;
-      }
-	  
-	   
-	  #backToTopBtn {
-        bottom: 20px;
-        right: 20px;
-        padding: 10px;
-        font-size: 16px;
-        width: 40px;
-        height: 40px;
-      }
-	  
-	 
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        width: 92%;
-        padding: 10px 0;
-      }
-      
-      .header {
-        padding: 15px 0;
-        margin-bottom: 20px;
-      }
-      
-      .title {
-        font-size: 28px;
-        margin-bottom: 15px;
-      }
-      
-      #searchInput {
-        height: 45px;
-        font-size: 14px;
-      }
-      
-      .gallery {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-      }
-      
-      .card-image-container {
-        height: 220px;
-      }
-      
-      .card-content {
-        padding: 8px;
-      }
-      
-      .card-title {
-        font-size: 14px;
-        margin-bottom: 8px;
-      }
-      
-      .watch-button {
-        padding: 6px 12px;
-        font-size: 12px;
-      }
-
-      .filter-container {
-        margin-bottom: 15px;
-      }
-
-      .filter-button {
-        padding: 6px 12px;
-        font-size: 12px;
-      }
-    }
-	
-	/* Add this to your existing CSS styles section */
-.new-badge {
-  position: absolute;
-  top: 10px;
-  left: 80px; /* Positioned to the right of the type badge */
-  background-color: #ff0000; /* Red background */
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: bold;
-  z-index: 1;
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.05);
-    opacity: 0.9;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-	
-	
-	.button-style {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .button-style:hover {
-    background-color: #45a049;
-  }
-	
-/* Back to top button styling */
+	/* Back to top button styling */
     #backToTopBtn {
       display: none; /* Hidden by default */
       position: fixed;
@@ -777,130 +86,74 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }	
-	
-	.count {
-  font-size: 0.9em;
-  color: #888;
-  margin-left: 4px;
-}
-
-.tab-button.active {
-  color: #your-accent-color;
-  border-bottom: 2px solid #your-accent-color;
-}
-
-.filter-button .count {
-  font-size: 0.9em;
-  color: #888;
-  margin-left: 4px;
-}
   </style>
-  
-  
-
-  
 </head>
 <body>
-	
-	
-	
-	
-  <div class="banner-container">
-    <!-- Mask to hide text as it scrolls behind breaking news label -->
-    <div class="mask"></div>
-    
-    <div class="breaking-news">
-      <div class="breaking-label">What's New</div>
-      <div class="news-ticker-container">
-        <div class="news-scroll-wrapper">
-          <!-- First copy of the ticker -->
-          <div class="news-scroll">
-			<div class="news-item">Movie : Ten Hours (2025) PreDVD <span class="timestamp">New</span></div>
-            <div class="separator"></div>
-			<div class="news-item">Movie : Shivangi Lioness (2025) HD <span class="timestamp">New</span></div>
-            <div class="separator"></div>
-			<div class="news-item">Movie : Tuk Tuk (2025) HD <span class="timestamp">New</span></div>
-            <div class="separator"></div>
-			<div class="news-item">Movie : Veera Dheera Sooran: Part 2 (2025) HD <span class="timestamp">New</span></div>
-            <div class="separator"></div>
-			<div class="news-item">Movie : Niram Marum Ulagil (2025) HD <span class="timestamp">New</span></div>
-            <div class="separator"></div>
-			
-          </div>
-          
-          <!-- Exact duplicate of the ticker - this creates the seamless loop -->
-          <div class="news-scroll">
-			<div class="news-item">Series : Office (2025) <span class="timestamp">New</span></div>
-            <div class="separator"></div>
-			<div class="news-item">Series : Seruppugal Jaakirathai (2025) <span class="timestamp">New</span></div>
-            <div class="separator"></div>
-            <div class="news-item">Series : Madurai Paiyanum Chennai Ponnum (2025)<span class="timestamp">New</span></div>
-            <div class="separator"></div>
-            <div class="news-item">Series : Om Kaali Jai Kaali (2025)<span class="timestamp">New</span></div>
-            <div class="separator"></div>
-          </div>
-        </div>
-      </div>
+
+<div class="navbar">
+  <div class="nav-left">
+    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    <a href="index.html" class="nav-logo">PanguPlay</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="movies.html">Movies</a>
+      <a href="shows.html">Shows</a>
+      <a href="dubbed.html">Tamil Dub</a>
+      <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a> <!-- Added Telegram Link -->
     </div>
   </div>
-
-
-  <div class="container">
-    <div class="header">
-      <h1 class="title">PanguPlay Video Gallery</h1>
-	  <div style="text-align: center; margin: 20px 0;">
-    <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank" style="text-decoration: none;">
-        <button style="
-            background: linear-gradient(90deg, #0077b5, #00acee);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        " 
-        onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0px 6px 8px rgba(0, 0, 0, 0.3)';" 
-        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0px 4px 6px rgba(0, 0, 0, 0.2)';">
-            ✈️ Join Us on Telegram
-        </button>
-    </a>
-	
-	<a href="ipl2025.html" class="button-style">Go to IPL Page</a>
-	<a href="discussion.html" class="button-style">discussion</a>
-	<!-- <a href="tamilm3uplayer.html" class="button-style">Live TV</a> -->
-
-	</div>
-
-
-      <div class="search-container">
-        <div class="search-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <input type="search" id="searchInput" placeholder="Search for movies or series...">
-      </div>
-    </div>
-    
-    <div class="filter-container">
-      <div class="filter-buttons">
-        <button class="filter-button active" data-filter="all">All</button>
-        <button class="filter-button" data-filter="movie">Movies</button>
-        <button class="filter-button" data-filter="series">TV Series</button>
-		<button class="filter-button" data-filter="dubbed">Tamil Dub</button>
-      </div>
-    </div>
-    
-    <div class="gallery" id="gallery">
-      <!-- Video cards will be generated here -->
+  
+  <div class="nav-right">
+    <div class="search-bar">
+      <input type="text" placeholder="Search..." id="searchInput" oninput="searchFunction()">
+      <button id="clearButton">✖</button>
+      <div class="search-results" id="searchResults"></div>
     </div>
   </div>
+</div>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="movies.html">Movies</a>
+  <a href="shows.html">Shows</a>
+  <a href="dubbed.html">Tamil Dub</a>
+  <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a> <!-- Added Telegram Link -->
+</div>
+
+
+<!-- Swiper -->
+<div class="swiper">
+  <div class="swiper-wrapper" id="featured"></div>
+</div>
+
+<!-- Movies -->
+<div class="section">
+  <h2>Movies 🍿 <a href="movies.html" class="view-all-btn">View All</a></h2>
+  <div class="cards" id="moviesList"></div>
+</div>
+
+<!-- Shows -->
+<div class="section">
+  <h2>TV Shows 📺 <a href="shows.html" class="view-all-btn">View All</a></h2>
+  <div class="cards" id="seriesList"></div>
+</div>
+
+<!-- Tamil Dub -->
+<div class="section">
+  <h2>Tamil Dub 📺 <a href="dubbed.html" class="view-all-btn">View All</a></h2>
+  <div class="cards" id="dubbedList"></div>
+</div>
 
 <!-- Back to top button -->
   <button id="backToTopBtn" title="Go to top"></button>
+  
+  
+
+<footer>
+  &copy; 2025 PanguPlay
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.js"></script>
 
 <script disable-devtool-auto='true'
 src='https://cdn.jsdelivr.net/npm/disable-devtool'
@@ -912,25 +165,30 @@ disable-paste='true'>
 </script>
 
 
+<script>
 
-  <script>
-    window.onload = function() {
-      // Ensure that this code runs only when the user reaches the main page
-      if (window.location.pathname === "/") {
-        // Push the current state to the history stack
-        history.pushState(null, null, window.location.href);
 
-        // Add an event listener to detect the back button press
-        window.addEventListener('popstate', function(event) {
-          // Prevent going back to the previous pages
-          history.pushState(null, null, window.location.href);
-        });
-      }
-    };
-    
-    // Data for video cards - now includes both movies and series
-    const videoData = [
-      // Movies
+
+const searchInput = document.getElementById("searchInput");
+const clearButton = document.getElementById("clearButton");
+const searchResults = document.getElementById("searchResults"); // Get search results container
+
+searchInput.addEventListener("input", function () {
+    clearButton.style.display = this.value ? "block" : "none";
+});
+
+clearButton.addEventListener("click", function () {
+    searchInput.value = ""; // Clears search box text
+    searchResults.innerHTML = ""; // Clears search results
+    clearButton.style.display = "none"; // Hide the button
+    searchInput.focus(); // Keep focus in search box
+});
+
+
+
+
+// Data for video cards - now includes both movies and series
+    const videos = [
 	{
         type: "movie",
 		title: 'Ten Hours (2025)',
@@ -6507,570 +5765,128 @@ disable-paste='true'>
 
 
     ];
-    
-	// Function to update filter button counts and load gallery
-function initializeGallery() {
-  // Count videos for each category
-  const counts = {
-    all: videoData.length,
-    movie: videoData.filter(video => video.type === 'movie').length,
-    series: videoData.filter(video => video.type === 'series').length,
-    dubbed: videoData.filter(video => video.type === 'dubbed').length
-  };
-  
-  // Update filter button text with counts
-  const filterButtons = document.querySelectorAll('.filter-button');
-  filterButtons.forEach(button => {
-    const filter = button.getAttribute('data-filter');
-    if (counts[filter] !== undefined) {
-      // Keep original text and append count
-      const originalText = button.textContent;
-      button.innerHTML = `${originalText} <span class="count">(${counts[filter]})</span>`;
-    }
-  });
-  
-  // Load the default gallery (all videos)
-  loadGallery('all');
-  
-  // Add click events to filter buttons
-  filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const filter = this.getAttribute('data-filter');
-      
-      // Update active button styling
-      filterButtons.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      
-      // Load filtered gallery
-      loadGallery(filter);
-    });
-  });
-}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    function loadGallery(filter = 'all') {
-  const gallery = document.getElementById('gallery');
-  gallery.innerHTML = ''; // Clear existing content
-  
-  // Filter videos based on selected type
-  let filteredVideos = filter === 'all' 
-    ? videoData 
-    : videoData.filter(video => video.type === filter);
-  
-  // Sort videos by last updated date (newest first)
-  filteredVideos = filteredVideos.sort((a, b) => {
-    const dateA = new Date(convertDateFormat(a.details.lastUpdated));
-    const dateB = new Date(convertDateFormat(b.details.lastUpdated));
-    return dateB - dateA; // Descending order (newest first)
-  });
-  
-  if (filteredVideos.length === 0) {
-    gallery.innerHTML = '<div class="no-results">No videos found.</div>';
-    return;
-  }
-  
-  // Find the most recently updated movie date
-  const newestMovieDate = new Date(convertDateFormat(filteredVideos[0].details.lastUpdated));
-  newestMovieDate.setHours(0, 0, 0, 0); // Set to beginning of day for fair comparison
-  
-  // Generate cards for each video
-  filteredVideos.forEach((video) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    
-    // Check if this movie was updated on the same day as the newest movie
-    const movieDate = new Date(convertDateFormat(video.details.lastUpdated));
-    movieDate.setHours(0, 0, 0, 0); // Set to beginning of day
-    const isNew = movieDate.getTime() === newestMovieDate.getTime();
-    
-    // Prepare details for passing to player
-    const detailsEncoded = encodeURIComponent(JSON.stringify(video.details));
-    
-    // Determine link URL based on video type
-    let videoUrl;
-    if (video.type === 'movie' || video.type === 'dubbed') {
-      // Both regular movies and dubbed movies use the same player flow
-      videoUrl = `player.html?video=${encodeURIComponent(video.video)}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${detailsEncoded}`;
+
+const mobileMenu = document.getElementById("mobileMenu");
+const menuIcon = document.querySelector(".menu-icon");
+
+function toggleMenu() {
+    if (mobileMenu.style.left === "0px") {
+        mobileMenu.style.left = "-250px";
     } else {
-      // For series, encode episode information
-      const episodesEncoded = encodeURIComponent(JSON.stringify(video.episodes));
-      videoUrl = `player.html?id=${video.id}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${detailsEncoded}&episodes=${episodesEncoded}`;
+        mobileMenu.style.left = "0px";
     }
-    
-    // Create card HTML with appropriate type badge
-    let typeBadgeText;
-    if (video.type === 'movie') {
-      typeBadgeText = 'MOVIE';
-    } else if (video.type === 'dubbed') {
-      typeBadgeText = 'DUBBED';
-    } else {
-      typeBadgeText = 'SERIES';
-    }
-    
-    card.innerHTML = `
-      <div class="card-image-container">
-        <img src="${video.image}" alt="${video.title}" loading="lazy">
-        <div class="quality-badge">${video.details.quality}</div>
-        <div class="type-badge">${typeBadgeText}</div>
-        ${isNew ? '<div class="new-badge">NEW</div>' : ''}
-      </div>
-      <div class="card-content">
-        <h3 class="card-title">${video.title}</h3>
-        <div class="card-details">
-          <div class="rating">
-            <span class="star-icon">★</span>
-            ${video.details.movieRating}
-          </div>
-          <a href="${videoUrl}" class="watch-button">Watch</a>
-        </div>
-      </div>
-    `;
-    
-    gallery.appendChild(card);
-  });
 }
 
-// Call initializeGallery when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', initializeGallery);
+// Close mobile menu when clicking outside of it
+document.addEventListener("click", function (event) {
+    if (!mobileMenu.contains(event.target) && !menuIcon.contains(event.target)) {
+        mobileMenu.style.left = "-250px";
+    }
+});
 
-function setupSearch() {
-  const searchInput = document.getElementById('searchInput');
-  
-  searchInput.addEventListener('input', function() {
-    const searchTerm = this.value.toLowerCase().trim();
-    
-    if (searchTerm === '') {
-      // If search is empty, show all videos based on active filter
-      const activeFilter = document.querySelector('.filter-button.active').getAttribute('data-filter');
-      loadGallery(activeFilter);
-      return;
-    }
-    
-    // Get active filter
-    const activeFilter = document.querySelector('.filter-button.active').getAttribute('data-filter');
-    
-    // Filter videos based on search term and active filter
-    let filteredVideos = videoData.filter(video => {
-      // Check if video matches active filter
-      const matchesFilter = activeFilter === 'all' || video.type === activeFilter;
-      
-      // Check if video title matches search term
-      const matchesSearch = video.title.toLowerCase().includes(searchTerm) ||
-    (video.details.director && video.details.director.toLowerCase().includes(searchTerm)) ||
-    (video.details.starring && video.details.starring.toLowerCase().includes(searchTerm));
-	
-      return matchesFilter && matchesSearch;
-    });
-    
-    // Sort videos by last updated date (newest first)
-    filteredVideos = filteredVideos.sort((a, b) => {
-      const dateA = new Date(convertDateFormat(a.details.lastUpdated));
-      const dateB = new Date(convertDateFormat(b.details.lastUpdated));
-      return dateB - dateA; // Descending order (newest first)
-    });
-    
-    // Display filtered results
-    const gallery = document.getElementById('gallery');
-    gallery.innerHTML = '';
-    
-    if (filteredVideos.length === 0) {
-      gallery.innerHTML = '<div class="no-results">No matching videos found.</div>';
-      return;
-    }
-    
-    // Find the most recently updated movie date
-    if (filteredVideos.length > 0) {
-      const newestMovieDate = new Date(convertDateFormat(filteredVideos[0].details.lastUpdated));
-      newestMovieDate.setHours(0, 0, 0, 0); // Set to beginning of day for fair comparison
-      
-      // Generate cards for filtered videos
-      filteredVideos.forEach((video) => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        
-        // Check if this movie was updated on the same day as the newest movie
-        const movieDate = new Date(convertDateFormat(video.details.lastUpdated));
-        movieDate.setHours(0, 0, 0, 0); // Set to beginning of day
-        const isNew = movieDate.getTime() === newestMovieDate.getTime();
-        
-        // Prepare details for passing to player
-        const detailsEncoded = encodeURIComponent(JSON.stringify(video.details));
-        
-        // Determine link URL based on video type
-        let videoUrl;
-        if (video.type === 'movie' || video.type === 'dubbed') {
-          // Both regular movies and dubbed movies use the same player flow
-          videoUrl = `player.html?video=${encodeURIComponent(video.video)}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${detailsEncoded}`;
-        } else {
-          // For series, encode episode information
-          const episodesEncoded = encodeURIComponent(JSON.stringify(video.episodes));
-          videoUrl = `player.html?id=${video.id}&title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${detailsEncoded}&episodes=${episodesEncoded}`;
-        }
-        
-        // Create card HTML with appropriate type badge
-        let typeBadgeText;
-        if (video.type === 'movie') {
-          typeBadgeText = 'MOVIE';
-        } else if (video.type === 'dubbed') {
-          typeBadgeText = 'DUBBED';
-        } else {
-          typeBadgeText = 'SERIES';
-        }
-        
-        card.innerHTML = `
-          <div class="card-image-container">
-            <img src="${video.image}" alt="${video.title}" loading="lazy">
-            <div class="quality-badge">${video.details.quality}</div>
-            <div class="type-badge">${typeBadgeText}</div>
-            ${isNew ? '<div class="new-badge">NEW</div>' : ''}
-          </div>
-          <div class="card-content">
-            <h3 class="card-title">${video.title}</h3>
-            <div class="card-details">
-              <div class="rating">
-                <span class="star-icon">★</span>
-                ${video.details.movieRating}
-              </div>
-              <a href="${videoUrl}" class="watch-button">Watch</a>
-            </div>
-          </div>
-        `;
-        
-        gallery.appendChild(card);
-      });
-    }
-  });
-}
 
-// Define the missing convertDateFormat function
-function convertDateFormat(dateString) {
-  // Convert date formats like "22 March 2025" to "2025-03-22" for proper sorting
-  const months = {
-    'January': '01', 'February': '02', 'March': '03', 'April': '04',
-    'May': '05', 'June': '06', 'July': '07', 'August': '08',
-    'September': '09', 'October': '10', 'November': '11', 'December': '12'
-  };
-  
-  const parts = dateString.split(' ');
-  if (parts.length === 3) {
-    const day = parts[0].padStart(2, '0');
-    const month = months[parts[1]] || '01';
-    const year = parts[2];
-    return `${year}-${month}-${day}`;
+const swiper = new Swiper('.swiper', {
+  slidesPerView: 2.8,
+  spaceBetween: 10,
+  loop: true,
+  autoplay: { delay: 2500 },
+  on: {
+    slideChange: updateFeaturedTitle
   }
-  
-  return dateString; // Return original if format doesn't match
+});
+
+function updateFeaturedTitle() {
+  const featured = document.querySelectorAll('.swiper-slide');
+  const activeIndex = swiper.realIndex;
+  if (videos[activeIndex]) {
+    document.getElementById('featuredTitle').textContent = videos[activeIndex].title;
+  }
 }
 
-// Also, make sure the setupFilters function is defined
-function setupFilters() {
-  const filterButtons = document.querySelectorAll('.filter-button');
-  
-  filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      // Remove active class from all buttons
-      filterButtons.forEach(btn => btn.classList.remove('active'));
-      
-      // Add active class to clicked button
-      this.classList.add('active');
-      
-      // Load gallery with selected filter
-      const filter = this.getAttribute('data-filter');
-      loadGallery(filter);
+function searchFunction() {
+  const input = document.getElementById('searchInput').value.toLowerCase();
+  const results = document.getElementById('searchResults');
+  results.innerHTML = '';
+  if (input.length > 0) {
+    const filtered = videos.filter(v => v.title.toLowerCase().includes(input));
+    filtered.forEach(v => {
+      const div = document.createElement('div');
+      div.innerText = v.title;
+      div.onclick = () => openPlayer(v);
+      results.appendChild(div);
     });
-  });
-}
-
-// CSS for enhanced flashing animation
-const style = document.createElement('style');
-style.textContent = `
-.new-badge {
-  position: absolute;
-  top: 10px;
-  left: 80px; /* Positioned to the right of the type badge */
-  background-color: #ff0000; /* Red background */
-  color: white;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: bold;
-  z-index: 1;
-  animation: flash-animation 1s infinite;
-}
-
-@keyframes flash-animation {
-  0% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.2); }
-  100% { opacity: 1; transform: scale(1); }
-}
-`;
-
-document.head.appendChild(style);
-    
-    // Initialize gallery and filters when DOM is loaded
-    document.addEventListener('DOMContentLoaded', function() {
-      loadGallery();
-      setupFilters();
-      setupSearch();
-    });
-	
-	// Check if the message has been dismissed before
-function checkBannerDismissed() {
-  return localStorage.getItem('panguplay_banner_dismissed') === 'true';
-}
-
-// Function to dismiss message with 24-hour expiration
-function dismissMessage() {
-  document.getElementById('importantMessageBanner').style.display = 'none';
-  localStorage.setItem('panguplay_banner_dismissed', 'true');
-  // Set expiration for 24 hours
-  const expirationDate = new Date();
-  expirationDate.setDate(expirationDate.getDate() + 1); // 1 day
-  localStorage.setItem('panguplay_banner_dismissed_expiry', expirationDate.getTime());
-}
-
-// Function to auto-dismiss banner after 5 seconds
-function setupAutoDismissBanner() {
-  if (!checkBannerDismissed()) {
-    document.getElementById('importantMessageBanner').style.display = 'block';
-    
-    // Set timeout to hide it after 5 seconds
-    setTimeout(function() {
-      dismissMessage();
-    }, 5000);
+    results.style.display = 'block';
   } else {
-    document.getElementById('importantMessageBanner').style.display = 'none';
+    results.style.display = 'none';
   }
 }
 
-// Function to show cookie instructions modal
-function showCookieInstructions() {
-  document.getElementById('cookieInstructionsModal').style.display = 'flex';
-}
-
-// Function to close instructions modal
-function closeInstructions() {
-  document.getElementById('cookieInstructionsModal').style.display = 'none';
-}
-
-// Check for expired dismissal
-window.addEventListener('DOMContentLoaded', function() {
-  const expiryTime = localStorage.getItem('panguplay_banner_dismissed_expiry');
-  if (expiryTime && new Date().getTime() > parseInt(expiryTime)) {
-    // Reset dismissal status if expired
-    localStorage.removeItem('panguplay_banner_dismissed');
-    localStorage.removeItem('panguplay_banner_dismissed_expiry');
+function openPlayer(video) {
+  const details = encodeURIComponent(JSON.stringify(video.details));
+  let url = `player.html?title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${details}`;
+  if (video.type === 'series') {
+    const episodes = encodeURIComponent(JSON.stringify(video.episodes));
+    url += `&id=${video.id}&episodes=${episodes}`;
+  } else {
+    url += `&video=${encodeURIComponent(video.video)}`;
   }
-  
-  // Load gallery and set up components
-  loadGallery();
-  setupFilters();
-  setupSearch();
-  
-  // Set up auto-dismiss for banner
-  setupAutoDismissBanner();
-});
+  window.location.href = url;
+}
 
-// Get the button
-    const backToTopButton = document.getElementById("backToTopBtn");
-    
-    // When the user scrolls down 300px from the top of the document, show the button
-    window.onscroll = function() {scrollFunction()};
-    
-    function scrollFunction() {
-      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        backToTopButton.style.display = "block";
-      } else {
-        backToTopButton.style.display = "none";
-      }
-    }
-    
-    // When the user clicks on the button, scroll to the top of the document
-    backToTopButton.addEventListener("click", function() {
-      // For smooth scrolling
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-      
-      // Alternative method for older browsers
-      // document.body.scrollTop = 0; // For Safari
-      // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+function parseDate(dateString) {
+  return new Date(Date.parse(dateString)); // Convert '18 April 2025' to a Date object
+}
+
+function loadHomeSections() {
+  const featured = document.getElementById('featured');
+  const movies = document.getElementById('moviesList');
+  const series = document.getElementById('seriesList');
+  const dubbed = document.getElementById('dubbedList');
+
+  // Sort each section by `lastUpdated` before displaying
+  videos
+    .filter(v => v.type === 'movie')
+    .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
+    .slice(0, 10)
+    .forEach(v => movies.appendChild(createCard(v)));
+
+  videos
+    .filter(v => v.type === 'series')
+    .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
+    .slice(0, 10)
+    .forEach(v => series.appendChild(createCard(v)));
+
+  videos
+    .filter(v => v.type === 'dubbed')
+    .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
+    .slice(0, 10)
+    .forEach(v => dubbed.appendChild(createCard(v)));
+
+  // Featured Swiper (sorted by lastUpdated)
+  videos
+    .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
+    .slice(0, 10)
+    .forEach(v => {
+      const slide = document.createElement('div');
+      slide.className = 'swiper-slide';
+      slide.innerHTML = `<img src="${v.image}" alt="${v.title}">`;
+      slide.onclick = () => openPlayer(v);
+      featured.appendChild(slide);
     });
-	
-	
-  </script>
-	
-	
-	 <!-- Fireworks Script -->
-  <!-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Check if we've shown the animation in this session
-      const hasShownAnimation = sessionStorage.getItem('ramalanWishesShown');
-      
-      // Only show if we haven't shown it yet in this session
-      if (!hasShownAnimation) {
-        // Mark that we've shown the animation
-        sessionStorage.setItem('ramalanWishesShown', 'true');
-        
-        // Create the overlay elements
-        const overlay = document.createElement('div');
-        overlay.className = 'fireworks-overlay';
-        overlay.id = 'fireworksOverlay';
-        
-        const message = document.createElement('div');
-        message.className = 'wishes-message';
-        message.innerHTML = '<h1>✨ Happy Ramalan ✨</h1><p>May your dreams come true!</p>';
-        
-        // Add elements to the body
-        document.body.appendChild(overlay);
-        document.body.appendChild(message);
-        
-        // Create fireworks function
-        function createFirework() {
-          const colors = ['#ff0', '#f0f', '#0ff', '#f00', '#0f0', '#00f'];
-          
-          // Random position for firework
-          const x = Math.random() * window.innerWidth;
-          const y = Math.random() * window.innerHeight / 2;
-          
-          // Create explosion
-          for (let i = 0; i < 30; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const distance = Math.random() * 100 + 50;
-            
-            const firework = document.createElement('div');
-            firework.className = 'firework';
-            firework.style.left = x + 'px';
-            firework.style.top = y + 'px';
-            firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            firework.style.setProperty('--x', Math.cos(angle) * distance + 'px');
-            firework.style.setProperty('--y', Math.sin(angle) * distance + 'px');
-            
-            overlay.appendChild(firework);
-            
-            // Remove firework element after animation
-            setTimeout(() => {
-              firework.remove();
-            }, 1500);
-          }
-        }
-        
-        // Create initial fireworks
-        for (let i = 0; i < 5; i++) {
-          setTimeout(() => {
-            createFirework();
-          }, i * 300);
-        }
-        
-        // Continue creating fireworks
-        const interval = setInterval(() => {
-          createFirework();
-        }, 500);
-        
-        // Hide the overlay after 10 seconds
-        setTimeout(() => {
-          clearInterval(interval);
-          overlay.style.opacity = 0;
-          message.style.opacity = 0;
-          
-          // Remove elements after fade out
-          setTimeout(() => {
-            overlay.remove();
-            message.remove();
-          }, 1000);
-        }, 5000);
-      }
-    }); -->
-  </script>
-  
-  <script>
-document.addEventListener('DOMContentLoaded', function () {
 
-  const now = new Date();
-  const expirationDate = new Date('2025-04-14T23:59:59'); // Set your expiry date/time here
-  const hasShownAnimation = sessionStorage.getItem('ramalanWishesShown');
+  updateFeaturedTitle();
+}
 
-  // Run only if before expiry and animation hasn't shown yet
-  if (now < expirationDate && !hasShownAnimation) {
-    sessionStorage.setItem('ramalanWishesShown', 'true');
+function createCard(v) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `<img src="${v.image}"><div style="padding:5px">${v.title}</div>`;
+  card.onclick = () => openPlayer(v);
+  return card;
+}
 
-    // Create overlay
-    const overlay = document.createElement('div');
-    overlay.className = 'fireworks-overlay';
-    overlay.id = 'fireworksOverlay';
-    document.body.appendChild(overlay);
+loadHomeSections();
 
-    // Create message with image
-    const message = document.createElement('div');
-    message.className = 'wishes-message';
-    message.innerHTML = `
-      <img src="https://img.freepik.com/premium-vector/tamil-new-year-puthandu-2024-wishes_884014-13.jpg?w=360" alt="Happy Tamil New Year">
-    `;
-    document.body.appendChild(message);
-
-    // Firework creation function
-    function createFirework() {
-      const colors = ['#ff0', '#f0f', '#0ff', '#f00', '#0f0', '#00f', '#ffa500'];
-      const x = Math.random() * window.innerWidth;
-      const y = Math.random() * window.innerHeight / 2;
-
-      for (let i = 0; i < 40; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const distance = Math.random() * 120 + 60;
-
-        const firework = document.createElement('div');
-        firework.className = 'firework';
-        firework.style.left = `${x}px`;
-        firework.style.top = `${y}px`;
-        firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        firework.style.setProperty('--x', `${Math.cos(angle) * distance}px`);
-        firework.style.setProperty('--y', `${Math.sin(angle) * distance}px`);
-
-        overlay.appendChild(firework);
-
-        setTimeout(() => {
-          firework.remove();
-        }, 1500);
-      }
-    }
-
-    // Initial burst
-    for (let i = 0; i < 6; i++) {
-      setTimeout(() => {
-        createFirework();
-      }, i * 300);
-    }
-
-    // Ongoing fireworks
-    const interval = setInterval(() => {
-      createFirework();
-    }, 500);
-
-    // End animation after 6 seconds
-    setTimeout(() => {
-      clearInterval(interval);
-      overlay.style.opacity = 0;
-      message.style.opacity = 0;
-
-      setTimeout(() => {
-        overlay.remove();
-        message.remove();
-      }, 1000);
-    }, 6000);
-  }
-});
 </script>
-
-  
 </body>
 </html>

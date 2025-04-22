@@ -1,0 +1,2141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PanguPlay - Tamil Dubbed</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #121212; color: #fff; font-family: Arial, sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; }
+
+    .navbar { background: #1f1f1f; display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; position: sticky; top: 0; z-index: 1000; }
+    .nav-left, .nav-right { display: flex; align-items: center; }
+    .nav-logo { font-weight: bold; font-size: 20px; }
+    .nav-links { display: flex; gap: 15px; margin-left: 20px; }
+    .nav-links a { padding: 5px 10px; border-radius: 5px; transition: 0.3s; }
+    .nav-links a:hover { background: #333; }
+    .menu-icon { font-size: 24px; cursor: pointer; display: none; }
+    .search-bar { position: relative; margin-left: 20px; }
+    .search-bar input { padding: 5px 10px; border: none; border-radius: 20px; outline: none; }
+    .search-results { position: absolute; top: 110%; background: #2a2a2a; width: 200px; border-radius: 8px; overflow: hidden; display: none; right: 0; }
+    .search-results div { padding: 10px; border-bottom: 1px solid #444; cursor: pointer; }
+    .search-results div:hover { background: #333; }
+	.search-bar { position: relative; display: flex; align-items: center; }
+	#searchInput { padding-right: 30px; /* Make space for the button */ }
+	#clearButton { position: absolute; right: 5px; background: none; border: none; font-size: 16px; cursor: pointer; display: none; /* Initially hidden */ }
+
+    .mobile-menu { position: fixed; left: -250px; top: 0; width: 250px; height: 100%; background: #1f1f1f; display: flex; flex-direction: column; padding: 20px; transition: 0.3s; z-index: 2000; }
+    .mobile-menu a { margin: 15px 0; font-size: 18px; }
+
+    .section { padding: 20px 15px; }
+    .section h2 { margin-bottom: 15px; font-size: 18px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+    .card { background: #1f1f1f; border-radius: 10px; overflow: hidden; transition: 0.3s; font-size: 12px; text-align: center; cursor: pointer; }
+    .card:hover { transform: scale(1.05); }
+
+    footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f; margin-top: 20px; }
+
+    @media(max-width:768px) {
+      .nav-links { display: none; }
+      .menu-icon { display: block; }
+    }
+	
+	
+	/* Back to top button styling */
+    #backToTopBtn {
+      display: none; /* Hidden by default */
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 99;
+      border: none;
+      outline: none;
+      background-color: #1a365d;
+      color: white;
+      cursor: pointer;
+      padding: 15px;
+      border-radius: 50%;
+      font-size: 18px;
+      width: 50px;
+      height: 50px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    
+    #backToTopBtn:hover {
+      background-color: #0f2042;
+      transform: translateY(-3px);
+    }
+    
+    /* Adding arrow icon inside button */
+    #backToTopBtn::after {
+      content: "↑";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }	
+  </style>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="nav-left">
+    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    <a href="index.html" class="nav-logo">PanguPlay</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="movies.html">Movies</a>
+      <a href="shows.html">Shows</a>
+      <a href="dubbed.html">Tamil Dub</a>
+      <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a> <!-- Added Telegram Link -->
+    </div>
+  </div>
+  
+  <div class="nav-right">
+    <div class="search-bar">
+      <input type="text" placeholder="Search..." id="searchInput" oninput="searchFunction()">
+      <button id="clearButton">✖</button>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+</div>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="movies.html">Movies</a>
+  <a href="shows.html">Shows</a>
+  <a href="dubbed.html">Tamil Dub</a>
+  <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a> <!-- Added Telegram Link -->
+</div>
+
+
+<div class="section">
+  <h2>All Tamil Dubbed 📺</h2>
+  <div class="cards" id="dubbedList"></div>
+</div>
+
+<!-- Back to top button -->
+  <button id="backToTopBtn" title="Go to top"></button>
+
+<script disable-devtool-auto='true'
+src='https://cdn.jsdelivr.net/npm/disable-devtool'
+clear-log='true'
+disable-select='true' 
+disable-copy='true'
+disable-cut='true' 
+disable-paste='true'>
+</script>
+
+
+<footer>
+  &copy; 2025 PanguPlay
+</footer>
+
+<script>
+// Get the button
+    const backToTopButton = document.getElementById("backToTopBtn");
+    
+    // When the user scrolls down 300px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+    
+    function scrollFunction() {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        backToTopButton.style.display = "block";
+      } else {
+        backToTopButton.style.display = "none";
+      }
+    }
+    
+    // When the user clicks on the button, scroll to the top of the document
+    backToTopButton.addEventListener("click", function() {
+      // For smooth scrolling
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+      
+      // Alternative method for older browsers
+      // document.body.scrollTop = 0; // For Safari
+      // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+
+
+const searchInput = document.getElementById("searchInput");
+const clearButton = document.getElementById("clearButton");
+const searchResults = document.getElementById("searchResults"); // Get search results container
+
+searchInput.addEventListener("input", function () {
+    clearButton.style.display = this.value ? "block" : "none";
+});
+
+clearButton.addEventListener("click", function () {
+    searchInput.value = ""; // Clears search box text
+    searchResults.innerHTML = ""; // Clears search results
+    clearButton.style.display = "none"; // Hide the button
+    searchInput.focus(); // Keep focus in search box
+});
+
+
+const videos = [
+
+{
+        type: "dubbed",
+		title: 'Fight or Flight (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMmE4YTQxMjctMWFlZC00OTY5LWJiNTctZjFhNTJlMmIxMmViXkEyXkFqcGc@._V1_FMjpg_UY2160_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Fight%20or%20Flight%202025.mp4',
+        details: {
+          director: 'James Madigan',
+          starring: 'Josh Hartnett, Charithra Chandran, Marko Zaror, Katee Sackhoff, Julian Kostov, JuJu Chan Szeto',
+          genres: 'Action, Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.4/10',
+          lastUpdated: '18 April 2025',
+		  fileSize: '1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Fight%20or%20Flight%202025.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Ant-Man and the Wasp: Quantumania (2023)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Ant%20Man%20and%20the%20Wasp%20Quantumania%20(2023).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Ant%20Man%20and%20the%20Wasp%20%20Quantumania%20(2023).mp4',
+        details: {
+          director: 'Peyton Reed',
+          starring: 'Paul Rudd, Evangeline Lilly, Michael Douglas, Michelle Pfeiffer, Kathryn Newton, Jonathan Majors, Bill Murray',
+          genres: 'Action, Adventure, Comedy, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.0/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.3 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Ant%20Man%20and%20the%20Wasp%20%20Quantumania%20(2023).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Asterix & Obelix: The Middle Kingdom (2023)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Asterix%20%26%20Obelix%20The%20Middle%20Kingdom%20(2023).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Asterix%20%26%20Obelix%20%20The%20Middle%20Kingdom%20(2023).mp4',
+        details: {
+          director: 'Guillaume Canet',
+          starring: 'Guillaume Canet, Gilles Lellouche, Vincent Cassel, Marion Cotillard, Jonathan Cohen, Julie Chen',
+          genres: 'Adventure, Comedy, Family',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.1/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Asterix%20%26%20Obelix%20%20The%20Middle%20Kingdom%20(2023).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Avatar: The Way of Water (2022)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Avatar%20The%20Way%20of%20Water%20(2022).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Avatar%20%20The%20Way%20of%20Water%20(2022).mp4',
+        details: {
+          director: 'James Cameron',
+          starring: 'Sam Worthington, Zoe Saldaña, Sigourney Weaver, Stephen Lang, Kate Winslet',
+          genres: 'Action, Adventure, Fantasy, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.5/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Avatar%20%20The%20Way%20of%20Water%20(2022).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Back in Action (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Back%20In%20Action%20(2025).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Back%20In%20Action%20(2025).mp4',
+        details: {
+          director: 'Seth Gordon',
+          starring: 'Jamie Foxx, Cameron Diaz, Andrew Scott, Jamie Demetriou, Kyle Chandler, Glenn Close',
+          genres: 'Action, Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.9/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Back%20In%20Action%20(2025).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Doctor Strange in the Multiverse of Madness (2022)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Doctor%20Strange%20in%20the%20Multiverse%20of%20Madness%20(2022).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Doctor%20Strange%20in%20the%20Multiverse%20of%20Madness%20(2022).mp4',
+        details: {
+          director: 'Sam Raimi',
+          starring: 'Benedict Cumberbatch, Elizabeth Olsen, Chiwetel Ejiofor, Benedict Wong, Xochitl Gomez, Rachel McAdams',
+          genres: 'Action, Adventure, Fantasy, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.9/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Doctor%20Strange%20in%20the%20Multiverse%20of%20Madness%20(2022).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Extraction 2 (2023)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Extraction%202%20(2023).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Extraction%202%20(2023).mp4',
+        details: {
+          director: 'Sam Hargrave',
+          starring: 'Chris Hemsworth, Golshifteh Farahani, Adam Bessa, Tornike Gogrichiani, Tinatin Dalakishvili, Daniel Bernhardt, Idris Elba',
+          genres: 'Action, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.0/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Extraction%202%20(2023).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Fantastic Four: Rise of the Silver Surfer (2007)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Fantastic%204%20Rise%20of%20the%20Silver%20Surfer%20(2007).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Fantastic%204%20Rise%20of%20the%20Silver%20Surfer%20(2007).mp4',
+        details: {
+          director: 'Tim Story',
+          starring: 'Ioan Gruffudd, Jessica Alba, Chris Evans, Michael Chiklis, Julian McMahon, Kerry Washington, Andre Braugher',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.6/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '0.6 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Fantastic%204%20Rise%20of%20the%20Silver%20Surfer%20(2007).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Fantastic Beasts: The Secrets of Dumbledore (2022)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Fantastic%20Beasts%203%20The%20Secrets%20of%20Dumbledore%20(2022).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Fantastic%20Beasts%203%20%20The%20Secrets%20of%20Dumbledore%20(2022).mp4',
+        details: {
+          director: 'David Yates',
+          starring: 'Eddie Redmayne, Jude Law, Ezra Miller, Dan Fogler, Alison Sudol, Callum Turner, Jessica Williams, Katherine Waterston, Mads Mikkelsen',
+          genres: 'Adventure, Fantasy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.2/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.2 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Fantastic%20Beasts%203%20%20The%20Secrets%20of%20Dumbledore%20(2022).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Fantastic Four (2005)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Fantastic%20Four%20(2005).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Fantastic%20Four%20(2005).mp4',
+        details: {
+          director: 'Tim Story',
+          starring: 'Ioan Gruffudd, Jessica Alba, Chris Evans, Michael Chiklis, Julian McMahon, Kerry Washington',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.7/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '0.7 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Fantastic%20Four%20(2005).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Fast X (2023)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Fast%20X%20(2023).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Fast%20X%20(2023).mp4',
+        details: {
+          director: 'Louis Leterrier',
+          starring: 'Vin Diesel, Michelle Rodriguez, Jason Momoa, Charlize Theron, Tyrese Gibson, Ludacris, John Cena, Nathalie Emmanuel, Brie Larson, Helen Mirren, Jason Statham',
+          genres: 'Action, Adventure, Crime',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.7/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.4 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Fast%20X%20(2023).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Final Destination (2000)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Final%20Destination%20(2000).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Final%20Destination%20(2000).mp4',
+        details: {
+          director: 'James Wong',
+          starring: 'Devon Sawa, Ali Larter, Kerr Smith, Tony Todd',
+          genres: 'Horror, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.7/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.5 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Final%20Destination%20(2000).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Final Destination 2 (2003)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Final%20Destination%202%202003.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Final%20Destination%202%202003.mp4',
+        details: {
+          director: 'David R. Ellis',
+          starring: 'Ali Larter, A.J. Cook, Michael Landes, Tony Todd',
+          genres: 'Horror, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.2/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.3 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Final%20Destination%202%202003.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Final Destination 3 (2006)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Final%20Destination%203%20(2006).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Final%20Destination%203%20(2006).mp4',
+        details: {
+          director: 'James Wong',
+          starring: 'Mary Elizabeth Winstead, Ryan Merriman, Kris Lemche, Alexz Johnson',
+          genres: 'Horror, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.8/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.8 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Final%20Destination%203%20(2006).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Final Destination 4 (2009)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Final%20Destination%204%20(2009).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Final%20Destination%204%20(2009).mp4',
+        details: {
+          director: 'David R. Ellis',
+          starring: 'Bobby Campo, Shantel VanSanten, Mykelti Williamson, Nick Zano, Krista Allen',
+          genres: 'Horror, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.1/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.7 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Final%20Destination%204%20(2009).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Final Destination 5 (2011)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Final%20Destination%205%20(2011).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Final%20Destination%205%20(2011).mp4',
+        details: {
+          director: 'Steven Quale',
+          starring: 'Nicholas D Agosto, Emma Bell, Miles Fisher, Arlen Escarpeta, David Koechner, Tony Todd',
+          genres: 'Horror, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.9/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Final%20Destination%205%20(2011).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Hellboy: The Crooked Man (2024)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Hellboy%20The%20Crooked%20Man%20(2024).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Hellboy%20The%20Crooked%20Man%20(2024).mp4',
+        details: {
+          director: 'Brian Taylor',
+          starring: 'Jack Kesy, Jefferson White, Adeline Rudolph, Leah McNamara',
+          genres: 'Action, Horror, Mystery, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '4.5/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Hellboy%20The%20Crooked%20Man%20(2024).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'John Wick: Chapter 4 (2023)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/John%20Wick%20Chapter%204%20(2023).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/John%20Wick%20%20Chapter%204%20(2023).mp4',
+        details: {
+          director: 'Chad Stahelski',
+          starring: 'Keanu Reeves, Donnie Yen, Bill Skarsgård, Laurence Fishburne, Hiroyuki Sanada, Shamier Anderson, Lance Reddick, Rina Sawayama, Scott Adkins, Clancy Brown, Ian McShane',
+          genres: 'Action, Crime, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.6/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.5 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/John%20Wick%20%20Chapter%204%20(2023).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'John Wick (2014)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/John%20Wick%20(2014).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/John%20Wick%20(2014).mp4',
+        details: {
+          director: 'Chad Stahelski',
+          starring: 'Keanu Reeves, Michael Nyqvist, Alfie Allen, Willem Dafoe, Adrianne Palicki, Bridget Moynahan, Ian McShane',
+          genres: 'Action, Crime, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.4/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '0.7 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/John%20Wick%20(2014).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'John Wick: Chapter 2 (2017)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/John%20Wick%20Chapter%202%20(2017).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/John%20Wick%20Chapter%202%20(2017).mp4',
+        details: {
+          director: 'Chad Stahelski',
+          starring: 'Keanu Reeves, Riccardo Scamarcio, Ian McShane, Ruby Rose, Common, Laurence Fishburne, Lance Reddick, Bridget Moynahan',
+          genres: 'Action, Crime, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.4/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/John%20Wick%20Chapter%202%20(2017).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'John Wick: Chapter 3 – Parabellum (2019)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/John%20Wick%20Chapter%203%20Parabellum%202019.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/John%20Wick%20Chapter%203%20Parabellum%20(2019).mp4',
+        details: {
+          director: 'Chad Stahelski',
+          starring: 'Keanu Reeves, Halle Berry, Ian McShane, Laurence Fishburne, Mark Dacascos, Asia Kate Dillon, Lance Reddick, Anjelica Huston',
+          genres: 'Action, Crime, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.4/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/John%20Wick%20Chapter%203%20Parabellum%20(2019).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Jurassic World Dominion (2022)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Jurassic%20World%20Dominion%20(2022).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Jurassic%20World%20Dominion%20(2022).mp4',
+        details: {
+          director: 'Colin Trevorrow',
+          starring: 'Chris Pratt, Bryce Dallas Howard, Laura Dern, Sam Neill, Jeff Goldblum, DeWanda Wise, Mamoudou Athie, BD Wong',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.6/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.2 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Jurassic%20World%20Dominion%20(2022).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Kraven the Hunter (2024)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Kraven%20The%20Hunter%20(2024).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Kraven%20The%20Hunter%20(2024).mp4',
+        details: {
+          director: 'J.C. Chandor',
+          starring: 'Aaron Taylor-Johnson, Ariana DeBose, Fred Hechinger, Alessandro Nivola, Christopher Abbott, Russell Crowe',
+          genres: 'Action, Adventure, Superhero',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.5/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.3 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Kraven%20The%20Hunter%20(2024).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Minions: The Rise of Gru (2022)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Minions%20The%20Rise%20of%20Gru%20(2022).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Minions%20%20The%20Rise%20of%20Gru%20(2022).mp4',
+        details: {
+          director: 'Kyle Balda co-directed by Brad Ableson and Jonathan del Val',
+          starring: 'Steve Carell, Pierre Coffin, Taraji P. Henson, Michelle Yeoh, Russell Brand, Julie Andrews, Alan Arkin',
+          genres: 'Animation, Adventure, Comedy, Family',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.5/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '0.8 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Minions%20%20The%20Rise%20of%20Gru%20(2022).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Batman (2022)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/The%20Batman%20(2022).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Batman%20(2022).mp4',
+        details: {
+          director: 'Matt Reeves',
+          starring: 'Robert Pattinson, Zoë Kravitz, Paul Dano, Jeffrey Wright, Colin Farrell, Andy Serkis, John Turturro',
+          genres: 'Action, Crime, Drama, Mystery, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.8/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Batman%20(2022).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Gray Man (2022)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/The%20Gray%20Man%20(2022).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Gray%20Man%20(2022).mp4',
+        details: {
+          director: 'Anthony Russo, Joe Russo',
+          starring: 'Ryan Gosling, Chris Evans, Ana de Armas, Jessica Henwick, Regé-Jean Page, Wagner Moura, Julia Butters, Dhanush, Alfre Woodard, Billy Bob Thornton',
+          genres: 'Action, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.5/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '0.6 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Gray%20Man%20(2022).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Hangover (2009)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/The%20Hangover%20(2009).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Hangover%20(2009).mp4',
+        details: {
+          director: 'Todd Phillips',
+          starring: 'Bradley Cooper, Ed Helms, Zach Galifianakis, Justin Bartha, Heather Graham, Jeffrey Tambor',
+          genres: 'Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.7/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '0.7 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Hangover%20(2009).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Hangover Part II (2011)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/The%20Hangover%202%20(2011).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Hangover%202%20(2011).mp4',
+        details: {
+          director: 'Todd Phillips',
+          starring: 'Bradley Cooper, Ed Helms, Zach Galifianakis, Ken Jeong, Jeffrey Tambor, Justin Bartha, Paul Giamatti',
+          genres: 'Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.5/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '0.7 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Hangover%202%20(2011).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Hangover Part III (2013)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/The%20Hangover%20Part%20III%20(2013).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Hangover%20Part%20III%20(2013).mp4',
+        details: {
+          director: 'Todd Phillips',
+          starring: 'Bradley Cooper, Zach Galifianakis, Ed Helms, Ken Jeong, John Goodman, Heather Graham, Jeffrey Tambor',
+          genres: 'Comedy, Crime',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.8/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '0.8 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Hangover%20Part%20III%20(2013).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Mother (2023)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/The%20Mother%20(2023).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Mother%20(2023).mp4',
+        details: {
+          director: 'Niki Caro',
+          starring: 'Jennifer Lopez, Joseph Fiennes, Lucy Paez, Omari Hardwick, Paul Raci, Gael García Bernal',
+          genres: 'Action, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.6/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Mother%20(2023).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Popes Exorcist (2023)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/The%20Popes%20Exorcist%20(2023).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Popes%20Exorcist%20(2023).mp4',
+        details: {
+          director: 'Julius Avery',
+          starring: 'Russell Crowe, Daniel Zovatto, Alex Essoe, Franco Nero',
+          genres: 'Supernatural Horror, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.1/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Popes%20Exorcist%20(2023).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Thor: Love and Thunder (2022)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Thor%20Love%20and%20Thunder%20(2022).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Thor%20%20Love%20and%20Thunder%20(2022).mp4',
+        details: {
+          director: 'Taika Waititi',
+          starring: 'Chris Hemsworth, Natalie Portman, Christian Bale, Tessa Thompson, Taika Waititi, Russell Crowe, Jaimie Alexander',
+          genres: 'Action, Adventure, Comedy, Superhero',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.2/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.2 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Thor%20%20Love%20and%20Thunder%20(2022).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Top Gun: Maverick (2022)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Top%20Gun%20Maverick%20(2022).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Top%20Gun%20Maverick%20(2022).mp4',
+        details: {
+          director: 'Joseph Kosinski',
+          starring: 'Tom Cruise, Miles Teller, Jennifer Connelly, Jon Hamm, Glen Powell, Ed Harris, Val Kilmer',
+          genres: 'Action, Drama',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '8.2/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.2 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Top%20Gun%20Maverick%20(2022).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Uncharted (2022)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/jolly/Uncharted%20(2022).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Uncharted%20(2022).mp4',
+        details: {
+          director: 'Ruben Fleischer',
+          starring: 'Tom Holland, Mark Wahlberg, Sophia Ali, Tati Gabrielle, Antonio Banderas',
+          genres: 'Action, Adventure',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.3/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Uncharted%20(2022).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: '2 Fast 2 Furious (2003)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/2%20Fast%202%20Furious%20(2003).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/2%20Fast%202%20Furious%20(2003).mp4',
+        details: {
+          director: 'John Singleton',
+          starring: 'Paul Walker, Tyrese Gibson, Eva Mendes, Cole Hauser, Ludacris, James Remar',
+          genres: 'Action, Crime, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.9/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/2%20Fast%202%20Furious%20(2003).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Fast Five (2011)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Fast%20Five%20(2011).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Fast%20Five%20(2011).mp4',
+        details: {
+          director: 'Justin Lin',
+          starring: 'Vin Diesel, Paul Walker, Jordana Brewster, Tyrese Gibson, Ludacris, Matt Schulze, Sung Kang, Gal Gadot, Dwayne Johnson',
+          genres: 'Action, Crime, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.3/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.3 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Fast%20Five%20(2011).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Fast & Furious (2009)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Fast%20%26%20Furious%20(2009).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Fast%20Furious%20(2009).mp4',
+        details: {
+          director: 'Justin Lin',
+          starring: 'Vin Diesel, Paul Walker, Michelle Rodriguez, Jordana Brewster, John Ortiz, Laz Alonso',
+          genres: 'Action, Crime, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.5/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Fast%20Furious%20(2009).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Fast & Furious 6 (2013)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Fast%20%26%20Furious%206%20(2013).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Fast%20Furious%206%20(2013).mp4',
+        details: {
+          director: 'Justin Lin',
+          starring: 'Vin Diesel, Paul Walker, Dwayne Johnson, Michelle Rodriguez, Jordana Brewster, Tyrese Gibson, Ludacris, Sung Kang, Luke Evans, Gina Carano',
+          genres: 'Action, Crime, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.0/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.3 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Fast%20Furious%206%20(2013).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Fast & Furious Presents: Hobbs & Shaw (2019)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Fast%20%26%20Furious%20Presents%20Hobbs%20%26%20Shaw%20(2019).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Fast%20Furious%20Presents%20Hobbs%20Shaw%20(2019).mp4',
+        details: {
+          director: 'David Leitch',
+          starring: 'Dwayne Johnson, Jason Statham, Idris Elba, Vanessa Kirby, Helen Mirren',
+          genres: 'Action, Adventure, Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.5/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Fast%20Furious%20Presents%20Hobbs%20Shaw%20(2019).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Furious 7 (2015)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Furious%207%20(2015).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Furious%207%20(2015).mp4',
+        details: {
+          director: 'James Wan',
+          starring: 'Vin Diesel, Paul Walker, Dwayne Johnson, Michelle Rodriguez, Tyrese Gibson, Ludacris, Jordana Brewster, Jason Statham, Kurt Russell',
+          genres: 'Action, Crime, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.1/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.3 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Furious%207%20(2015).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Ice Age (2002)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Ice%20Age%20(2002).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20(2002).mp4',
+        details: {
+          director: 'Chris Wedge (co-directed by Carlos Saldanha)',
+          starring: 'Ray Romano, John Leguizamo, Denis Leary, Goran Višnjić, Jack Black',
+          genres: 'Animation, Adventure, Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.5/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.5 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20(2002).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Ice Age: Collision Course (2016)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Ice%20Age%20Collision%20Course%20(2016).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20Collision%20Course%20(2016).mp4',
+        details: {
+          director: 'Michael Thurmeier, Galen T. Chu',
+          starring: 'Ray Romano, John Leguizamo, Denis Leary, Simon Pegg, Queen Latifah, Jennifer Lopez, Josh Peck, Seann William Scott',
+          genres: 'Animation, Adventure, Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.7/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.7 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20Collision%20Course%20(2016).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Ice Age: Continental Drift (2012)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Ice%20Age%20Continental%20Drift%20(2012).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20Continental%20Drift%20(2012).mp4',
+        details: {
+          director: 'Steve Martino, Michael Thurmeier',
+          starring: 'Ray Romano, John Leguizamo, Denis Leary, Queen Latifah, Jennifer Lopez, Peter Dinklage, Drake, Nicki Minaj',
+          genres: 'Animation, Adventure, Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.5/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.6 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20Continental%20Drift%20(2012).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Ice Age: Dawn of the Dinosaurs (2009)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Ice%20Age%20Dawn%20of%20the%20Dinosaurs%20(2009).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20Dawn%20of%20the%20Dinosaurs%20(2009).mp4',
+        details: {
+          director: 'Carlos Saldanha, Mike Thurmeier',
+          starring: 'Ray Romano, John Leguizamo, Denis Leary, Queen Latifah, Simon Pegg, Seann William Scott, Josh Peck',
+          genres: 'Animation, Adventure, Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.9/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.5 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20Dawn%20of%20the%20Dinosaurs%20(2009).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Ice Age: The Meltdown (2006)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Ice%20Age%20The%20Meltdown%20(2006).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20The%20Meltdown%20(2006).mp4',
+        details: {
+          director: 'Carlos Saldanha',
+          starring: 'Ray Romano, John Leguizamo, Denis Leary, Queen Latifah, Seann William Scott, Josh Peck',
+          genres: 'Animation, Adventure, Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.8/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.6 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20The%20Meltdown%20(2006).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Logan (2017)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Logan%20(2017).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Logan%202017.mp4',
+        details: {
+          director: 'James Mangold',
+          starring: 'Hugh Jackman, Patrick Stewart, Dafne Keen, Boyd Holbrook, Stephen Merchant, Richard E. Grant',
+          genres: 'Action, Drama, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '8.1/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Logan%202017.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Men in Black (1997)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Men%20in%20Black%20(1997).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Men%20in%20Black%20(1997).mp4',
+        details: {
+          director: 'Barry Sonnenfeld',
+          starring: 'Tommy Lee Jones, Will Smith, Linda Fiorentino, Vincent D-Onofrio, Rip Torn',
+          genres: 'Action, Adventure, Comedy, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.3/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.7 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Men%20in%20Black%20(1997).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Men in Black II (2002)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Men%20in%20Black%20II%20(2002).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Men%20in%20Black%20II%20(2002).mp4',
+        details: {
+          director: 'Barry Sonnenfeld',
+          starring: 'Tommy Lee Jones, Will Smith, Lara Flynn Boyle, Johnny Knoxville, Rosario Dawson, Rip Torn',
+          genres: 'Action, Adventure, Comedy, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.2/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.6 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Men%20in%20Black%20II%20(2002).mp4'
+        }
+	},{
+        type: "dubbed",
+		title: 'Men in Black III (2012)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Men%20in%20Black%20III%20(2012).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Men%20in%20Black%20III%20(2012).mp4',
+        details: {
+          director: 'Barry Sonnenfeld',
+          starring: 'Will Smith, Tommy Lee Jones, Josh Brolin, Jemaine Clement, Emma Thompson, Michael Stuhlbarg',
+          genres: 'Action, Adventure, Comedy, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.8/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.8 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Men%20in%20Black%20III%20(2012).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Men in Black: International (2019)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Men%20in%20Black%20International%20(2019).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Men%20in%20Black%20International%20(2019).mp4',
+        details: {
+          director: 'F. Gary Gary',
+          starring: 'Chris Hemsworth, Tessa Thompson, Kumail Nanjiani, Rebecca Ferguson, Rafe Spall, Emma Thompson, Liam Neeson',
+          genres: 'Action, Adventure, Comedy, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.6/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.2 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Men%20in%20Black%20International%20(2019).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Resident Evil (2002)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Resident%20Evil%20(2002).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20(2002).mp4',
+        details: {
+          director: 'Paul W. S. Anderson',
+          starring: 'Milla Jovovich, Michelle Rodriguez, Eric Mabius, James Purefoy, Martin Crewes, Colin Salmon',
+          genres: 'Action, Horror, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.6/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.6 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20(2002).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Resident Evil: Afterlife (2010)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Resident%20Evil%20Afterlife%20(2010).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20Afterlife%20(2010).mp4',
+        details: {
+          director: 'Paul W. S. Anderson',
+          starring: 'Milla Jovovich, Ali Larter, Wentworth Miller, Kim Coates, Shawn Roberts, Boris Kodjoe, Spencer Locke',
+          genres: 'Action, Horror, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.8/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.6 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20Afterlife%20(2010).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Resident Evil: Apocalypse (2004)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Resident%20Evil%20Apocalypse%20(2004).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20Apocalypse%20(2004).mp4',
+        details: {
+          director: 'Alexander Witt',
+          starring: 'Milla Jovovich, Sienna Guillory, Oded Fehr, Thomas Kretschmann, Jared Harris, Mike Epps',
+          genres: 'Action, Horror, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.1/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.6 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20Apocalypse%20(2004).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Resident Evil: Extinction (2007)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Resident%20Evil%20Extinction%20(2007).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20Extinction%20(2007).mp4',
+        details: {
+          director: 'Russell Mulcahy',
+          starring: 'Milla Jovovich, Ali Larter, Oded Fehr, Iain Glen, Ashanti, Mike Epps',
+          genres: 'Action, Horror, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.2/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.6 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20Extinction%20(2007).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Resident Evil: Retribution (2012)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Resident%20Evil%20Retribution%20(2012).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20Retribution%20(2012).mp4',
+        details: {
+          director: 'Paul W. S. Anderson',
+          starring: 'Milla Jovovich, Sienna Guillory, Michelle Rodriguez, Aryana Engineer, Bingbing Li, Boris Kodjoe, Johann Urb, Kevin Durand',
+          genres: 'Action, Horror, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.3/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.7 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20Retribution%20(2012).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Resident Evil: The Final Chapter (2016)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/Resident%20Evil%20The%20Final%20Chapter%20(2016).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20The%20Final%20Chapter%20(2016).mp4',
+        details: {
+          director: 'Paul W. S. Anderson',
+          starring: 'Milla Jovovich, Iain Glen, Ali Larter, Shawn Roberts, Ruby Rose, Eoin Macken',
+          genres: 'Action, Horror, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.5/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.8 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20The%20Final%20Chapter%20(2016).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Fast and the Furious (2001)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/The%20Fast%20and%20the%20Furious%20(2001).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/The%20Fast%20and%20the%20Furious%20(2001).mp4',
+        details: {
+          director: 'Rob Cohen',
+          starring: 'Vin Diesel, Paul Walker, Michelle Rodriguez, Jordana Brewster, Rick Yune, Chad Lindberg',
+          genres: 'Action, Crime, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.8/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/The%20Fast%20and%20the%20Furious%20(2001).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Fast and the Furious: Tokyo Drift (2006)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/The%20Fast%20and%20the%20Furious%20Tokyo%20Drift%20(2006).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/The%20Fast%20and%20the%20Furious%20Tokyo%20Drift%20(2006).mp4',
+        details: {
+          director: 'Justin Lin',
+          starring: 'Lucas Black, Bow Wow, Sung Kang, Nathalie Kelley, Brian Tee',
+          genres: 'Action, Crime, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.0/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/The%20Fast%20and%20the%20Furious%20Tokyo%20Drift%20(2006).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Fate of the Furious (2017)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/The%20Fate%20of%20the%20Furious%20(2017).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/The%20Fate%20of%20the%20Furious%20(2017).mp4',
+        details: {
+          director: 'F. Gary Gary',
+          starring: 'Vin Diesel, Dwayne Johnson, Jason Statham, Michelle Rodriguez, Tyrese Gibson, Ludacris, Charlize Theron, Kurt Russell, Nathalie Emmanuel',
+          genres: 'Action, Crime, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.6/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/The%20Fate%20of%20the%20Furious%20(2017).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Wolverine (2013)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/The%20Wolverine%20(2013).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/The%20Wolverine%202013.mp4',
+        details: {
+          director: 'James Mangold',
+          starring: 'Hugh Jackman, Hiroyuki Sanada, Tao Okamoto, Rila Fukushima, Svetlana Khodchenkova, Famke Janssen',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.7/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/The%20Wolverine%202013.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'X2: X-Men United (2003)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/X2%20X-Men%20United%20(2003).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%202%202003.mp4',
+        details: {
+          director: 'Bryan Singer',
+          starring: 'Patrick Stewart, Hugh Jackman, Ian McKellen, Halle Berry, Famke Janssen, James Marsden, Rebecca Romijn, Brian Cox, Alan Cumming',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.4/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.8 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%202%202003.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'X-Men (2000)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/X-Men%20(2000).jpg	',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%202000.mp4',
+        details: {
+          director: 'Bryan Singer',
+          starring: 'Patrick Stewart, Hugh Jackman, Ian McKellen, Halle Berry, Famke Janssen, James Marsden, Anna Paquin, Rebecca Romijn',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.3/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.7 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%202000.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'X-Men: Apocalypse (2016)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/X-Men%20Apocalypse%20(2016).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%20Apocalypse%202016.mp4',
+        details: {
+          director: 'Bryan Singer',
+          starring: 'James McAvoy, Michael Fassbender, Jennifer Lawrence, Oscar Isaac, Nicholas Hoult, Rose Byrne, Sophie Turner, Tye Sheridan, Olivia Munn',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.9/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.4 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%20Apocalypse%202016.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'X-Men: Dark Phoenix (2019)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/X-Men%20Dark%20Phoenix%20(2019).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%20Dark%20Phoenix%202019.mp4',
+        details: {
+          director: 'Simon Kinberg',
+          starring: 'James McAvoy, Michael Fassbender, Jennifer Lawrence, Nicholas Hoult, Sophie Turner, Tye Sheridan, Alexandra Shipp, Jessica Chastain',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.7/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.6 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%20Dark%20Phoenix%202019.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'X-Men: First Class (2011)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/X-Men%20First%20Class%20(2011).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%20First%20Class%202011.mp4',
+        details: {
+          director: 'Matthew Vaughn',
+          starring: 'James McAvoy, Michael Fassbender, Jennifer Lawrence, Rose Byrne, Kevin Bacon, January Jones, Nicholas Hoult',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.7/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%20First%20Class%202011.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'X-Men Origins: Wolverine (2009)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/X-Men%20Origins%20Wolverine%20(2009).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%20Origins%20Wolverine%202009.mp4',
+        details: {
+          director: 'Gavin Hood',
+          starring: 'Hugh Jackman, Liev Schreiber, Danny Huston, Dominic Monaghan, Ryan Reynolds',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.5/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.7 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%20Origins%20Wolverine%202009.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'X-Men: The Last Stand (2006)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/holly/X-Men%20The%20Last%20Stand%20(2006).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%20The%20Last%20Stand%202006.mp4',
+        details: {
+          director: 'Brett Ratner',
+          starring: 'Hugh Jackman, Halle Berry, Ian McKellen, Patrick Stewart, Famke Janssen, Anna Paquin, Kelsey Grammer, James Marsden, Rebecca Romijn',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.6/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.6 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%20The%20Last%20Stand%202006.mp4'
+        }
+	},
+	
+	
+	
+	
+	
+	  
+	  
+	  {
+        type: "dubbed",
+		title: 'Ant Man (2015)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Ant%20Man%20(2015).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Ant%20Man%20(2015).mp4',
+        details: {
+          director: 'Peyton Reed',
+          starring: 'Paul Rudd, Michael Douglas, Evangeline Lilly, Corey Stoll, Bobby Cannavale, Michael Peña',
+          genres: 'Action, Adventure, Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.3/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Ant%20Man%20(2015).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Ant Man and the Wasp (2018)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Ant%20Man%20and%20the%20Wasp%20(2018).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Ant%20Man%20and%20the%20Wasp%20(2018).mp4',
+        details: {
+          director: 'Peyton Reed',
+          starring: 'Paul Rudd, Evangeline Lilly, Michael Peña, Walton Goggins, Hannah John-Kamen, Michelle Pfeiffer, Laurence Fishburne, Michael Douglas',
+          genres: 'Action, Adventure, Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.0/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.2 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Ant%20Man%20and%20the%20Wasp%20(2018).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Avengers Age of Ultron (2015)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Avengers%20Age%20of%20Ultron%20(2015).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Avengers%20Age%20of%20Ultron%20(2015).mp4',
+        details: {
+          director: 'Joss Whedon',
+          starring: 'Robert Downey Jr., Chris Hemsworth, Mark Ruffalo, Chris Evans, Scarlett Johansson, Jeremy Renner, James Spader, Elizabeth Olsen, Aaron Taylor-Johnson, Paul Bettany',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.3/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Avengers%20Age%20of%20Ultron%20(2015).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Avengers Endgame (2019)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Avengers%20Endgame%20(2019).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Avengers%20Endgame%20(2019).mp4',
+        details: {
+          director: 'Anthony Russo, Joe Russo',
+          starring: 'Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth, Scarlett Johansson, Jeremy Renner, Don Cheadle, Paul Rudd, Brie Larson, Karen Gillan, Danai Gurira, Benedict Wong, Josh Brolin',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '8.4/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.4 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Avengers%20Endgame%20(2019).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Avengers Infinity War (2018)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Avengers%20Infinity%20War%20(2018).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Avengers%20Infinity%20War%20(2018).mp4',
+        details: {
+          director: 'Anthony Russo, Joe Russo',
+          starring: 'Robert Downey Jr., Chris Hemsworth, Mark Ruffalo, Chris Evans, Scarlett Johansson, Benedict Cumberbatch, Don Cheadle, Tom Holland, Chadwick Boseman, Paul Bettany, Elizabeth Olsen, Anthony Mackie, Sebastian Stan, Danai Gurira, Letitia Wright, Dave Bautista, Zoe Saldaña, Josh Brolin, Chris Pratt',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '8.4/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Avengers%20Infinity%20War%20(2018).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Black Panther (2018)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Black%20Panther%20(2018).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Black%20Panther%20(2018).mp4',
+        details: {
+          director: 'Ryan Coogler',
+          starring: 'Chadwick Boseman, Michael B. Jordan, Lupita Nyongo, Danai Gurira, Martin Freeman, Daniel Kaluuya, Letitia Wright, Winston Duke, Angela Bassett, Forest Whitaker, Andy Serkis',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.3/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Black%20Panther%20(2018).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Captain America Civil War (2016)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Captain%20America%20Civil%20War%20(2016).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Captain%20America%20Civil%20War%20(2016).mp4',
+        details: {
+          director: 'Anthony Russo, Joe Russo',
+          starring: 'Chris Evans, Robert Downey Jr, Scarlett Johansson, Sebastian Stan, Anthony Mackie, Don Cheadle, Jeremy Renner, Chadwick Boseman, Paul Bettany, Elizabeth Olsen, Paul Rudd, Emily VanCamp, Tom Holland, Daniel Brühl',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.8/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Captain%20America%20Civil%20War%20(2016).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Captain America The First Avenger (2011)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Captain%20America%20The%20First%20Avenger%20(2011).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Captain%20America%20The%20First%20Avenger%20(2011).mp4',
+        details: {
+          director: 'Joe Johnston',
+          starring: 'Chris Evans, Tommy Lee Jones, Hugo Weaving, Hayley Atwell, Sebastian Stan, Dominic Cooper, Toby Jones, Neal McDonough, Stanley Tucci',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.9/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.8 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Captain%20America%20The%20First%20Avenger%20(2011).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Captain America The Winter Soldier (2014)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Captain%20America%20The%20Winter%20Soldier%20(2014).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Captain%20America%20The%20Winter%20Soldier%20(2014).mp4',
+        details: {
+          director: 'Anthony Russo, Joe Russo',
+          starring: 'Chris Evans, Scarlett Johansson, Sebastian Stan, Anthony Mackie, Samuel L Jackson, Robert Redford',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.7/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Captain%20America%20The%20Winter%20Soldier%20(2014).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Captain Marvel (2019)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Captain%20Marvel%20(2019).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Captain%20Marvel%20(2019).mp4',
+        details: {
+          director: 'Anna Boden, Ryan Fleck',
+          starring: 'Brie Larson, Samuel L. Jackson, Ben Mendelsohn, Jude Law, Annette Bening, Lashana Lynch, Djimon Hounsou, Lee Pace, Gemma Chan',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.8/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Captain%20Marvel%20(2019).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Doctor Strange (2016)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Doctor%20Strange%20(2016).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Doctor%20Strange%20(2016).mp4',
+        details: {
+          director: 'Scott Derrickson',
+          starring: 'Benedict Cumberbatch, Chiwetel Ejiofor, Rachel McAdams, Benedict Wong, Mads Mikkelsen, Tilda Swinton',
+          genres: 'Action, Adventure, Fantasy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.5/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.8 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Doctor%20Strange%20(2016).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Guardians of the Galaxy (2014)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Guardians%20of%20the%20Galaxy%20(2014).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Guardians%20of%20the%20Galaxy%20(2014).mp4',
+        details: {
+          director: 'James Gunn',
+          starring: 'Chris Pratt, Zoe Saldaña, Dave Bautista, Vin Diesel, Bradley Cooper, Lee Pace, Michael Rooker, Karen Gillan, Glenn Close',
+          genres: 'Action, Adventure, Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '8.0/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Guardians%20of%20the%20Galaxy%20(2014).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Guardians of the Galaxy Vol 2 (2017)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Guardians%20of%20the%20Galaxy%20Vol%202%20(2017).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Guardians%20of%20the%20Galaxy%20Vol%202%20(2017).mp4',
+        details: {
+          director: 'James Gunn',
+          starring: 'Chris Pratt, Zoe Saldaña, Dave Bautista, Vin Diesel, Bradley Cooper, Michael Rooker, Karen Gillan, Pom Klementieff, Kurt Russell',
+          genres: 'Action, Adventure, Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.6/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Guardians%20of%20the%20Galaxy%20Vol%202%20(2017).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Hulk (2003)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Hulk%20(2003).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Hulk%20(2003).mp4',
+        details: {
+          director: 'Ang Lee',
+          starring: 'Eric Bana, Jennifer Connelly, Sam Elliott, Josh Lucas, Nick Nolte',
+          genres: 'Action, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.6/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Hulk%20(2003).mp4'
+        }
+	},{
+        type: "dubbed",
+		title: 'Iron Man 1 (2008)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Iron%20Man%201%20(2008).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Iron%20Man%201%20(2008).mp4',
+        details: {
+          director: 'Jon Favreau',
+          starring: 'Robert Downey Jr, Gwyneth Paltrow, Terrence Howard, Jeff Bridges, Shaun Toub',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.9/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.8 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Iron%20Man%201%20(2008).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Iron Man 2 (2010)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Iron%20Man%202%20(2010).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Iron%20Man%202%20(2010).mp4',
+        details: {
+          director: 'Jon Favreau',
+          starring: 'Robert Downey Jr, Gwyneth Paltrow, Don Cheadle, Scarlett Johansson, Mickey Rourke, Sam Rockwell, Samuel L Jackson',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.9/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.8 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Iron%20Man%202%20(2010).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Iron Man 3 (2013)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Iron%20Man%203%20(2013).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Iron%20Man%203%20(2013).mp4',
+        details: {
+          director: 'Shane Black',
+          starring: 'Robert Downey Jr, Gwyneth Paltrow, Don Cheadle, Guy Pearce, Rebecca Hall, Ben Kingsley',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.1/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Iron%20Man%203%20(2013).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Planet Hulk (2010)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Planet%20Hulk%20(2010).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Planet%20Hulk%20(2010).mp4',
+        details: {
+          director: 'Sam Liu',
+          starring: 'Rick D Wasserman, Lisa Ann Beley, Mark Hildreth, Liam OBrien, Kevin Michael Richardson',
+          genres: 'Animation, Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.7/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.7 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Planet%20Hulk%20(2010).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Spider Man Far From Home (2019)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Spider%20Man%20Far%20From%20Home%20(2019).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Spider%20Man%20Far%20From%20Home%20(2019).mp4',
+        details: {
+          director: 'Jon Watts',
+          starring: 'Tom Holland, Jake Gyllenhaal, Zendaya, Samuel L. Jackson, Marisa Tomei, Jacob Batalon',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.4/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Spider%20Man%20Far%20From%20Home%20(2019).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Spider Man Homecoming (2017)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Spider%20Man%20Homecoming%20(2017).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Spider%20Man%20Homecoming%20(2017).mp4',
+        details: {
+          director: 'Jon Watts',
+          starring: 'Tom Holland, Michael Keaton, Robert Downey Jr, Marisa Tomei, Zendaya, Jacob Batalon',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.4/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Spider%20Man%20Homecoming%20(2017).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Avengers (2012)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/The%20Avengers%20(2012).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/The%20Avengers%20(2012).mp4',
+        details: {
+          director: 'Joss Whedon',
+          starring: 'Robert Downey Jr, Chris Evans, Mark Ruffalo, Chris Hemsworth, Scarlett Johansson, Jeremy Renner, Tom Hiddleston, Samuel L. Jackson',
+          genres: 'Action, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '8.0/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/The%20Avengers%20(2012).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Incredible Hulk (2008)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/The%20Incredible%20Hulk%20(2008).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/The%20Incredible%20Hulk%20(2008).mp4',
+        details: {
+          director: 'Louis Leterrier',
+          starring: 'Edward Norton, Liv Tyler, Tim Roth, William Hurt, Tim Blake Nelson',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.6/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '0.6 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/The%20Incredible%20Hulk%20(2008).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Thor (2011)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Thor%20(2011).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Thor%20(2011).mp4',
+        details: {
+          director: 'Kenneth Branagh',
+          starring: 'Chris Hemsworth, Natalie Portman, Tom Hiddleston, Anthony Hopkins, Stellan Skarsgård, Kat Dennings, Idris Elba, Rene Russo',
+          genres: 'Action, Adventure, Fantasy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.0/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Thor%20(2011).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Thor 2: The Dark World (2013)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Thor%202%20The%20Dark%20World%20(2013).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Thor%202%20(2013).mp4',
+        details: {
+          director: 'Alan Taylor',
+          starring: 'Chris Hemsworth, Natalie Portman, Tom Hiddleston, Anthony Hopkins, Stellan Skarsgård, Idris Elba, Christopher Eccleston, Kat Dennings, Rene Russo',
+          genres: 'Action, Adventure, Fantasy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.7/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Thor%202%20(2013).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Thor Ragnarok (2017)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/Fantasy/Thor%20Ragnarok%20(2017).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Thor%20Ragnarok%20(2017).mp4',
+        details: {
+          director: 'Taika Waititi',
+          starring: 'Chris Hemsworth, Tom Hiddleston, Cate Blanchett, Mark Ruffalo, Tessa Thompson, Jeff Goldblum, Idris Elba, Karl Urban, Anthony Hopkins',
+          genres: 'Action, Adventure, Comedy',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.9/10',
+          lastUpdated: '06 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Thor%20Ragnarok%20(2017).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Ordinary Angels (2024)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/Ordinary%20Angels%20(2024).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Ordinary%20Angels%20(2024).mp4',
+        details: {
+          director: 'Jon Gunn',
+          starring: 'Hilary Swank, Alan Ritchson, Nancy Travis, Tamala Jones',
+          genres: 'Biography, Drama',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.4/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.2 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Ordinary%20Angels%20(2024).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Sniper G.R.I.T. (2023)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/Sniper%20G.R.I.T.%20(2023).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Sniper%20G.R.I.T.%20(2023).mp4',
+        details: {
+          director: 'Oliver Thompson',
+          starring: 'Chad Michael Collins, Ryan Robbins, Luna Fujimoto, Dennis Haysbert, Josh Brener',
+          genres: 'Action, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.1/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Sniper%20G.R.I.T.%20(2023).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Merciless (2017)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/The%20Merciless%20(2017).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Merciless%20(2017).mp4',
+        details: {
+          director: 'Byun Sung-hyun',
+          starring: 'Sol Kyung-gu, Im Si-wan, Kim Hee-won, Jeon Hye-jin',
+          genres: 'Action, Crime, Drama',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '8.3/10',
+          lastUpdated: '05 April 2025',
+		  fileSize: '1.1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Merciless%20(2017).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'River of Blood (2024)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/River%20of%20Blood%20(2024).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/River%20of%20Blood%20(2024).mp4',
+        details: {
+          director: 'Howard J. Ford',
+          starring: 'Joseph Millson, Sarah Alexandra Marks, Louis James, Ella Starbuck',
+          genres: 'Psychological Horror, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.4/10',
+          lastUpdated: '04 April 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/River%20of%20Blood%20(2024).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Terrifier 3 (2024)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/Terrifier%203%20(2024).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Terrifier%203%20(2024).mp4',
+        details: {
+          director: 'Damien Leone',
+          starring: 'David Howard Thornton, Lauren LaVera, Elliott Fullam, Samantha Scaffidi',
+          genres: 'Horror, Slasher',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.3/10',
+          lastUpdated: '04 April 2025',
+		  fileSize: '1.3 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Terrifier%203%20(2024).mp4'
+        }
+	},
+	
+	{
+        type: "dubbed",
+		title: 'The Book of Clarence (2023)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/The%20Book%20of%20Clarence%20(2023).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Book%20of%20Clarence%20(2023).mp4',
+        details: {
+          director: 'Jeymes Samuel',
+          starring: 'LaKeith Stanfield, Omar Sy, RJ Cyler, Anna Diop, David Oyelowo, Micheal Ward, Alfre Woodard, Teyana Taylor, Caleb McLaughlin, Eric Kofi-Abrefa, Marianne Jean-Baptiste, James McAvoy, Benedict Cumberbatch',
+          genres: 'Biblical Comedy-Drama',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.7/10',
+          lastUpdated: '04 April 2025',
+		  fileSize: '1.3 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Book%20of%20Clarence%20(2023).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Duelist (2016)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/The%20Duelist%20(2016).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Duelist%20(2016).mp4',
+        details: {
+          director: 'Aleksey Mizgirev',
+          starring: 'Pyotr Fyodorov, Vladimir Mashkov, Yuliya Khlynina, Yuri Kolokolnikov, Martin Wuttke',
+          genres: 'Action, Drama, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.4/10',
+          lastUpdated: '02 April 2025',
+		  fileSize: '1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Duelist%20(2016).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Invitation (2022)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/The%20Invitation%20(2022).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Invitation%20(2022).mp4',
+        details: {
+          director: 'Jessica M. Thompson',
+          starring: 'Nathalie Emmanuel, Thomas Doherty, Stephanie Corneliussen, Sean Pertwee, Hugh Skinner',
+          genres: 'Horror, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.3/10',
+          lastUpdated: '02 April 2025',
+		  fileSize: '0.8 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Invitation%20(2022).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Life List (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/29-03-2025/The%20Life%20List%20(2025).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/29-03-2025/The%20Life%20List%20(2025).mp4',
+        details: {
+          director: 'Adam Brooks',
+          starring: 'Sofia Carson, Kyle Allen, Connie Britton, Sebastian de Souza, José Zúñiga, Jordi Mollà',
+          genres: 'Romantic, Comedy, Drama',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.0/10',
+          lastUpdated: '29 March 2025',
+		  fileSize: '2 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/29-03-2025/The%20Life%20List%20(2025).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Premika (2017)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/28-03-2025/Premika%20(2017).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/28-03-2025/Premika%20(2017).mp4',
+        details: {
+          director: 'Siwakorn Charupongsa',
+          starring: 'Gena Desouza, Kidakarn Chatkaewmanee, Nutthasit Kotimanuswanich, Todsapol Maisuk',
+          genres: 'Comedy, Horror',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.5/10',
+          lastUpdated: '28 March 2025',
+		  fileSize: '0.8 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/28-03-2025/Premika%20(2017).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Venom The Last Dance (2024)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/28-03-2025/Venom%20The%20Last%20Dance%20(2024).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/28-03-2025/Venom%20The%20Last%20Dance%20(2024).mp4',
+        details: {
+          director: 'Kelly Marcel',
+          starring: 'Tom Hardy, Chiwetel Ejiofor, Juno Temple, Rhys Ifans, Stephen Graham',
+          genres: 'Action, Adventure, Sci-Fi, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.0/10',
+          lastUpdated: '28 March 2025',
+		  fileSize: '1.8 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/28-03-2025/Venom%20The%20Last%20Dance%20(2024).mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Twilight of the Warriors Walled In (2024)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/27-03-2025/Twilight%20of%20the%20Warriors%20Walled%20In%20(2024).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/27-03-2025/Twilight%20of%20the%20Warriors%20Walled%20In%20(2024).mp4',
+        details: {
+          director: 'Soi Cheang',
+          starring: 'Louis Koo, Sammo Hung, Richie Jen, Raymond Lam, Terrance Lau, Kenny Wong, Philip Ng',
+          genres: 'Martial Arts, Action, Crime, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.0/10',
+          lastUpdated: '27 March 2025',
+		  fileSize: '1 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/27-03-2025/Twilight%20of%20the%20Warriors%20Walled%20In%20(2024).mp4'
+        }
+	  },
+	  {
+        type: "dubbed",
+		title: 'Den of Thieves 2: Pantera (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/27-03-2025/Den%20of%20Thieves%20Pantera%20(2025).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/27-03-2025/Den%20of%20Thieves%202%20%20Pantera%20(2025).mp4',
+        details: {
+          director: 'Christian Gudegast',
+          starring: 'Gerard Butler, O Shea Jackson Jr, Evin Ahmad, Salvatore Esposito, Meadow Williams',          
+		  genres: 'Action, Crime, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.3/10',
+          lastUpdated: '27 March 2025',
+		  fileSize: '1.3 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/27-03-2025/Den%20of%20Thieves%202%20%20Pantera%20(2025).mp4'
+        }
+	  },
+	  {
+        type: "dubbed",
+		title: 'Holland (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/27-03-2025/Holland%20(2025).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/27-03-2025/Holland%20(2025).mp4',
+        details: {
+          director: 'Mimi Cave',
+          starring: 'Nicole Kidman, Gael García Bernal, Matthew Macfadyen, Jude Hill',
+          genres: 'Mystery, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.1/10',
+          lastUpdated: '27 March 2025',
+		  fileSize: '0.8 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/27-03-2025/Holland%20(2025).mp4'
+        }
+	  },
+	  {
+        type: "dubbed",
+		title: 'Revelations (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/21-03-2025/Revelations%20(2025).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/21-03-2025/Revelations%20(2025).mp4',
+        details: {
+          director: 'Yeon Sang-ho',
+          starring: 'Ryu Jun-yeol, Shin Hyun-been, Shin Min-jae',
+          genres: 'Crime, Drama, Mystery, Thriller',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '7.0/10',
+          lastUpdated: '21 March 2025',
+		  fileSize: '892 MB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/21-03-2025/Revelations%20(2025).mp4'
+        }
+      },
+	  {
+        type: "dubbed",
+		title: 'Prisons (2024)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/21-03-2025/Prisons%20(2024).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/21-03-2025/Prisons%20(2024).mp4',
+        details: {
+          director: 'Esa Jussila',
+          starring: 'Jere Saarela, Ari Savonen, Jarmo Pukkila, Katriina Rajaniemi, Gareth Lawrence',
+          genres: 'Action, Splatter Horror',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '5.0/10',
+          lastUpdated: '21 March 2025',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/21-03-2025/Prisons%20(2024).mp4'
+        }
+      },
+	  {
+        type: "dubbed",
+		title: 'Mufasa The Lion King (2024)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/26-03-2025/Mufasa%20The%20Lion%20King%20(2024).jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/26-03-2025/Mufasa%20The%20Lion%20King%20(2024).mp4',
+        details: {
+          director: 'Barry Jenkins',
+          starring: 'Aaron Pierre, Kelvin Harrison Jr, Seth Rogen, Billy Eichner, Tiffany Boone, Donald Glover, Mads Mikkelsen, Thandiwe Newton, Lennie James, Anika Noni Rose, Blue Ivy Carter, Beyoncé Knowles Carter',
+          genres: 'Musical, Anime, Drama',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.6/10',
+          lastUpdated: '26 March 2025',
+		  fileSize: '1.7 GB',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/26-03-2025/Mufasa%20The%20Lion%20King%20(2024).mp4'
+        }
+},
+{
+        type: "dubbed",
+		title: 'Captain America Brave New World (2025)',
+        image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Captain%20America%20Brave%20New%20World%20(2025)_Resized.png',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Captain%20America%20Brave%20New%20World%20(2025).mp4',
+        details: {
+          director: 'Julius Onah',
+          starring: 'Anthony Mackie, Harrison Ford, Danny Ramirez, Shira Haas, Carl Lumbly, Tim Blake Nelson, Giancarlo Esposito, Xosha Roquemore, Liv Tyler',
+          genres: 'Action, Adventure, Sci-Fi',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '6.0/10',
+          lastUpdated: '13 March 2025',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Captain%20America%20Brave%20New%20World%20(2025).mp4'
+        }
+},
+
+
+
+
+
+
+
+]; // Insert your full dubbed list here
+
+const mobileMenu = document.getElementById("mobileMenu");
+const menuIcon = document.querySelector(".menu-icon");
+
+function toggleMenu() {
+    if (mobileMenu.style.left === "0px") {
+        mobileMenu.style.left = "-250px";
+    } else {
+        mobileMenu.style.left = "0px";
+    }
+}
+
+// Close mobile menu when clicking outside of it
+document.addEventListener("click", function (event) {
+    if (!mobileMenu.contains(event.target) && !menuIcon.contains(event.target)) {
+        mobileMenu.style.left = "-250px";
+    }
+});
+
+function searchFunction() {
+  const input = document.getElementById('searchInput').value.toLowerCase();
+  const results = document.getElementById('searchResults');
+  results.innerHTML = '';
+  if (input.length > 0) {
+    const filtered = videos.filter(v => v.title.toLowerCase().includes(input));
+    filtered.forEach(v => {
+      const div = document.createElement('div');
+      div.innerText = v.title;
+      div.onclick = () => openPlayer(v);
+      results.appendChild(div);
+    });
+    results.style.display = 'block';
+  } else {
+    results.style.display = 'none';
+  }
+}
+
+function openPlayer(video) {
+  const details = encodeURIComponent(JSON.stringify(video.details));
+  let url = `player.html?title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${details}`;
+  if (video.type === 'series') {
+    const episodes = encodeURIComponent(JSON.stringify(video.episodes));
+    url += `&id=${video.id}&episodes=${episodes}`;
+  } else {
+    url += `&video=${encodeURIComponent(video.video)}`;
+  }
+  window.location.href = url;
+}
+
+function parseDate(dateString) {
+  // Convert '18 April 2025' into a Date object
+  return new Date(Date.parse(dateString));
+}
+
+function loadDubbed() {
+  const dubbed = document.getElementById('dubbedList');
+
+  // Sort dubbed movies/shows by lastUpdated in descending order (latest first)
+  videos
+    .filter(v => v.type === 'dubbed')
+    .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
+    .forEach(v => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `<img src="${v.image}"><div style="padding:5px">${v.title}</div>`;
+      card.onclick = () => openPlayer(v);
+      dubbed.appendChild(card);
+    });
+}
+
+loadDubbed();
+
+</script>
+
+</body>
+</html>
