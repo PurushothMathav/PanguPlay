@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PanguPlay - Home</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.css" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #121212; color: #fff; font-family: Arial, sans-serif; }
@@ -24,11 +24,10 @@
     .search-results { position: absolute; top: 110%; background: #2a2a2a; width: 200px; border-radius: 8px; overflow: hidden; display: none; right: 0; }
     .search-results div { padding: 10px; border-bottom: 1px solid #444; cursor: pointer; }
     .search-results div:hover { background: #333; }
-	
-	.search-bar { position: relative; display: flex; align-items: center; }
-	#searchInput { padding-right: 30px; /* Make space for the button */ }
-	#clearButton { position: absolute; right: 5px; background: none; border: none; font-size: 16px; cursor: pointer; display: none; /* Initially hidden */ }
-
+    
+    .search-bar { position: relative; display: flex; align-items: center; }
+    #searchInput { padding-right: 30px; }
+    #clearButton { position: absolute; right: 5px; background: none; border: none; font-size: 16px; cursor: pointer; display: none; }
 
     /* Mobile Menu */
     .mobile-menu { position: fixed; left: -250px; top: 0; width: 250px; height: 100%; background: #1f1f1f; display: flex; flex-direction: column; padding: 20px; transition: 0.3s; z-index: 2000; }
@@ -44,17 +43,46 @@
 
     /* Swiper */
     .swiper { width: 100%; height: 200px; margin-bottom: 20px; }
+    .swiper-slide img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; }
+    .swiper-pagination { position: relative; bottom: 10px; text-align: center; }
 
     footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f; margin-top: 20px; }
+	
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.section-header h2 {
+  font-size: 18px;
+}
+
+.view-all-btn {
+  background: #ff4500;
+  border: none;
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.view-all-btn:hover {
+  background: #e03e00;
+}
 
     @media(max-width:768px) {
       .nav-links { display: none; }
       .menu-icon { display: block; }
     }
-	
-	/* Back to top button styling */
+
+    /* Back to top button styling */
     #backToTopBtn {
-      display: none; /* Hidden by default */
+      display: none;
       position: fixed;
       bottom: 30px;
       right: 30px;
@@ -72,24 +100,14 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       transition: background-color 0.3s, transform 0.3s;
     }
-    
-    #backToTopBtn:hover {
-      background-color: #0f2042;
-      transform: translateY(-3px);
-    }
-    
-    /* Adding arrow icon inside button */
-    #backToTopBtn::after {
-      content: "↑";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }	
+    #backToTopBtn:hover { background-color: #0f2042; transform: translateY(-3px); }
+    #backToTopBtn::after { content: "↑"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
   </style>
 </head>
+
 <body>
 
+<!-- Navbar -->
 <div class="navbar">
   <div class="nav-left">
     <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
@@ -99,10 +117,11 @@
       <a href="movies.html">Movies</a>
       <a href="shows.html">Shows</a>
       <a href="dubbed.html">Tamil Dub</a>
-      <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a> <!-- Added Telegram Link -->
+	  <a href="request.html">Request</a>
+      <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a>
     </div>
   </div>
-  
+
   <div class="nav-right">
     <div class="search-bar">
       <input type="text" placeholder="Search..." id="searchInput" oninput="searchFunction()">
@@ -112,48 +131,63 @@
   </div>
 </div>
 
+<!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Home</a>
   <a href="movies.html">Movies</a>
   <a href="shows.html">Shows</a>
   <a href="dubbed.html">Tamil Dub</a>
-  <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a> <!-- Added Telegram Link -->
+  <a href="request.html">Request</a>
+  <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a>
 </div>
 
+<!-- Featured Title -->
+<div id="featuredTitle" style="padding: 10px 15px; font-size: 18px; font-weight: bold;"></div>
 
 <!-- Swiper -->
 <div class="swiper">
   <div class="swiper-wrapper" id="featured"></div>
+  <div class="swiper-pagination"></div>
 </div>
 
-<!-- Movies -->
+<!-- Sections 
 <div class="section">
   <h2>Movies 🍿 <a href="movies.html" class="view-all-btn">View All</a></h2>
   <div class="cards" id="moviesList"></div>
 </div>
 
-<!-- Shows -->
 <div class="section">
   <h2>TV Shows 📺 <a href="shows.html" class="view-all-btn">View All</a></h2>
   <div class="cards" id="seriesList"></div>
 </div>
 
-<!-- Tamil Dub -->
 <div class="section">
   <h2>Tamil Dub 📺 <a href="dubbed.html" class="view-all-btn">View All</a></h2>
   <div class="cards" id="dubbedList"></div>
+</div> -->
+
+<div class="section-header">
+  <h2>Movies 🍿</h2>
+  <a href="movies.html" class="view-all-btn">View All</a>
 </div>
+<div class="cards" id="moviesList"></div>
+
+<div class="section-header">
+  <h2>TV Shows 📺</h2>
+  <a href="shows.html" class="view-all-btn">View All</a>
+</div>
+<div class="cards" id="seriesList"></div>
+
+<div class="section-header">
+  <h2>Tamil Dub 📺</h2>
+  <a href="dubbed.html" class="view-all-btn">View All</a>
+</div>
+<div class="cards" id="dubbedList"></div>
+
+
 
 <!-- Back to top button -->
   <button id="backToTopBtn" title="Go to top"></button>
-  
-  
-
-<footer>
-  &copy; 2025 PanguPlay
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.js"></script>
 
 <script disable-devtool-auto='true'
 src='https://cdn.jsdelivr.net/npm/disable-devtool'
@@ -164,31 +198,52 @@ disable-cut='true'
 disable-paste='true'>
 </script>
 
+<!-- Footer -->
+<footer>
+  &copy; 2025 PanguPlay
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.js"></script>
+<script disable-devtool-auto='true' src='https://cdn.jsdelivr.net/npm/disable-devtool' clear-log='true' disable-select='true' disable-copy='true' disable-cut='true' disable-paste='true'></script>
 
 <script>
 
+// Get the button
+    const backToTopButton = document.getElementById("backToTopBtn");
+    
+    // When the user scrolls down 300px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+    
+    function scrollFunction() {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        backToTopButton.style.display = "block";
+      } else {
+        backToTopButton.style.display = "none";
+      }
+    }
+    
+    // When the user clicks on the button, scroll to the top of the document
+    backToTopButton.addEventListener("click", function() {
+      // For smooth scrolling
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+      
+      // Alternative method for older browsers
+      // document.body.scrollTop = 0; // For Safari
+      // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
 
-
+// GLOBALS
+let swiper;
 const searchInput = document.getElementById("searchInput");
 const clearButton = document.getElementById("clearButton");
-const searchResults = document.getElementById("searchResults"); // Get search results container
+const searchResults = document.getElementById("searchResults");
 
-searchInput.addEventListener("input", function () {
-    clearButton.style.display = this.value ? "block" : "none";
-});
+const videos = [ 
 
-clearButton.addEventListener("click", function () {
-    searchInput.value = ""; // Clears search box text
-    searchResults.innerHTML = ""; // Clears search results
-    clearButton.style.display = "none"; // Hide the button
-    searchInput.focus(); // Keep focus in search box
-});
-
-
-
-
-// Data for video cards - now includes both movies and series
-    const videos = [
 	{
         type: "movie",
 		title: 'Ten Hours (2025)',
@@ -1303,7 +1358,7 @@ clearButton.addEventListener("click", function () {
           quality: 'PreDVD',
           language: 'Tamil',
           movieRating: '9.3/10',
-          lastUpdated: '10 April 2025',
+          lastUpdated: '18 April 2025',
 		  fileSize: '1.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Good%20Bad%20Ugly%20(2025).mp4'
         }
@@ -3556,7 +3611,7 @@ clearButton.addEventListener("click", function () {
           quality: 'HD',
           language: 'Tamil',
           movieRating: '6.2/10',
-          lastUpdated: '18 April 2025',
+          lastUpdated: '10 April 2025',
 		  fileSize: '1.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Trauma%202025.mp4'
         }
@@ -5763,49 +5818,39 @@ clearButton.addEventListener("click", function () {
         }
 },
 
-
-    ];
+]; // <-- IMPORTANT: Add your video list here
 
 const mobileMenu = document.getElementById("mobileMenu");
 const menuIcon = document.querySelector(".menu-icon");
 
 function toggleMenu() {
-    if (mobileMenu.style.left === "0px") {
-        mobileMenu.style.left = "-250px";
-    } else {
-        mobileMenu.style.left = "0px";
-    }
+  if (mobileMenu.style.left === "0px") {
+    mobileMenu.style.left = "-250px";
+  } else {
+    mobileMenu.style.left = "0px";
+  }
 }
 
-// Close mobile menu when clicking outside of it
 document.addEventListener("click", function (event) {
-    if (!mobileMenu.contains(event.target) && !menuIcon.contains(event.target)) {
-        mobileMenu.style.left = "-250px";
-    }
-});
-
-
-const swiper = new Swiper('.swiper', {
-  slidesPerView: 2.8,
-  spaceBetween: 10,
-  loop: true,
-  autoplay: { delay: 2500 },
-  on: {
-    slideChange: updateFeaturedTitle
+  if (!mobileMenu.contains(event.target) && !menuIcon.contains(event.target)) {
+    mobileMenu.style.left = "-250px";
   }
 });
 
-function updateFeaturedTitle() {
-  const featured = document.querySelectorAll('.swiper-slide');
-  const activeIndex = swiper.realIndex;
-  if (videos[activeIndex]) {
-    document.getElementById('featuredTitle').textContent = videos[activeIndex].title;
-  }
-}
+searchInput.addEventListener("input", function () {
+  clearButton.style.display = this.value ? "block" : "none";
+});
+
+clearButton.addEventListener("click", function () {
+  searchInput.value = "";
+  searchResults.innerHTML = "";
+  clearButton.style.display = "none";
+  searchInput.focus();
+});
 
 function searchFunction() {
-  const input = document.getElementById('searchInput').value.toLowerCase();
-  const results = document.getElementById('searchResults');
+  const input = searchInput.value.toLowerCase();
+  const results = searchResults;
   results.innerHTML = '';
   if (input.length > 0) {
     const filtered = videos.filter(v => v.title.toLowerCase().includes(input));
@@ -5834,7 +5879,22 @@ function openPlayer(video) {
 }
 
 function parseDate(dateString) {
-  return new Date(Date.parse(dateString)); // Convert '18 April 2025' to a Date object
+  return new Date(Date.parse(dateString));
+}
+
+function updateFeaturedTitle() {
+  const activeIndex = swiper.realIndex;
+  if (videos[activeIndex]) {
+    document.getElementById('featuredTitle').textContent = videos[activeIndex].title;
+  }
+}
+
+function createCard(v) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `<img src="${v.image}"><div style="padding:5px">${v.title}</div>`;
+  card.onclick = () => openPlayer(v);
+  return card;
 }
 
 function loadHomeSections() {
@@ -5843,7 +5903,6 @@ function loadHomeSections() {
   const series = document.getElementById('seriesList');
   const dubbed = document.getElementById('dubbedList');
 
-  // Sort each section by `lastUpdated` before displaying
   videos
     .filter(v => v.type === 'movie')
     .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
@@ -5862,7 +5921,6 @@ function loadHomeSections() {
     .slice(0, 10)
     .forEach(v => dubbed.appendChild(createCard(v)));
 
-  // Featured Swiper (sorted by lastUpdated)
   videos
     .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
     .slice(0, 10)
@@ -5874,19 +5932,21 @@ function loadHomeSections() {
       featured.appendChild(slide);
     });
 
-  updateFeaturedTitle();
-}
+  swiper = new Swiper('.swiper', {
+    slidesPerView: 3.0,
+    spaceBetween: 10,
+    loop: true,
+    autoplay: { delay: 2500 },
+    pagination: { el: '.swiper-pagination', clickable: true },
+    on: { slideChange: updateFeaturedTitle }
+  });
 
-function createCard(v) {
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.innerHTML = `<img src="${v.image}"><div style="padding:5px">${v.title}</div>`;
-  card.onclick = () => openPlayer(v);
-  return card;
+  updateFeaturedTitle();
 }
 
 loadHomeSections();
 
 </script>
+
 </body>
 </html>
