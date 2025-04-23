@@ -158,7 +158,7 @@
         <h2 id="videoTitle">Video Title</h2>
         <div class="detail-row"><span>Rating:</span> <span id="movieRating">N/A</span></div>
         <div class="detail-row"><span>Director:</span> <span id="director">N/A</span></div>
-        <div class="detail-row"><span>Genre:</span> <span id="genre">N/A</span></div>
+        <div class="detail-row"><span>Genre:</span> <span id="genres">N/A</span></div>
         <div class="detail-row"><span>Quality:</span> <span id="quality">N/A</span></div>
         <div class="detail-row"><span>Language:</span> <span id="language">N/A</span></div>
         <div class="detail-row"><span>File Size:</span> <span id="fileSize">N/A</span></div>
@@ -214,7 +214,7 @@
       const details = JSON.parse(decodeURIComponent(videoDetailsEncoded));
       document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
       document.getElementById('director').textContent = details.director || 'N/A';
-      document.getElementById('genre').textContent = details.genre || 'N/A';
+      document.getElementById('genres').textContent = details.genres || 'N/A';
       document.getElementById('quality').textContent = details.quality || 'N/A';
       document.getElementById('language').textContent = details.language || 'N/A';
       document.getElementById('fileSize').textContent = details.fileSize || 'N/A';
