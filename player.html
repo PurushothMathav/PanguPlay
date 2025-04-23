@@ -1,3 +1,4 @@
+<!-- FULL CODE START -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,6 @@
       background-color: #121212;
       color: white;
     }
-
     .container {
       width: 100%;
       max-width: 1200px;
@@ -19,7 +19,6 @@
       padding: 10px;
       box-sizing: border-box;
     }
-
     .header {
       display: flex;
       justify-content: space-between;
@@ -27,13 +26,11 @@
       padding: 10px 0;
       flex-wrap: wrap;
     }
-
     .heading {
       font-size: 24px;
       text-align: center;
       flex-grow: 1;
     }
-
     .back-button {
       background-color: #ff4500;
       border: none;
@@ -42,19 +39,16 @@
       padding: 8px 12px;
       font-size: 14px;
     }
-
     .video-container {
       width: 100%;
       border-radius: 10px;
       overflow: hidden;
       margin: 10px 0;
     }
-
     video {
       width: 100%;
       max-height: 600px;
     }
-
     .video-details-container {
       display: flex;
       flex-direction: column;
@@ -63,26 +57,22 @@
       border-radius: 10px;
       padding: 15px;
     }
-
-    .video-image {
+    .video-poster {
       width: 100%;
-      height: 200px;
+      max-height: 150px;
       object-fit: cover;
       border-radius: 10px;
     }
-
     .video-details h2 {
       font-size: 22px;
       margin: 10px 0 5px;
       color: #ff4500;
     }
-
     .detail-row {
       display: flex;
       justify-content: space-between;
       font-size: 16px;
     }
-
     .copy-link {
       background: none;
       border: none;
@@ -91,26 +81,22 @@
       text-decoration: underline;
       font-size: 14px;
     }
-
     .episodes-section {
       margin-top: 20px;
       background-color: #303030;
       border-radius: 10px;
       padding: 15px;
     }
-
     .episodes-title {
       font-size: 20px;
       color: #ff4500;
       margin-bottom: 10px;
     }
-
     .episode-buttons-wrapper {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }
-
     .episode-button {
       background-color: #444;
       color: white;
@@ -120,17 +106,14 @@
       font-size: 16px;
       text-align: center;
     }
-
     .episode-button.active {
       background-color: #ff4500;
     }
-
     .nav-buttons {
-      display: flex;
+      display: none;
       justify-content: space-between;
       margin: 20px 0;
     }
-
     .nav-button {
       background-color: #ff4500;
       color: white;
@@ -140,24 +123,16 @@
       font-size: 14px;
       cursor: pointer;
     }
-
     @media (max-width: 768px) {
       .heading {
         font-size: 20px;
       }
-
-      .video-image {
-        height: 150px;
-      }
-
       .video-details h2 {
         font-size: 18px;
       }
-
       .detail-row {
         font-size: 14px;
       }
-
       .episode-button {
         font-size: 14px;
         padding: 8px 12px;
@@ -178,54 +153,47 @@
       </video>
     </div>
     <div class="video-details-container">
-      <img id="videoImage" src="" alt="Video Thumbnail" class="video-image">
+      <img id="videoPoster" class="video-poster" src="" alt="Poster">
       <div class="video-details">
         <h2 id="videoTitle">Video Title</h2>
-        <div class="detail-row"><span>Rating:</span> <span id="movieRating">9.5/10</span></div>
-        <div class="detail-row"><span>Director:</span> <span id="director">Name</span></div>
-        <div class="detail-row"><span>Language:</span> <span id="language">English</span></div>
-        <div class="detail-row"><span>Updated:</span> <span id="lastUpdated">Date</span></div>
+        <div class="detail-row"><span>Rating:</span> <span id="movieRating">N/A</span></div>
+        <div class="detail-row"><span>Director:</span> <span id="director">N/A</span></div>
+        <div class="detail-row"><span>Genre:</span> <span id="genre">N/A</span></div>
+        <div class="detail-row"><span>Quality:</span> <span id="quality">N/A</span></div>
+        <div class="detail-row"><span>Language:</span> <span id="language">N/A</span></div>
+        <div class="detail-row"><span>File Size:</span> <span id="fileSize">N/A</span></div>
+        <div class="detail-row"><span>Updated:</span> <span id="lastUpdated">N/A</span></div>
         <div class="detail-row"><span>Stream:</span> <button class="copy-link" onclick="copyStreamUrl()">Copy Link</button></div>
       </div>
     </div>
-    <div class="nav-buttons">
-      <button class="nav-button" onclick="playPreviousEpisode()">Previous Episode</button>
-      <button class="nav-button" onclick="playNextEpisode()">Next Episode</button>
+    <div class="nav-buttons" id="navButtons">
+      <button class="nav-button" id="prevBtn" onclick="playPreviousEpisode()">Previous Episode</button>
+      <button class="nav-button" id="nextBtn" onclick="playNextEpisode()">Next Episode</button>
     </div>
-    <div class="episodes-section">
+    <div class="episodes-section" id="episodesSection">
       <div class="episodes-title">Episodes</div>
-      <div class="episode-buttons-wrapper" id="episodeButtons">
-        <!-- Episode buttons go here -->
-      </div>
+      <div class="episode-buttons-wrapper" id="episodeButtons"></div>
     </div>
   </div>
-
   <script>
     function goToHome() {
       window.location.href = 'index.html';
     }
-
     function copyStreamUrl() {
       if (currentEpisodeId && episodes.length > 0) {
-        const episode = episodes[currentEpisodeIndex];
-        navigator.clipboard.writeText(episode.videoUrl).then(() => alert("Stream URL copied!"));
+        navigator.clipboard.writeText(episodes[currentEpisodeIndex].videoUrl).then(() => alert("Stream URL copied!"));
       } else if (videoUrl) {
         navigator.clipboard.writeText(decodeURIComponent(videoUrl)).then(() => alert("Stream URL copied!"));
       }
     }
-
     function updateHeaderTitle(title, isSeries = false, seasonNumber = null, episodeNumber = null, episodeTitle = null) {
       const headerElement = document.getElementById('pageHeading');
       if (isSeries && seasonNumber !== null && episodeNumber !== null) {
-        const seasonFormatted = seasonNumber.toString().padStart(2, '0');
-        const episodeFormatted = episodeNumber.toString().padStart(2, '0');
-        const episodeTitleText = episodeTitle || `Episode ${episodeNumber}`;
-        headerElement.textContent = `S${seasonFormatted}E${episodeFormatted} - ${episodeTitleText}`;
+        headerElement.textContent = `S${String(seasonNumber).padStart(2, '0')}E${String(episodeNumber).padStart(2, '0')} - ${episodeTitle || `Episode ${episodeNumber}`}`;
       } else {
         headerElement.textContent = title;
       }
     }
-
     const urlParams = new URLSearchParams(window.location.search);
     const videoUrl = urlParams.get('video');
     const videoTitle = urlParams.get('title');
@@ -241,40 +209,40 @@
     function setupPage() {
       document.getElementById('videoTitle').textContent = videoTitle;
       document.title = videoTitle + ' - PanguPlay';
-      document.getElementById('videoImage').src = decodeURIComponent(videoImage);
+      document.getElementById('videoPoster').src = decodeURIComponent(videoImage);
+
+      const details = JSON.parse(decodeURIComponent(videoDetailsEncoded));
+      document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
+      document.getElementById('director').textContent = details.director || 'N/A';
+      document.getElementById('genre').textContent = details.genre || 'N/A';
+      document.getElementById('quality').textContent = details.quality || 'N/A';
+      document.getElementById('language').textContent = details.language || 'N/A';
+      document.getElementById('fileSize').textContent = details.fileSize || 'N/A';
+      document.getElementById('lastUpdated').textContent = details.lastUpdated || 'N/A';
 
       const videoPlayer = document.getElementById('videoPlayer');
-      videoPlayer.addEventListener('error', function() {
-        alert('Video error: ' + (videoPlayer.error ? videoPlayer.error.message : 'Unknown error'));
-      });
+      videoPlayer.addEventListener('error', () => alert('Video error occurred'));
 
-      try {
-        const details = JSON.parse(decodeURIComponent(videoDetailsEncoded));
-        document.getElementById('director').textContent = details.director || 'N/A';
-        document.getElementById('language').textContent = details.language || 'N/A';
-        document.getElementById('lastUpdated').textContent = details.lastUpdated || 'N/A';
-        document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
-
-        if (seriesId && episodesEncoded) {
-          episodes = JSON.parse(decodeURIComponent(episodesEncoded));
-          const episodeId = urlParams.get('episodeId');
-          if (episodeId) {
-            playEpisode(episodeId);
-          } else if (episodes.length > 0) {
-            playEpisode(episodes[0].id);
-          }
-        } else {
-          if (videoUrl) {
-            videoPlayer.src = decodeURIComponent(videoUrl);
-            videoPlayer.load();
-            videoPlayer.play().catch(() => {
-              videoPlayer.muted = true;
-              videoPlayer.play().catch(() => {});
-            });
-          }
+      if (seriesId && episodesEncoded) {
+        episodes = JSON.parse(decodeURIComponent(episodesEncoded));
+        const episodeId = urlParams.get('episodeId');
+        if (episodeId) {
+          playEpisode(episodeId);
+        } else if (episodes.length > 0) {
+          playEpisode(episodes[0].id);
         }
-      } catch (err) {
-        alert('Error loading video details.');
+        document.getElementById('episodesSection').style.display = 'block';
+      } else {
+        if (videoUrl) {
+          videoPlayer.src = decodeURIComponent(videoUrl);
+          videoPlayer.load();
+          videoPlayer.play().catch(() => {
+            videoPlayer.muted = true;
+            videoPlayer.play().catch(() => {});
+          });
+        }
+        document.getElementById('episodesSection').style.display = 'none';
+        document.getElementById('navButtons').style.display = 'none';
       }
     }
 
@@ -293,18 +261,30 @@
       });
       updateHeaderTitle(videoTitle, true, episode.season, episode.episode, episode.title);
       updateEpisodeButtons();
+      updateNavButtons();
     }
 
     function playPreviousEpisode() {
-      if (currentEpisodeIndex > 0) {
-        playEpisode(episodes[currentEpisodeIndex - 1].id);
-      }
+      if (currentEpisodeIndex > 0) playEpisode(episodes[currentEpisodeIndex - 1].id);
     }
 
     function playNextEpisode() {
-      if (currentEpisodeIndex < episodes.length - 1) {
-        playEpisode(episodes[currentEpisodeIndex + 1].id);
+      if (currentEpisodeIndex < episodes.length - 1) playEpisode(episodes[currentEpisodeIndex + 1].id);
+    }
+
+    function updateNavButtons() {
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const navContainer = document.getElementById('navButtons');
+
+      if (episodes.length <= 1) {
+        navContainer.style.display = 'none';
+        return;
       }
+
+      navContainer.style.display = 'flex';
+      prevBtn.style.display = currentEpisodeIndex > 0 ? 'inline-block' : 'none';
+      nextBtn.style.display = currentEpisodeIndex < episodes.length - 1 ? 'inline-block' : 'none';
     }
 
     function updateEpisodeButtons() {
@@ -319,7 +299,7 @@
       });
     }
 
-    if (videoTitle && videoImage && videoDetailsEncoded) {
+    if (videoTitle && videoDetailsEncoded) {
       setupPage();
     } else {
       alert('Missing video info.');
@@ -327,3 +307,4 @@
   </script>
 </body>
 </html>
+<!-- FULL CODE END -->
