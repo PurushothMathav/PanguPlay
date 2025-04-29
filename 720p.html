@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PanguPlay - 720p</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #121212; color: #fff; font-family: Arial, sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; }
+
+    .navbar { background: #1f1f1f; display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; position: sticky; top: 0; z-index: 1000; }
+    .nav-left, .nav-right { display: flex; align-items: center; }
+    .nav-logo { font-weight: bold; font-size: 20px; }
+    .nav-links { display: flex; gap: 15px; margin-left: 20px; }
+    .nav-links a { padding: 5px 10px; border-radius: 5px; transition: 0.3s; }
+    .nav-links a:hover { background: #333; }
+    .menu-icon { font-size: 24px; cursor: pointer; display: none; }
+    .search-bar { position: relative; margin-left: 20px; }
+    .search-bar input { padding: 5px 10px; border: none; border-radius: 20px; outline: none; }
+    .search-results { position: absolute; top: 110%; background: #2a2a2a; width: 200px; border-radius: 8px; overflow: hidden; display: none; right: 0; }
+    .search-results div { padding: 10px; border-bottom: 1px solid #444; cursor: pointer; }
+    .search-results div:hover { background: #333; }
+	.search-bar { position: relative; display: flex; align-items: center; }
+	#searchInput { padding-right: 30px; /* Make space for the button */ }
+	#clearButton { position: absolute; right: 5px; background: none; border: none; font-size: 16px; cursor: pointer; display: none; /* Initially hidden */ }
+
+     <!--  /* Mobile Menu 
+    .mobile-menu { position: fixed; left: -250px; top: 0; width: 250px; height: 100%; background: #1f1f1f; display: flex; flex-direction: column; padding: 20px; transition: 0.3s; z-index: 2000; }
+    .mobile-menu a { margin: 15px 0; font-size: 18px; } */ -->
+	
+	/* Mobile Menu Backdrop */
+.mobile-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1999;
+  display: none;
+}
+
+/* Updated Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 250px;
+  height: 100%;
+  background: #202020;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  transition: left 0.3s ease;
+  z-index: 2000;
+  box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+  border-right: 2px solid #333;
+}
+
+.mobile-menu.open {
+  left: 0;
+}
+
+.mobile-menu a {
+  margin: 15px 0;
+  font-size: 18px;
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-menu a:hover {
+  background: #2a2a2a;
+}
+
+.close-btn {
+  font-size: 22px;
+  color: #fff;
+  background: none;
+  border: none;
+  align-self: flex-end;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+    .section { padding: 20px 15px; }
+    .section h2 { margin-bottom: 15px; font-size: 18px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+    .card { background: #1f1f1f; border-radius: 10px; overflow: hidden; transition: 0.3s; font-size: 12px; text-align: center; cursor: pointer; }
+    .card:hover { transform: scale(1.05); }
+
+    footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f; margin-top: 20px; }
+
+    @media(max-width:768px) {
+      .nav-links { display: none; }
+      .menu-icon { display: block; }
+    }
+	
+	
+	/* Back to top button styling */
+    #backToTopBtn {
+      display: none; /* Hidden by default */
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 99;
+      border: none;
+      outline: none;
+      background-color: #1a365d;
+      color: white;
+      cursor: pointer;
+      padding: 15px;
+      border-radius: 50%;
+      font-size: 18px;
+      width: 50px;
+      height: 50px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    
+    #backToTopBtn:hover {
+      background-color: #0f2042;
+      transform: translateY(-3px);
+    }
+    
+    /* Adding arrow icon inside button */
+    #backToTopBtn::after {
+      content: "↑";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }	
+  </style>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="nav-left">
+    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    <a href="index.html" class="nav-logo">PanguPlay</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="movies.html">Movies</a>
+      <a href="shows.html">Shows</a>
+      <a href="dubbed.html">Tamil Dub</a>
+	  <a href="720p.html">720p</a>
+	  <a href="request.html">Request</a>
+      <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a> <!-- Added Telegram Link -->
+    </div>
+  </div>
+  
+  <div class="nav-right">
+    <div class="search-bar">
+      <input type="text" placeholder="Search..." id="searchInput" oninput="searchFunction()">
+      <button id="clearButton">✖</button>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Menu Backdrop -->
+<div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMenu()"></div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" onclick="closeMenu()">✖</button>
+  <a href="index.html">🏠 Home</a>
+  <a href="movies.html">🎬 Movies</a>
+  <a href="shows.html">📺 Shows</a>
+  <a href="dubbed.html">🎙 Tamil Dub</a>
+  <a href="720p.html">🎞️ 720p HD</a>
+  <a href="request.html">📩 Request</a>
+  <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">💬 Telegram</a>
+</div>
+
+
+<div class="section">
+  <h2>🎞️ All 720p HD Movies 📽️</h2>
+  <div class="cards" id="720pList"></div>
+</div>
+
+<!-- Back to top button -->
+  <button id="backToTopBtn" title="Go to top"></button>
+
+<!-- <script disable-devtool-auto='true'
+src='https://cdn.jsdelivr.net/npm/disable-devtool'
+clear-log='true'
+disable-select='true' 
+disable-copy='true'
+disable-cut='true' 
+disable-paste='true'>
+</script> -->
+
+
+<footer>
+  &copy; 2025 PanguPlay
+</footer>
+
+<script>
+// Get the button
+    const backToTopButton = document.getElementById("backToTopBtn");
+    
+    // When the user scrolls down 300px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+    
+    function scrollFunction() {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        backToTopButton.style.display = "block";
+      } else {
+        backToTopButton.style.display = "none";
+      }
+    }
+    
+    // When the user clicks on the button, scroll to the top of the document
+    backToTopButton.addEventListener("click", function() {
+      // For smooth scrolling
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+      
+      // Alternative method for older browsers
+      // document.body.scrollTop = 0; // For Safari
+      // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+
+
+const searchInput = document.getElementById("searchInput");
+const clearButton = document.getElementById("clearButton");
+const searchResults = document.getElementById("searchResults"); // Get search results container
+
+searchInput.addEventListener("input", function () {
+    clearButton.style.display = this.value ? "block" : "none";
+});
+
+clearButton.addEventListener("click", function () {
+    searchInput.value = ""; // Clears search box text
+    searchResults.innerHTML = ""; // Clears search results
+    clearButton.style.display = "none"; // Hide the button
+    searchInput.focus(); // Keep focus in search box
+});
+
+
+const videos = [
+
+{
+        type: "720p",
+		title: 'K.G.F: Chapter 1 (2018)',
+        image: 'https://m.media-amazon.com/images/M/MV5BM2M0YmIxNzItOWI4My00MmQzLWE0NGYtZTM3NjllNjIwZjc5XkEyXkFqcGc@._V1_FMjpg_UX500_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/KGF%20Chapter%201%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/KGF%20Chapter%201%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'K.G.F: Chapter 2 (2022)',
+        image: 'https://m.media-amazon.com/images/M/MV5BZmQzZjVkZTUtYjI4ZC00ZDJmLWI0ZDUtZTFmMGM1Mzc5ZjIyXkEyXkFqcGc@._V1_FMjpg_UY2408_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/KGF%20Chapter%202%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/KGF%20Chapter%202%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Pushpa: The Rise (2021)',
+        image: 'https://m.media-amazon.com/images/M/MV5BZTY5NWYwYTEtZWMzNC00N2E1LTk1YTAtOGQ5ZmU5MmQxMDdkXkEyXkFqcGc@._V1_FMjpg_UX1067_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Pushpa%20The%20Rise%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Pushpa%20The%20Rise%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: '2.0 (2018)',
+        image: 'https://m.media-amazon.com/images/M/MV5BM2RiNDFjZjYtOTc0OS00NTUxLWJjMTgtYzExMTFkZjA1OGY4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/2.0%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/2.0%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Aghathiyaa (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNjc5MmMwN2MtODllZi00MWYwLWFmYWItMjViOTFmYWM3ZmUwXkEyXkFqcGc@._V1_FMjpg_UY2048_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Aghathiyaa%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Aghathiyaa%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Bajirao Mastani (2015)',
+        image: 'https://m.media-amazon.com/images/M/MV5BYjNjYzk0NDMtNjU3NC00ZTRhLTkwNmMtN2FhYzc5MmNiNjg4XkEyXkFqcGc@._V1_FMjpg_UX747_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Bajirao%20Mastani%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Bajirao%20Mastani%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Deepwater Horizon (2016)',
+        image: 'https://m.media-amazon.com/images/M/MV5BOTEzNDU0OTgxM15BMl5BanBnXkFtZTgwNjA0ODM2OTE@._V1_FMjpg_UX1012_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/DEEPWATER%20HORIZON%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/DEEPWATER%20HORIZON%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Dirty Angels (2024)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNGZlN2RmM2MtODgyYS00MGJiLWE4OGEtNzJiMjlhMzVjZDc0XkEyXkFqcGc@._V1_FMjpg_UY2048_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Dirty%20Angels%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Dirty%20Angels%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Dwaraka (2017)',
+        image: 'https://m.media-amazon.com/images/M/MV5BYjY2NGY3NjgtM2UwOS00ODQwLWIxMDQtMTRmZjA4ZTUwMTQxXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Dwaraka%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Dwaraka%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'FIR (2022)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMzRiM2RjNjItMmJmNC00YTNhLWJmNTEtMzhhZmZlZTBjMjQ5XkEyXkFqcGc@._V1_FMjpg_UX503_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/FIR%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/FIR%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Gamanam (2021)',
+        image: 'https://m.media-amazon.com/images/M/MV5BZjIyOTA4ZjEtMzA5Zi00YWZlLWFkM2YtYTQ0NWMzYWNkMzkwXkEyXkFqcGc@._V1_FMjpg_UX904_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Gamanam%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Gamanam%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'HITLER (2024)',
+        image: 'https://m.media-amazon.com/images/M/MV5BY2E2MjZkNDktOTQ5YS00OWQ1LThmZjQtNDRkNmFmNmMxNmY3XkEyXkFqcGc@._V1_FMjpg_UX608_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/HITLER%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/HITLER%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Home (2021)',
+        image: 'https://m.media-amazon.com/images/M/MV5BYzYxYjQ2NjUtZTdiNS00Y2MxLThkYWEtYjkxMTkzMGM1ZTAwXkEyXkFqcGc@._V1_FMjpg_UX1027_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Home%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Home%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Host (2020)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNzNmNDY4ODUtOTRhMi00MGI5LWI2NTItYzdlMGM2ZDEwOGZiXkEyXkFqcGc@._V1_FMjpg_UX1100_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Host%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Host%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'IIT Krishnamurthy (2020)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNmM4NTg4ZWQtNThlNS00ZGJhLThhNzktMzY3Njg4MTU0OWNhXkEyXkFqcGc@._V1_FMjpg_UY2688_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/IIT%20Krishnamurthy%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/IIT%20Krishnamurthy%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Jai Bheem (2021)',
+        image: 'https://m.media-amazon.com/images/M/MV5BYzQzMTNkN2MtYTRhMS00Y2U0LThhOTctY2M4NTk4YTIxMGMwXkEyXkFqcGc@._V1_FMjpg_UX720_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Jai%20Bheem%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Jai%20Bheem%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Jayamma Panchayathi (2022)',
+        image: 'https://m.media-amazon.com/images/M/MV5BZGI1ODFlNGQtZDYyNi00NWUwLWFiMDMtNWE5NTkzZTFkYzUxXkEyXkFqcGc@._V1_FMjpg_UX903_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Jayamma%20Panchayathi%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Jayamma%20Panchayathi%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'KING (2022)',
+        image: 'https://m.media-amazon.com/images/M/MV5BYzVhZDI2MjAtMTJmZS00YmRhLTgxY2EtZWNhMjdjMWM2MDYyXkEyXkFqcGc@._V1_FMjpg_UY4724_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/KING%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/KING%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Lucifer (2019)',
+        image: 'https://m.media-amazon.com/images/M/MV5BODIwNTc3NjAtODY5OS00YjcxLWE0ZWYtY2NmOWZiMGIwZTBjXkEyXkFqcGc@._V1_FMjpg_UY2560_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Lucifer%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Lucifer%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Lucky Lakshman (2022)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNDNkMGZkZTgtMzJjMS00OTY5LWEyZGEtYWUxNGI1ZDMxZGNhXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Lucky%20Lakshman%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Lucky%20Lakshman%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Maaveeran (2023)',
+        image: 'https://m.media-amazon.com/images/M/MV5BYWJkMWU3YWUtZGIxYy00NGMwLWFjNmMtNzI1YzZiZDUzNTU0XkEyXkFqcGc@._V1_FMjpg_UY2048_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Maaveeran%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Maaveeran%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Mahaan (2022)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMDQ4MTcxYTQtYmMxYi00NzZlLWI5MDEtOTUyNWNhOTkwZGM5XkEyXkFqcGc@._V1_FMjpg_UY2048_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Mahaan%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Mahaan%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Master (2021)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNWM4MTcxNzgtNTM5ZC00NDdkLTlkOTEtZWExZWMxNGMxYTgyXkEyXkFqcGc@._V1_FMjpg_UY1867_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Master%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Master%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Penguin (2020)',
+        image: 'https://m.media-amazon.com/images/M/MV5BZGZjYmQ1MDUtZTg2Ny00YTJjLTk2MDMtNjA2ZTk1OTVlMDYyXkEyXkFqcGc@._V1_FMjpg_UX600_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Penguin%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Penguin%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Peranbu (2018)',
+        image: 'https://m.media-amazon.com/images/M/MV5BN2E0NzFlNGMtNGM2Yy00N2NhLTgxNDgtZTE5MGFiYjU4ZGVkXkEyXkFqcGc@._V1_FMjpg_UY4724_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Peranbu%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Peranbu%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Saani Kaayidham (2022)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMDY0YjMzMTMtZDI1Yi00Mjk5LTllNzUtNzU1ZjlkNmZiNjI2XkEyXkFqcGc@._V1_FMjpg_UX1024_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Saani%20Kaayidham%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Saani%20Kaayidham%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Silence (2020)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMWE0ZjQ1OGMtNjQ0Zi00ZjNhLTkwNjYtMGI1MDIxZTRhODRmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Silence%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Silence%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Soorarai Pottru (2020)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNGFhNDEyM2EtNDc5Zi00ZjAyLTk0ZDAtYzNlY2VlMDhlOTBiXkEyXkFqcGc@._V1_FMjpg_UY7969_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Soorarai%20Pottru%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Soorarai%20Pottru%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'The Wave (2015)',
+        image: 'https://m.media-amazon.com/images/M/MV5BYTM4NjRiY2EtYTZmNS00NTc5LWI5ZTgtOTQwMjNiZDgxN2RiXkEyXkFqcGc@._V1_FMjpg_UX810_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/The%20Wave%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/The%20Wave%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Thugs Of Hindostan (Tamil)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNjk3MDA2YTAtNGEyMy00OWNiLTg2NGYtNTkyZTMzZWQxYjY0XkEyXkFqcGc@._V1_FMjpg_UX413_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Thugs%20Of%20Hindostan%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Thugs%20Of%20Hindostan%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'War (Tamil)',
+        image: 'https://m.media-amazon.com/images/M/MV5BZGJjZDQ5MjQtNjQwMy00ZGRmLWExMTAtMjUxNjJhMzNhMWVjXkEyXkFqcGc@._V1_FMjpg_UY2559_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/War%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/War%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Yaathisai (2023)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMjYxYmM4ZmYtYTQ5Mi00ZDY1LTk4NTUtOWE5Y2U4MzhhZDM2XkEyXkFqcGc@._V1_FMjpg_UX705_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Yaathisai%20(%20Tamil%20).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Yaathisai%20(%20Tamil%20).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Yatra (2018)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNTkyYmFlY2MtODg5YS00ZDhhLTljOWEtYzQyYzA5YmZkNDJhXkEyXkFqcGc@._V1_FMjpg_UX688_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Yatra%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Yatra%20(Tamil).mp4'
+        }
+	},
+	{
+        type: "720p",
+		title: 'Yuvarathnaa (2021)',
+        image: 'https://m.media-amazon.com/images/M/MV5BZjQ3N2QxN2MtZTgwZC00ZDc4LTk5MWMtZDY5ZTk2MDY4MGRmXkEyXkFqcGc@._V1_FMjpg_UX729_.jpg',
+        video: 'https://storage.googleapis.com/panguplaybucket/720p/Yuvarathnaa%20(Tamil).mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Yuvarathnaa%20(Tamil).mp4'
+        }
+	},
+
+
+
+
+
+
+]; // Insert your full 720p list here
+
+const mobileMenu = document.getElementById("mobileMenu");
+const menuIcon = document.querySelector(".menu-icon");
+
+function toggleMenu() {
+  const menu = document.getElementById("mobileMenu");
+  const backdrop = document.getElementById("mobileBackdrop");
+  menu.classList.add("open");
+  backdrop.style.display = "block";
+}
+
+function closeMenu() {
+  const menu = document.getElementById("mobileMenu");
+  const backdrop = document.getElementById("mobileBackdrop");
+  menu.classList.remove("open");
+  backdrop.style.display = "none";
+}
+
+document.addEventListener("click", function (event) {
+  const menu = document.getElementById("mobileMenu");
+  const icon = document.querySelector(".menu-icon");
+  if (!menu.contains(event.target) && !icon.contains(event.target)) {
+    closeMenu();
+  }
+});
+
+function searchFunction() {
+  const input = document.getElementById('searchInput').value.toLowerCase();
+  const results = document.getElementById('searchResults');
+  results.innerHTML = '';
+  if (input.length > 0) {
+    const filtered = videos.filter(v => v.title.toLowerCase().includes(input));
+    filtered.forEach(v => {
+      const div = document.createElement('div');
+      div.innerText = v.title;
+      div.onclick = () => openPlayer(v);
+      results.appendChild(div);
+    });
+    results.style.display = 'block';
+  } else {
+    results.style.display = 'none';
+  }
+}
+
+function openPlayer(video) {
+  const details = encodeURIComponent(JSON.stringify(video.details));
+  let url = `player.html?title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${details}`;
+  if (video.type === 'series') {
+    const episodes = encodeURIComponent(JSON.stringify(video.episodes));
+    url += `&id=${video.id}&episodes=${episodes}`;
+  } else {
+    url += `&video=${encodeURIComponent(video.video)}`;
+  }
+  window.location.href = url;
+}
+
+function parseDate(dateString) {
+  // Convert '18 April 2025' into a Date object
+  return new Date(Date.parse(dateString));
+}
+
+function load720p() {
+  const webdl = document.getElementById('720pList');
+
+  // Sort 720p movies/shows by lastUpdated in descending order (latest first)
+  videos
+    .filter(v => v.type === '720p')
+    .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
+    .forEach(v => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `<img src="${v.image}"><div style="padding:5px">${v.title}</div>`;
+      card.onclick = () => openPlayer(v);
+      webdl.appendChild(card);
+    });
+}
+
+load720p();
+
+</script>
+
+</body>
+</html>
