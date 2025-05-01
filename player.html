@@ -6,7 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Video Player - PanguPlay</title>
   <style>
-    body {
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #121212; color: #fff;  font-family: 'Inter', sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; }
+	
+	body {
       margin: 0;
       font-family: Arial, sans-serif;
       background-color: #121212;
@@ -123,6 +128,86 @@
       font-size: 14px;
       cursor: pointer;
     }
+	
+	.navbar { background: #1f1f1f; display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; position: sticky; top: 0; z-index: 1000; }
+    .nav-left, .nav-right { display: flex; align-items: center; }
+    .nav-logo { font-weight: bold; font-size: 20px; }
+    .nav-links { display: flex; gap: 15px; margin-left: 20px; }
+    .nav-links a { padding: 5px 10px; border-radius: 5px; transition: 0.3s; }
+    .nav-links a:hover { background: #333; }
+    .menu-icon { font-size: 24px; cursor: pointer; display: none; }
+    .search-bar { display: flex; align-items: center; position: relative; }
+	.search-bar input { padding: 6px 10px; border: 1px solid #444; background: #2a2a2a; color: #fff; border-radius: 20px; outline: none; width: 180px; transition: all 0.3s ease; }
+	.search-bar input:focus { border-color: #ff4500; background: #1e1e1e; }
+	.search-results { position: absolute; top: 110%; background: #2a2a2a; width: 200px; border-radius: 8px; overflow: hidden; display: none; right: 0; }
+    .search-results div { padding: 10px; border-bottom: 1px solid #444; cursor: pointer; }
+    .search-results div:hover { background: #333; }
+    .search-bar { position: relative; display: flex; align-items: center; }
+    #searchInput { padding-right: 30px; }
+    #clearButton { position: absolute; right: 8px; background: none; border: none; color: #aaa; cursor: pointer; font-size: 14px; display: none; }
+
+    /* Mobile Menu Backdrop */
+    .mobile-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      z-index: 1999;
+      display: none;
+    }
+
+    /* Updated Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 250px;
+      height: 100%;
+      background: #202020;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      transition: left 0.3s ease;
+      z-index: 2000;
+      box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+      border-right: 2px solid #333;
+    }
+
+    .mobile-menu.open {
+      left: 0;
+    }
+
+    .mobile-menu a {
+      margin: 15px 0;
+      font-size: 18px;
+      color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mobile-menu a:hover {
+      background: #2a2a2a;
+    }
+
+    .close-btn {
+      font-size: 22px;
+      color: #fff;
+      background: none;
+      border: none;
+      align-self: flex-end;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+	
+	footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f; margin-top: 20px; }
+	
     @media (max-width: 768px) {
       .heading {
         font-size: 20px;
@@ -133,6 +218,8 @@
       .detail-row {
         font-size: 14px;
       }
+	  .nav-links { display: none; }
+      .menu-icon { display: block; }
       .episode-button {
         font-size: 14px;
         padding: 8px 12px;
@@ -141,6 +228,45 @@
   </style>
 </head>
 <body>
+	<div class="navbar">
+  <div class="nav-left">
+    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    <a href="index.html" class="nav-logo">PanguPlay</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="movies.html">Movies</a>
+      <a href="shows.html">Shows</a>
+      <a href="dubbed.html">Tamil Dub</a>
+	  <a href="720p.html">720p</a>
+	  <a href="request.html">Request</a>
+      <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a>
+    </div>
+  </div>
+  
+  <div class="nav-right">
+    <div class="search-bar">
+      <input type="text" placeholder="Search..." id="searchInput" oninput="searchFunction()">
+      <button id="clearButton">✖</button>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Menu Backdrop -->
+<div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMenu()"></div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" onclick="closeMenu()">✖</button>
+  <a href="index.html">🏠 Home</a>
+  <a href="movies.html">🎬 Movies</a>
+  <a href="shows.html">📺 Shows</a>
+  <a href="dubbed.html">🎙 Tamil Dub</a>
+  <a href="720p.html">🎞️ 720p HD</a>
+  <a href="request.html">📩 Request</a>
+  <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">💬 Telegram</a>
+</div>
+
   <div class="container">
     <div class="header">
       <button class="back-button" onclick="goToHome()">Home</button>
@@ -174,7 +300,12 @@
       <div class="episodes-title">Episodes</div>
       <div class="episode-buttons-wrapper" id="episodeButtons"></div>
     </div>
+	<!-- Footer -->
+
   </div>
+  <footer>
+  &copy; 2025 PanguPlay
+</footer>
   <script>
     function goToHome() {
       window.location.href = 'index.html';
