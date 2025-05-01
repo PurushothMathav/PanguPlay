@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PanguPlay - Tamil Dubbed</title>
+  <title>PanguPlay - Dubbed</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #121212; color: #fff; font-family: Arial, sans-serif; }
     a { color: inherit; text-decoration: none; }
-    img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; }
+    img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px 10px 0 0; }
 
     .navbar { background: #1f1f1f; display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; position: sticky; top: 0; z-index: 1000; }
     .nav-left, .nav-right { display: flex; align-items: center; }
@@ -22,89 +22,113 @@
     .search-results { position: absolute; top: 110%; background: #2a2a2a; width: 200px; border-radius: 8px; overflow: hidden; display: none; right: 0; }
     .search-results div { padding: 10px; border-bottom: 1px solid #444; cursor: pointer; }
     .search-results div:hover { background: #333; }
-	.search-bar { position: relative; display: flex; align-items: center; }
-	#searchInput { padding-right: 30px; /* Make space for the button */ }
-	#clearButton { position: absolute; right: 5px; background: none; border: none; font-size: 16px; cursor: pointer; display: none; /* Initially hidden */ }
+	  .search-bar { position: relative; display: flex; align-items: center; }
+	  #searchInput { padding-right: 30px; /* Make space for the button */ }
+	  #clearButton { position: absolute; right: 5px; background: none; border: none; font-size: 16px; cursor: pointer; display: none; /* Initially hidden */ }
 
-     <!--  /* Mobile Menu 
-    .mobile-menu { position: fixed; left: -250px; top: 0; width: 250px; height: 100%; background: #1f1f1f; display: flex; flex-direction: column; padding: 20px; transition: 0.3s; z-index: 2000; }
-    .mobile-menu a { margin: 15px 0; font-size: 18px; } */ -->
-	
-	/* Mobile Menu Backdrop */
-.mobile-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(4px);
-  z-index: 1999;
-  display: none;
-}
+    /* Mobile Menu Backdrop */
+    .mobile-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      z-index: 1999;
+      display: none;
+    }
 
-/* Updated Mobile Menu */
-.mobile-menu {
-  position: fixed;
-  top: 0;
-  left: -100%;
-  width: 250px;
-  height: 100%;
-  background: #202020;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  transition: left 0.3s ease;
-  z-index: 2000;
-  box-shadow: 5px 0 15px rgba(0,0,0,0.2);
-  border-right: 2px solid #333;
-}
+    /* Updated Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 250px;
+      height: 100%;
+      background: #202020;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      transition: left 0.3s ease;
+      z-index: 2000;
+      box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+      border-right: 2px solid #333;
+    }
 
-.mobile-menu.open {
-  left: 0;
-}
+    .mobile-menu.open {
+      left: 0;
+    }
 
-.mobile-menu a {
-  margin: 15px 0;
-  font-size: 18px;
-  color: #fff;
-  padding: 10px;
-  border-radius: 8px;
-  transition: background 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+    .mobile-menu a {
+      margin: 15px 0;
+      font-size: 18px;
+      color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-.mobile-menu a:hover {
-  background: #2a2a2a;
-}
+    .mobile-menu a:hover {
+      background: #2a2a2a;
+    }
 
-.close-btn {
-  font-size: 22px;
-  color: #fff;
-  background: none;
-  border: none;
-  align-self: flex-end;
-  margin-bottom: 20px;
-  cursor: pointer;
-}
+    .close-btn {
+      font-size: 22px;
+      color: #fff;
+      background: none;
+      border: none;
+      align-self: flex-end;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
 
     .section { padding: 20px 15px; }
     .section h2 { margin-bottom: 15px; font-size: 18px; }
-    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
-    .card { background: #1f1f1f; border-radius: 10px; overflow: hidden; transition: 0.3s; font-size: 12px; text-align: center; cursor: pointer; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+    .card { background: #1f1f1f; border-radius: 10px; overflow: hidden; transition: 0.3s; font-size: 12px; text-align: center; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
     .card:hover { transform: scale(1.05); }
+    .card-title { padding: 8px 5px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* Placeholder styling */
+    .placeholder-image {
+      position: relative;
+      background: linear-gradient(135deg, #1f1f1f 0%, #303030 100%);
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 10px 10px 0 0;
+    }
+    
+    .placeholder-icon {
+      font-size: 50px;
+      opacity: 0.5;
+    }
+    
+    .placeholder-text {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 5px;
+      background: rgba(0,0,0,0.6);
+      font-size: 10px;
+      color: #ccc;
+    }
 
     footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f; margin-top: 20px; }
 
     @media(max-width:768px) {
       .nav-links { display: none; }
       .menu-icon { display: block; }
+      .cards { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
     }
 	
-	
-	/* Back to top button styling */
+    /* Back to top button styling */
     #backToTopBtn {
       display: none; /* Hidden by default */
       position: fixed;
@@ -153,7 +177,7 @@
       <a href="dubbed.html">Tamil Dub</a>
 	  <a href="720p.html">720p</a>
 	  <a href="request.html">Request</a>
-      <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a> <!-- Added Telegram Link -->
+      <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a>
     </div>
   </div>
   
@@ -183,22 +207,12 @@
 
 
 <div class="section">
-  <h2>All Tamil Dubbed 📺</h2>
+  <h2>🎙 All Dubbed Movies 📽️</h2>
   <div class="cards" id="dubbedList"></div>
 </div>
 
 <!-- Back to top button -->
-  <button id="backToTopBtn" title="Go to top"></button>
-
-<script disable-devtool-auto='true'
-src='https://cdn.jsdelivr.net/npm/disable-devtool'
-clear-log='true'
-disable-select='true' 
-disable-copy='true'
-disable-cut='true' 
-disable-paste='true'>
-</script>
-
+<button id="backToTopBtn" title="Go to top"></button>
 
 <footer>
   &copy; 2025 PanguPlay
@@ -206,48 +220,62 @@ disable-paste='true'>
 
 <script>
 // Get the button
-    const backToTopButton = document.getElementById("backToTopBtn");
-    
-    // When the user scrolls down 300px from the top of the document, show the button
-    window.onscroll = function() {scrollFunction()};
-    
-    function scrollFunction() {
-      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        backToTopButton.style.display = "block";
-      } else {
-        backToTopButton.style.display = "none";
-      }
-    }
-    
-    // When the user clicks on the button, scroll to the top of the document
-    backToTopButton.addEventListener("click", function() {
-      // For smooth scrolling
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-      
-      // Alternative method for older browsers
-      // document.body.scrollTop = 0; // For Safari
-      // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    });
+const backToTopButton = document.getElementById("backToTopBtn");
 
+// When the user scrolls down 300px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+    backToTopButton.style.display = "block";
+  } else {
+    backToTopButton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+backToTopButton.addEventListener("click", function() {
+  // For smooth scrolling
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
 
 const searchInput = document.getElementById("searchInput");
 const clearButton = document.getElementById("clearButton");
-const searchResults = document.getElementById("searchResults"); // Get search results container
+const searchResults = document.getElementById("searchResults");
 
 searchInput.addEventListener("input", function () {
     clearButton.style.display = this.value ? "block" : "none";
 });
 
 clearButton.addEventListener("click", function () {
-    searchInput.value = ""; // Clears search box text
-    searchResults.innerHTML = ""; // Clears search results
-    clearButton.style.display = "none"; // Hide the button
-    searchInput.focus(); // Keep focus in search box
+    searchInput.value = "";
+    searchResults.innerHTML = "";
+    clearButton.style.display = "none";
+    searchInput.focus();
 });
 
+// Generate a placeholder image based on the movie title
+function generatePlaceholderImage(title) {
+  // Extract initials or first letter
+  const words = title.split(' ');
+  const initials = words.length > 1 
+    ? (words[0][0] + words[1][0]).toUpperCase()
+    : title.substring(0, 2).toUpperCase();
+  
+  // Generate a pseudo-random color based on the title
+  const hash = title.split('').reduce((acc, char) => char.charCodeAt(0) + acc, 0);
+  const hue = hash % 360;
+  const background = `hsl(${hue}, 60%, 20%)`;
+  
+  // Return HTML for placeholder
+  return `<div class="placeholder-image" style="background: ${background}">
+            <div class="placeholder-icon">🎬</div>
+            <div class="placeholder-text">${title}</div>
+          </div>`;
+}
 
 const videos = [
 
@@ -2127,11 +2155,6 @@ const videos = [
 },
 
 
-
-
-
-
-
 ]; // Insert your full dubbed list here
 
 const mobileMenu = document.getElementById("mobileMenu");
@@ -2204,13 +2227,25 @@ function loadDubbed() {
     .forEach(v => {
       const card = document.createElement('div');
       card.className = 'card';
-      card.innerHTML = `<img src="${v.image}"><div style="padding:5px">${v.title}</div>`;
+      
+      // Check if image exists, if not use our new placeholder generator
+      let imageContent;
+      if (v.image && v.image.trim() !== '') {
+        imageContent = `<img src="${v.image}" alt="${v.title}" loading="lazy">`;
+      } else {
+        imageContent = generatePlaceholderImage(v.title);
+      }
+      
+      card.innerHTML = `${imageContent}
+                       <div class="card-title">${v.title}</div>`;
       card.onclick = () => openPlayer(v);
       dubbed.appendChild(card);
     });
 }
 
+
 loadDubbed();
+
 
 </script>
 
