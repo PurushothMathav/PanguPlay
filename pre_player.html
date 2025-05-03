@@ -1,3 +1,4 @@
+<!-- FULL CODE START -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -268,7 +269,7 @@
 
   <div class="container">
     <div class="header">
-      <button class="back-button" onclick="goBack()">Back</button>
+      <button class="back-button" onclick="goToHome()">Home</button>
       <div class="heading" id="pageHeading">PanguPlay</div>
     </div>
     <div class="video-container">
@@ -306,10 +307,9 @@
   &copy; 2025 PanguPlay
 </footer>
   <script>
-    function goBack() {
-      window.history.back();
+    function goToHome() {
+      window.location.href = 'index.html';
     }
-    
     function copyStreamUrl() {
       if (currentEpisodeId && episodes.length > 0) {
         navigator.clipboard.writeText(episodes[currentEpisodeIndex].videoUrl).then(() => alert("Stream URL copied!"));
@@ -317,7 +317,6 @@
         navigator.clipboard.writeText(decodeURIComponent(videoUrl)).then(() => alert("Stream URL copied!"));
       }
     }
-    
     function updateHeaderTitle(title, isSeries = false, seasonNumber = null, episodeNumber = null, episodeTitle = null) {
       const headerElement = document.getElementById('pageHeading');
       if (isSeries && seasonNumber !== null && episodeNumber !== null) {
@@ -326,7 +325,6 @@
         headerElement.textContent = title;
       }
     }
-    
     const urlParams = new URLSearchParams(window.location.search);
     const videoUrl = urlParams.get('video');
     const videoTitle = urlParams.get('title');
@@ -431,30 +429,6 @@
         container.appendChild(btn);
       });
     }
-    
-    // For mobile menu
-    function toggleMenu() {
-      document.getElementById('mobileMenu').classList.add('open');
-      document.getElementById('mobileBackdrop').style.display = 'block';
-    }
-    
-    function closeMenu() {
-      document.getElementById('mobileMenu').classList.remove('open');
-      document.getElementById('mobileBackdrop').style.display = 'none';
-    }
-    
-    // Search functionality placeholder
-    function searchFunction() {
-      // Implement search functionality here
-      const input = document.getElementById('searchInput');
-      const clearButton = document.getElementById('clearButton');
-      
-      if (input.value) {
-        clearButton.style.display = 'block';
-      } else {
-        clearButton.style.display = 'none';
-      }
-    }
 
     if (videoTitle && videoDetailsEncoded) {
       setupPage();
@@ -464,3 +438,4 @@
   </script>
 </body>
 </html>
+<!-- FULL CODE END -->
