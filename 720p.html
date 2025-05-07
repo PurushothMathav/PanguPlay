@@ -90,7 +90,7 @@
      /* Sections */
     .section { padding: 20px 15px; }
     .section h2 { margin-bottom: 15px; font-size: 18px; }
-    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
     .card { background: #1f1f1f; border-radius: 10px; overflow: hidden; transition: 0.3s; font-size: 12px; text-align: center; cursor: pointer; }
     .card:hover { transform: scale(1.05); }
     .card-title { padding: 8px 5px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -121,13 +121,45 @@
       font-size: 10px;
       color: #ccc;
     }
+	
+	/* Quality Tag Styling */
+    .quality-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      z-index: 5;
+    }
+    
+    .quality-4k {
+      background: linear-gradient(135deg, #8a2be2, #4b0082);
+    }
+    
+    .quality-hd {
+      background: linear-gradient(135deg, #1e90ff, #0000cd);
+    }
+    
+    .quality-sd {
+      background: linear-gradient(135deg, #696969, #2f4f4f);
+    }
+    
+    /* Card Image Container */
+    .card-image-container {
+      position: relative;
+    }
 
     footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f; margin-top: 20px; }
 
     @media(max-width:768px) {
       .nav-links { display: none; }
       .menu-icon { display: block; }
-      /*.cards { grid-template-columns: repeat(3, 1fr)); }*/
+      .cards { grid-template-columns: repeat(3, 1fr); }
 	  .search-bar input { width: 140px; }
 	
     /* Back to top button styling */
@@ -277,6 +309,17 @@ function generatePlaceholderImage(title) {
             <div class="placeholder-icon">🎬</div>
             <div class="placeholder-text">${title}</div>
           </div>`;
+}
+
+// Get appropriate CSS class for quality tag
+function getQualityClass(quality) {
+  if (quality.includes('1080p') || quality.includes('1080p')) {
+    return 'quality-4k';
+  } else if (quality.includes('WEBDL') || quality.includes('720p')) {
+    return 'quality-hd';
+  } else {
+    return 'quality-sd';
+  }
 }
 
 const videos = [
@@ -1570,10 +1613,20 @@ function load720p() {
       
       // Check if image exists, if not use our new placeholder generator
       let imageContent;
+	  const quality = v.details.quality || 'SD';
+      const qualityClass = getQualityClass(quality);
       if (v.image && v.image.trim() !== '') {
-        imageContent = `<img src="${v.image}" alt="${v.title}" loading="lazy">`;
+        imageContent = `
+          <div class="card-image-container">
+            <img src="${v.image}" alt="${v.title}" loading="lazy">
+            <div class="quality-tag ${qualityClass}">${quality}</div>
+          </div>`;
       } else {
-        imageContent = generatePlaceholderImage(v.title);
+        imageContent = `
+          <div class="card-image-container">
+            ${generatePlaceholderImage(v.title)}
+            <div class="quality-tag ${qualityClass}">${quality}</div>
+          </div>`;
       }
       
       card.innerHTML = `${imageContent}
