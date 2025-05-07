@@ -415,7 +415,244 @@ const clearButton = document.getElementById("clearButton");
 const searchResults = document.getElementById("searchResults");
 
 const videos = [ 
-	
+	{
+        type: "movie",
+		title: 'Nanban (2012)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNWY4YThjYzYtNWVhMC00YzZkLWI2ZDktYzAzYzIwNDM5ZjY3XkEyXkFqcGc@._V1_QL75_UX380_CR0,7,380,562_.jpg',
+        video: 'https://s03.hotshare.link/Moviesda.Mobi_-_Nanban_2012_Original_1080p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '10 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://s03.hotshare.link/Moviesda.Mobi_-_Nanban_2012_Original_1080p_HD.mp4'
+        }
+	},
+	{
+        type: "movie",
+		title: 'Neram (2013)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNjI2NzY0MjgtOGYyMS00Y2E1LTg5ZjUtZDhmNmUwMmNlNTFlXkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg',
+        video: 'https://s04.hotshare.link/Moviesda.Mobi_-_Neram_2013_Original_1080p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '10 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://s04.hotshare.link/Moviesda.Mobi_-_Neram_2013_Original_1080p_HD.mp4'
+        }
+	},
+	{
+        type: "movie",
+		title: 'Bajirao Mastani (2015)',
+        image: 'https://m.media-amazon.com/images/M/MV5BYjNjYzk0NDMtNjU3NC00ZTRhLTkwNmMtN2FhYzc5MmNiNjg4XkEyXkFqcGc@._V1_QL75_UY562_CR5,0,380,562_.jpg',
+        video: 'https://s07.hotshare.link/Moviesda.Mobi_-_Bajirao_Mastani_2015_Original_1080p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '10 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://s07.hotshare.link/Moviesda.Mobi_-_Bajirao_Mastani_2015_Original_1080p_HD.mp4'
+        }
+	},
+	{
+        type: "movie",
+		title: 'Baashha (1995)',
+        image: 'https://m.media-amazon.com/images/M/MV5BZWE4M2RlZTEtNGM0YS00NWIxLWFjNDEtOWJkMzY0MDQ0NTgwXkEyXkFqcGc@._V1_QL75_UX380_CR0,16,380,562_.jpg',
+        video: 'https://s06.hotshare.link/Moviesda.Mobi_-_Baashha_1995_Original_1080p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '10 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://s06.hotshare.link/Moviesda.Mobi_-_Baashha_1995_Original_1080p_HD.mp4'
+        }
+	},
+	{
+        type: "movie",
+		title: 'Roudra Roopaya Namaha (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BOTE0NWRhYjgtNjM0MS00YzVjLWFiMTMtOGU5NWJhOWIxYmExXkEyXkFqcGc@._V1_QL75_UY562_CR35,0,380,562_.jpg',
+        video: 'https://dl8.hotshare.top/Roudra_Roopaya_Namaha_2025_Original_720p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '10 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://dl8.hotshare.top/Roudra_Roopaya_Namaha_2025_Original_720p_HD.mp4'
+        }
+	},
+	{
+        type: "movie",
+		title: 'Kaakha Kaakha (2003)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNTA0NjQwYmUtN2ViZS00MWI2LWI4NWEtMjBlYWUxMTYzMTI5XkEyXkFqcGc@._V1_QL75_UY562_CR7,0,380,562_.jpg',
+        video: 'https://s04.hotshare.link/Moviesda.Mobi_-_Kaakha_Kaakha_2003_Original_1080p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '10 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://s04.hotshare.link/Moviesda.Mobi_-_Kaakha_Kaakha_2003_Original_1080p_HD.mp4'
+        }
+	},
+	{
+        type: "movie",
+		title: 'Ettupatti Rasa (1997)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMmMyMzA5YWEtYzY0Yi00OGM0LTljYTQtNDg2ZjJjMzQ5NDFjXkEyXkFqcGc@._V1_QL75_UY562_CR91,0,380,562_.jpg',
+        video: 'https://s01.hotshare.link/Moviesda.Mobi_-_Ettupatti_Rasa_1997_Original_1080p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '10 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://s01.hotshare.link/Moviesda.Mobi_-_Ettupatti_Rasa_1997_Original_1080p_HD.mp4'
+        }
+	},
+	{
+        type: "movie",
+		title: 'Bromance (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BYzBlNDA1ZTktYzNkMy00YzgzLTliZjUtNmY1MTE2ZmZlY2Q4XkEyXkFqcGc@._V1_QL75_UX380_CR0,57,380,562_.jpg',
+        video: 'https://dl10.hotshare.top/Bromance_2025_Original_1080p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '10 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://dl10.hotshare.top/Bromance_2025_Original_1080p_HD.mp4'
+        }
+	},
+	{
+        type: "movie",
+		title: 'HIT - The Second Case (2024)',
+        image: 'https://m.media-amazon.com/images/M/MV5BYmQ3ZjRhNzQtOTFlMC00YTEzLTkxNzMtZTZmMjBlNzYyNzJkXkEyXkFqcGc@._V1_QL75_UY562_CR11,0,380,562_.jpg',
+        video: 'https://s09.hotshare.link/Moviesda.Mobi_-_HIT_-_The_Second_Case_2024_Original_1080p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://s09.hotshare.link/Moviesda.Mobi_-_HIT_-_The_Second_Case_2024_Original_1080p_HD.mp4'
+        }
+	},
+	{
+        type: "movie",
+		title: 'HIT - The First Case (2020)',
+        image: 'https://m.media-amazon.com/images/M/MV5BM2Q2Nzk0OGYtNzE1Yy00NTA2LTg4ZWUtM2QyZWZlOGYwYTdiXkEyXkFqcGc@._V1_QL75_UX380_CR0,57,380,562_.jpg',
+        video: 'https://dl7.hotshare.click/Moviesda.Mobi_-_HIT_-_The_First_Case_2020_Original_1080p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '29 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://dl7.hotshare.click/Moviesda.Mobi_-_HIT_-_The_First_Case_2020_Original_1080p_HD.mp4'
+        }
+	},
+	{
+        type: "movie",
+		title: 'Udumbu (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BZTA1MmQ5MmQtNTE1Ni00NDg1LWEwNjQtOTFjZTJiMzYzYjZkXkEyXkFqcGc@._V1_QL75_UY562_CR3,0,380,562_.jpg',
+        video: 'https://dl9.hotshare.top/Udumbu_2025_Original_720p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '10 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://dl9.hotshare.top/Udumbu_2025_Original_720p_HD.mp4'
+        }
+	},
+	{
+        type: "movie",
+		title: 'Vaaranam Aayiram (2008)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMWIyYTlhNGItN2Y1Zi00NWY2LWJkYjktYzljZWIyNGI0ZGFlXkEyXkFqcGc@._V1_QL75_UY562_CR8,0,380,562_.jpg',
+        video: 'https://s08.hotshare.link/Moviesda.Mobi_-_Vaaranam_Aayiram_2008_Original_1080p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '10 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://s08.hotshare.link/Moviesda.Mobi_-_Vaaranam_Aayiram_2008_Original_1080p_HD.mp4'
+        }
+	},
+	{
+        type: "movie",
+		title: 'Aranmanai 3 (2021)',
+        image: 'https://m.media-amazon.com/images/M/MV5BZWNmZWZmY2ItNGU3Mi00NjI4LWI1OGEtZDBhMmEwYTg3MTIxXkEyXkFqcGc@._V1_QL75_UY562_CR33,0,380,562_.jpg',
+        video: 'https://dl5.hotshare.click/Moviesda.Mobi_-_Aranmanai_3_2021_Original_1080p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '10 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://dl5.hotshare.click/Moviesda.Mobi_-_Aranmanai_3_2021_Original_1080p_HD.mp4'
+        }
+	},
+	{
+        type: "movie",
+		title: 'Eakam (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMmEwNmEyYzgtNDBkZi00MjQ5LTkzZjMtMWMwYjYzZmFkNjM2XkEyXkFqcGc@._V1_QL75_UY562_CR35,0,380,562_.jpg',
+        video: 'https://s05.hotshare.link/Moviesda.Mobi_-_Eakam_2025_Original_1080p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: 'HD',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '10 April 2025',
+		  fileSize: '',
+		  streamURL: 'https://s05.hotshare.link/Moviesda.Mobi_-_Eakam_2025_Original_1080p_HD.mp4'
+        }
+	},
 	{
         type: "movie",
 		title: 'Retro (2025)',
@@ -542,7 +779,7 @@ const videos = [
         type: "movie",
 		title: 'Ten Hours (2025)',
         image: 'https://m.media-amazon.com/images/M/MV5BNzQ1YmVjNjAtZDRhYi00MDk0LThjYjEtNWM0Y2ZmZWEwNzUxXkEyXkFqcGc@._V1_FMjpg_UY2048_.jpg',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Ten%20Hours%20(2025)%20-%201080p.mp4',
+        video: 'https://dl3.hotshare.click/Moviesda.Mobi_-_Ten_Hours_2025_Original_1080p_HD.mp4',
         details: {
           director: 'Ilayaraja Kaliyaperumal',
           starring: 'Sibi Sathyaraj, Gajaraj, Dileepan, Jeeva Ravi, Saravana Subbiah, Raj Ayyappa, Aadukalam Murugadoss',
@@ -550,9 +787,9 @@ const videos = [
           quality: 'PreDVD',
           language: 'Tamil',
           movieRating: '7.6/10',
-          lastUpdated: '20 April 2025',
+          lastUpdated: '29 April 2025',
 		  fileSize: '2.2 GB',
-		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Ten%20Hours%20(2025)%20-%201080p.mp4'
+		  streamURL: 'https://dl3.hotshare.click/Moviesda.Mobi_-_Ten_Hours_2025_Original_1080p_HD.mp4'
         }
 	},  
 	  
@@ -2261,17 +2498,17 @@ const videos = [
         type: "movie",
 		title: 'EMI (2025)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/April/EMI%20(2025).jpg',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/EMI%20(2025).mp4',
+        video: 'https://dl.hotshare.top/Moviesda.Mobi_-_EMI_2025_Original_1080p_HD.mp4',
         details: {
           director: 'Sadasivam Chinnaraj',
           starring: 'Sadasivam Chinnaraj, Sai Dhanyaa, Black Pondi, Aadhavan, Perarasu, Senthi Kumari, Lollu Sabha Manohar, O.A.K. Sundar, T.S.R, Rahul Thatha',
           genres: 'Drama, Family',
-          quality: 'PreDVD',
+          quality: 'HD',
           language: 'Tamil',
           movieRating: '9.7/10',
-          lastUpdated: '07 April 2025',
+          lastUpdated: '29 April 2025',
 		  fileSize: '1.3 GB',
-		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/EMI%20(2025).mp4'
+		  streamURL: 'https://dl.hotshare.top/Moviesda.Mobi_-_EMI_2025_Original_1080p_HD.mp4'
         }
 	},
 	  
@@ -3951,17 +4188,17 @@ const videos = [
         type: "movie",
 		title: 'Varunan (2025)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/Movies/22-03-2025/Varunan%20(2025).jpg',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/22-03-2025/Varunan%20(2025).mp4',
+        video: 'https://s07.hotshare.link/Moviesda.Mobi_-_Varunan_2025_Original_1080p_HD.mp4',
         details: {
           director: 'Jaayavelmurugun',
           starring: 'Radha Ravi, Charan Raj, Dushyanth Jayaprakash, Gabriella Charlton, Shankarnag Vijayan, Haripriya Isai, Maheshwari Chanakyan',
           genres: 'Action, Drama',
-          quality: 'PreDVD',
+          quality: 'HD',
           language: 'Tamil',
           movieRating: '9.2/10',
-          lastUpdated: '22 March 2025',
+          lastUpdated: '29 April 2025',
 		  fileSize: '2.3 GB',
-		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/22-03-2025/Varunan%20(2025).mp4'
+		  streamURL: 'https://s07.hotshare.link/Moviesda.Mobi_-_Varunan_2025_Original_1080p_HD.mp4'
         }
       },
 	  {
