@@ -369,72 +369,6 @@
       margin-top: 20px;
     }
     
-    /* Double tap seek controls - MODIFIED */
-    .tap-seek-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      z-index: 1; /* Lower z-index so Plyr controls appear above */
-      pointer-events: none; /* Initially don't capture any events */
-    }
-
-    .tap-seek-area {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      pointer-events: none; /* Initially don't capture events */
-      z-index: 1; /* Keep below player controls */
-    }
-    
-    /* Controls area safe zone */
-    .player-controls-zone {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 20%; /* Increased safe zone at the bottom for controls */
-      z-index: 2; /* Higher than tap areas */
-      pointer-events: auto; /* This allows clicks to pass through to controls */
-      background: transparent;
-    }
-    
-    .tap-icon {
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 50%;
-      width: 80px;
-      height: 80px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 30px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .tap-icon.active {
-      opacity: 1;
-    }
-    
-    .tap-text {
-      position: absolute;
-      bottom: 30px;
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 8px 15px;
-      border-radius: 5px;
-      font-size: 14px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .tap-text.active {
-      opacity: 1;
-    }
-    
     @media (max-width: 768px) {
       .heading {
         font-size: 20px;
@@ -456,21 +390,17 @@
         padding: 8px 12px;
       }
       .resolution-selector {
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 10px 0;
-        gap: 10px;
-      }
-      .resolution-btn {
-        flex: 1 1 40%;
-        font-size: 12px;
-        padding: 6px 8px;
-      }
-      .tap-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 24px;
-      }
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px 0;
+    gap: 10px;
+  }
+
+  .resolution-btn {
+    flex: 1 1 40%;
+    font-size: 12px;
+    padding: 6px 8px;
+  }
     }
   </style>
 </head>
@@ -532,22 +462,6 @@
           <source src="" type="video/mp4" size="720">
           Your browser does not support the video tag.
         </video>
-        
-        <!-- Double tap seek overlay - structure kept but functionality modified -->
-        <div class="tap-seek-overlay" id="tapSeekOverlay">
-          <div class="tap-seek-area" id="seekBackward">
-            <div class="tap-icon" id="seekBackwardIcon">
-              <i class="fas fa-backward"></i>
-            </div>
-          </div>
-          <div class="tap-seek-area" id="seekForward">
-            <div class="tap-icon" id="seekForwardIcon">
-              <i class="fas fa-forward"></i>
-            </div>
-          </div>
-        </div>
-        <div class="player-controls-zone" id="playerControlsZone"></div>
-        <div class="tap-text" id="seekText"></div>
       </div>
     </div>
     
@@ -612,225 +526,50 @@
     let currentVideoSources = [];
     let currentQuality = '1080p';
     
-    // Variables for double tap functionality
-    let lastTap = 0;
-    let tapTimer = null;
-    const doubleTapDelay = 300; // milliseconds between taps to register as double tap
-    const seekTime = 10; // seconds to seek forward/backward
-    let doubleTapMode = false; // Flag to track if double tap mode is active
-    
     // Initialize the page
     document.addEventListener('DOMContentLoaded', function() {
       initPlayer();
       setupPage();
-      setupTouchControls();
     });
     
     function initPlayer() {
-      player = new Plyr('#player', {
-        controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
-        settings: ['captions', 'speed'],
-        resetOnEnd: false,
-        keyboard: { focused: true, global: true },
-        tooltips: { controls: true, seek: true },
-        seekTime: 10,
-        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.svg',
-        blankVideo: 'https://cdn.plyr.io/static/blank.mp4',
-        fullscreen: { enabled: true, fallback: true, iosNative: true }
-      });
+  player = new Plyr('#player', {
+    controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+    settings: ['captions', 'speed'], // REMOVE 'quality'
+    resetOnEnd: false,
+    keyboard: { focused: true, global: true },
+    tooltips: { controls: true, seek: true },
+    seekTime: 10,
+    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.svg',
+    blankVideo: 'https://cdn.plyr.io/static/blank.mp4'
+  });
 
-      player.on('ready', () => {
-        hideLoading();
-      });
+  player.on('ready', () => {
+    hideLoading();
+  });
 
-      player.on('loadstart', () => {
-        showLoading();
-      });
+  player.on('loadstart', () => {
+    showLoading();
+  });
 
-      player.on('canplay', () => {
-        hideLoading();
-      });
+  player.on('canplay', () => {
+    hideLoading();
+  });
 
-      player.on('error', () => {
-        hideLoading();
-        showToast('Error playing video. Please try another quality or source.');
-      });
+  player.on('error', () => {
+    hideLoading();
+    showToast('Error playing video. Please try another quality or source.');
+  });
 
-      player.on('ended', () => {
-        if (episodes.length > 0 && currentEpisodeIndex < episodes.length - 1) {
-          setTimeout(() => {
-            playNextEpisode();
-          }, 2000);
-        }
-      });
-    }
-    
-    // Completely revised touch controls setup
-    function setupTouchControls() {
-      const videoContainer = document.querySelector('.video-container');
-      const tapSeekOverlay = document.getElementById('tapSeekOverlay');
-      const seekBackwardIcon = document.getElementById('seekBackwardIcon');
-      const seekForwardIcon = document.getElementById('seekForwardIcon');
-      const seekText = document.getElementById('seekText');
-      
-      // Make the overlay non-interactive by default
-      tapSeekOverlay.style.pointerEvents = 'none';
-      
-      // Track touches
-      let touchStartX = 0;
-      let touchStartY = 0;
-      let touchStartTime = 0;
-      let doubleTapInProgress = false;
-      
-      // Enable double-tap mode on player click (for desktop)
-      videoContainer.addEventListener('click', (e) => {
-        // Let regular controls handle their own clicks
-        if (isClickOnControls(e)) return;
-        
-        // Toggle play/pause on center clicks when not in double-tap mode
-        if (!doubleTapInProgress) {
-          const rect = videoContainer.getBoundingClientRect();
-          const clickX = e.clientX - rect.left;
-          const clickY = e.clientY - rect.top;
-          
-          // Check if click is in center area (30% radius from center)
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          const distanceFromCenter = Math.sqrt(Math.pow(clickX - centerX, 2) + Math.pow(clickY - centerY, 2));
-          const maxDistance = Math.min(rect.width, rect.height) * 0.3;
-          
-          if (distanceFromCenter < maxDistance) {
-            if (player) {
-              if (player.playing) {
-                player.pause();
-              } else {
-                player.play();
-              }
-            }
-          }
-        }
-      });
-      
-      // Handle touch events for mobile
-      videoContainer.addEventListener('touchstart', (e) => {
-        // Skip if touch is on controls
-        if (isTouchOnControls(e)) return;
-        
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        touchStartTime = new Date().getTime();
-        
-        // Enable tap zones briefly for potential double-tap
-        enableTapZones();
-        
-        // Check if this is a double tap
-        const now = new Date().getTime();
-        const timeSince = now - lastTap;
-        
-        if (timeSince < doubleTapDelay) {
-          // This is a double tap
-          doubleTapInProgress = true;
-          
-          // Determine which side was tapped
-          const containerWidth = videoContainer.offsetWidth;
-          const tapPosition = touchStartX - videoContainer.getBoundingClientRect().left;
-          
-          if (tapPosition < containerWidth / 2) {
-            // Left side - rewind
-            player.rewind(seekTime);
-            showSeekFeedback(seekBackwardIcon, seekText, `-${seekTime}s`);
-          } else {
-            // Right side - forward
-            player.forward(seekTime);
-            showSeekFeedback(seekForwardIcon, seekText, `+${seekTime}s`);
-          }
-          
-          // Reset timer
-          clearTimeout(tapTimer);
-          
-          // Disable the zones after a slight delay
-          setTimeout(() => {
-            disableTapZones();
-            doubleTapInProgress = false;
-          }, 500);
-        }
-        
-        lastTap = now;
-        
-        // Set a timer to disable tap zones after delay
-        clearTimeout(tapTimer);
-        tapTimer = setTimeout(() => {
-          disableTapZones();
-        }, doubleTapDelay);
-      });
-      
-      // Handle touch move and end
-      videoContainer.addEventListener('touchmove', (e) => {
-        // Skip if not relevant
-        if (!doubleTapInProgress) return;
-        
-        // Calculate movement
-        const touchMoveX = e.touches[0].clientX;
-        const touchMoveY = e.touches[0].clientY;
-        const xDiff = Math.abs(touchMoveX - touchStartX);
-        const yDiff = Math.abs(touchMoveY - touchStartY);
-        
-        // If significant movement, cancel double tap mode
-        if (xDiff > 20 || yDiff > 20) {
-          doubleTapInProgress = false;
-          disableTapZones();
-        }
-      });
-      
-      videoContainer.addEventListener('touchend', () => {
-        // Disable tap zones after a short delay
-        setTimeout(() => {
-          if (!doubleTapInProgress) {
-            disableTapZones();
-          }
-        }, 10);
-      });
-      
-      // Helper functions
-      function enableTapZones() {
-        // Only enable the tap zones, not the underlying control handling
-        document.getElementById('seekBackward').style.pointerEvents = 'auto';
-        document.getElementById('seekForward').style.pointerEvents = 'auto';
-      }
-      
-      function disableTapZones() {
-        document.getElementById('seekBackward').style.pointerEvents = 'none';
-        document.getElementById('seekForward').style.pointerEvents = 'none';
-      }
-      
-      function isClickOnControls(e) {
-        // Check if click is in the bottom 20% of the player (control area)
-        const rect = videoContainer.getBoundingClientRect();
-        const controlsZoneHeight = rect.height * 0.2;
-        return (e.clientY > (rect.bottom - controlsZoneHeight));
-      }
-      
-      function isTouchOnControls(e) {
-        // Check if touch is in the bottom 20% of the player (control area)
-        const rect = videoContainer.getBoundingClientRect();
-        const touchY = e.touches[0].clientY;
-        const controlsZoneHeight = rect.height * 0.2;
-        return (touchY > (rect.bottom - controlsZoneHeight));
-      }
-    }
-    
-    // Show visual feedback for seeking
-    function showSeekFeedback(iconElement, textElement, message) {
-      iconElement.classList.add('active');
-      textElement.textContent = message;
-      textElement.classList.add('active');
-      
+  player.on('ended', () => {
+    if (episodes.length > 0 && currentEpisodeIndex < episodes.length - 1) {
       setTimeout(() => {
-        iconElement.classList.remove('active');
-        textElement.classList.remove('active');
-      }, 500);
+        playNextEpisode();
+      }, 2000);
     }
-    
+  });
+}
+
     
     // Setup page content
     function setupPage() {
@@ -893,82 +632,86 @@
       }
     }
     
-    function loadVideo(initialUrl) {
-      if (!player) return;
-      showLoading();
+ function loadVideo(initialUrl) {
+  if (!player) return;
+  showLoading();
 
-      const poster = decodeURIComponent(videoImage);
-      const currentTime = player.currentTime || 0;
+  const poster = decodeURIComponent(videoImage);
+  const currentTime = player.currentTime || 0;
 
-      const sources = currentVideoSources.map(source => ({
-        src: source.url,
-        type: 'video/mp4',
-        size: parseInt(source.quality.replace('p', ''))
-      }));
+  const sources = currentVideoSources.map(source => ({
+    src: source.url,
+    type: 'video/mp4',
+    size: parseInt(source.quality.replace('p', ''))
+  }));
 
-      player.source = {
-        type: 'video',
-        sources: sources,
-        poster: poster
-      };
+  player.source = {
+    type: 'video',
+    sources: sources,
+    poster: poster
+  };
 
-      player.once('canplay', () => {
-        player.currentTime = currentTime;
-        player.play().catch(err => {
-          showToast('Playback error. Trying fallback…');
-          tryFallback();
-        });
-        hideLoading();
-      });
+  player.once('canplay', () => {
+    player.currentTime = currentTime;
+    player.play().catch(err => {
+      showToast('Playback error. Trying fallback…');
+      tryFallback();
+    });
+    hideLoading();
+  });
 
-      player.once('error', () => {
-        showToast('Video load error. Trying fallback…');
-        tryFallback();
-      });
-    }
+  player.once('error', () => {
+    showToast('Video load error. Trying fallback…');
+    tryFallback();
+  });
+}
 
-    function tryFallback() {
-      const fallback = currentVideoSources.find(src => src.quality === '720p');
-      if (!fallback) return;
 
-      player.source = {
-        type: 'video',
-        sources: [{
-          src: fallback.url,
-          type: 'video/mp4',
-          size: 720
-        }],
-        poster: decodeURIComponent(videoImage)
-      };
+function tryFallback() {
+  const fallback = currentVideoSources.find(src => src.quality === '720p');
+  if (!fallback) return;
 
-      player.play().catch(err => {
-        console.error('Fallback failed:', err);
-        showToast('Fallback failed. No video available.');
-        hideLoading();
-      });
-    }
+  player.source = {
+    type: 'video',
+    sources: [{
+      src: fallback.url,
+      type: 'video/mp4',
+      size: 720
+    }],
+    poster: decodeURIComponent(videoImage)
+  };
+
+  player.play().catch(err => {
+    console.error('Fallback failed:', err);
+    showToast('Fallback failed. No video available.');
+    hideLoading();
+  });
+}
+
+
+
     
     function setupResolutionSelector() {
-      const resolutionSelector = document.getElementById('resolutionSelector');
-      resolutionSelector.innerHTML = '';
+  const resolutionSelector = document.getElementById('resolutionSelector');
+  resolutionSelector.innerHTML = '';
 
-      if (currentVideoSources.length <= 1) {
-        resolutionSelector.style.display = 'none';
-        return;
-      }
+  if (currentVideoSources.length <= 1) {
+    resolutionSelector.style.display = 'none';
+    return;
+  }
 
-      resolutionSelector.style.display = 'flex';
+  resolutionSelector.style.display = 'flex';
 
-      currentVideoSources.forEach(source => {
-        const button = document.createElement('button');
-        button.className = 'resolution-btn' + (source.quality === currentQuality ? ' active' : '');
-        button.textContent = source.quality;
-        button.onclick = () => {
-          const currentTime = player.currentTime;
-          currentQuality = source.quality;
+  currentVideoSources.forEach(source => {
+    const button = document.createElement('button');
+    button.className = 'resolution-btn' + (source.quality === currentQuality ? ' active' : '');
+    button.textContent = source.quality;
+    button.onclick = () => {
+      const currentTime = player.currentTime;
+      currentQuality = source.quality;
 
-          document.querySelectorAll('.resolution-btn').forEach(btn => btn.classList.remove('active'));
-          button.classList.add('active');
+      document.querySelectorAll('.resolution-btn').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
 
       // Reload video with selected quality
       const selected = currentVideoSources.find(v => v.quality === currentQuality);
