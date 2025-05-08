@@ -650,45 +650,76 @@
     }
     
     // Setup the double tap seek functionality
-    function setupTapSeek() {
-      const seekBackwardArea = document.getElementById('seekBackward');
-      const seekForwardArea = document.getElementById('seekForward');
-      const seekBackwardIcon = document.getElementById('seekBackwardIcon');
-      const seekForwardIcon = document.getElementById('seekForwardIcon');
-      const seekText = document.getElementById('seekText');
-      
-      // Handle taps on the left side (backward)
-      seekBackwardArea.addEventListener('touchstart', (e) => {
-        e.preventDefault(); // Prevent default touch actions
-        handleTap('backward', seekBackwardIcon, seekText);
-      });
-      
-      // Handle taps on the right side (forward)
-      seekForwardArea.addEventListener('touchstart', (e) => {
-        e.preventDefault(); // Prevent default touch actions
-        handleTap('forward', seekForwardIcon, seekText);
-      });
-      
-      // Handle single tap for play/pause
-      document.querySelector('.video-container').addEventListener('click', () => {
-        // Only consider it a single tap if no double tap was registered
-        const now = new Date().getTime();
-        const timeSince = now - lastTap;
-        
-        if (timeSince > doubleTapDelay && !tapTimer) {
-          // This is a single tap, but we need to delay to ensure it's not the start of a double tap
-          setTimeout(() => {
-            if (player && !tapTimer) {
-              if (player.playing) {
-                player.pause();
-              } else {
-                player.play();
-              }
-            }
-          }, doubleTapDelay);
-        }
-      });
+function setupTapSeek() {
+  const seekBackwardArea = document.getElementById('seekBackward');
+  const seekForwardArea = document.getElementById('seekForward');
+  const seekBackwardIcon = document.getElementById('seekBackwardIcon');
+  const seekForwardIcon = document.getElementById('seekForwardIcon');
+  const seekText = document.getElementById('seekText');
+  
+  // Track touches for double-tap detection
+  let touchStartX = 0;
+  let touchStartY = 0;
+  
+  // Handle taps on the left side (backward)
+  seekBackwardArea.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    handleTap('backward', seekBackwardIcon, seekText);
+  });
+  
+  // Handle taps on the right side (forward)
+  seekForwardArea.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    handleTap('forward', seekForwardIcon, seekText);
+  });
+  
+  // Add touchend listeners to prevent interfering with controls
+  seekBackwardArea.addEventListener('touchend', (e) => {
+    // Calculate if this was a tap or a swipe/drag
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const xDiff = Math.abs(touchEndX - touchStartX);
+    const yDiff = Math.abs(touchEndY - touchStartY);
+    
+    // If significant movement occurred, it's likely a swipe or drag, not a tap
+    if (xDiff > 10 || yDiff > 10) {
+      e.stopPropagation();
     }
+  });
+  
+  seekForwardArea.addEventListener('touchend', (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const xDiff = Math.abs(touchEndX - touchStartX);
+    const yDiff = Math.abs(touchEndY - touchStartY);
+    
+    if (xDiff > 10 || yDiff > 10) {
+      e.stopPropagation();
+    }
+  });
+  
+  // Handle single tap for play/pause
+  document.querySelector('.video-container').addEventListener('click', () => {
+    // Only consider it a single tap if no double tap was registered
+    const now = new Date().getTime();
+    const timeSince = now - lastTap;
+    
+    if (timeSince > doubleTapDelay && !tapTimer) {
+      // This is a single tap, but we need to delay to ensure it's not the start of a double tap
+      setTimeout(() => {
+        if (player && !tapTimer) {
+          if (player.playing) {
+            player.pause();
+          } else {
+            player.play();
+          }
+        }
+      }, doubleTapDelay);
+    }
+  });
+}
     
     // Handle double tap seeking
     function handleTap(direction, iconElement, textElement) {
