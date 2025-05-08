@@ -48,6 +48,7 @@
       border-radius: 10px;
       overflow: hidden;
       margin: 10px 0;
+      position: relative;
     }
     video {
       width: 100%;
@@ -126,6 +127,53 @@
       border-radius: 5px;
       font-size: 14px;
       cursor: pointer;
+    }
+    
+    /* Fallback player styles */
+    .fallback-player {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      background-color: #000;
+    }
+    
+    /* Error message styles */
+    .error-message {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      text-align: center;
+      padding-top: 40%;
+      font-size: 16px;
+    }
+    
+    .player-options {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+    
+    .player-option {
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-right: 5px;
+    }
+    
+    .player-option.active {
+      background-color: #ff4500;
     }
 	
 	.navbar { background: #1f1f1f; display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; position: sticky; top: 0; z-index: 1000; }
@@ -271,12 +319,32 @@
       <button class="back-button" onclick="goBack()">Back</button>
       <div class="heading" id="pageHeading">PanguPlay</div>
     </div>
+    
+    <div class="player-options">
+      <button class="player-option active" id="nativePlayer" onclick="switchPlayer('native')">Native Player</button>
+      <button class="player-option" id="hlsPlayer" onclick="switchPlayer('hls')">HLS Player</button>
+      <button class="player-option" id="dashPlayer" onclick="switchPlayer('dash')">DASH Player</button>
+    </div>
+    
     <div class="video-container">
+      <!-- Native HTML5 Video Player -->
       <video id="videoPlayer" controls preload="metadata" playsinline webkit-playsinline>
         <source src="" type="video/mp4">
         Your browser does not support the video tag.
       </video>
+      
+      <!-- Error message display -->
+      <div id="errorMessage" class="error-message">
+        Video format not supported by your browser. Try another player option.
+      </div>
+      
+      <!-- HLS.js Player (for HLS support) -->
+      <div id="hlsPlayerContainer" class="fallback-player"></div>
+      
+      <!-- Dash.js Player (for DASH and more format support) -->
+      <div id="dashPlayerContainer" class="fallback-player"></div>
     </div>
+    
     <div class="video-details-container">
       <img id="videoPoster" class="video-poster" src="" alt="Poster">
       <div class="video-details">
@@ -299,13 +367,27 @@
       <div class="episodes-title">Episodes</div>
       <div class="episode-buttons-wrapper" id="episodeButtons"></div>
     </div>
-	<!-- Footer -->
-
   </div>
   <footer>
-  &copy; 2025 PanguPlay
-</footer>
+    &copy; 2025 PanguPlay
+  </footer>
+
+  <!-- HLS.js for HLS support -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.10/hls.min.js"></script>
+  
+  <!-- Dash.js for DASH support -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/4.7.1/dash.all.min.js"></script>
+  
   <script>
+    // Global variables
+    let videoUrl = '';
+    let currentPlayerType = 'native';
+    let hlsPlayer = null;
+    let dashPlayer = null;
+    let episodes = [];
+    let currentEpisodeId = null;
+    let currentEpisodeIndex = 0;
+    
     function goBack() {
       window.history.back();
     }
@@ -327,19 +409,246 @@
       }
     }
     
-    const urlParams = new URLSearchParams(window.location.search);
-    const videoUrl = urlParams.get('video');
-    const videoTitle = urlParams.get('title');
-    const videoImage = urlParams.get('image');
-    const videoDetailsEncoded = urlParams.get('details');
-    const seriesId = urlParams.get('id');
-    const episodesEncoded = urlParams.get('episodes');
-
-    let episodes = [];
-    let currentEpisodeId = null;
-    let currentEpisodeIndex = 0;
-
-    function setupPage() {
+    // Function to check if the browser supports HEVC (H.265)
+    function supportsHEVC() {
+      const videoEl = document.createElement('video');
+      return videoEl.canPlayType('video/mp4; codecs="hev1"') || 
+             videoEl.canPlayType('video/mp4; codecs="hvc1"');
+    }
+    
+    // Function to determine best player for video format
+    function detectBestPlayer(url) {
+      return new Promise((resolve) => {
+        // First, try with fetch to get headers
+        fetch(url, { method: 'HEAD' })
+          .then(response => {
+            const contentType = response.headers.get('content-type') || '';
+            
+            // If content type indicates HLS
+            if (contentType.includes('application/vnd.apple.mpegurl') || 
+                url.endsWith('.m3u8')) {
+              resolve('hls');
+            } 
+            // If content type indicates DASH
+            else if (contentType.includes('application/dash+xml') || 
+                     url.endsWith('.mpd')) {
+              resolve('dash');
+            }
+            // For MP4, we need to check codec support
+            else {
+              // For HEVC videos, use dash.js if native doesn't support it
+              if (!supportsHEVC()) {
+                resolve('dash');
+              } else {
+                resolve('native');
+              }
+            }
+          })
+          .catch(() => {
+            // If headers fetch fails, try to guess from URL
+            if (url.endsWith('.m3u8')) {
+              resolve('hls');
+            } else if (url.endsWith('.mpd')) {
+              resolve('dash');
+            } else {
+              // Default to native player but try others if it fails
+              resolve('native');
+            }
+          });
+      });
+    }
+    
+    // Switch between different player types
+    function switchPlayer(playerType) {
+      // Update active button state
+      document.getElementById('nativePlayer').classList.remove('active');
+      document.getElementById('hlsPlayer').classList.remove('active');
+      document.getElementById('dashPlayer').classList.remove('active');
+      document.getElementById(playerType + 'Player').classList.add('active');
+      
+      // Hide all players
+      document.getElementById('videoPlayer').style.display = 'none';
+      document.getElementById('hlsPlayerContainer').style.display = 'none';
+      document.getElementById('dashPlayerContainer').style.display = 'none';
+      document.getElementById('errorMessage').style.display = 'none';
+      
+      // Stop any existing playback
+      if (hlsPlayer) {
+        hlsPlayer.destroy();
+        hlsPlayer = null;
+      }
+      
+      if (dashPlayer) {
+        dashPlayer.destroy();
+        dashPlayer = null;
+      }
+      
+      const nativePlayer = document.getElementById('videoPlayer');
+      nativePlayer.pause();
+      
+      currentPlayerType = playerType;
+      
+      // Get current video URL
+      const currentUrl = getCurrentVideoUrl();
+      if (!currentUrl) return;
+      
+      // Set up selected player
+      switch (playerType) {
+        case 'native':
+          setupNativePlayer(currentUrl);
+          break;
+        case 'hls':
+          setupHLSPlayer(currentUrl);
+          break;
+        case 'dash':
+          setupDASHPlayer(currentUrl);
+          break;
+      }
+    }
+    
+    // Get current video URL based on episode or main video
+    function getCurrentVideoUrl() {
+      if (currentEpisodeId && episodes.length > 0) {
+        return episodes[currentEpisodeIndex].videoUrl;
+      } else if (videoUrl) {
+        return decodeURIComponent(videoUrl);
+      }
+      return null;
+    }
+    
+    // Set up native HTML5 player
+    function setupNativePlayer(url) {
+      const videoPlayer = document.getElementById('videoPlayer');
+      videoPlayer.style.display = 'block';
+      videoPlayer.src = url;
+      videoPlayer.load();
+      
+      // Try to play video
+      videoPlayer.play().catch(error => {
+        console.error("Native player error:", error);
+        // If native player fails, try with dash.js
+        if (currentPlayerType === 'native') {
+          document.getElementById('errorMessage').style.display = 'block';
+          // Automatically switch to DASH player if native fails
+          setTimeout(() => switchPlayer('dash'), 2000);
+        }
+      });
+      
+      // Set up error handling
+      videoPlayer.onerror = () => {
+        console.error("Video error code:", videoPlayer.error ? videoPlayer.error.code : "unknown");
+        document.getElementById('errorMessage').style.display = 'block';
+        // Try dash player as fallback
+        if (currentPlayerType === 'native') {
+          setTimeout(() => switchPlayer('dash'), 2000);
+        }
+      };
+    }
+    
+    // Set up HLS.js player
+    function setupHLSPlayer(url) {
+      const hlsContainer = document.getElementById('hlsPlayerContainer');
+      hlsContainer.style.display = 'block';
+      hlsContainer.innerHTML = '<video id="hlsVideo" controls playsinline style="width:100%; height:100%"></video>';
+      const video = document.getElementById('hlsVideo');
+      
+      if (Hls.isSupported()) {
+        hlsPlayer = new Hls({
+          enableWorker: true,
+          lowLatencyMode: true,
+          backBufferLength: 90
+        });
+        hlsPlayer.loadSource(url);
+        hlsPlayer.attachMedia(video);
+        hlsPlayer.on(Hls.Events.MANIFEST_PARSED, () => {
+          video.play().catch(err => {
+            console.error("HLS play error:", err);
+            document.getElementById('errorMessage').style.display = 'block';
+          });
+        });
+        
+        hlsPlayer.on(Hls.Events.ERROR, (event, data) => {
+          if (data.fatal) {
+            console.error("HLS fatal error:", data);
+            document.getElementById('errorMessage').style.display = 'block';
+            // Try dash player as fallback
+            if (currentPlayerType === 'hls') {
+              setTimeout(() => switchPlayer('dash'), 2000);
+            }
+          }
+        });
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        // For browsers that support HLS natively (Safari)
+        video.src = url;
+        video.addEventListener('loadedmetadata', () => {
+          video.play().catch(err => {
+            console.error("Native HLS play error:", err);
+            document.getElementById('errorMessage').style.display = 'block';
+          });
+        });
+        
+        video.addEventListener('error', () => {
+          console.error("Native HLS error");
+          document.getElementById('errorMessage').style.display = 'block';
+          // Try dash player as fallback
+          if (currentPlayerType === 'hls') {
+            setTimeout(() => switchPlayer('dash'), 2000);
+          }
+        });
+      } else {
+        document.getElementById('errorMessage').style.display = 'block';
+        // Try dash player as fallback
+        setTimeout(() => switchPlayer('dash'), 2000);
+      }
+    }
+    
+    // Set up Dash.js player
+    function setupDASHPlayer(url) {
+      const dashContainer = document.getElementById('dashPlayerContainer');
+      dashContainer.style.display = 'block';
+      dashContainer.innerHTML = '<video id="dashVideo" controls playsinline style="width:100%; height:100%"></video>';
+      const video = document.getElementById('dashVideo');
+      
+      dashPlayer = dashjs.MediaPlayer().create();
+      dashPlayer.initialize(video, url, true);
+      dashPlayer.updateSettings({
+        streaming: {
+          fastSwitchEnabled: true,
+          lowLatencyEnabled: true,
+          abr: {
+            useDefaultABRRules: true,
+            autoSwitchBitrate: {video: true, audio: true}
+          }
+        }
+      });
+      
+      dashPlayer.on(dashjs.MediaPlayer.events.ERROR, (e) => {
+        console.error("DASH player error:", e);
+        // If DASH also fails, show error message
+        document.getElementById('errorMessage').style.display = 'block';
+      });
+      
+      video.play().catch(err => {
+        console.error("DASH play error:", err);
+        document.getElementById('errorMessage').style.display = 'block';
+      });
+    }
+    
+    // Main setup function
+    async function setupPage() {
+      const urlParams = new URLSearchParams(window.location.search);
+      videoUrl = urlParams.get('video');
+      const videoTitle = urlParams.get('title');
+      const videoImage = urlParams.get('image');
+      const videoDetailsEncoded = urlParams.get('details');
+      const seriesId = urlParams.get('id');
+      const episodesEncoded = urlParams.get('episodes');
+      
+      if (!videoTitle || !videoDetailsEncoded) {
+        alert('Missing video info.');
+        return;
+      }
+      
       document.getElementById('videoTitle').textContent = videoTitle;
       document.title = videoTitle + ' - PanguPlay';
       document.getElementById('videoPoster').src = decodeURIComponent(videoImage);
@@ -353,9 +662,6 @@
       document.getElementById('fileSize').textContent = details.fileSize || 'N/A';
       document.getElementById('lastUpdated').textContent = details.lastUpdated || 'N/A';
 
-      const videoPlayer = document.getElementById('videoPlayer');
-      videoPlayer.addEventListener('error', () => alert('Video error occurred'));
-
       if (seriesId && episodesEncoded) {
         episodes = JSON.parse(decodeURIComponent(episodesEncoded));
         const episodeId = urlParams.get('episodeId');
@@ -367,31 +673,42 @@
         document.getElementById('episodesSection').style.display = 'block';
       } else {
         if (videoUrl) {
-          videoPlayer.src = decodeURIComponent(videoUrl);
-          videoPlayer.load();
-          videoPlayer.play().catch(() => {
-            videoPlayer.muted = true;
-            videoPlayer.play().catch(() => {});
-          });
+          const decodedUrl = decodeURIComponent(videoUrl);
+          // Auto-detect best player type
+          const bestPlayer = await detectBestPlayer(decodedUrl);
+          switchPlayer(bestPlayer);
         }
         document.getElementById('episodesSection').style.display = 'none';
         document.getElementById('navButtons').style.display = 'none';
       }
     }
 
-    function playEpisode(episodeId) {
+    async function playEpisode(episodeId) {
       const index = episodes.findIndex(e => e.id === episodeId);
       if (index === -1) return;
       currentEpisodeId = episodeId;
       currentEpisodeIndex = index;
       const episode = episodes[index];
-      const videoPlayer = document.getElementById('videoPlayer');
-      videoPlayer.src = episode.videoUrl;
-      videoPlayer.load();
-      videoPlayer.play().catch(() => {
-        videoPlayer.muted = true;
-        videoPlayer.play().catch(() => {});
-      });
+      
+      // Auto-detect best player type
+      const bestPlayer = await detectBestPlayer(episode.videoUrl);
+      
+      // Stop any existing playback before switching
+      if (hlsPlayer) {
+        hlsPlayer.destroy();
+        hlsPlayer = null;
+      }
+      
+      if (dashPlayer) {
+        dashPlayer.destroy();
+        dashPlayer = null;
+      }
+      
+      document.getElementById('videoPlayer').pause();
+      
+      // Switch to best player for this episode
+      switchPlayer(bestPlayer);
+      
       updateHeaderTitle(videoTitle, true, episode.season, episode.episode, episode.title);
       updateEpisodeButtons();
       updateNavButtons();
@@ -456,11 +773,8 @@
       }
     }
 
-    if (videoTitle && videoDetailsEncoded) {
-      setupPage();
-    } else {
-      alert('Missing video info.');
-    }
+    // Initialize the page when DOM is ready
+    document.addEventListener('DOMContentLoaded', setupPage);
   </script>
 </body>
 </html>
