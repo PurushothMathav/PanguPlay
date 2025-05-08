@@ -369,6 +369,59 @@
       margin-top: 20px;
     }
     
+    /* Double tap seek controls */
+    .tap-seek-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      z-index: 15;
+      pointer-events: none;
+    }
+    
+    .tap-seek-area {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: auto;
+    }
+    
+    .tap-icon {
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 30px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .tap-icon.active {
+      opacity: 1;
+    }
+    
+    .tap-text {
+      position: absolute;
+      bottom: 30px;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .tap-text.active {
+      opacity: 1;
+    }
+    
     @media (max-width: 768px) {
       .heading {
         font-size: 20px;
@@ -390,17 +443,21 @@
         padding: 8px 12px;
       }
       .resolution-selector {
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 10px 0;
-    gap: 10px;
-  }
-
-  .resolution-btn {
-    flex: 1 1 40%;
-    font-size: 12px;
-    padding: 6px 8px;
-  }
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 10px 0;
+        gap: 10px;
+      }
+      .resolution-btn {
+        flex: 1 1 40%;
+        font-size: 12px;
+        padding: 6px 8px;
+      }
+      .tap-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+      }
     }
   </style>
 </head>
@@ -462,6 +519,21 @@
           <source src="" type="video/mp4" size="720">
           Your browser does not support the video tag.
         </video>
+        
+        <!-- Double tap seek overlay -->
+        <div class="tap-seek-overlay">
+          <div class="tap-seek-area" id="seekBackward">
+            <div class="tap-icon" id="seekBackwardIcon">
+              <i class="fas fa-backward"></i>
+            </div>
+          </div>
+          <div class="tap-seek-area" id="seekForward">
+            <div class="tap-icon" id="seekForwardIcon">
+              <i class="fas fa-forward"></i>
+            </div>
+          </div>
+        </div>
+        <div class="tap-text" id="seekText"></div>
       </div>
     </div>
     
@@ -526,50 +598,138 @@
     let currentVideoSources = [];
     let currentQuality = '1080p';
     
+    // Variables for double tap functionality
+    let lastTap = 0;
+    let tapTimer = null;
+    const doubleTapDelay = 300; // milliseconds between taps to register as double tap
+    const seekTime = 10; // seconds to seek forward/backward
+    
     // Initialize the page
     document.addEventListener('DOMContentLoaded', function() {
       initPlayer();
       setupPage();
+      setupTapSeek();
     });
     
     function initPlayer() {
-  player = new Plyr('#player', {
-    controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
-    settings: ['captions', 'speed'], // REMOVE 'quality'
-    resetOnEnd: false,
-    keyboard: { focused: true, global: true },
-    tooltips: { controls: true, seek: true },
-    seekTime: 10,
-    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.svg',
-    blankVideo: 'https://cdn.plyr.io/static/blank.mp4'
-  });
+      player = new Plyr('#player', {
+        controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+        settings: ['captions', 'speed'],
+        resetOnEnd: false,
+        keyboard: { focused: true, global: true },
+        tooltips: { controls: true, seek: true },
+        seekTime: 10,
+        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.svg',
+        blankVideo: 'https://cdn.plyr.io/static/blank.mp4'
+      });
 
-  player.on('ready', () => {
-    hideLoading();
-  });
+      player.on('ready', () => {
+        hideLoading();
+      });
 
-  player.on('loadstart', () => {
-    showLoading();
-  });
+      player.on('loadstart', () => {
+        showLoading();
+      });
 
-  player.on('canplay', () => {
-    hideLoading();
-  });
+      player.on('canplay', () => {
+        hideLoading();
+      });
 
-  player.on('error', () => {
-    hideLoading();
-    showToast('Error playing video. Please try another quality or source.');
-  });
+      player.on('error', () => {
+        hideLoading();
+        showToast('Error playing video. Please try another quality or source.');
+      });
 
-  player.on('ended', () => {
-    if (episodes.length > 0 && currentEpisodeIndex < episodes.length - 1) {
-      setTimeout(() => {
-        playNextEpisode();
-      }, 2000);
+      player.on('ended', () => {
+        if (episodes.length > 0 && currentEpisodeIndex < episodes.length - 1) {
+          setTimeout(() => {
+            playNextEpisode();
+          }, 2000);
+        }
+      });
     }
-  });
-}
-
+    
+    // Setup the double tap seek functionality
+    function setupTapSeek() {
+      const seekBackwardArea = document.getElementById('seekBackward');
+      const seekForwardArea = document.getElementById('seekForward');
+      const seekBackwardIcon = document.getElementById('seekBackwardIcon');
+      const seekForwardIcon = document.getElementById('seekForwardIcon');
+      const seekText = document.getElementById('seekText');
+      
+      // Handle taps on the left side (backward)
+      seekBackwardArea.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Prevent default touch actions
+        handleTap('backward', seekBackwardIcon, seekText);
+      });
+      
+      // Handle taps on the right side (forward)
+      seekForwardArea.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Prevent default touch actions
+        handleTap('forward', seekForwardIcon, seekText);
+      });
+      
+      // Handle single tap for play/pause
+      document.querySelector('.video-container').addEventListener('click', () => {
+        // Only consider it a single tap if no double tap was registered
+        const now = new Date().getTime();
+        const timeSince = now - lastTap;
+        
+        if (timeSince > doubleTapDelay && !tapTimer) {
+          // This is a single tap, but we need to delay to ensure it's not the start of a double tap
+          setTimeout(() => {
+            if (player && !tapTimer) {
+              if (player.playing) {
+                player.pause();
+              } else {
+                player.play();
+              }
+            }
+          }, doubleTapDelay);
+        }
+      });
+    }
+    
+    // Handle double tap seeking
+    function handleTap(direction, iconElement, textElement) {
+      const now = new Date().getTime();
+      const timeSince = now - lastTap;
+      
+      if (timeSince < doubleTapDelay) {
+        // This is a double tap
+        clearTimeout(tapTimer);
+        tapTimer = null;
+        
+        if (player) {
+          if (direction === 'forward') {
+            player.forward(seekTime);
+            showSeekFeedback(iconElement, textElement, `+${seekTime}s`);
+          } else {
+            player.rewind(seekTime);
+            showSeekFeedback(iconElement, textElement, `-${seekTime}s`);
+          }
+        }
+      } else {
+        // This might be the first tap of a double tap
+        tapTimer = setTimeout(() => {
+          tapTimer = null;
+        }, doubleTapDelay);
+      }
+      
+      lastTap = now;
+    }
+    
+    // Show visual feedback for seeking
+    function showSeekFeedback(iconElement, textElement, message) {
+      iconElement.classList.add('active');
+      textElement.textContent = message;
+      textElement.classList.add('active');
+      
+      setTimeout(() => {
+        iconElement.classList.remove('active');
+        textElement.classList.remove('active');
+      }, 500);
+    }
     
     // Setup page content
     function setupPage() {
@@ -632,86 +792,82 @@
       }
     }
     
- function loadVideo(initialUrl) {
-  if (!player) return;
-  showLoading();
+    function loadVideo(initialUrl) {
+      if (!player) return;
+      showLoading();
 
-  const poster = decodeURIComponent(videoImage);
-  const currentTime = player.currentTime || 0;
+      const poster = decodeURIComponent(videoImage);
+      const currentTime = player.currentTime || 0;
 
-  const sources = currentVideoSources.map(source => ({
-    src: source.url,
-    type: 'video/mp4',
-    size: parseInt(source.quality.replace('p', ''))
-  }));
+      const sources = currentVideoSources.map(source => ({
+        src: source.url,
+        type: 'video/mp4',
+        size: parseInt(source.quality.replace('p', ''))
+      }));
 
-  player.source = {
-    type: 'video',
-    sources: sources,
-    poster: poster
-  };
+      player.source = {
+        type: 'video',
+        sources: sources,
+        poster: poster
+      };
 
-  player.once('canplay', () => {
-    player.currentTime = currentTime;
-    player.play().catch(err => {
-      showToast('Playback error. Trying fallback…');
-      tryFallback();
-    });
-    hideLoading();
-  });
+      player.once('canplay', () => {
+        player.currentTime = currentTime;
+        player.play().catch(err => {
+          showToast('Playback error. Trying fallback…');
+          tryFallback();
+        });
+        hideLoading();
+      });
 
-  player.once('error', () => {
-    showToast('Video load error. Trying fallback…');
-    tryFallback();
-  });
-}
+      player.once('error', () => {
+        showToast('Video load error. Trying fallback…');
+        tryFallback();
+      });
+    }
 
+    function tryFallback() {
+      const fallback = currentVideoSources.find(src => src.quality === '720p');
+      if (!fallback) return;
 
-function tryFallback() {
-  const fallback = currentVideoSources.find(src => src.quality === '720p');
-  if (!fallback) return;
+      player.source = {
+        type: 'video',
+        sources: [{
+          src: fallback.url,
+          type: 'video/mp4',
+          size: 720
+        }],
+        poster: decodeURIComponent(videoImage)
+      };
 
-  player.source = {
-    type: 'video',
-    sources: [{
-      src: fallback.url,
-      type: 'video/mp4',
-      size: 720
-    }],
-    poster: decodeURIComponent(videoImage)
-  };
-
-  player.play().catch(err => {
-    console.error('Fallback failed:', err);
-    showToast('Fallback failed. No video available.');
-    hideLoading();
-  });
-}
-
-
-
+      player.play().catch(err => {
+        console.error('Fallback failed:', err);
+        showToast('Fallback failed. No video available.');
+        hideLoading();
+      });
+    }
     
     function setupResolutionSelector() {
-  const resolutionSelector = document.getElementById('resolutionSelector');
-  resolutionSelector.innerHTML = '';
+      const resolutionSelector = document.getElementById('resolutionSelector');
+      resolutionSelector.innerHTML = '';
 
-  if (currentVideoSources.length <= 1) {
-    resolutionSelector.style.display = 'none';
-    return;
-  }
+      if (currentVideoSources.length <= 1) {
+        resolutionSelector.style.display = 'none';
+        return;
+      }
 
-  resolutionSelector.style.display = 'flex';
+      resolutionSelector.style.display = 'flex';
 
-  currentVideoSources.forEach(source => {
-    const button = document.createElement('button');
-    button.className = 'resolution-btn' + (source.quality === currentQuality ? ' active' : '');
-    button.textContent = source.quality;
-    button.onclick = () => {
-      const currentTime = player.currentTime;
-      currentQuality = source.quality;
+      currentVideoSources.forEach(source => {
+        const button = document.createElement('button');
+        button.className = 'resolution-btn' + (source.quality === currentQuality ? ' active' : '');
+        button.textContent = source.quality;
+        button.onclick = () => {
+          const currentTime = player.currentTime;
+          currentQuality = source.quality;
 
-      document.querySelectorAll('.resolution-btn').forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
+          document.querySelectorAll('.resolution-btn').forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
 
       // Reload video with selected quality
       const selected = currentVideoSources.find(v => v.quality === currentQuality);
