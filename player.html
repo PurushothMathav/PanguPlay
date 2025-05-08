@@ -326,7 +326,7 @@
         headerElement.textContent = title;
       }
     }
-    
+    const alternateVideo = urlParams.get('alt'); // Get alternate video from URL
     const urlParams = new URLSearchParams(window.location.search);
     const videoUrl = urlParams.get('video');
     const videoTitle = urlParams.get('title');
@@ -367,13 +367,28 @@
         document.getElementById('episodesSection').style.display = 'block';
       } else {
         if (videoUrl) {
-          videoPlayer.src = decodeURIComponent(videoUrl);
-          videoPlayer.load();
-          videoPlayer.play().catch(() => {
-            videoPlayer.muted = true;
-            videoPlayer.play().catch(() => {});
-          });
+  const primary = decodeURIComponent(videoUrl);
+  const fallback = alternateVideo ? decodeURIComponent(alternateVideo) : null;
+
+  const tryPlay = (src, isFallback = false) => {
+    videoPlayer.src = src;
+    videoPlayer.load();
+    videoPlayer.play().catch(() => {
+      videoPlayer.muted = true;
+      videoPlayer.play().catch(() => {
+        if (!isFallback && fallback) {
+          alert("1080p video failed. Switching to 720p.");
+          tryPlay(fallback, true);
+        } else if (isFallback) {
+          alert("Both video sources failed to play.");
         }
+      });
+    });
+  };
+
+  tryPlay(primary);
+}
+
         document.getElementById('episodesSection').style.display = 'none';
         document.getElementById('navButtons').style.display = 'none';
       }
