@@ -4,13 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Video Player - PanguPlay</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #121212; color: #fff;  font-family: 'Inter', sans-serif; }
+    body { background: #121212; color: #fff; font-family: 'Inter', sans-serif; }
     a { color: inherit; text-decoration: none; }
     img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; }
-	
-	body {
+    
+    body {
       margin: 0;
       font-family: Arial, sans-serif;
       background-color: #121212;
@@ -42,16 +44,42 @@
       color: white;
       padding: 8px 12px;
       font-size: 14px;
+      cursor: pointer;
     }
     .video-container {
       width: 100%;
       border-radius: 10px;
       overflow: hidden;
       margin: 10px 0;
+      aspect-ratio: 16/9;
+      position: relative;
     }
-    video {
+    .player-wrapper {
       width: 100%;
-      max-height: 600px;
+      height: 100%;
+      position: relative;
+    }
+    .resolution-selector {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+      gap: 10px;
+    }
+    .resolution-btn {
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 15px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    .resolution-btn.active {
+      background-color: #ff4500;
+    }
+    .resolution-btn:hover {
+      background-color: #ff6600;
     }
     .video-details-container {
       display: flex;
@@ -60,10 +88,11 @@
       background-color: #202020;
       border-radius: 10px;
       padding: 15px;
+      margin-top: 10px;
     }
     .video-poster {
       width: 100%;
-      max-height: 150px;
+      max-height: 200px;
       object-fit: cover;
       border-radius: 10px;
     }
@@ -76,6 +105,7 @@
       display: flex;
       justify-content: space-between;
       font-size: 16px;
+      margin-bottom: 5px;
     }
     .copy-link {
       background: none;
@@ -109,9 +139,14 @@
       padding: 10px 15px;
       font-size: 16px;
       text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
     .episode-button.active {
       background-color: #ff4500;
+    }
+    .episode-button:hover {
+      background-color: #555;
     }
     .nav-buttons {
       display: none;
@@ -126,24 +161,132 @@
       border-radius: 5px;
       font-size: 14px;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
-	
-	.navbar { background: #1f1f1f; display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; position: sticky; top: 0; z-index: 1000; }
-    .nav-left, .nav-right { display: flex; align-items: center; }
-    .nav-logo { font-weight: bold; font-size: 20px; }
-    .nav-links { display: flex; gap: 15px; margin-left: 20px; }
-    .nav-links a { padding: 5px 10px; border-radius: 5px; transition: 0.3s; }
-    .nav-links a:hover { background: #333; }
-    .menu-icon { font-size: 24px; cursor: pointer; display: none; }
-    .search-bar { display: flex; align-items: center; position: relative; }
-	.search-bar input { padding: 6px 10px; border: 1px solid #444; background: #2a2a2a; color: #fff; border-radius: 20px; outline: none; width: 180px; transition: all 0.3s ease; }
-	.search-bar input:focus { border-color: #ff4500; background: #1e1e1e; }
-	.search-results { position: absolute; top: 110%; background: #2a2a2a; width: 200px; border-radius: 8px; overflow: hidden; display: none; right: 0; }
-    .search-results div { padding: 10px; border-bottom: 1px solid #444; cursor: pointer; }
-    .search-results div:hover { background: #333; }
-    .search-bar { position: relative; display: flex; align-items: center; }
-    #searchInput { padding-right: 30px; }
-    #clearButton { position: absolute; right: 8px; background: none; border: none; color: #aaa; cursor: pointer; font-size: 14px; display: none; }
+    .nav-button:hover {
+      background-color: #ff6600;
+    }
+    .nav-button:disabled {
+      background-color: #666;
+      cursor: not-allowed;
+    }
+    
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+    .loading-spinner {
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 5px solid #ff4500;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .navbar {
+      background: #1f1f1f;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .nav-left, .nav-right {
+      display: flex;
+      align-items: center;
+    }
+    .nav-logo {
+      font-weight: bold;
+      font-size: 20px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 15px;
+      margin-left: 20px;
+    }
+    .nav-links a {
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+    .nav-links a:hover {
+      background: #333;
+    }
+    .menu-icon {
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+    }
+    .search-bar {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .search-bar input {
+      padding: 6px 10px;
+      border: 1px solid #444;
+      background: #2a2a2a;
+      color: #fff;
+      border-radius: 20px;
+      outline: none;
+      width: 180px;
+      transition: all 0.3s ease;
+    }
+    .search-bar input:focus {
+      border-color: #ff4500;
+      background: #1e1e1e;
+    }
+    .search-results {
+      position: absolute;
+      top: 110%;
+      background: #2a2a2a;
+      width: 200px;
+      border-radius: 8px;
+      overflow: hidden;
+      display: none;
+      right: 0;
+    }
+    .search-results div {
+      padding: 10px;
+      border-bottom: 1px solid #444;
+      cursor: pointer;
+    }
+    .search-results div:hover {
+      background: #333;
+    }
+    .search-bar {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    #searchInput {
+      padding-right: 30px;
+    }
+    #clearButton {
+      position: absolute;
+      right: 8px;
+      background: none;
+      border: none;
+      color: #aaa;
+      cursor: pointer;
+      font-size: 14px;
+      display: none;
+    }
 
     /* Mobile Menu Backdrop */
     .mobile-backdrop {
@@ -204,9 +347,28 @@
       margin-bottom: 20px;
       cursor: pointer;
     }
-	
-	footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f; margin-top: 20px; }
-	
+    
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      background: #1f1f1f;
+      margin-top: 20px;
+    }
+    
     @media (max-width: 768px) {
       .heading {
         font-size: 20px;
@@ -217,72 +379,95 @@
       .detail-row {
         font-size: 14px;
       }
-	  .nav-links { display: none; }
-      .menu-icon { display: block; }
+      .nav-links {
+        display: none;
+      }
+      .menu-icon {
+        display: block;
+      }
       .episode-button {
         font-size: 14px;
         padding: 8px 12px;
+      }
+      .resolution-btn {
+        padding: 6px 10px;
+        font-size: 12px;
       }
     }
   </style>
 </head>
 <body>
-	<div class="navbar">
-  <div class="nav-left">
-    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
-    <a href="index.html" class="nav-logo">PanguPlay</a>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="movies.html">Movies</a>
-      <a href="shows.html">Shows</a>
-      <a href="dubbed.html">Tamil Dub</a>
-	  <a href="720p.html">720p</a>
-	  <a href="request.html">Request</a>
-      <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a>
+  <div class="navbar">
+    <div class="nav-left">
+      <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+      <a href="index.html" class="nav-logo">PanguPlay</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="movies.html">Movies</a>
+        <a href="shows.html">Shows</a>
+        <a href="dubbed.html">Tamil Dub</a>
+        <a href="720p.html">720p</a>
+        <a href="request.html">Request</a>
+        <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a>
+      </div>
+    </div>
+    
+    <div class="nav-right">
+      <div class="search-bar">
+        <input type="text" placeholder="Search..." id="searchInput" oninput="searchFunction()">
+        <button id="clearButton" onclick="clearSearch()">✖</button>
+        <div class="search-results" id="searchResults"></div>
+      </div>
     </div>
   </div>
-  
-  <div class="nav-right">
-    <div class="search-bar">
-      <input type="text" placeholder="Search..." id="searchInput" oninput="searchFunction()">
-      <button id="clearButton">✖</button>
-      <div class="search-results" id="searchResults"></div>
-    </div>
+
+  <!-- Mobile Menu Backdrop -->
+  <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMenu()"></div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-btn" onclick="closeMenu()">✖</button>
+    <a href="index.html">🏠 Home</a>
+    <a href="movies.html">🎬 Movies</a>
+    <a href="shows.html">📺 Shows</a>
+    <a href="dubbed.html">🎙 Tamil Dub</a>
+    <a href="720p.html">🎞️ 720p HD</a>
+    <a href="request.html">📩 Request</a>
+    <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">💬 Telegram</a>
   </div>
-</div>
-
-<!-- Mobile Menu Backdrop -->
-<div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMenu()"></div>
-
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu">
-  <button class="close-btn" onclick="closeMenu()">✖</button>
-  <a href="index.html">🏠 Home</a>
-  <a href="movies.html">🎬 Movies</a>
-  <a href="shows.html">📺 Shows</a>
-  <a href="dubbed.html">🎙 Tamil Dub</a>
-  <a href="720p.html">🎞️ 720p HD</a>
-  <a href="request.html">📩 Request</a>
-  <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">💬 Telegram</a>
-</div>
 
   <div class="container">
     <div class="header">
-      <button class="back-button" onclick="goBack()">Back</button>
+      <button class="back-button" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
       <div class="heading" id="pageHeading">PanguPlay</div>
     </div>
+    
     <div class="video-container">
-      <video id="videoPlayer" controls preload="metadata" playsinline webkit-playsinline>
-        <source src="" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+      <div class="player-wrapper">
+        <div id="loadingOverlay" class="loading-overlay">
+          <div class="loading-spinner"></div>
+        </div>
+        <video id="player" playsinline controls data-poster="">
+          <source src="" type="video/mp4" size="1080">
+          <source src="" type="video/mp4" size="720">
+          Your browser does not support the video tag.
+        </video>
+      </div>
     </div>
+    
+    <div class="resolution-selector" id="resolutionSelector">
+      <!-- Resolution buttons will be dynamically added here -->
+    </div>
+    
     <div class="video-details-container">
       <img id="videoPoster" class="video-poster" src="" alt="Poster">
       <div class="video-details">
         <h2 id="videoTitle">Video Title</h2>
         <div class="detail-row"><span>Rating:</span> <span id="movieRating">N/A</span></div>
         <div class="detail-row"><span>Director:</span> <span id="director">N/A</span></div>
+        <div class="detail-row"><span>Starring:</span> <span id="starring">N/A</span></div>
         <div class="detail-row"><span>Genre:</span> <span id="genres">N/A</span></div>
         <div class="detail-row"><span>Quality:</span> <span id="quality">N/A</span></div>
         <div class="detail-row"><span>Language:</span> <span id="language">N/A</span></div>
@@ -291,33 +476,299 @@
         <div class="detail-row"><span>Stream:</span> <button class="copy-link" onclick="copyStreamUrl()">Copy Link</button></div>
       </div>
     </div>
+    
     <div class="nav-buttons" id="navButtons">
-      <button class="nav-button" id="prevBtn" onclick="playPreviousEpisode()">Previous Episode</button>
-      <button class="nav-button" id="nextBtn" onclick="playNextEpisode()">Next Episode</button>
+      <button class="nav-button" id="prevBtn" onclick="playPreviousEpisode()">
+        <i class="fas fa-step-backward"></i> Previous Episode
+      </button>
+      <button class="nav-button" id="nextBtn" onclick="playNextEpisode()">
+        Next Episode <i class="fas fa-step-forward"></i>
+      </button>
     </div>
+    
     <div class="episodes-section" id="episodesSection">
       <div class="episodes-title">Episodes</div>
       <div class="episode-buttons-wrapper" id="episodeButtons"></div>
     </div>
-	<!-- Footer -->
-
   </div>
+  
+  <div id="toast" class="toast"></div>
+  
   <footer>
-  &copy; 2025 PanguPlay
-</footer>
+    &copy; 2025 PanguPlay
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.js"></script>
   <script>
-    function goBack() {
-      window.history.back();
-    }
+    // Global variables
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoUrl = urlParams.get('video');
+    const altVideoUrl = urlParams.get('alt');
+    const videoTitle = urlParams.get('title');
+    const videoImage = urlParams.get('image');
+    const videoDetailsEncoded = urlParams.get('details');
+    const seriesId = urlParams.get('id');
+    const episodesEncoded = urlParams.get('episodes');
     
-    function copyStreamUrl() {
-      if (currentEpisodeId && episodes.length > 0) {
-        navigator.clipboard.writeText(episodes[currentEpisodeIndex].videoUrl).then(() => alert("Stream URL copied!"));
-      } else if (videoUrl) {
-        navigator.clipboard.writeText(decodeURIComponent(videoUrl)).then(() => alert("Stream URL copied!"));
+    let episodes = [];
+    let currentEpisodeId = null;
+    let currentEpisodeIndex = 0;
+    let player;
+    let currentVideoSources = [];
+    let currentQuality = '1080p';
+    
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      initPlayer();
+      setupPage();
+    });
+    
+    function initPlayer() {
+  player = new Plyr('#player', {
+    controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+    settings: ['captions', 'speed'], // REMOVE 'quality'
+    resetOnEnd: false,
+    keyboard: { focused: true, global: true },
+    tooltips: { controls: true, seek: true },
+    seekTime: 10,
+    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.svg',
+    blankVideo: 'https://cdn.plyr.io/static/blank.mp4'
+  });
+
+  player.on('ready', () => {
+    hideLoading();
+  });
+
+  player.on('loadstart', () => {
+    showLoading();
+  });
+
+  player.on('canplay', () => {
+    hideLoading();
+  });
+
+  player.on('error', () => {
+    hideLoading();
+    showToast('Error playing video. Please try another quality or source.');
+  });
+
+  player.on('ended', () => {
+    if (episodes.length > 0 && currentEpisodeIndex < episodes.length - 1) {
+      setTimeout(() => {
+        playNextEpisode();
+      }, 2000);
+    }
+  });
+}
+
+    
+    // Setup page content
+    function setupPage() {
+      document.getElementById('videoTitle').textContent = videoTitle;
+      document.getElementById('pageHeading').textContent = videoTitle;
+      document.title = videoTitle + ' - PanguPlay';
+      
+      const posterUrl = decodeURIComponent(videoImage);
+      document.getElementById('videoPoster').src = posterUrl;
+      document.getElementById('player').setAttribute('data-poster', posterUrl);
+
+      const details = JSON.parse(decodeURIComponent(videoDetailsEncoded));
+      document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
+      document.getElementById('director').textContent = details.director || 'N/A';
+      document.getElementById('starring').textContent = details.starring || 'N/A';
+      document.getElementById('genres').textContent = details.genres || 'N/A';
+      document.getElementById('quality').textContent = details.quality || 'N/A';
+      document.getElementById('language').textContent = details.language || 'N/A';
+      document.getElementById('fileSize').textContent = details.fileSize || 'N/A';
+      document.getElementById('lastUpdated').textContent = details.lastUpdated || 'N/A';
+
+      if (seriesId && episodesEncoded) {
+        // Series handling
+        episodes = JSON.parse(decodeURIComponent(episodesEncoded));
+        const episodeId = urlParams.get('episodeId');
+        if (episodeId) {
+          playEpisode(episodeId);
+        } else if (episodes.length > 0) {
+          playEpisode(episodes[0].id);
+        }
+        document.getElementById('episodesSection').style.display = 'block';
+        document.getElementById('navButtons').style.display = 'flex';
+      } else {
+        // Movie handling
+        document.getElementById('episodesSection').style.display = 'none';
+        document.getElementById('navButtons').style.display = 'none';
+        
+        // Setup the video sources
+        currentVideoSources = [];
+        
+        if (videoUrl) {
+          currentVideoSources.push({
+            url: decodeURIComponent(videoUrl),
+            quality: '1080p'
+          });
+        }
+        
+        if (altVideoUrl) {
+          currentVideoSources.push({
+            url: decodeURIComponent(altVideoUrl),
+            quality: '720p'
+          });
+        }
+        
+        // Set up resolution selector
+        setupResolutionSelector();
+        
+        // Load the video
+        loadVideo(currentVideoSources[0].url);
       }
     }
     
+ function loadVideo(initialUrl) {
+  if (!player) return;
+  showLoading();
+
+  const poster = decodeURIComponent(videoImage);
+  const currentTime = player.currentTime || 0;
+
+  const sources = currentVideoSources.map(source => ({
+    src: source.url,
+    type: 'video/mp4',
+    size: parseInt(source.quality.replace('p', ''))
+  }));
+
+  player.source = {
+    type: 'video',
+    sources: sources,
+    poster: poster
+  };
+
+  player.once('canplay', () => {
+    player.currentTime = currentTime;
+    player.play().catch(err => {
+      showToast('Playback error. Trying fallback…');
+      tryFallback();
+    });
+    hideLoading();
+  });
+
+  player.once('error', () => {
+    showToast('Video load error. Trying fallback…');
+    tryFallback();
+  });
+}
+
+
+function tryFallback() {
+  const fallback = currentVideoSources.find(src => src.quality === '720p');
+  if (!fallback) return;
+
+  player.source = {
+    type: 'video',
+    sources: [{
+      src: fallback.url,
+      type: 'video/mp4',
+      size: 720
+    }],
+    poster: decodeURIComponent(videoImage)
+  };
+
+  player.play().catch(err => {
+    console.error('Fallback failed:', err);
+    showToast('Fallback failed. No video available.');
+    hideLoading();
+  });
+}
+
+
+
+    
+    function setupResolutionSelector() {
+  const resolutionSelector = document.getElementById('resolutionSelector');
+  resolutionSelector.innerHTML = '';
+
+  if (currentVideoSources.length <= 1) {
+    resolutionSelector.style.display = 'none';
+    return;
+  }
+
+  resolutionSelector.style.display = 'flex';
+
+  currentVideoSources.forEach(source => {
+    const button = document.createElement('button');
+    button.className = 'resolution-btn' + (source.quality === currentQuality ? ' active' : '');
+    button.textContent = source.quality;
+    button.onclick = () => {
+      const currentTime = player.currentTime;
+      currentQuality = source.quality;
+
+      document.querySelectorAll('.resolution-btn').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // Reload video with selected quality
+      const selected = currentVideoSources.find(v => v.quality === currentQuality);
+      if (selected) {
+        player.source = {
+          type: 'video',
+          sources: [{
+            src: selected.url,
+            type: 'video/mp4',
+            size: parseInt(selected.quality.replace('p', ''))
+          }],
+          poster: decodeURIComponent(videoImage)
+        };
+        player.once('canplay', () => {
+          player.currentTime = currentTime;
+          player.play().catch(err => {
+            showToast('Playback error. Try another quality.');
+          });
+        });
+      }
+    };
+    resolutionSelector.appendChild(button);
+  });
+}
+
+    
+    // Play episode for series
+function playEpisode(episodeId) {
+  const index = episodes.findIndex(e => e.id === episodeId);
+  if (index === -1) return;
+  
+  currentEpisodeId = episodeId;
+  currentEpisodeIndex = index;
+  const episode = episodes[index];
+  
+  // Set up video sources
+  currentVideoSources = [];
+  
+  if (episode.videoUrl) {
+    currentVideoSources.push({
+      url: episode.videoUrl,
+      quality: '1080p'
+    });
+  }
+  
+  if (episode.altVideoUrl) {
+    currentVideoSources.push({
+      url: episode.altVideoUrl,
+      quality: '720p'
+    });
+  }
+  
+  // Update resolution selector
+  setupResolutionSelector();
+  
+  // Load the video
+  loadVideo(currentVideoSources[0].url);
+  
+  // Update UI
+  updateHeaderTitle(videoTitle, true, episode.season, episode.episode, episode.title);
+  updateEpisodeButtons();
+  updateNavButtons();
+}
+    
+    // Update header title for episodes
     function updateHeaderTitle(title, isSeries = false, seasonNumber = null, episodeNumber = null, episodeTitle = null) {
       const headerElement = document.getElementById('pageHeading');
       if (isSeries && seasonNumber !== null && episodeNumber !== null) {
@@ -327,84 +778,20 @@
       }
     }
     
-    const urlParams = new URLSearchParams(window.location.search);
-    const videoUrl = urlParams.get('video');
-    const videoTitle = urlParams.get('title');
-    const videoImage = urlParams.get('image');
-    const videoDetailsEncoded = urlParams.get('details');
-    const seriesId = urlParams.get('id');
-    const episodesEncoded = urlParams.get('episodes');
-
-    let episodes = [];
-    let currentEpisodeId = null;
-    let currentEpisodeIndex = 0;
-
-    function setupPage() {
-      document.getElementById('videoTitle').textContent = videoTitle;
-      document.title = videoTitle + ' - PanguPlay';
-      document.getElementById('videoPoster').src = decodeURIComponent(videoImage);
-
-      const details = JSON.parse(decodeURIComponent(videoDetailsEncoded));
-      document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
-      document.getElementById('director').textContent = details.director || 'N/A';
-      document.getElementById('genres').textContent = details.genres || 'N/A';
-      document.getElementById('quality').textContent = details.quality || 'N/A';
-      document.getElementById('language').textContent = details.language || 'N/A';
-      document.getElementById('fileSize').textContent = details.fileSize || 'N/A';
-      document.getElementById('lastUpdated').textContent = details.lastUpdated || 'N/A';
-
-      const videoPlayer = document.getElementById('videoPlayer');
-      videoPlayer.addEventListener('error', () => alert('Video error occurred'));
-
-      if (seriesId && episodesEncoded) {
-        episodes = JSON.parse(decodeURIComponent(episodesEncoded));
-        const episodeId = urlParams.get('episodeId');
-        if (episodeId) {
-          playEpisode(episodeId);
-        } else if (episodes.length > 0) {
-          playEpisode(episodes[0].id);
-        }
-        document.getElementById('episodesSection').style.display = 'block';
-      } else {
-        if (videoUrl) {
-          videoPlayer.src = decodeURIComponent(videoUrl);
-          videoPlayer.load();
-          videoPlayer.play().catch(() => {
-            videoPlayer.muted = true;
-            videoPlayer.play().catch(() => {});
-          });
-        }
-        document.getElementById('episodesSection').style.display = 'none';
-        document.getElementById('navButtons').style.display = 'none';
-      }
-    }
-
-    function playEpisode(episodeId) {
-      const index = episodes.findIndex(e => e.id === episodeId);
-      if (index === -1) return;
-      currentEpisodeId = episodeId;
-      currentEpisodeIndex = index;
-      const episode = episodes[index];
-      const videoPlayer = document.getElementById('videoPlayer');
-      videoPlayer.src = episode.videoUrl;
-      videoPlayer.load();
-      videoPlayer.play().catch(() => {
-        videoPlayer.muted = true;
-        videoPlayer.play().catch(() => {});
+    // Update episode buttons
+    function updateEpisodeButtons() {
+      const container = document.getElementById('episodeButtons');
+      container.innerHTML = '';
+      episodes.forEach(ep => {
+        const btn = document.createElement('button');
+        btn.className = 'episode-button' + (ep.id === currentEpisodeId ? ' active' : '');
+        btn.textContent = `E${ep.episode}`;
+        btn.onclick = () => playEpisode(ep.id);
+        container.appendChild(btn);
       });
-      updateHeaderTitle(videoTitle, true, episode.season, episode.episode, episode.title);
-      updateEpisodeButtons();
-      updateNavButtons();
     }
-
-    function playPreviousEpisode() {
-      if (currentEpisodeIndex > 0) playEpisode(episodes[currentEpisodeIndex - 1].id);
-    }
-
-    function playNextEpisode() {
-      if (currentEpisodeIndex < episodes.length - 1) playEpisode(episodes[currentEpisodeIndex + 1].id);
-    }
-
+    
+    // Update navigation buttons
     function updateNavButtons() {
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
@@ -416,50 +803,103 @@
       }
 
       navContainer.style.display = 'flex';
-      prevBtn.style.display = currentEpisodeIndex > 0 ? 'inline-block' : 'none';
-      nextBtn.style.display = currentEpisodeIndex < episodes.length - 1 ? 'inline-block' : 'none';
-    }
-
-    function updateEpisodeButtons() {
-      const container = document.getElementById('episodeButtons');
-      container.innerHTML = '';
-      episodes.forEach(ep => {
-        const btn = document.createElement('button');
-        btn.className = 'episode-button' + (ep.id === currentEpisodeId ? ' active' : '');
-        btn.textContent = ep.episode;
-        btn.onclick = () => playEpisode(ep.id);
-        container.appendChild(btn);
-      });
+      prevBtn.disabled = currentEpisodeIndex <= 0;
+      nextBtn.disabled = currentEpisodeIndex >= episodes.length - 1;
     }
     
-    // For mobile menu
+    // Play previous episode
+    function playPreviousEpisode() {
+      if (currentEpisodeIndex > 0) {
+        playEpisode(episodes[currentEpisodeIndex - 1].id);
+      }
+    }
+    
+    // Play next episode
+    function playNextEpisode() {
+      if (currentEpisodeIndex < episodes.length - 1) {
+        playEpisode(episodes[currentEpisodeIndex + 1].id);
+      }
+    }
+    
+    // Copy stream URL
+    function copyStreamUrl() {
+      let urlToCopy;
+      
+      if (currentEpisodeId && episodes.length > 0) {
+        urlToCopy = episodes[currentEpisodeIndex].videoUrl;
+      } else if (currentVideoSources.length > 0) {
+        const activeSource = currentVideoSources.find(source => source.quality === currentQuality);
+        urlToCopy = activeSource ? activeSource.url : currentVideoSources[0].url;
+      }
+      
+      if (urlToCopy) {
+        navigator.clipboard.writeText(urlToCopy)
+          .then(() => showToast('Stream URL copied to clipboard!'))
+          .catch(err => {
+            console.error('Failed to copy: ', err);
+            showToast('Failed to copy URL');
+          });
+      }
+    }
+    
+    // Show loading overlay
+    function showLoading() {
+      document.getElementById('loadingOverlay').style.display = 'flex';
+    }
+    
+    // Hide loading overlay
+    function hideLoading() {
+      document.getElementById('loadingOverlay').style.display = 'none';
+    }
+    
+    // Show toast notification
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.style.opacity = 1;
+      
+      setTimeout(() => {
+        toast.style.opacity = 0;
+      }, 3000);
+    }
+    
+    // Go back function
+    function goBack() {
+      window.history.back();
+    }
+    
+    // Toggle mobile menu
     function toggleMenu() {
       document.getElementById('mobileMenu').classList.add('open');
       document.getElementById('mobileBackdrop').style.display = 'block';
     }
     
+    // Close mobile menu
     function closeMenu() {
       document.getElementById('mobileMenu').classList.remove('open');
       document.getElementById('mobileBackdrop').style.display = 'none';
     }
     
-    // Search functionality placeholder
+    // Search function
     function searchFunction() {
-      // Implement search functionality here
       const input = document.getElementById('searchInput');
       const clearButton = document.getElementById('clearButton');
       
       if (input.value) {
         clearButton.style.display = 'block';
+        // Implement search logic here
       } else {
         clearButton.style.display = 'none';
+        document.getElementById('searchResults').style.display = 'none';
       }
     }
-
-    if (videoTitle && videoDetailsEncoded) {
-      setupPage();
-    } else {
-      alert('Missing video info.');
+    
+    // Clear search
+    function clearSearch() {
+      const input = document.getElementById('searchInput');
+      input.value = '';
+      document.getElementById('clearButton').style.display = 'none';
+      document.getElementById('searchResults').style.display = 'none';
     }
   </script>
 </body>
