@@ -499,7 +499,6 @@ function getQualityClass(quality) {
 		title: 'Kaakha Kaakha (2003)',
         image: 'https://m.media-amazon.com/images/M/MV5BNTA0NjQwYmUtN2ViZS00MWI2LWI4NWEtMjBlYWUxMTYzMTI5XkEyXkFqcGc@._V1_QL75_UY562_CR7,0,380,562_.jpg',
         video: 'https://s04.hotshare.link/Moviesda.Mobi_-_Kaakha_Kaakha_2003_Original_1080p_HD.mp4',
-		alternateVideo: 'https://s02.hotshare.link/Moviesda.Mobi_-_Kaakha_Kaakha_2003_Original_720p_HD.mp4',
         details: {
           director: '',
           starring: '',
@@ -2660,9 +2659,6 @@ function openPlayer(video) {
     url += `&id=${video.id}&episodes=${episodes}`;
   } else {
     url += `&video=${encodeURIComponent(video.video)}`;
-	if (video.alternateVideo) {
-		url += `&alt=${encodeURIComponent(video.alternateVideo)}`;
-	}
   }
   window.location.href = url;
 }
