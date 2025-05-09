@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <title>PanguPlay - Dubbed</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -154,6 +156,37 @@
       position: relative;
     }
 
+     /* Swiper Styles */
+.swiper {
+  width: 100%;
+  height: 250px; /* Adjust height to accommodate the title */
+  margin-bottom: 20px;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.swiper-slide-title {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 5px;
+  color: #fff;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.swiper-pagination {
+  position: relative;
+  bottom: 10px;
+  text-align: center;
+}
+
     footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f; margin-top: 20px; }
 
     @media(max-width:768px) {
@@ -239,6 +272,10 @@
   <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">💬 Telegram</a>
 </div>
 
+<div class="swiper">
+  <div class="swiper-wrapper" id="featured"></div>
+  <div class="swiper-pagination"></div>
+</div>
 
 <div class="section">
   <h2>🎙 All Dubbed Movies 📽️</h2>
@@ -335,7 +372,7 @@ const videos = [
           genres: 'Action, Comedy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.4/10',
+          movieRating: '⭐6.4/10',
           lastUpdated: '18 April 2025',
 		  fileSize: '1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Fight%20or%20Flight%202025.mp4'
@@ -352,7 +389,7 @@ const videos = [
           genres: 'Action, Adventure, Comedy, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.0/10',
+          movieRating: '⭐6.0/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.3 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Ant%20Man%20and%20the%20Wasp%20%20Quantumania%20(2023).mp4'
@@ -369,7 +406,7 @@ const videos = [
           genres: 'Adventure, Comedy, Family',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.1/10',
+          movieRating: '⭐5.1/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Asterix%20%26%20Obelix%20%20The%20Middle%20Kingdom%20(2023).mp4'
@@ -386,7 +423,7 @@ const videos = [
           genres: 'Action, Adventure, Fantasy, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.5/10',
+          movieRating: '⭐7.5/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Avatar%20%20The%20Way%20of%20Water%20(2022).mp4'
@@ -403,7 +440,7 @@ const videos = [
           genres: 'Action, Comedy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.9/10',
+          movieRating: '⭐5.9/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Back%20In%20Action%20(2025).mp4'
@@ -420,7 +457,7 @@ const videos = [
           genres: 'Action, Adventure, Fantasy, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.9/10',
+          movieRating: '⭐6.9/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Doctor%20Strange%20in%20the%20Multiverse%20of%20Madness%20(2022).mp4'
@@ -437,7 +474,7 @@ const videos = [
           genres: 'Action, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.0/10',
+          movieRating: '⭐7.0/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Extraction%202%20(2023).mp4'
@@ -454,7 +491,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.6/10',
+          movieRating: '⭐5.6/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '0.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Fantastic%204%20Rise%20of%20the%20Silver%20Surfer%20(2007).mp4'
@@ -471,7 +508,7 @@ const videos = [
           genres: 'Adventure, Fantasy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.2/10',
+          movieRating: '⭐6.2/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.2 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Fantastic%20Beasts%203%20%20The%20Secrets%20of%20Dumbledore%20(2022).mp4'
@@ -488,7 +525,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.7/10',
+          movieRating: '⭐5.7/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '0.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Fantastic%20Four%20(2005).mp4'
@@ -505,7 +542,7 @@ const videos = [
           genres: 'Action, Adventure, Crime',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.7/10',
+          movieRating: '⭐5.7/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.4 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Fast%20X%20(2023).mp4'
@@ -522,7 +559,7 @@ const videos = [
           genres: 'Horror, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.7/10',
+          movieRating: '⭐6.7/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.5 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Final%20Destination%20(2000).mp4'
@@ -539,7 +576,7 @@ const videos = [
           genres: 'Horror, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.2/10',
+          movieRating: '⭐6.2/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.3 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Final%20Destination%202%202003.mp4'
@@ -556,7 +593,7 @@ const videos = [
           genres: 'Horror, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.8/10',
+          movieRating: '⭐5.8/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Final%20Destination%203%20(2006).mp4'
@@ -573,7 +610,7 @@ const videos = [
           genres: 'Horror, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.1/10',
+          movieRating: '⭐5.1/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Final%20Destination%204%20(2009).mp4'
@@ -590,7 +627,7 @@ const videos = [
           genres: 'Horror, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.9/10',
+          movieRating: '⭐5.9/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Final%20Destination%205%20(2011).mp4'
@@ -607,7 +644,7 @@ const videos = [
           genres: 'Action, Horror, Mystery, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '4.5/10',
+          movieRating: '⭐4.5/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Hellboy%20The%20Crooked%20Man%20(2024).mp4'
@@ -624,7 +661,7 @@ const videos = [
           genres: 'Action, Crime, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.6/10',
+          movieRating: '⭐7.6/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.5 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/John%20Wick%20%20Chapter%204%20(2023).mp4'
@@ -641,7 +678,7 @@ const videos = [
           genres: 'Action, Crime, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.4/10',
+          movieRating: '⭐7.4/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '0.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/John%20Wick%20(2014).mp4'
@@ -658,7 +695,7 @@ const videos = [
           genres: 'Action, Crime, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.4/10',
+          movieRating: '⭐7.4/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/John%20Wick%20Chapter%202%20(2017).mp4'
@@ -675,7 +712,7 @@ const videos = [
           genres: 'Action, Crime, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.4/10',
+          movieRating: '⭐7.4/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/John%20Wick%20Chapter%203%20Parabellum%20(2019).mp4'
@@ -692,7 +729,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.6/10',
+          movieRating: '⭐5.6/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.2 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Jurassic%20World%20Dominion%20(2022).mp4'
@@ -709,7 +746,7 @@ const videos = [
           genres: 'Action, Adventure, Superhero',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.5/10',
+          movieRating: '⭐5.5/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.3 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Kraven%20The%20Hunter%20(2024).mp4'
@@ -726,7 +763,7 @@ const videos = [
           genres: 'Animation, Adventure, Comedy, Family',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.5/10',
+          movieRating: '⭐6.5/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '0.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Minions%20%20The%20Rise%20of%20Gru%20(2022).mp4'
@@ -743,7 +780,7 @@ const videos = [
           genres: 'Action, Crime, Drama, Mystery, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.8/10',
+          movieRating: '⭐7.8/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Batman%20(2022).mp4'
@@ -760,7 +797,7 @@ const videos = [
           genres: 'Action, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.5/10',
+          movieRating: '⭐6.5/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '0.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Gray%20Man%20(2022).mp4'
@@ -777,7 +814,7 @@ const videos = [
           genres: 'Comedy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.7/10',
+          movieRating: '⭐7.7/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '0.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Hangover%20(2009).mp4'
@@ -794,7 +831,7 @@ const videos = [
           genres: 'Comedy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.5/10',
+          movieRating: '⭐6.5/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '0.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Hangover%202%20(2011).mp4'
@@ -811,7 +848,7 @@ const videos = [
           genres: 'Comedy, Crime',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.8/10',
+          movieRating: '⭐5.8/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '0.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Hangover%20Part%20III%20(2013).mp4'
@@ -828,7 +865,7 @@ const videos = [
           genres: 'Action, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.6/10',
+          movieRating: '⭐5.6/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Mother%20(2023).mp4'
@@ -845,7 +882,7 @@ const videos = [
           genres: 'Supernatural Horror, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.1/10',
+          movieRating: '⭐6.1/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/The%20Popes%20Exorcist%20(2023).mp4'
@@ -862,7 +899,7 @@ const videos = [
           genres: 'Action, Adventure, Comedy, Superhero',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.2/10',
+          movieRating: '⭐6.2/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.2 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Thor%20%20Love%20and%20Thunder%20(2022).mp4'
@@ -879,7 +916,7 @@ const videos = [
           genres: 'Action, Drama',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '8.2/10',
+          movieRating: '⭐8.2/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.2 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Top%20Gun%20Maverick%20(2022).mp4'
@@ -896,7 +933,7 @@ const videos = [
           genres: 'Action, Adventure',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.3/10',
+          movieRating: '⭐6.3/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/jolly/Uncharted%20(2022).mp4'
@@ -913,7 +950,7 @@ const videos = [
           genres: 'Action, Crime, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.9/10',
+          movieRating: '⭐5.9/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/2%20Fast%202%20Furious%20(2003).mp4'
@@ -930,7 +967,7 @@ const videos = [
           genres: 'Action, Crime, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.3/10',
+          movieRating: '⭐7.3/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.3 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Fast%20Five%20(2011).mp4'
@@ -947,7 +984,7 @@ const videos = [
           genres: 'Action, Crime, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.5/10',
+          movieRating: '⭐6.5/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Fast%20Furious%20(2009).mp4'
@@ -964,7 +1001,7 @@ const videos = [
           genres: 'Action, Crime, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.0/10',
+          movieRating: '⭐7.0/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.3 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Fast%20Furious%206%20(2013).mp4'
@@ -981,7 +1018,7 @@ const videos = [
           genres: 'Action, Adventure, Comedy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.5/10',
+          movieRating: '⭐6.5/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Fast%20Furious%20Presents%20Hobbs%20Shaw%20(2019).mp4'
@@ -998,7 +1035,7 @@ const videos = [
           genres: 'Action, Crime, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.1/10',
+          movieRating: '⭐7.1/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.3 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Furious%207%20(2015).mp4'
@@ -1015,7 +1052,7 @@ const videos = [
           genres: 'Animation, Adventure, Comedy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.5/10',
+          movieRating: '⭐7.5/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.5 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20(2002).mp4'
@@ -1032,7 +1069,7 @@ const videos = [
           genres: 'Animation, Adventure, Comedy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.7/10',
+          movieRating: '⭐5.7/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20Collision%20Course%20(2016).mp4'
@@ -1049,7 +1086,7 @@ const videos = [
           genres: 'Animation, Adventure, Comedy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.5/10',
+          movieRating: '⭐6.5/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20Continental%20Drift%20(2012).mp4'
@@ -1066,7 +1103,7 @@ const videos = [
           genres: 'Animation, Adventure, Comedy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.9/10',
+          movieRating: '⭐6.9/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.5 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20Dawn%20of%20the%20Dinosaurs%20(2009).mp4'
@@ -1083,7 +1120,7 @@ const videos = [
           genres: 'Animation, Adventure, Comedy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.8/10',
+          movieRating: '⭐6.8/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Ice%20Age%20The%20Meltdown%20(2006).mp4'
@@ -1100,7 +1137,7 @@ const videos = [
           genres: 'Action, Drama, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '8.1/10',
+          movieRating: '⭐8.1/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Logan%202017.mp4'
@@ -1117,7 +1154,7 @@ const videos = [
           genres: 'Action, Adventure, Comedy, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.3/10',
+          movieRating: '⭐7.3/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Men%20in%20Black%20(1997).mp4'
@@ -1134,7 +1171,7 @@ const videos = [
           genres: 'Action, Adventure, Comedy, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.2/10',
+          movieRating: '⭐6.2/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Men%20in%20Black%20II%20(2002).mp4'
@@ -1150,7 +1187,7 @@ const videos = [
           genres: 'Action, Adventure, Comedy, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.8/10',
+          movieRating: '⭐6.8/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Men%20in%20Black%20III%20(2012).mp4'
@@ -1167,7 +1204,7 @@ const videos = [
           genres: 'Action, Adventure, Comedy, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.6/10',
+          movieRating: '⭐5.6/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.2 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Men%20in%20Black%20International%20(2019).mp4'
@@ -1184,7 +1221,7 @@ const videos = [
           genres: 'Action, Horror, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.6/10',
+          movieRating: '⭐6.6/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20(2002).mp4'
@@ -1201,7 +1238,7 @@ const videos = [
           genres: 'Action, Horror, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.8/10',
+          movieRating: '⭐5.8/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20Afterlife%20(2010).mp4'
@@ -1218,7 +1255,7 @@ const videos = [
           genres: 'Action, Horror, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.1/10',
+          movieRating: '⭐6.1/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20Apocalypse%20(2004).mp4'
@@ -1235,7 +1272,7 @@ const videos = [
           genres: 'Action, Horror, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.2/10',
+          movieRating: '⭐6.2/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20Extinction%20(2007).mp4'
@@ -1252,7 +1289,7 @@ const videos = [
           genres: 'Action, Horror, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.3/10',
+          movieRating: '⭐5.3/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20Retribution%20(2012).mp4'
@@ -1269,7 +1306,7 @@ const videos = [
           genres: 'Action, Horror, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.5/10',
+          movieRating: '⭐5.5/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/Resident%20Evil%20The%20Final%20Chapter%20(2016).mp4'
@@ -1286,7 +1323,7 @@ const videos = [
           genres: 'Action, Crime, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.8/10',
+          movieRating: '⭐6.8/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/The%20Fast%20and%20the%20Furious%20(2001).mp4'
@@ -1303,7 +1340,7 @@ const videos = [
           genres: 'Action, Crime, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.0/10',
+          movieRating: '⭐6.0/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/The%20Fast%20and%20the%20Furious%20Tokyo%20Drift%20(2006).mp4'
@@ -1320,7 +1357,7 @@ const videos = [
           genres: 'Action, Crime, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.6/10',
+          movieRating: '⭐6.6/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/The%20Fate%20of%20the%20Furious%20(2017).mp4'
@@ -1337,7 +1374,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.7/10',
+          movieRating: '⭐6.7/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/The%20Wolverine%202013.mp4'
@@ -1354,7 +1391,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.4/10',
+          movieRating: '⭐7.4/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%202%202003.mp4'
@@ -1371,7 +1408,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.3/10',
+          movieRating: '⭐7.3/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%202000.mp4'
@@ -1388,7 +1425,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.9/10',
+          movieRating: '⭐6.9/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.4 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%20Apocalypse%202016.mp4'
@@ -1405,7 +1442,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.7/10',
+          movieRating: '⭐5.7/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%20Dark%20Phoenix%202019.mp4'
@@ -1422,7 +1459,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.7/10',
+          movieRating: '⭐7.7/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%20First%20Class%202011.mp4'
@@ -1439,7 +1476,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.5/10',
+          movieRating: '⭐6.5/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%20Origins%20Wolverine%202009.mp4'
@@ -1456,7 +1493,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.6/10',
+          movieRating: '⭐6.6/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Holly/X%20Men%20The%20Last%20Stand%202006.mp4'
@@ -1480,7 +1517,7 @@ const videos = [
           genres: 'Action, Adventure, Comedy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.3/10',
+          movieRating: '⭐7.3/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Ant%20Man%20(2015).mp4'
@@ -1497,7 +1534,7 @@ const videos = [
           genres: 'Action, Adventure, Comedy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.0/10',
+          movieRating: '⭐7.0/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.2 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Ant%20Man%20and%20the%20Wasp%20(2018).mp4'
@@ -1514,7 +1551,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.3/10',
+          movieRating: '⭐7.3/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Avengers%20Age%20of%20Ultron%20(2015).mp4'
@@ -1531,7 +1568,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '8.4/10',
+          movieRating: '⭐8.4/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.4 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Avengers%20Endgame%20(2019).mp4'
@@ -1548,7 +1585,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '8.4/10',
+          movieRating: '⭐8.4/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Avengers%20Infinity%20War%20(2018).mp4'
@@ -1565,7 +1602,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.3/10',
+          movieRating: '⭐7.3/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Black%20Panther%20(2018).mp4'
@@ -1582,7 +1619,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.8/10',
+          movieRating: '⭐7.8/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Captain%20America%20Civil%20War%20(2016).mp4'
@@ -1599,7 +1636,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.9/10',
+          movieRating: '⭐6.9/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Captain%20America%20The%20First%20Avenger%20(2011).mp4'
@@ -1616,7 +1653,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.7/10',
+          movieRating: '⭐7.7/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Captain%20America%20The%20Winter%20Soldier%20(2014).mp4'
@@ -1633,7 +1670,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.8/10',
+          movieRating: '⭐6.8/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Captain%20Marvel%20(2019).mp4'
@@ -1650,7 +1687,7 @@ const videos = [
           genres: 'Action, Adventure, Fantasy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.5/10',
+          movieRating: '⭐7.5/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Doctor%20Strange%20(2016).mp4'
@@ -1667,7 +1704,7 @@ const videos = [
           genres: 'Action, Adventure, Comedy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '8.0/10',
+          movieRating: '⭐8.0/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Guardians%20of%20the%20Galaxy%20(2014).mp4'
@@ -1684,7 +1721,7 @@ const videos = [
           genres: 'Action, Adventure, Comedy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.6/10',
+          movieRating: '⭐7.6/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Guardians%20of%20the%20Galaxy%20Vol%202%20(2017).mp4'
@@ -1701,7 +1738,7 @@ const videos = [
           genres: 'Action, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.6/10',
+          movieRating: '⭐5.6/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Hulk%20(2003).mp4'
@@ -1717,7 +1754,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.9/10',
+          movieRating: '⭐7.9/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Iron%20Man%201%20(2008).mp4'
@@ -1734,7 +1771,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.9/10',
+          movieRating: '⭐6.9/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Iron%20Man%202%20(2010).mp4'
@@ -1751,7 +1788,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.1/10',
+          movieRating: '⭐7.1/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Iron%20Man%203%20(2013).mp4'
@@ -1768,7 +1805,7 @@ const videos = [
           genres: 'Animation, Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.7/10',
+          movieRating: '⭐6.7/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Planet%20Hulk%20(2010).mp4'
@@ -1785,7 +1822,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.4/10',
+          movieRating: '⭐7.4/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Spider%20Man%20Far%20From%20Home%20(2019).mp4'
@@ -1802,7 +1839,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.4/10',
+          movieRating: '⭐7.4/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Spider%20Man%20Homecoming%20(2017).mp4'
@@ -1819,7 +1856,7 @@ const videos = [
           genres: 'Action, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '8.0/10',
+          movieRating: '⭐8.0/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/The%20Avengers%20(2012).mp4'
@@ -1836,7 +1873,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.6/10',
+          movieRating: '⭐6.6/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '0.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/The%20Incredible%20Hulk%20(2008).mp4'
@@ -1853,7 +1890,7 @@ const videos = [
           genres: 'Action, Adventure, Fantasy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.0/10',
+          movieRating: '⭐7.0/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Thor%20(2011).mp4'
@@ -1870,7 +1907,7 @@ const videos = [
           genres: 'Action, Adventure, Fantasy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.7/10',
+          movieRating: '⭐6.7/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Thor%202%20(2013).mp4'
@@ -1887,7 +1924,7 @@ const videos = [
           genres: 'Action, Adventure, Comedy',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.9/10',
+          movieRating: '⭐7.9/10',
           lastUpdated: '06 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/Fantasy/Thor%20Ragnarok%20(2017).mp4'
@@ -1904,7 +1941,7 @@ const videos = [
           genres: 'Biography, Drama',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.4/10',
+          movieRating: '⭐7.4/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.2 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Ordinary%20Angels%20(2024).mp4'
@@ -1921,7 +1958,7 @@ const videos = [
           genres: 'Action, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.1/10',
+          movieRating: '⭐5.1/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Sniper%20G.R.I.T.%20(2023).mp4'
@@ -1938,7 +1975,7 @@ const videos = [
           genres: 'Action, Crime, Drama',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '8.3/10',
+          movieRating: '⭐8.3/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Merciless%20(2017).mp4'
@@ -1955,7 +1992,7 @@ const videos = [
           genres: 'Psychological Horror, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.4/10',
+          movieRating: '⭐5.4/10',
           lastUpdated: '04 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/River%20of%20Blood%20(2024).mp4'
@@ -1972,7 +2009,7 @@ const videos = [
           genres: 'Horror, Slasher',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.3/10',
+          movieRating: '⭐6.3/10',
           lastUpdated: '04 April 2025',
 		  fileSize: '1.3 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Terrifier%203%20(2024).mp4'
@@ -1990,7 +2027,7 @@ const videos = [
           genres: 'Biblical Comedy-Drama',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.7/10',
+          movieRating: '⭐5.7/10',
           lastUpdated: '04 April 2025',
 		  fileSize: '1.3 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Book%20of%20Clarence%20(2023).mp4'
@@ -2007,7 +2044,7 @@ const videos = [
           genres: 'Action, Drama, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.4/10',
+          movieRating: '⭐6.4/10',
           lastUpdated: '02 April 2025',
 		  fileSize: '1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Duelist%20(2016).mp4'
@@ -2024,7 +2061,7 @@ const videos = [
           genres: 'Horror, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.3/10',
+          movieRating: '⭐5.3/10',
           lastUpdated: '02 April 2025',
 		  fileSize: '0.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/The%20Invitation%20(2022).mp4'
@@ -2041,7 +2078,7 @@ const videos = [
           genres: 'Romantic, Comedy, Drama',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.0/10',
+          movieRating: '⭐6.0/10',
           lastUpdated: '29 March 2025',
 		  fileSize: '2 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/29-03-2025/The%20Life%20List%20(2025).mp4'
@@ -2058,7 +2095,7 @@ const videos = [
           genres: 'Comedy, Horror',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.5/10',
+          movieRating: '⭐5.5/10',
           lastUpdated: '28 March 2025',
 		  fileSize: '0.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/28-03-2025/Premika%20(2017).mp4'
@@ -2075,7 +2112,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.0/10',
+          movieRating: '⭐6.0/10',
           lastUpdated: '28 March 2025',
 		  fileSize: '1.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/28-03-2025/Venom%20The%20Last%20Dance%20(2024).mp4'
@@ -2092,7 +2129,7 @@ const videos = [
           genres: 'Martial Arts, Action, Crime, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.0/10',
+          movieRating: '⭐7.0/10',
           lastUpdated: '27 March 2025',
 		  fileSize: '1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/27-03-2025/Twilight%20of%20the%20Warriors%20Walled%20In%20(2024).mp4'
@@ -2109,7 +2146,7 @@ const videos = [
 		  genres: 'Action, Crime, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.3/10',
+          movieRating: '⭐6.3/10',
           lastUpdated: '27 March 2025',
 		  fileSize: '1.3 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/27-03-2025/Den%20of%20Thieves%202%20%20Pantera%20(2025).mp4'
@@ -2126,7 +2163,7 @@ const videos = [
           genres: 'Mystery, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.1/10',
+          movieRating: '⭐6.1/10',
           lastUpdated: '27 March 2025',
 		  fileSize: '0.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/27-03-2025/Holland%20(2025).mp4'
@@ -2143,7 +2180,7 @@ const videos = [
           genres: 'Crime, Drama, Mystery, Thriller',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '7.0/10',
+          movieRating: '⭐7.0/10',
           lastUpdated: '21 March 2025',
 		  fileSize: '892 MB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/21-03-2025/Revelations%20(2025).mp4'
@@ -2160,7 +2197,7 @@ const videos = [
           genres: 'Action, Splatter Horror',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '5.0/10',
+          movieRating: '⭐5.0/10',
           lastUpdated: '21 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/21-03-2025/Prisons%20(2024).mp4'
         }
@@ -2176,7 +2213,7 @@ const videos = [
           genres: 'Musical, Anime, Drama',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.6/10',
+          movieRating: '⭐6.6/10',
           lastUpdated: '26 March 2025',
 		  fileSize: '1.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/26-03-2025/Mufasa%20The%20Lion%20King%20(2024).mp4'
@@ -2193,7 +2230,7 @@ const videos = [
           genres: 'Action, Adventure, Sci-Fi',
           quality: 'HD',
           language: 'Tamil',
-          movieRating: '6.0/10',
+          movieRating: '⭐6.0/10',
           lastUpdated: '13 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Captain%20America%20Brave%20New%20World%20(2025).mp4'
         }
@@ -2261,6 +2298,44 @@ function parseDate(dateString) {
   // Convert '18 April 2025' into a Date object
   return new Date(Date.parse(dateString));
 }
+
+function loadSwiper() {
+  const featured = document.getElementById('featured');
+
+  // Sort movies by lastUpdated and take the top 10
+  videos
+    .filter(v => v.type === 'dubbed')
+    .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
+    .slice(0, 10)
+    .forEach(v => {
+      const slide = document.createElement('div');
+      slide.className = 'swiper-slide';
+      slide.innerHTML = `
+        <div class="swiper-slide-content">
+          <img src="${v.image}" alt="${v.title}">
+          <div class="swiper-slide-title">${v.title}</div>
+        </div>`;
+      slide.onclick = () => openPlayer(v);
+      featured.appendChild(slide);
+    });
+
+  // Initialize Swiper
+  const swiper = new Swiper('.swiper', {
+    slidesPerView: 3.0,
+    spaceBetween: 10,
+    loop: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+  });
+}
+
+loadSwiper();
 
 function loadDubbed() {
   const dubbed = document.getElementById('dubbedList');

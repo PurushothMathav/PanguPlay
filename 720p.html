@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <title>PanguPlay - 720p</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -154,6 +156,37 @@
       position: relative;
     }
 
+    /* Swiper Styles */
+.swiper {
+  width: 100%;
+  height: 250px; /* Adjust height to accommodate the title */
+  margin-bottom: 20px;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.swiper-slide-title {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 5px;
+  color: #fff;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.swiper-pagination {
+  position: relative;
+  bottom: 10px;
+  text-align: center;
+}
+
     footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f; margin-top: 20px; }
 
     @media(max-width:768px) {
@@ -239,6 +272,10 @@
   <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">💬 Telegram</a>
 </div>
 
+<div class="swiper">
+  <div class="swiper-wrapper" id="featured"></div>
+  <div class="swiper-pagination"></div>
+</div>
 
 <div class="section">
   <h2>🎞️ All 720p HD Movies 📽️</h2>
@@ -335,7 +372,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/KGF%20Chapter%201%20(Tamil).mp4'
@@ -352,7 +389,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/KGF%20Chapter%202%20(Tamil).mp4'
@@ -369,7 +406,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Pushpa%20The%20Rise%20(Tamil).mp4'
@@ -386,7 +423,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/2.0%20(Tamil).mp4'
@@ -403,7 +440,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Aghathiyaa%20(Tamil).mp4'
@@ -420,7 +457,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Bajirao%20Mastani%20(Tamil).mp4'
@@ -437,7 +474,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/DEEPWATER%20HORIZON%20(Tamil).mp4'
@@ -454,7 +491,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Dirty%20Angels%20(Tamil).mp4'
@@ -471,7 +508,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Dwaraka%20(Tamil).mp4'
@@ -488,7 +525,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/FIR%20(Tamil).mp4'
@@ -505,7 +542,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Gamanam%20(Tamil).mp4'
@@ -522,7 +559,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/HITLER%20(Tamil).mp4'
@@ -539,7 +576,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Home%20(Tamil).mp4'
@@ -556,7 +593,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Host%20(Tamil).mp4'
@@ -573,7 +610,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/IIT%20Krishnamurthy%20(Tamil).mp4'
@@ -590,7 +627,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Jai%20Bheem%20(Tamil).mp4'
@@ -607,7 +644,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Jayamma%20Panchayathi%20(Tamil).mp4'
@@ -624,7 +661,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/KING%20(Tamil).mp4'
@@ -641,7 +678,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Lucifer%20(Tamil).mp4'
@@ -658,7 +695,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Lucky%20Lakshman%20(Tamil).mp4'
@@ -675,7 +712,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Maaveeran%20(Tamil).mp4'
@@ -692,7 +729,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Mahaan%20(Tamil).mp4'
@@ -709,7 +746,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Master%20(Tamil).mp4'
@@ -726,7 +763,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Penguin%20(Tamil).mp4'
@@ -743,7 +780,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Peranbu%20(Tamil).mp4'
@@ -760,7 +797,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Saani%20Kaayidham%20(Tamil).mp4'
@@ -777,7 +814,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Silence%20(Tamil).mp4'
@@ -794,7 +831,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Soorarai%20Pottru%20(Tamil).mp4'
@@ -811,7 +848,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/The%20Wave%20(Tamil).mp4'
@@ -828,7 +865,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Thugs%20Of%20Hindostan%20(Tamil).mp4'
@@ -845,7 +882,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/War%20(Tamil).mp4'
@@ -862,7 +899,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Yaathisai%20(%20Tamil%20).mp4'
@@ -879,7 +916,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Yatra%20(Tamil).mp4'
@@ -896,7 +933,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Yuvarathnaa%20(Tamil).mp4'
@@ -913,7 +950,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Yen%20Peyar%20Anandhan.mp4'
@@ -930,7 +967,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Venom.mp4'
@@ -947,7 +984,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Yashoda.mp4'
@@ -964,7 +1001,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Vascodagama%20The%20Evolution.mp4'
@@ -981,7 +1018,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Vaaitha.mp4'
@@ -998,7 +1035,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Train%20To%20Busan.mp4'
@@ -1015,7 +1052,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Tiger%203.mp4'
@@ -1032,7 +1069,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Tomiris.mp4'
@@ -1049,7 +1086,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/The%20Witch%20Part%202%20-%20The%20Other%20One.mp4'
@@ -1066,7 +1103,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/The%20Witch%20Part%201%20-%20The%20Subversion.mp4'
@@ -1083,7 +1120,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/The%20Outpost.mp4'
@@ -1100,7 +1137,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Strange%20Darling.mp4'
@@ -1117,7 +1154,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Samaritan.mp4'
@@ -1134,7 +1171,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Sniper%20The%20White%20Raven.mp4'
@@ -1151,7 +1188,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/The%20Ballad%20of%20Songbirds%20and%20Snakes.mp4'
@@ -1168,7 +1205,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Pechi.mp4'
@@ -1185,7 +1222,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Raayan.mp4'
@@ -1202,7 +1239,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Pathaan.mp4'
@@ -1219,7 +1256,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Operation%20Blood%20Hunt.mp4'
@@ -1236,7 +1273,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Once%20in%20the%20Desert.mp4'
@@ -1253,7 +1290,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Partner.mp4'
@@ -1270,7 +1307,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Kolaiyuthir%20Kaalam.mp4'
@@ -1287,7 +1324,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Mufasa%20The%20Lion%20King.mp4'
@@ -1304,7 +1341,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Mark%20Antony.mp4'
@@ -1321,7 +1358,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Kantara%20-%20A%20Legend.mp4'
@@ -1338,7 +1375,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Kadaram%20Kondan.mp4'
@@ -1355,7 +1392,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Kalki%202898%20AD.mp4'
@@ -1372,7 +1409,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Jailer.mp4'
@@ -1389,7 +1426,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Destroyer.mp4'
@@ -1406,7 +1443,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Double%20Ismart.mp4'
@@ -1423,7 +1460,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Calling%20Sahasra.mp4'
@@ -1440,7 +1477,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Annabelle%20Creation.mp4'
@@ -1457,7 +1494,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/BHEEMA.mp4'
@@ -1474,7 +1511,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/Ammu.mp4'
@@ -1491,7 +1528,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/300%20Rise%20of%20an%20Empire.mp4'
@@ -1508,7 +1545,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/12%20Strong.mp4'
@@ -1525,7 +1562,7 @@ const videos = [
           genres: '',
           quality: 'WEBDL',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/720p/100%25%20Kadhal.mp4'
@@ -1599,6 +1636,44 @@ function parseDate(dateString) {
   // Convert '18 April 2025' into a Date object
   return new Date(Date.parse(dateString));
 }
+
+function loadSwiper() {
+  const featured = document.getElementById('featured');
+
+  // Sort movies by lastUpdated and take the top 10
+  videos
+    .filter(v => v.type === '720p')
+    .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
+    .slice(0, 10)
+    .forEach(v => {
+      const slide = document.createElement('div');
+      slide.className = 'swiper-slide';
+      slide.innerHTML = `
+        <div class="swiper-slide-content">
+          <img src="${v.image}" alt="${v.title}">
+          <div class="swiper-slide-title">${v.title}</div>
+        </div>`;
+      slide.onclick = () => openPlayer(v);
+      featured.appendChild(slide);
+    });
+
+  // Initialize Swiper
+  const swiper = new Swiper('.swiper', {
+    slidesPerView: 3.0,
+    spaceBetween: 10,
+    loop: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+  });
+}
+
+loadSwiper();
 
 function load720p() {
   const webdl = document.getElementById('720pList');

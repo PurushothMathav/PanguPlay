@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <title>PanguPlay - Shows</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -153,6 +155,37 @@
       position: relative;
     }
 
+    /* Swiper Styles */
+.swiper {
+  width: 100%;
+  height: 250px; /* Adjust height to accommodate the title */
+  margin-bottom: 20px;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.swiper-slide-title {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 5px;
+  color: #fff;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.swiper-pagination {
+  position: relative;
+  bottom: 10px;
+  text-align: center;
+}
+
     footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f; margin-top: 20px; }
 
     @media(max-width:768px) {
@@ -238,6 +271,10 @@
   <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">💬 Telegram</a>
 </div>
 
+<div class="swiper">
+  <div class="swiper-wrapper" id="featured"></div>
+  <div class="swiper-pagination"></div>
+</div>
 
 <div class="section">
   <h2>📺 All Shows 📽️</h2>
@@ -322,6 +359,90 @@ function getQualityClass(quality) {
 }
 
 const videos = [ 
+		{
+    type: "series",
+    id: "trp1",
+    title: 'The Royals (2025) EP1-8',
+    image: 'https://m.media-amazon.com/images/M/MV5BZWM1YWExZTktZDI1MS00ZTE5LTkzZmYtNmU0MGZhOWU2NGEyXkEyXkFqcGc@._V1_QL75_UY562_CR35,0,380,562_.jpg',
+    details: 
+	{
+        director: 'Priyanka Ghose, Nupur Asthana',
+        starring: 'Bhumi Pednekar, Ishaan Khatter, Sakshi Tanwar, Zeenat Aman, Nora Fatehi, Vihaan Samat, Dino Morea, Chunky Panday, Milind Soman',
+        genres: 'Romantic Comedy, Drama',
+		language: 'Tamil',
+        quality: 'HD',
+        movieRating: '⭐7/10',
+        lastUpdated: '09 May 2025'
+    },
+    episodes: [
+        
+		{
+            id: "tr-s1e1",
+            season: 1,
+            episode: 1,
+            title: "The Crown's Gamble",
+            videoUrl: "https://big1.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_01_.mp4",
+			streamURL: "https://big1.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_01_.mp4"
+        },
+		{
+            id: "tr-s1e2",
+            season: 1,
+            episode: 2,
+            title: "Royal Reckoning",
+            videoUrl: "https://big1.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_02_.mp4",
+			streamURL: "https://big1.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_02_.mp4"
+        },
+		{
+            id: "tr-s1e3",
+            season: 1,
+            episode: 3,
+            title: "A Palace Divided",
+            videoUrl: "https://big3.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_03_.mp4",
+			streamURL: "https://big3.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_03_.mp4"
+        },
+		{
+            id: "tr-s1e4",
+            season: 1,
+            episode: 4,
+            title: "Secrets & Scandals",
+            videoUrl: "https://big2.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_04_.mp4",
+			streamURL: "https://big2.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_04_.mp4"
+        },
+		{
+            id: "tr-s1e5",
+            season: 1,
+            episode: 5,
+            title: "The Queen's Ultimatum",
+            videoUrl: "https://big1.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_05_.mp4",
+			streamURL: "https://big1.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_05_.mp4"
+        },
+		{
+            id: "tr-s1e6",
+            season: 1,
+            episode: 6,
+            title: "Love & Loyalty",
+            videoUrl: "https://big3.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_06_.mp4",
+			streamURL: "https://big3.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_06_.mp4"
+        },
+		{
+            id: "tr-s1e7",
+            season: 1,
+            episode: 7,
+            title: "The Final Betrayal",
+            videoUrl: "https://big2.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_07_.mp4",
+			streamURL: "https://big2.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_07_.mp4"
+        },
+		{
+            id: "tr-s1e8",
+            season: 1,
+            episode: 8,
+            title: "A New Reign",
+            videoUrl: "https://big1.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_08_.mp4",
+			streamURL: "https://big1.bigbosscdn.cfd/Moviesda.Mobi_-_The_Royals_2025_Season_01__Epi_08_.mp4"
+        },
+				
+        ]
+},
 
 	{
     type: "series",
@@ -335,7 +456,7 @@ const videos = [
         genres: 'Suspense, Thriller, Mystery',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '7.3/10',
+        movieRating: '⭐7.3/10',
         lastUpdated: '09 May 2025'
     },
     episodes: [
@@ -403,7 +524,7 @@ const videos = [
         genres: 'Romance',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '7/10',
+        movieRating: '⭐7/10',
         lastUpdated: '09 May 2025'
     },
     episodes: [
@@ -487,7 +608,7 @@ const videos = [
         genres: 'Romantic Comedy',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '8.1/10',
+        movieRating: '⭐8.1/10',
         lastUpdated: '02 May 2025'
     },
     episodes: [
@@ -522,7 +643,7 @@ const videos = [
         genres: 'Crime, Drama',
         quality: 'HD',
 		language: 'Tamil',
-        movieRating: '7.4/10',
+        movieRating: '⭐7.4/10',
         lastUpdated: '10 April 2025'
     },
     episodes: [
@@ -573,7 +694,7 @@ const videos = [
         genres: 'Action, Crime, Drama, Superhero',
         quality: 'HD',
 		language: 'Tamil',
-        movieRating: '8.5/10',
+        movieRating: '⭐8.5/10',
         lastUpdated: '10 April 2025'
     },
     episodes: [
@@ -664,7 +785,7 @@ const videos = [
         genres: 'Crime, Drama',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '6.6/10',
+        movieRating: '⭐6.6/10',
         lastUpdated: '10 April 2025'
     },
     episodes: [
@@ -723,7 +844,7 @@ const videos = [
         genres: 'Crime, Thriller',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '7.6/10',
+        movieRating: '⭐7.6/10',
         lastUpdated: '10 April 2025'
     },
     episodes: [
@@ -790,7 +911,7 @@ const videos = [
         genres: 'Romance, Drama',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '7.5/10',
+        movieRating: '⭐7.5/10',
         lastUpdated: '10 April 2025'
     },
     episodes: [
@@ -817,7 +938,7 @@ const videos = [
         genres: 'Drama, Mystery, Neo-Western, Science Fiction, Thriller',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '7.1/10',
+        movieRating: '⭐7.1/10',
         lastUpdated: '10 April 2025'
     },
     episodes: [
@@ -844,7 +965,7 @@ const videos = [
         genres: 'Action, Crime, Drama',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '8/10',
+        movieRating: '⭐8/10',
         lastUpdated: '10 April 2025'
     },
     episodes: [
@@ -927,7 +1048,7 @@ const videos = [
         genres: 'Legal Drama',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '5.6/10',
+        movieRating: '⭐5.6/10',
         lastUpdated: '10 April 2025'
     },
     episodes: [
@@ -1010,7 +1131,7 @@ const videos = [
         genres: 'Procedural Drama, Crime Drama',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '6.5/10',
+        movieRating: '⭐6.5/10',
         lastUpdated: '10 April 2025'
     },
     episodes: [
@@ -1109,7 +1230,7 @@ const videos = [
         genres: 'Medical Drama',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '8.8/10',
+        movieRating: '⭐8.8/10',
         lastUpdated: '10 April 2025'
     },
     episodes: [
@@ -1216,7 +1337,7 @@ const videos = [
         genres: 'Documentary, Biography, History',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '6.6/10',
+        movieRating: '⭐6.6/10',
         lastUpdated: '10 April 2025'
     },
     episodes: [
@@ -1251,7 +1372,7 @@ const videos = [
         genres: 'Black Comedy, Historical Drama, Spy Thriller, War Drama',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '6.8/10',
+        movieRating: '⭐6.8/10',
         lastUpdated: '10 April 2025'
     },
     episodes: [
@@ -1326,7 +1447,7 @@ const videos = [
         genres: 'Fantasy, Adventure, Drama',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '7.2/10',
+        movieRating: '⭐7.2/10',
         lastUpdated: '10 April 2025'
     },
     episodes: [
@@ -1409,7 +1530,7 @@ const videos = [
         genres: 'Satirical Comedy-Drama',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '8/10',
+        movieRating: '⭐8/10',
         lastUpdated: '10 April 2025'
     },
     episodes: [
@@ -1492,7 +1613,7 @@ const videos = [
         genres: 'Comedy, Mystery',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '7.5/10',
+        movieRating: '⭐7.5/10',
         lastUpdated: '29 March 2025'
     },
     episodes: [
@@ -1564,7 +1685,7 @@ const videos = [
         genres: 'Romantic Comedy',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '8.1/10',
+        movieRating: '⭐8.1/10',
         lastUpdated: '28 March 2025'
     },
     episodes: [
@@ -1665,7 +1786,7 @@ const videos = [
         genres: 'Romantic Comedy',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '8.1/10',
+        movieRating: '⭐8.1/10',
         lastUpdated: '18 April 2025'
     },
     episodes: [
@@ -1762,7 +1883,7 @@ const videos = [
         genres: 'Crime, Thriller',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '8.1/10',
+        movieRating: '⭐8.1/10',
         lastUpdated: '22 March 2025'
     },
     episodes: [
@@ -1848,7 +1969,7 @@ const videos = [
 		language: 'Tamil',
         quality: 'HD',
 		language: 'Tamil',
-        movieRating: '7.5/10',
+        movieRating: '⭐7.5/10',
         lastUpdated: '28 March 2025'
     },
     episodes: [
@@ -1911,7 +2032,7 @@ const videos = [
         genres: 'Crime, Thriller',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '8.1/10',
+        movieRating: '⭐8.1/10',
         lastUpdated: '22 March 2025'
     },
     episodes: [
@@ -1999,7 +2120,7 @@ const videos = [
         genres: 'Romance',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '7/10',
+        movieRating: '⭐7/10',
         lastUpdated: '15 March 2025'
     },
     episodes: [
@@ -2103,7 +2224,7 @@ const videos = [
         genres: 'Romance',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '7/10',
+        movieRating: '⭐7/10',
         lastUpdated: '15 March 2025'
     },
     episodes: [
@@ -2205,7 +2326,7 @@ const videos = [
         genres: 'Romance',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '7/10',
+        movieRating: '⭐7/10',
         lastUpdated: '10 April 2025'
     },
     episodes: [
@@ -2306,7 +2427,7 @@ const videos = [
         genres: 'Romance',
 		language: 'Tamil',
         quality: 'HD',
-        movieRating: '7/10',
+        movieRating: '⭐7/10',
         lastUpdated: '26 April 2025'
     },
     episodes: [
@@ -2458,6 +2579,44 @@ function parseDate(dateString) {
   // Convert '18 April 2025' into a Date object
   return new Date(Date.parse(dateString));
 }
+
+function loadSwiper() {
+  const featured = document.getElementById('featured');
+
+  // Sort movies by lastUpdated and take the top 10
+  videos
+    .filter(v => v.type === 'series')
+    .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
+    .slice(0, 10)
+    .forEach(v => {
+      const slide = document.createElement('div');
+      slide.className = 'swiper-slide';
+      slide.innerHTML = `
+        <div class="swiper-slide-content">
+          <img src="${v.image}" alt="${v.title}">
+          <div class="swiper-slide-title">${v.title}</div>
+        </div>`;
+      slide.onclick = () => openPlayer(v);
+      featured.appendChild(slide);
+    });
+
+  // Initialize Swiper
+  const swiper = new Swiper('.swiper', {
+    slidesPerView: 3.0,
+    spaceBetween: 10,
+    loop: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+  });
+}
+
+loadSwiper();
 
 function loadShows() {
   const shows = document.getElementById('showsList');

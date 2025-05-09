@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <title>PanguPlay - Movies</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -239,6 +241,36 @@
       position: relative;
     }
 
+    /* Swiper Styles */
+.swiper {
+  width: 100%;
+  height: 250px; /* Adjust height to accommodate the title */
+  margin-bottom: 20px;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.swiper-slide-title {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 5px;
+  color: #fff;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.swiper-pagination {
+  position: relative;
+  bottom: 10px;
+  text-align: center;
+}
     footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f; margin-top: 20px; }
 
     @media(max-width:768px) {
@@ -324,6 +356,10 @@
   <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">💬 Telegram</a>
 </div>
 
+<div class="swiper">
+  <div class="swiper-wrapper" id="featured"></div>
+  <div class="swiper-pagination"></div>
+</div>
 
 <div class="section">
   <h2>🎬 All Movies 📽️</h2>
@@ -409,7 +445,23 @@ function getQualityClass(quality) {
 
 // Data for video cards - now includes both movies and series
     const videos = [
-	
+	{
+        type: "movie",
+		title: 'Thodarum (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BZTI2OTg0MzgtOGJlMC00MWU2LTlkMDItYTAwNzhmOGIwOWRmXkEyXkFqcGc@._V1_QL75_UY562_CR3,0,380,562_.jpg',
+        video: 'https://dl3.hotshare.top/Thodarum_2025_HQ_PreDVD_720p_HD.mp4',
+        details: {
+          director: 'Tharun Moorthy',
+          starring: 'Mohanlal, Shobana, Prakash Varma, Binu Pappu, Farhaan Faasil, Maniyanpilla Raju',
+          genres: 'Crime, Thriller, Drama',
+          quality: 'PreDVD',
+          language: 'Tamil',
+          movieRating: '⭐7.9/10',
+          lastUpdated: '10 May 2025',
+		  fileSize: '0.9 GB',
+		  streamURL: 'https://dl3.hotshare.top/Thodarum_2025_HQ_PreDVD_720p_HD.mp4'
+        }
+	},
 	{
         type: "movie",
 		title: 'Am Aa (2025)',
@@ -421,7 +473,7 @@ function getQualityClass(quality) {
           genres: 'Drama, Suspense',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.4/10',
+          movieRating: '⭐6.4/10',
           lastUpdated: '10 April 2025',
 		  fileSize: '1.3',
 		  streamURL: 'https://s07.hotshare.link/Moviesda.Mobi_-_Am_Aa_2025_Original_720p_HD.mp4'
@@ -438,7 +490,7 @@ function getQualityClass(quality) {
           genres: 'Suspense, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '4.2/10',
+          movieRating: '⭐4.2/10',
           lastUpdated: '09 May 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://dl1.hotshare.click/Moviesda.Mobi_-_Il_Tha_Ka_Sai_Aa_2024_Original_720p_HD.mp4'
@@ -456,7 +508,7 @@ function getQualityClass(quality) {
           genres: 'Spy, Action, Comedy',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '4.9/10',
+          movieRating: '⭐4.9/10',
           lastUpdated: '09 May 2025',
 		  fileSize: '1.3 GB',
 		  streamURL: 'https://s06.hotshare.link/Moviesda.Mobi_-_Jack_2025_Original_1080p_HD.mp4'
@@ -474,7 +526,7 @@ function getQualityClass(quality) {
           genres: 'Supernatural Thriller',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '7.3/10',
+          movieRating: '⭐7.3/10',
           lastUpdated: '09 May 2025',
 		  fileSize: '1.4 GB',
 		  streamURL: 'https://dl9.hotshare.click/Moviesda.Mobi_-_Odela_2_2025_Original_1080p_HD.mp4'
@@ -492,7 +544,7 @@ function getQualityClass(quality) {
       genres: '',
       quality: '1080p',
       language: 'Tamil',
-      movieRating: '',
+      movieRating: '⭐',
       lastUpdated: '10 April 2025',
       fileSize: '',
       streamURL: 'https://s03.hotshare.link/Moviesda.Mobi_-_Nanban_2012_Original_1080p_HD.mp4'
@@ -510,7 +562,7 @@ function getQualityClass(quality) {
           genres: '',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '10 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://s04.hotshare.link/Moviesda.Mobi_-_Neram_2013_Original_1080p_HD.mp4'
@@ -528,7 +580,7 @@ function getQualityClass(quality) {
           genres: '',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '10 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://s07.hotshare.link/Moviesda.Mobi_-_Bajirao_Mastani_2015_Original_1080p_HD.mp4'
@@ -546,7 +598,7 @@ function getQualityClass(quality) {
           genres: '',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '10 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://s06.hotshare.link/Moviesda.Mobi_-_Baashha_1995_Original_1080p_HD.mp4'
@@ -563,7 +615,7 @@ function getQualityClass(quality) {
           genres: '',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '10 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://dl8.hotshare.top/Roudra_Roopaya_Namaha_2025_Original_720p_HD.mp4'
@@ -581,7 +633,7 @@ function getQualityClass(quality) {
           genres: '',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '10 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://s04.hotshare.link/Moviesda.Mobi_-_Kaakha_Kaakha_2003_Original_1080p_HD.mp4'
@@ -599,7 +651,7 @@ function getQualityClass(quality) {
           genres: '',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '10 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://s01.hotshare.link/Moviesda.Mobi_-_Ettupatti_Rasa_1997_Original_1080p_HD.mp4'
@@ -617,7 +669,7 @@ function getQualityClass(quality) {
           genres: '',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '10 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://dl10.hotshare.top/Bromance_2025_Original_1080p_HD.mp4'
@@ -635,7 +687,7 @@ function getQualityClass(quality) {
           genres: '',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://s09.hotshare.link/Moviesda.Mobi_-_HIT_-_The_Second_Case_2024_Original_1080p_HD.mp4'
@@ -653,7 +705,7 @@ function getQualityClass(quality) {
           genres: '',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '29 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://dl7.hotshare.click/Moviesda.Mobi_-_HIT_-_The_First_Case_2020_Original_1080p_HD.mp4'
@@ -670,7 +722,7 @@ function getQualityClass(quality) {
           genres: '',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '10 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://dl9.hotshare.top/Udumbu_2025_Original_720p_HD.mp4'
@@ -688,7 +740,7 @@ function getQualityClass(quality) {
           genres: '',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '10 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://s08.hotshare.link/Moviesda.Mobi_-_Vaaranam_Aayiram_2008_Original_1080p_HD.mp4'
@@ -706,7 +758,7 @@ function getQualityClass(quality) {
           genres: '',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '10 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://dl5.hotshare.click/Moviesda.Mobi_-_Aranmanai_3_2021_Original_1080p_HD.mp4'
@@ -724,7 +776,7 @@ function getQualityClass(quality) {
           genres: '',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '',
+          movieRating: '⭐',
           lastUpdated: '10 April 2025',
 		  fileSize: '',
 		  streamURL: 'https://s05.hotshare.link/Moviesda.Mobi_-_Eakam_2025_Original_1080p_HD.mp4'
@@ -741,7 +793,7 @@ function getQualityClass(quality) {
           genres: 'Romantic, Action, Drama',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '8.1/10',
+          movieRating: '⭐8.1/10',
           lastUpdated: '01 May 2025',
 		  fileSize: '1.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/May/Retro%20(2025).mp4'
@@ -758,7 +810,7 @@ function getQualityClass(quality) {
           genres: 'Action, Crime, Thriller',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '7.7/10',
+          movieRating: '⭐7.7/10',
           lastUpdated: '02 May 2025',
 		  fileSize: '1.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/May/HIT%20The%20Third%20Case%20(2025).mp4'
@@ -775,7 +827,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Drama',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '8.9/10',
+          movieRating: '⭐8.9/10',
           lastUpdated: '02 May 2025',
 		  fileSize: '1.5 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/May/Tourist%20Family%20(2025).mp4'
@@ -792,7 +844,7 @@ function getQualityClass(quality) {
           genres: 'Action, Comedy',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '7.7/10',
+          movieRating: '⭐7.7/10',
           lastUpdated: '26 April 2025',
 		  fileSize: '1.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Gangers%20(2025).mp4'
@@ -809,7 +861,7 @@ function getQualityClass(quality) {
           genres: 'Comedy',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.6/10',
+          movieRating: '⭐8.6/10',
           lastUpdated: '26 April 2025',
 		  fileSize: '1.5 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Sumo%20(2025).mp4'
@@ -826,7 +878,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.1/10',
+          movieRating: '⭐6.1/10',
           lastUpdated: '26 April 2025',
 		  fileSize: '1.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Mad%20Square%20(2025)_fixed.mp4'
@@ -843,7 +895,7 @@ function getQualityClass(quality) {
           genres: 'Action, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '4.2/10',
+          movieRating: '⭐4.2/10',
           lastUpdated: '26 April 2025',
 		  fileSize: '1.4 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Jewel%20Thief%20%20The%20Heist%20Begins%20(2025)_fixed.mp4'
@@ -862,7 +914,7 @@ function getQualityClass(quality) {
           genres: 'Crime, Thriller',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '7.6/10',
+          movieRating: '⭐7.6/10',
           lastUpdated: '29 April 2025',
 		  fileSize: '2.2 GB',
 		  streamURL: 'https://dl3.hotshare.click/Moviesda.Mobi_-_Ten_Hours_2025_Original_1080p_HD.mp4'
@@ -880,7 +932,7 @@ function getQualityClass(quality) {
           genres: 'Suspense, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.9/10',
+          movieRating: '⭐8.9/10',
           lastUpdated: '18 April 2025',
 		  fileSize: '1.5 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Shivangi%202025.mp4'
@@ -897,7 +949,7 @@ function getQualityClass(quality) {
           genres: 'Adventure, Fantasy, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.6/10',
+          movieRating: '⭐8.6/10',
           lastUpdated: '18 April 2025',
 		  fileSize: '1.2 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Tuk%20Tuk%202025.mp4'
@@ -915,7 +967,7 @@ function getQualityClass(quality) {
           genres: 'Science Fiction, Horror',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.1/10',
+          movieRating: '⭐7.1/10',
           lastUpdated: '12 April 2025',
 		  fileSize: '1.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Black%20(2024).mp4'
@@ -934,7 +986,7 @@ function getQualityClass(quality) {
           genres: 'Fantasy, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.2/10',
+          movieRating: '⭐7.2/10',
           lastUpdated: '12 April 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/KA%20(2025).mp4'
@@ -952,7 +1004,7 @@ function getQualityClass(quality) {
           genres: 'Action, Drama',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '8/10',
+          movieRating: '⭐8/10',
           lastUpdated: '13 April 2025',
 		  fileSize: '2.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Tharaipadai%20(2025).mp4'
@@ -970,7 +1022,7 @@ function getQualityClass(quality) {
           genres: 'Action, Comedy, Drama',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '9.3/10',
+          movieRating: '⭐9.3/10',
           lastUpdated: '09 May 2025',
 		  fileSize: '1.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Good%20Bad%20Ugly%20(2025).mp4'
@@ -988,7 +1040,7 @@ function getQualityClass(quality) {
           genres: 'Drama, Romance',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '8/10',
+          movieRating: '⭐8/10',
           lastUpdated: '07 April 2025',
 		  fileSize: '0.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Ka.Mu%20-%20Ka.Pi%20(2025).mp4'
@@ -1005,7 +1057,7 @@ function getQualityClass(quality) {
           genres: 'Thriller',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '8.4/10',
+          movieRating: '⭐8.4/10',
           lastUpdated: '07 April 2025',
 		  fileSize: '1.4 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Saaree%20(2025).mp4'
@@ -1023,7 +1075,7 @@ function getQualityClass(quality) {
           genres: 'Drama, Family',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '9.7/10',
+          movieRating: '⭐9.7/10',
           lastUpdated: '29 April 2025',
 		  fileSize: '1.3 GB',
 		  streamURL: 'https://dl.hotshare.top/Moviesda.Mobi_-_EMI_2025_Original_1080p_HD.mp4'
@@ -1040,7 +1092,7 @@ function getQualityClass(quality) {
           genres: 'Psychological Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.5/10',
+          movieRating: '⭐8.5/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.4 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Fear%20(2024).mp4'
@@ -1057,7 +1109,7 @@ function getQualityClass(quality) {
           genres: 'Action, Comedy',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '9/10',
+          movieRating: '⭐9/10',
           lastUpdated: '05 April 2025',
 		  fileSize: '1.4 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Vettu%20(2025).mp4'
@@ -1074,7 +1126,7 @@ function getQualityClass(quality) {
           genres: 'Sports, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8/10',
+          movieRating: '⭐8/10',
           lastUpdated: '04 April 2025',
 		  fileSize: '1.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Test%20(2025).mp4'
@@ -1091,7 +1143,7 @@ function getQualityClass(quality) {
           genres: 'Action, Romance',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.0/10',
+          movieRating: '⭐7.0/10',
           lastUpdated: '04 April 2025',
 		  fileSize: '1.4 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Krishna%20Gadu%20Ante%20Oka%20Range%20(2025).mp4'
@@ -1108,7 +1160,7 @@ function getQualityClass(quality) {
           genres: 'Drama, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6/10',
+          movieRating: '⭐6/10',
           lastUpdated: '04 April 2025',
 		  fileSize: '0.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Kaafir%20(2025).mp4'
@@ -1125,7 +1177,7 @@ function getQualityClass(quality) {
           genres: 'Crime, Drama, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '9.1/10',
+          movieRating: '⭐9.1/10',
           lastUpdated: '04 April 2025',
 		  fileSize: '1.3 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Kadaisi%20Thotta%20(2025).mp4'
@@ -1142,7 +1194,7 @@ function getQualityClass(quality) {
           genres: 'Horror, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.9/10',
+          movieRating: '⭐7.9/10',
           lastUpdated: '04 April 2025',
 		  fileSize: '1.5 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Murmur%20(2025).mp4'
@@ -1159,7 +1211,7 @@ function getQualityClass(quality) {
           genres: 'Crime, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.4/10',
+          movieRating: '⭐8.4/10',
           lastUpdated: '02 April 2025',
 		  fileSize: '1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Irattachankan%20(2025).mp4'
@@ -1176,7 +1228,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Drama, Romance',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.6/10',
+          movieRating: '⭐7.6/10',
           lastUpdated: '02 April 2025',
 		  fileSize: '2.2 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Mundasupatti%20(2015).mp4'
@@ -1193,7 +1245,7 @@ function getQualityClass(quality) {
           genres: 'Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.0/10',
+          movieRating: '⭐6.0/10',
           lastUpdated: '02 April 2025',
 		  fileSize: '1.2 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Somante%20Krithavu%20(2025).mp4'
@@ -1210,7 +1262,7 @@ function getQualityClass(quality) {
           genres: 'Biography, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.4/10',
+          movieRating: '⭐7.4/10',
           lastUpdated: '02 April 2025',
 		  fileSize: '1.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Vijayanand%20(2022).mp4'
@@ -1229,7 +1281,7 @@ function getQualityClass(quality) {
           genres: 'Drama, Romance',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.0/10',
+          movieRating: '⭐8.0/10',
           lastUpdated: '29 March 2025',
 		  fileSize: '1.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/29-03-2025/Sembian%20Madhevi%20(2024).mp4'
@@ -1246,7 +1298,7 @@ function getQualityClass(quality) {
           genres: 'Horror, Thriller',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '6.6/10',
+          movieRating: '⭐6.6/10',
           lastUpdated: '29 March 2025',
 		  fileSize: ' GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/29-03-2025/The%20Door%20(2025).mp4'
@@ -1265,7 +1317,7 @@ function getQualityClass(quality) {
           genres: 'Action, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.8/10',
+          movieRating: '⭐8.8/10',
           lastUpdated: '18 April 2025',
 		  fileSize: '1.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Veera%20Dheera%20Sooran%20(2025).mp4'
@@ -1284,7 +1336,7 @@ function getQualityClass(quality) {
           genres: 'Neo-Noir Action Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.1/10',
+          movieRating: '⭐7.1/10',
           lastUpdated: '28 March 2025',
 		  fileSize: '1.5 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/28-03-2025/Garudan%20(2024).mp4'
@@ -1301,7 +1353,7 @@ function getQualityClass(quality) {
           genres: 'Fantasy, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '3.4/10',
+          movieRating: '⭐3.4/10',
           lastUpdated: '28 March 2025',
 		  fileSize: '1.9 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/28-03-2025/Star%20(2025).mp4'
@@ -1318,7 +1370,7 @@ function getQualityClass(quality) {
           genres: 'Crime, Drama, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.2/10',
+          movieRating: '⭐8.2/10',
           lastUpdated: '28 March 2025',
 		  fileSize: '1.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/28-03-2025/Vijay%20LLB%20the%20Advocate%20(2024).mp4'
@@ -1335,7 +1387,7 @@ function getQualityClass(quality) {
           genres: 'Action, Crime, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.3/10',
+          movieRating: '⭐8.3/10',
           lastUpdated: '18 April 2025',
 		  fileSize: '1.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/L2%20Empuraan%202025.mp4'
@@ -1352,7 +1404,7 @@ function getQualityClass(quality) {
           genres: 'Crime, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '9.5/10',
+          movieRating: '⭐9.5/10',
           lastUpdated: '9 May 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://dl3.hotshare.click/Moviesda.Mobi_-_Asthram_2025_Original_720p_HD.mp4'
@@ -1369,7 +1421,7 @@ function getQualityClass(quality) {
           genres: 'Action, Drama, Satire',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '5.7/10',
+          movieRating: '⭐5.7/10',
           lastUpdated: '25 March 2025',
 		  fileSize: '1.4 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/25-03-2025/Mei%20Hoom%20Moosa%20(2025).mp4'
@@ -1386,7 +1438,7 @@ function getQualityClass(quality) {
           genres: 'Drama, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.4/10',
+          movieRating: '⭐8.4/10',
           lastUpdated: '25 March 2025',
 		  fileSize: '1.3 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/25-03-2025/Nenju%20Porukkuthillaiye%20(2024).mp4'
@@ -1403,7 +1455,7 @@ function getQualityClass(quality) {
           genres: 'Horror, Thriller',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '8.5/10',
+          movieRating: '⭐8.5/10',
           lastUpdated: '25 March 2025',
 		  fileSize: '1.4 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/25-03-2025/Pei%20Kottu%20(2025).mp4'
@@ -1420,7 +1472,7 @@ function getQualityClass(quality) {
           genres: 'Crime, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.2/10',
+          movieRating: '⭐6.2/10',
           lastUpdated: '18 April 2025',
 		  fileSize: '1.8 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Trauma%202025.mp4'
@@ -1437,7 +1489,7 @@ function getQualityClass(quality) {
           genres: 'Romantic Comedy',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.4/10',
+          movieRating: '⭐7.4/10',
           lastUpdated: '25 March 2025',
 		  fileSize: '1.5 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/25-03-2025/Mr.%20HouseKeeping%20(2025).mp4'
@@ -1457,7 +1509,7 @@ function getQualityClass(quality) {
           genres: 'Psycho, Crime, Thriller',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '5/10',
+          movieRating: '⭐5/10',
           lastUpdated: '22 March 2025',
 		  fileSize: '2.3 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/22-03-2025/Dexter%20(2025).mp4'
@@ -1475,7 +1527,7 @@ function getQualityClass(quality) {
           genres: 'Action, Drama',
           quality: '1080p',
           language: 'Tamil',
-          movieRating: '9.2/10',
+          movieRating: '⭐9.2/10',
           lastUpdated: '29 April 2025',
 		  fileSize: '2.3 GB',
 		  streamURL: 'https://s07.hotshare.link/Moviesda.Mobi_-_Varunan_2025_Original_1080p_HD.mp4'
@@ -1492,7 +1544,7 @@ function getQualityClass(quality) {
           genres: 'Not Available',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '5/10',
+          movieRating: '⭐5/10',
           lastUpdated: '22 March 2025',
 		  fileSize: '1.5 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/22-03-2025/Iruppu%20(2025).mp4'
@@ -1512,7 +1564,7 @@ function getQualityClass(quality) {
           genres: 'Action, Adventure, Fantasy, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.2/10',
+          movieRating: '⭐8.2/10',
           lastUpdated: '21 March 2025',
 		  fileSize: '1.7 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/21-03-2025/Kingston%20(2025).mp4'
@@ -1530,7 +1582,7 @@ function getQualityClass(quality) {
           genres: 'Crime, Drama, Mystery, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.0/10',
+          movieRating: '⭐7.0/10',
           lastUpdated: '21 March 2025',
 		  fileSize: '892 MB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/21-03-2025/Revelations%20(2025).mp4'
@@ -1548,7 +1600,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Drama, Romance',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '9.5/10',
+          movieRating: '⭐9.5/10',
           lastUpdated: '21 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/21-03-2025/Dragon%20(2025).mp4'
         }
@@ -1564,7 +1616,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Drama, Romance',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.5/10',
+          movieRating: '⭐6.5/10',
           lastUpdated: '21 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/21-03-2025/Nilavuku%20Enmel%20Ennadi%20Kobam%20(2025).mp4'
         }
@@ -1580,7 +1632,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.2/10',
+          movieRating: '⭐7.2/10',
           lastUpdated: '21 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/21-03-2025/Baby%20And%20Baby%20(2025).mp4'
         }
@@ -1596,7 +1648,7 @@ function getQualityClass(quality) {
           genres: 'Political Action, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.5/10',
+          movieRating: '⭐7.5/10',
           lastUpdated: '21 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/21-03-2025/Lucifer%20(2019).mp4'
         }
@@ -1613,7 +1665,7 @@ function getQualityClass(quality) {
           genres: 'Crime, Drama, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.9/10',
+          movieRating: '⭐7.9/10',
           lastUpdated: '20 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/15-03-2025/Officer%20on%20Duty%20(2025).mp4'
         }
@@ -1629,7 +1681,7 @@ function getQualityClass(quality) {
           genres: 'Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.6/10',
+          movieRating: '⭐6.6/10',
           lastUpdated: '20 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/20-03-2025/Manikyakallu%20(2025).mp4'
         }
@@ -1645,7 +1697,7 @@ function getQualityClass(quality) {
           genres: 'Romance, Family Drama',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '9.8/10',
+          movieRating: '⭐9.8/10',
           lastUpdated: '18 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/18-03-2025/Konjam%20Kadhal%20Konjam%20Modhal%20(2025).mp4'
         }
@@ -1661,7 +1713,7 @@ function getQualityClass(quality) {
           genres: 'Crime, Thriller',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '9.6/10',
+          movieRating: '⭐9.6/10',
           lastUpdated: '17 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/17-03-2025/Robber%20(2025).mp4'
         }
@@ -1677,7 +1729,7 @@ function getQualityClass(quality) {
           genres: 'Drama, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.4/10',
+          movieRating: '⭐6.4/10',
           lastUpdated: '17 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/17-03-2025/Tiyaan%20(2025).mp4'
         }
@@ -1693,7 +1745,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.5/10',
+          movieRating: '⭐8.5/10',
           lastUpdated: '17 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/17-03-2025/Ring%20Ring%20(2025).mp4'
         }
@@ -1709,7 +1761,7 @@ function getQualityClass(quality) {
           genres: 'Romantic, Comedy',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.4/10',
+          movieRating: '⭐8.4/10',
           lastUpdated: '13 April 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/16-03-2025/Sweetheart%20(2025).mp4'
         }
@@ -1725,7 +1777,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.9/10',
+          movieRating: '⭐7.9/10',
           lastUpdated: '13 April 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/16-03-2025/Perusu%20(2025).mp4'
         }
@@ -1741,7 +1793,7 @@ function getQualityClass(quality) {
           genres: 'Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '9.2/10',
+          movieRating: '⭐9.2/10',
           lastUpdated: '13 April 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Badava%20(2025).mp4'
         }
@@ -1758,7 +1810,7 @@ function getQualityClass(quality) {
           genres: 'Romantic, Comedy, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '9.0/10',
+          movieRating: '⭐9.0/10',
           lastUpdated: '15 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/2K%20Love%20Story%20(2025).mp4'
         }
@@ -1774,7 +1826,7 @@ function getQualityClass(quality) {
           genres: 'Action, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '5.2/10',
+          movieRating: '⭐5.2/10',
           lastUpdated: '15 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/15-03-2025/Agent%20(2025).mp4'
         }
@@ -1791,7 +1843,7 @@ function getQualityClass(quality) {
           genres: 'Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '9.1/10',
+          movieRating: '⭐9.1/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Kaadhal%20Enbadhu%20Podhu%20Udamai%20(2025).mp4'
         }
@@ -1807,7 +1859,7 @@ function getQualityClass(quality) {
           genres: 'Drama, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '9.3/10',
+          movieRating: '⭐9.3/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Ramam%20Raghavam%20(2025).mp4'
         }
@@ -1823,7 +1875,7 @@ function getQualityClass(quality) {
           genres: 'Horror, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.6/10',
+          movieRating: '⭐8.6/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Sabdham%20(2025).mp4'
         }
@@ -1839,7 +1891,7 @@ function getQualityClass(quality) {
           genres: 'Crime, Drama, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.1/10',
+          movieRating: '⭐7.1/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/See%20saw%20(2025).mp4'
         }
@@ -1855,7 +1907,7 @@ function getQualityClass(quality) {
           genres: 'Dark Comedy, Action',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.8/10',
+          movieRating: '⭐7.8/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Ponman%20(2025).mp4'
         }
@@ -1871,7 +1923,7 @@ function getQualityClass(quality) {
           genres: 'Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.1/10',
+          movieRating: '⭐8.1/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Be%20Happy%20(2025).mp4'
         }
@@ -1887,7 +1939,7 @@ function getQualityClass(quality) {
           genres: 'Drama, Family',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.5/10',
+          movieRating: '⭐7.5/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Rajakili%20(2024).mp4'
         }
@@ -1903,7 +1955,7 @@ function getQualityClass(quality) {
           genres: 'Horror, Thriller',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '7.9/10',
+          movieRating: '⭐7.9/10',
           lastUpdated: '12 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Murmur%20(2025).mp4'
         }
@@ -1919,7 +1971,7 @@ function getQualityClass(quality) {
           genres: 'Action, Adventure, Fantasy, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.3/10',
+          movieRating: '⭐6.3/10',
           lastUpdated: '28 March 2025',
 		  fileSize: '1.6 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/28-03-2025/Aghathiyaa%20(2025).mp4'
@@ -1938,7 +1990,7 @@ function getQualityClass(quality) {
           genres: 'Crime, Mystery, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '9.1/10',
+          movieRating: '⭐9.1/10',
           lastUpdated: '26 March 2025',
 		  fileSize: '1.1 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/26-03-2025/Fire%20(2025).mp4'
@@ -1955,7 +2007,7 @@ function getQualityClass(quality) {
           genres: 'Drama, Thriller',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '9.6/10',
+          movieRating: '⭐9.6/10',
           lastUpdated: '13 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Kooran%20(2025).mp4'
         }
@@ -1972,7 +2024,7 @@ function getQualityClass(quality) {
           genres: 'Drama, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '9.3/10',
+          movieRating: '⭐9.3/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Ramam%20Raghavam%20(2025).mp4'
         }
@@ -1988,7 +2040,7 @@ function getQualityClass(quality) {
           genres: 'Mystery, Thriller, Horror',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '8.6/10',
+          movieRating: '⭐8.6/10',
           lastUpdated: '11 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Yamakaathaghi%20(2025).mp4'
         }
@@ -2004,7 +2056,7 @@ function getQualityClass(quality) {
           genres: 'Action, Drama, Romantic',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '9.0/10',
+          movieRating: '⭐9.0/10',
           lastUpdated: '11 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Thandel%20(2025).mp4'
         }
@@ -2020,7 +2072,7 @@ function getQualityClass(quality) {
           genres: 'Family, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '9.3/10',
+          movieRating: '⭐9.3/10',
           lastUpdated: '18 April 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Niram%20Marum%20Ulagil%20(2025).mp4'
         }
@@ -2036,7 +2088,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.4/10',
+          movieRating: '⭐8.4/10',
           lastUpdated: '02 April 2025',
 		  fileSize: '2 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Leg%20Piece%20(2025).mp4'
@@ -2054,7 +2106,7 @@ function getQualityClass(quality) {
           genres: 'Drama, Mystery, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.7/10',
+          movieRating: '⭐8.7/10',
           lastUpdated: '13 April 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Gentlewoman%20(2025).mp4'
         }
@@ -2071,7 +2123,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.9/10',
+          movieRating: '⭐8.9/10',
           lastUpdated: '12 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Kudumbasthan%20(2025).mp4'
         }
@@ -2087,7 +2139,7 @@ function getQualityClass(quality) {
           genres: 'Drama, Political',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '5.5/10',
+          movieRating: '⭐5.5/10',
           lastUpdated: '12 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Kuzhanthaigal%20Munnetra%20Kazhagam%20(2025).mp4'
         }
@@ -2103,7 +2155,7 @@ function getQualityClass(quality) {
           genres: 'Action',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.5/10',
+          movieRating: '⭐7.5/10',
           lastUpdated: '12 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Raja%20Bheema%20(2025).mp4'
         }
@@ -2119,7 +2171,7 @@ function getQualityClass(quality) {
           genres: 'Action, Comedy',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.8/10',
+          movieRating: '⭐6.8/10',
           lastUpdated: '12 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Sankranthiki%20Vasthunam%20(2025).mp4'
         }
@@ -2135,7 +2187,7 @@ function getQualityClass(quality) {
           genres: 'Action, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.3/10',
+          movieRating: '⭐8.3/10',
           lastUpdated: '12 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Vidaamuyarchi%20(2025).mp4'
         }
@@ -2151,7 +2203,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.3/10',
+          movieRating: '⭐8.3/10',
           lastUpdated: '13 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Baapu%20-%20A%20Fathers%20Story%20(2025).mp4'
         }
@@ -2167,7 +2219,7 @@ function getQualityClass(quality) {
           genres: 'Drama, Romantic',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '4.5/10',
+          movieRating: '⭐4.5/10',
           lastUpdated: '13 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Chitram%20Choodara%20(2025).mp4'
         }
@@ -2183,7 +2235,7 @@ function getQualityClass(quality) {
           genres: 'Action, Comedy, Drama, Romance',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '2.6/10',
+          movieRating: '⭐2.6/10',
           lastUpdated: '12 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/Laila%20(2025).mp4'
         }
@@ -2199,7 +2251,7 @@ function getQualityClass(quality) {
           genres: 'Horror, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.5/10',
+          movieRating: '⭐6.5/10',
           lastUpdated: '13 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/12-03-2025/MataRaani%20Mounamidi%20(2025).mp4'
         }
@@ -2215,7 +2267,7 @@ function getQualityClass(quality) {
           genres: 'Action, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.0/10',
+          movieRating: '⭐6.0/10',
           lastUpdated: '13 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Daaku%20Maharaaj%20(2025).mp4'
         }
@@ -2231,7 +2283,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.5/10',
+          movieRating: '⭐6.5/10',
           lastUpdated: '13 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Kadapuraa%20Kalaikuzhu%20(2025).mp4'
         }
@@ -2247,7 +2299,7 @@ function getQualityClass(quality) {
           genres: 'Crime, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '5.4/10',
+          movieRating: '⭐5.4/10',
           lastUpdated: '13 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Kalan%20(2025).mp4'
         }
@@ -2263,7 +2315,7 @@ function getQualityClass(quality) {
           genres: 'Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.5/10',
+          movieRating: '⭐6.5/10',
           lastUpdated: '13 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Meow%20(2025).mp4'
         }
@@ -2279,7 +2331,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.5/10',
+          movieRating: '⭐6.5/10',
           lastUpdated: '13 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Bottle%20Radha%20(2025).mp4'
         }
@@ -2295,7 +2347,7 @@ function getQualityClass(quality) {
           genres: 'Action, Drama, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '5.6/10',
+          movieRating: '⭐5.6/10',
           lastUpdated: '13 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Game%20Changer%20(2025).mp4'
         }
@@ -2311,7 +2363,7 @@ function getQualityClass(quality) {
           genres: 'Romantic, Comedy',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.2/10',
+          movieRating: '⭐6.2/10',
           lastUpdated: '13 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Kadhalikka%20Neramillai%20(2025).mp4'
         }
@@ -2327,7 +2379,7 @@ function getQualityClass(quality) {
           genres: 'Action, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '4.8/10',
+          movieRating: '⭐4.8/10',
           lastUpdated: '13 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Madraskaaran%20(2025).mp4'
         }
@@ -2343,7 +2395,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.4/10',
+          movieRating: '⭐8.4/10',
           lastUpdated: '13 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Srikakulam%20Sherlock%20Holmes%20(2025).mp4'
         }
@@ -2359,7 +2411,7 @@ function getQualityClass(quality) {
           genres: 'Action, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.2/10',
+          movieRating: '⭐6.2/10',
           lastUpdated: '13 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Vanangaan%20(2025).mp4'
         }
@@ -2375,7 +2427,7 @@ function getQualityClass(quality) {
           genres: 'Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.7/10',
+          movieRating: '⭐8.7/10',
           lastUpdated: '28 March 2025',
 		  fileSize: '1.4 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/28-03-2025/Dinasari%20(2025).mp4'
@@ -2392,7 +2444,7 @@ function getQualityClass(quality) {
           genres: 'Romance, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.5/10',
+          movieRating: '⭐8.5/10',
           lastUpdated: '26 April 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Tharunam%202025%20Original%201080p%20HD.mp4'
         }
@@ -2408,7 +2460,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.2/10',
+          movieRating: '⭐7.2/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/35%20Chinna%20Vishayam%20Illa%20(2025).mp4'
         }
@@ -2424,7 +2476,7 @@ function getQualityClass(quality) {
           genres: 'Comedy, Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.1/10',
+          movieRating: '⭐8.1/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Bioscope%20(2025).mp4'
         }
@@ -2440,7 +2492,7 @@ function getQualityClass(quality) {
           genres: 'Action, Comedy, Romance',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '6.4/10',
+          movieRating: '⭐6.4/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Dhoom%20Dhaam%20(2025).mp4'
         }
@@ -2456,7 +2508,7 @@ function getQualityClass(quality) {
           genres: 'Action, Comedy',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '5.6/10',
+          movieRating: '⭐5.6/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Madha%20Gaja%20Raja%20(2025).mp4'
         }
@@ -2472,7 +2524,7 @@ function getQualityClass(quality) {
           genres: 'Action, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.1/10',
+          movieRating: '⭐8.1/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Marco%20(2025).mp4'
         }
@@ -2488,7 +2540,7 @@ function getQualityClass(quality) {
           genres: 'Crime, Mystery, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '2.0/10',
+          movieRating: '⭐2.0/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Operation%20Raavan%20(2025).mp4'
         }
@@ -2504,7 +2556,7 @@ function getQualityClass(quality) {
           genres: 'Mystery, Crime, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.0/10',
+          movieRating: '⭐8.0/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Rekhachithram%20(2025).mp4'
         }
@@ -2520,7 +2572,7 @@ function getQualityClass(quality) {
           genres: 'Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.9/10',
+          movieRating: '⭐8.9/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Satchi%20Perumal%20(2025).mp4'
         }
@@ -2536,7 +2588,7 @@ function getQualityClass(quality) {
           genres: 'Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.1/10',
+          movieRating: '⭐8.1/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/The%20Mehta%20Boys%20(2025).mp4'
         }
@@ -2552,7 +2604,7 @@ function getQualityClass(quality) {
           genres: 'Horror',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.6/10',
+          movieRating: '⭐7.6/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Tik%20Tok%20(2025).mp4'
         }
@@ -2568,7 +2620,7 @@ function getQualityClass(quality) {
           genres: 'Romance',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '9.0/10',
+          movieRating: '⭐9.0/10',
           lastUpdated: '14 March 2025',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Vaagai%20(2025).mp4'
         }
@@ -2585,7 +2637,7 @@ function getQualityClass(quality) {
           genres: 'Romantic Action Thriller',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '9.3/10',
+          movieRating: '⭐9.3/10',
           lastUpdated: '14 March 2025',
 		  fileSize: "1.5 GB",
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Nesippaya%20(2025).mp4'
@@ -2602,7 +2654,7 @@ function getQualityClass(quality) {
           genres: 'Action, Crime, Thriller',
           quality: 'PreDVD',
           language: 'Tamil',
-          movieRating: '8.7/10',
+          movieRating: '⭐8.7/10',
           lastUpdated: '14 March 2025',
 		  fileSize: "1.5 GB",
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Vallan%20(2025).mp4'
@@ -2619,7 +2671,7 @@ function getQualityClass(quality) {
           genres: 'Horror, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.7/10',
+          movieRating: '⭐7.7/10',
           lastUpdated: '14 March 2025',
 		  fileSize: "1.5 GB",
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Daksha%20(2025).mp4'
@@ -2636,7 +2688,7 @@ function getQualityClass(quality) {
           genres: 'Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.7/10',
+          movieRating: '⭐8.7/10',
           lastUpdated: '14 March 2025',
 		  fileSize: "1.5 GB",
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Dinasari%20(2025).mp4'
@@ -2653,7 +2705,7 @@ function getQualityClass(quality) {
           genres: 'Crime, Drama, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '9.4/10',
+          movieRating: '⭐9.4/10',
           lastUpdated: '14 March 2025',
 		  fileSize: "1.5 GB",
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Hathya%20(2025).mp4'
@@ -2670,7 +2722,7 @@ function getQualityClass(quality) {
           genres: 'Suspense, Thriller',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '7.1/10',
+          movieRating: '⭐7.1/10',
           lastUpdated: '14 March 2025',
 		  fileSize: "1.5 GB",
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Lara%20(2025).mp4'
@@ -2687,7 +2739,7 @@ function getQualityClass(quality) {
           genres: 'Drama',
           quality: '720p',
           language: 'Tamil',
-          movieRating: '8.4/10',
+          movieRating: '⭐8.4/10',
           lastUpdated: '14 March 2025',
 		   fileSize: "1.5 GB",
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/14-03-2025/Neela%20Nira%20Sooriyan%20(2025).mp4'
@@ -2758,6 +2810,45 @@ function parseDate(dateString) {
   return new Date(Date.parse(dateString));
 }
 
+function loadSwiper() {
+  const featured = document.getElementById('featured');
+
+  // Sort movies by lastUpdated and take the top 10
+  videos
+    .filter(v => v.type === 'movie')
+    .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
+    .slice(0, 10)
+    .forEach(v => {
+      const slide = document.createElement('div');
+      slide.className = 'swiper-slide';
+      slide.innerHTML = `
+        <div class="swiper-slide-content">
+          <img src="${v.image}" alt="${v.title}">
+          <div class="swiper-slide-title">${v.title}</div>
+        </div>`;
+      slide.onclick = () => openPlayer(v);
+      featured.appendChild(slide);
+    });
+
+  // Initialize Swiper
+  const swiper = new Swiper('.swiper', {
+    slidesPerView: 3.0,
+    spaceBetween: 10,
+    loop: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+  });
+}
+
+loadSwiper();
+
+
 function loadMovies() {
   const movies = document.getElementById('moviesList');
   
@@ -2796,7 +2887,7 @@ function loadMovies() {
 }
 
 loadMovies();
-
+    
 </script>
 
 </body>
