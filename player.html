@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
   <title>Video Player - PanguPlay</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.css">
@@ -100,7 +100,7 @@
       padding: 8px 12px;
       font-size: 14px;
       cursor: pointer;
-      display: flex;
+      display: wrap;
       align-items: center;
       gap: 5px;
       transition: all 0.3s ease;
@@ -543,24 +543,20 @@
     </div>
     
     <!-- Custom player controls -->
-    <div class="custom-controls">
-      <div class="seek-controls">
-        <button class="custom-control-btn" onclick="seekBackward()">
-          <i class="fas fa-backward"></i> -10s
-        </button>
-        <button class="custom-control-btn" onclick="seekForward()">
-          <i class="fas fa-forward"></i> +10s
-        </button>
-		<button class="custom-control-btn" id="downloadBtn">
-			<i class="fas fa-download"></i> Download
-		</button>
-      </div>
-      
-    </div>
-    
-    <div class="resolution-selector" id="resolutionSelector">
-      <!-- Resolution buttons will be dynamically added here -->
-    </div>
+<div class="custom-controls">
+  <div class="action-controls">
+    <button class="custom-control-btn" id="shareBtn">
+      <i class="fas fa-share"></i> Share
+    </button>
+    <button class="custom-control-btn" id="downloadBtn">
+      <i class="fas fa-download"></i> Download
+    </button>
+  </div>
+</div>
+
+<div class="resolution-selector" id="resolutionSelector">
+  <!-- Resolution buttons will be dynamically added here -->
+</div>
     
     <div class="video-details-container">
       <img id="videoPoster" class="video-poster" src="" alt="Poster">
@@ -933,6 +929,25 @@ function enableLandscapeOnFullScreen() {
         hideLoading();
       });
     }
+
+
+    document.getElementById('shareBtn').addEventListener('click', () => {
+  const shareData = {
+    title: videoTitle,
+    text: `Check out this video: ${videoTitle}`,
+    url: window.location.href,
+  };
+
+  if (navigator.share) {
+    navigator.share(shareData)
+      .then(() => showToast('Shared successfully!'))
+      .catch(err => showToast('Failed to share: ' + err));
+  } else {
+    navigator.clipboard.writeText(shareData.url)
+      .then(() => showToast('Link copied to clipboard!'))
+      .catch(err => showToast('Failed to copy link: ' + err));
+  }
+});
 
     function setupResolutionSelector() {
       const resolutionSelector = document.getElementById('resolutionSelector');
