@@ -6,6 +6,7 @@
   <title>Video Player - PanguPlay</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.css">
+  <script type="text/javascript" src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #121212; color: #fff; font-family: 'Inter', sans-serif; }
@@ -438,6 +439,24 @@
   border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+
+#castBtn {
+  background-color: #ff4500;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  display: wrap;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s ease;
+}
+
+#castBtn:hover {
+  background-color: #ff6600;
+}
 	
     @media (max-width: 768px) {
       .heading {
@@ -553,6 +572,9 @@
     </button>
     <button class="custom-control-btn" id="streamBtn">
       <i class="fas fa-play"></i> Stream
+    </button>
+    <button class="custom-control-btn" id="castBtn">
+      <i class="fas fa-tv"></i> Cast
     </button>
   </div>
 </div>
@@ -707,6 +729,58 @@ function setupDoubleTapSeeking() {
   }
 }
 
+function initializeCastApi() {
+  cast.framework.CastContext.getInstance().setOptions({
+    receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
+    autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
+  });
+
+  const castButton = document.getElementById('castBtn');
+  castButton.addEventListener('click', () => {
+    const castSession = cast.framework.CastContext.getInstance().getCurrentSession();
+
+    if (castSession) {
+      // If a session is already active, load the media
+      loadMediaToCast(castSession);
+    } else {
+      // Otherwise, request a session
+      cast.framework.CastContext.getInstance().requestSession().then(() => {
+        const newSession = cast.framework.CastContext.getInstance().getCurrentSession();
+        loadMediaToCast(newSession);
+      }).catch(err => {
+        console.error('Failed to start cast session:', err);
+        showToast('Failed to start casting.');
+      });
+    }
+  });
+}
+
+function loadMediaToCast(castSession) {
+  if (!castSession) {
+    showToast('No cast session available.');
+    return;
+  }
+
+  const mediaInfo = new chrome.cast.media.MediaInfo(currentVideoSources[0].url, 'video/mp4');
+  mediaInfo.metadata = new chrome.cast.media.GenericMediaMetadata();
+  mediaInfo.metadata.title = videoTitle;
+  mediaInfo.metadata.images = [{ url: decodeURIComponent(videoImage) }];
+
+  const request = new chrome.cast.media.LoadRequest(mediaInfo);
+  castSession.loadMedia(request).then(() => {
+    showToast('Casting started!');
+  }).catch(err => {
+    console.error('Failed to load media:', err);
+    showToast('Failed to cast video.');
+  });
+}
+
+// Initialize the Cast API when the page loads
+window['__onGCastApiAvailable'] = function(isAvailable) {
+  if (isAvailable) {
+    initializeCastApi();
+  }
+};
 
 function enableLandscapeOnFullScreen() {
   const playerElement = document.getElementById('player');
@@ -935,8 +1009,8 @@ function enableLandscapeOnFullScreen() {
 
   const shareData = {
     title: videoTitle,
-    text: `🎬 ${videoTitle}\n⭐ Rating: ${details.movieRating || 'N/A'}\n📀 Quality: ${details.quality || 'N/A'}\n🗣️ Language: ${details.language || 'N/A'}\n\nWatch now: ${window.location.origin}/PanguPlay/player.html?title=${encodeURIComponent(videoTitle)}`,
-    url: `${window.location.origin}/PanguPlay/player.html?title=${encodeURIComponent(videoTitle)}`,
+    text: `🎬 ${videoTitle}\n⭐ Rating: ${details.movieRating || 'N/A'}\n📀 Quality: ${details.quality || 'N/A'}\n🗣️ Language: ${details.language || 'N/A'}\n\nWatch now: https://purushothmathav.github.io/PanguPlay`,
+    url: `https://purushothmathav.github.io/PanguPlay`,
   };
 
   if (navigator.share) {
