@@ -688,8 +688,6 @@ function setupDoubleTapSeeking() {
   videoContainer.appendChild(rightOverlay);
 
   playerElement.addEventListener('touchstart', function (e) {
-    if (!playerElement.classList.contains('plyr--hide-controls')) return;
-
     const currentTime = new Date().getTime();
     const tapLength = currentTime - lastTap;
     const screenWidth = window.innerWidth;
