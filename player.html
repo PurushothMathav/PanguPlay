@@ -620,18 +620,6 @@
     let currentQuality = '1080p';
     const seekTime = 10; // Seconds to skip when seeking
     
-    // Initialize the page
-    document.addEventListener('DOMContentLoaded', function() {
-  initPlayer(); // Initialize the player
-  setupPage();  // Setup page content
-  setupDownloadButton(); //Setup Download Button
-  setupDoubleTapSeeking(); // Enable double-tap seeking
-  enableLandscapeOnFullScreen(); // Enable landscape mode on full-screen
-  
-  // Listen for keyboard shortcuts
-  document.addEventListener('keydown', handleKeyboardShortcuts);
-});
-    
     function initPlayer() {
       player = new Plyr('#player', {
         controls: ['play-large', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
@@ -670,6 +658,18 @@
       });
     }
     
+	// Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+  initPlayer(); // Initialize the player
+  setupPage();  // Setup page content
+  setupDownloadButton(); //Setup Download Button
+  setupDoubleTapSeeking(); // Enable double-tap seeking
+  enableLandscapeOnFullScreen(); // Enable landscape mode on full-screen
+  
+  // Listen for keyboard shortcuts
+  document.addEventListener('keydown', handleKeyboardShortcuts);
+});
+	
 	function setupDoubleTapSeeking() {
   const videoContainer = document.querySelector('.video-container');
   const playerElement = document.getElementById('player');
