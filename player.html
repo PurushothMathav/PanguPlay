@@ -674,7 +674,6 @@ function setupDoubleTapSeeking() {
   const videoContainer = document.querySelector('.video-container');
   const playerElement = document.getElementById('player');
   let lastTap = 0;
-  let tapTimeout;
 
   const leftOverlay = document.createElement('div');
   leftOverlay.className = 'tap-overlay tap-overlay-left';
@@ -687,16 +686,14 @@ function setupDoubleTapSeeking() {
   videoContainer.appendChild(leftOverlay);
   videoContainer.appendChild(rightOverlay);
 
-  playerElement.addEventListener('touchstart', function (e) {
+  videoContainer.addEventListener('touchend', function (e) {
     const currentTime = new Date().getTime();
     const tapLength = currentTime - lastTap;
     const screenWidth = window.innerWidth;
-    const touchX = e.touches[0].clientX;
+    const touchX = e.changedTouches[0].clientX;
     const side = touchX < screenWidth / 2 ? 'left' : 'right';
 
-    clearTimeout(tapTimeout);
-
-    if (tapLength < 500 && tapLength > 0) {
+    if (tapLength < 300 && tapLength > 0) {
       if (side === 'left') {
         player.currentTime = Math.max(player.currentTime - 10, 0);
         showTapOverlay(leftOverlay);
@@ -705,8 +702,6 @@ function setupDoubleTapSeeking() {
         showTapOverlay(rightOverlay);
       }
       e.preventDefault();
-    } else {
-      tapTimeout = setTimeout(() => {}, 500);
     }
 
     lastTap = currentTime;
@@ -724,20 +719,20 @@ function enableLandscapeOnFullScreen() {
 
   playerElement.addEventListener('fullscreenchange', () => {
     if (document.fullscreenElement) {
-      // Try to lock the screen orientation to landscape
+      // Lock orientation to landscape
       if (screen.orientation && screen.orientation.lock) {
         screen.orientation.lock('landscape').catch(err => {
           console.warn('Orientation lock failed:', err);
         });
       }
     } else {
-      // Unlock orientation when exiting full-screen
+      // Unlock orientation when exiting fullscreen
       if (screen.orientation && screen.orientation.unlock) {
         screen.orientation.unlock();
       }
     }
   });
-}	
+}
 	
     // Setup download button functionality
     function setupDownloadButton() {
