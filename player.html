@@ -622,10 +622,11 @@
     
     // Initialize the page
     document.addEventListener('DOMContentLoaded', function() {
-  initPlayer();
-  setupPage();
-  setupDownloadButton();
-  setupDoubleTapSeeking(); // Add this line
+  initPlayer(); // Initialize the player
+  setupPage();  // Setup page content
+  setupDownloadButton(); //Setup Download Button
+  setupDoubleTapSeeking(); // Enable double-tap seeking
+  enableLandscapeOnFullScreen(); // Enable landscape mode on full-screen
   
   // Listen for keyboard shortcuts
   document.addEventListener('keydown', handleKeyboardShortcuts);
@@ -739,7 +740,27 @@
     }, 500);
   }
 }
-	
+
+
+function enableLandscapeOnFullScreen() {
+  const playerElement = document.getElementById('player');
+
+  playerElement.addEventListener('fullscreenchange', () => {
+    if (document.fullscreenElement) {
+      // Try to lock the screen orientation to landscape
+      if (screen.orientation && screen.orientation.lock) {
+        screen.orientation.lock('landscape').catch(err => {
+          console.warn('Orientation lock failed:', err);
+        });
+      }
+    } else {
+      // Unlock orientation when exiting full-screen
+      if (screen.orientation && screen.orientation.unlock) {
+        screen.orientation.unlock();
+      }
+    }
+  });
+}	
 	
     // Setup download button functionality
     function setupDownloadButton() {
