@@ -932,19 +932,25 @@ function enableLandscapeOnFullScreen() {
   document.getElementById('shareBtn').addEventListener('click', () => {
   const shareData = {
     title: videoTitle,
-    text: `Check out this video: ${videoTitle}`,
-    url: window.location.href,
+    text: `🎬 ${videoTitle}\n⭐ Rating: ${details.movieRating || 'N/A'}\n📀 Quality: ${details.quality || 'N/A'}\n🗣️ Language: ${details.language || 'N/A'}\n\nWatch now: ${window.location.origin}/PanguPlay/player.html?title=${encodeURIComponent(videoTitle)}`,
+    url: `${window.location.origin}/PanguPlay/player.html?title=${encodeURIComponent(videoTitle)}`,
   };
 
   if (navigator.share) {
     navigator.share(shareData)
       .then(() => showToast('Shared successfully!'))
-      .catch(err => showToast('Failed to share: ' + err));
+      .catch(err => {
+        console.error('Share failed:', err);
+        showToast('Failed to share. Please try again.');
+      });
   } else {
-    showToast('Sharing not supported. Link copied to clipboard.');
-    navigator.clipboard.writeText(shareData.url)
+    // Fallback: Copy link to clipboard
+    navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`)
       .then(() => showToast('Link copied to clipboard!'))
-      .catch(err => showToast('Failed to copy link: ' + err));
+      .catch(err => {
+        console.error('Failed to copy link:', err);
+        showToast('Failed to copy link.');
+      });
   }
 });
 
@@ -962,8 +968,8 @@ document.getElementById('streamBtn').addEventListener('click', () => {
   if (streamUrl) {
     const isAndroid = /Android/i.test(navigator.userAgent);
     if (isAndroid) {
-      // Open in MX Player or other supported players on Android
-      window.location.href = `intent://${streamUrl}#Intent;package=com.mxtech.videoplayer.ad;scheme=http;end;`;
+      // Open in MX Player using a valid HTTP/HTTPS URL
+      window.location.href = `intent:${streamUrl}#Intent;package=com.mxtech.videoplayer.ad;scheme=https;end;`;
     } else {
       // Open in default player for other platforms
       window.open(streamUrl, '_blank');
