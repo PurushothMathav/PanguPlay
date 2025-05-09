@@ -551,6 +551,9 @@
     <button class="custom-control-btn" id="downloadBtn">
       <i class="fas fa-download"></i> Download
     </button>
+    <button class="custom-control-btn" id="streamBtn">
+      <i class="fas fa-play"></i> Stream
+    </button>
   </div>
 </div>
 
@@ -617,42 +620,37 @@
     const seekTime = 10; // Seconds to skip when seeking
     
     function initPlayer() {
-      player = new Plyr('#player', {
-        controls: ['play-large', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
-        settings: ['captions', 'speed'], // REMOVE 'quality'
-        resetOnEnd: false,
-        keyboard: { focused: true, global: true },
-        tooltips: { controls: true, seek: true },
-        seekTime: 10,
-        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.svg',
-        blankVideo: 'https://cdn.plyr.io/static/blank.mp4'
-      });
+  const isMobile = window.innerWidth <= 768; // Detect mobile devices
+  player = new Plyr('#player', {
+    controls: isMobile
+      ? ['play-large', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']
+      : ['play-large', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+    settings: ['captions', 'speed'],
+    resetOnEnd: false,
+    keyboard: { focused: true, global: true },
+    tooltips: { controls: true, seek: true },
+    seekTime: 10,
+    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.svg',
+    blankVideo: 'https://cdn.plyr.io/static/blank.mp4',
+  });
 
-      player.on('ready', () => {
-        hideLoading();
-      });
+  player.on('ready', () => {
+    hideLoading();
+  });
 
-      player.on('loadstart', () => {
-        showLoading();
-      });
+  player.on('loadstart', () => {
+    showLoading();
+  });
 
-      player.on('canplay', () => {
-        hideLoading();
-      });
+  player.on('canplay', () => {
+    hideLoading();
+  });
 
-      player.on('error', () => {
-        hideLoading();
-        showToast('Error playing video. Please try another quality or source.');
-      });
-
-      player.on('ended', () => {
-        if (episodes.length > 0 && currentEpisodeIndex < episodes.length - 1) {
-          setTimeout(() => {
-            playNextEpisode();
-          }, 2000);
-        }
-      });
-    }
+  player.on('error', () => {
+    hideLoading();
+    showToast('Error playing video. Please try another quality or source.');
+  });
+}
     
 	// Initialize the page
     document.addEventListener('DOMContentLoaded', function() {
@@ -930,8 +928,8 @@ function enableLandscapeOnFullScreen() {
       });
     }
 
-
-    document.getElementById('shareBtn').addEventListener('click', () => {
+  //setup share button
+  document.getElementById('shareBtn').addEventListener('click', () => {
   const shareData = {
     title: videoTitle,
     text: `Check out this video: ${videoTitle}`,
@@ -943,12 +941,39 @@ function enableLandscapeOnFullScreen() {
       .then(() => showToast('Shared successfully!'))
       .catch(err => showToast('Failed to share: ' + err));
   } else {
+    showToast('Sharing not supported. Link copied to clipboard.');
     navigator.clipboard.writeText(shareData.url)
       .then(() => showToast('Link copied to clipboard!'))
       .catch(err => showToast('Failed to copy link: ' + err));
   }
 });
 
+//setup stream button
+document.getElementById('streamBtn').addEventListener('click', () => {
+  let streamUrl;
+
+  if (currentEpisodeId && episodes.length > 0) {
+    streamUrl = episodes[currentEpisodeIndex].videoUrl;
+  } else if (currentVideoSources.length > 0) {
+    const activeSource = currentVideoSources.find(source => source.quality === currentQuality);
+    streamUrl = activeSource ? activeSource.url : currentVideoSources[0].url;
+  }
+
+  if (streamUrl) {
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    if (isAndroid) {
+      // Open in MX Player or other supported players on Android
+      window.location.href = `intent://${streamUrl}#Intent;package=com.mxtech.videoplayer.ad;scheme=http;end;`;
+    } else {
+      // Open in default player for other platforms
+      window.open(streamUrl, '_blank');
+    }
+  } else {
+    showToast('No stream URL available.');
+  }
+});
+
+    // Setup resolution selector
     function setupResolutionSelector() {
       const resolutionSelector = document.getElementById('resolutionSelector');
       resolutionSelector.innerHTML = '';
