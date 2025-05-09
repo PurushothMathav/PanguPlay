@@ -930,6 +930,9 @@ function enableLandscapeOnFullScreen() {
 
   //setup share button
   document.getElementById('shareBtn').addEventListener('click', () => {
+  // Ensure details are parsed correctly
+  const details = videoDetailsEncoded ? JSON.parse(decodeURIComponent(videoDetailsEncoded)) : {};
+
   const shareData = {
     title: videoTitle,
     text: `🎬 ${videoTitle}\n⭐ Rating: ${details.movieRating || 'N/A'}\n📀 Quality: ${details.quality || 'N/A'}\n🗣️ Language: ${details.language || 'N/A'}\n\nWatch now: ${window.location.origin}/PanguPlay/player.html?title=${encodeURIComponent(videoTitle)}`,
@@ -968,8 +971,8 @@ document.getElementById('streamBtn').addEventListener('click', () => {
   if (streamUrl) {
     const isAndroid = /Android/i.test(navigator.userAgent);
     if (isAndroid) {
-      // Open in MX Player using a valid HTTP/HTTPS URL
-      window.location.href = `intent:${streamUrl}#Intent;package=com.mxtech.videoplayer.ad;scheme=https;end;`;
+      // Properly formatted intent URL for MX Player
+      window.location.href = `intent://${streamUrl.replace(/^https?:\/\//, '')}#Intent;package=com.mxtech.videoplayer.ad;scheme=http;end;`;
     } else {
       // Open in default player for other platforms
       window.open(streamUrl, '_blank');
