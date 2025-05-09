@@ -81,6 +81,38 @@
     .resolution-btn:hover {
       background-color: #ff6600;
     }
+    
+    /* Custom player controls */
+    .custom-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(0,0,0,0.5);
+      padding: 8px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .custom-control-btn {
+      background-color: #ff4500;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+    }
+    .custom-control-btn:hover {
+      background-color: #ff6600;
+    }
+    .seek-controls {
+      display: flex;
+      gap: 10px;
+    }
+    
     .video-details-container {
       display: flex;
       flex-direction: column;
@@ -369,6 +401,44 @@
       margin-top: 20px;
     }
     
+.tap-overlay {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: white;
+  font-size: 24px;
+  z-index: 10;
+}
+
+.tap-overlay.active {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.tap-overlay i {
+  font-size: 36px;
+  margin-bottom: 5px;
+}
+
+.tap-overlay-left {
+  left: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tap-overlay-right {
+  right: 0;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+	
     @media (max-width: 768px) {
       .heading {
         font-size: 20px;
@@ -390,17 +460,24 @@
         padding: 8px 12px;
       }
       .resolution-selector {
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 10px 0;
-    gap: 10px;
-  }
-
-  .resolution-btn {
-    flex: 1 1 40%;
-    font-size: 12px;
-    padding: 6px 8px;
-  }
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 10px 0;
+        gap: 10px;
+      }
+      .resolution-btn {
+        flex: 1 1 40%;
+        font-size: 12px;
+        padding: 6px 8px;
+      }
+      .custom-controls {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .seek-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
     }
   </style>
 </head>
@@ -465,6 +542,21 @@
       </div>
     </div>
     
+    <!-- Custom player controls -->
+    <div class="custom-controls">
+      <div class="seek-controls">
+        <button class="custom-control-btn" onclick="seekBackward()">
+          <i class="fas fa-backward"></i> -10s
+        </button>
+        <button class="custom-control-btn" onclick="seekForward()">
+          <i class="fas fa-forward"></i> +10s
+        </button>
+      </div>
+      <button class="custom-control-btn" id="downloadBtn">
+        <i class="fas fa-download"></i> Download
+      </button>
+    </div>
+    
     <div class="resolution-selector" id="resolutionSelector">
       <!-- Resolution buttons will be dynamically added here -->
     </div>
@@ -525,51 +617,202 @@
     let player;
     let currentVideoSources = [];
     let currentQuality = '1080p';
+    const seekTime = 10; // Seconds to skip when seeking
     
     // Initialize the page
     document.addEventListener('DOMContentLoaded', function() {
-      initPlayer();
-      setupPage();
-    });
+  initPlayer();
+  setupPage();
+  setupDownloadButton();
+  setupDoubleTapSeeking(); // Add this line
+  
+  // Listen for keyboard shortcuts
+  document.addEventListener('keydown', handleKeyboardShortcuts);
+});
     
     function initPlayer() {
-  player = new Plyr('#player', {
-    controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
-    settings: ['captions', 'speed'], // REMOVE 'quality'
-    resetOnEnd: false,
-    keyboard: { focused: true, global: true },
-    tooltips: { controls: true, seek: true },
-    seekTime: 10,
-    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.svg',
-    blankVideo: 'https://cdn.plyr.io/static/blank.mp4'
-  });
+      player = new Plyr('#player', {
+        controls: ['play-large', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+        settings: ['captions', 'speed'], // REMOVE 'quality'
+        resetOnEnd: false,
+        keyboard: { focused: true, global: true },
+        tooltips: { controls: true, seek: true },
+        seekTime: 10,
+        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.svg',
+        blankVideo: 'https://cdn.plyr.io/static/blank.mp4'
+      });
 
-  player.on('ready', () => {
-    hideLoading();
-  });
+      player.on('ready', () => {
+        hideLoading();
+      });
 
-  player.on('loadstart', () => {
-    showLoading();
-  });
+      player.on('loadstart', () => {
+        showLoading();
+      });
 
-  player.on('canplay', () => {
-    hideLoading();
-  });
+      player.on('canplay', () => {
+        hideLoading();
+      });
 
-  player.on('error', () => {
-    hideLoading();
-    showToast('Error playing video. Please try another quality or source.');
-  });
+      player.on('error', () => {
+        hideLoading();
+        showToast('Error playing video. Please try another quality or source.');
+      });
 
-  player.on('ended', () => {
-    if (episodes.length > 0 && currentEpisodeIndex < episodes.length - 1) {
-      setTimeout(() => {
-        playNextEpisode();
-      }, 2000);
+      player.on('ended', () => {
+        if (episodes.length > 0 && currentEpisodeIndex < episodes.length - 1) {
+          setTimeout(() => {
+            playNextEpisode();
+          }, 2000);
+        }
+      });
     }
-  });
-}
+    
+	function setupDoubleTapSeeking() {
+  const videoContainer = document.querySelector('.video-container');
+  const playerElement = document.getElementById('player');
+  let lastTap = 0;
+  let tapTimeout;
+  let tappedSide = null;
+  
+  // Create overlay elements for visual feedback
+  const leftOverlay = document.createElement('div');
+  leftOverlay.className = 'tap-overlay tap-overlay-left';
+  leftOverlay.innerHTML = '<i class="fas fa-backward"></i><span>-10s</span>';
+  
+  const rightOverlay = document.createElement('div');
+  rightOverlay.className = 'tap-overlay tap-overlay-right';
+  rightOverlay.innerHTML = '<i class="fas fa-forward"></i><span>+10s</span>';
+  
+  // Add overlays to the container
+  videoContainer.appendChild(leftOverlay);
+  videoContainer.appendChild(rightOverlay);
+  
+  // Handle touch events
+  playerElement.addEventListener('touchstart', function(e) {
+    // Don't process if the player controls are visible or if already interacting with controls
+    if (playerElement.classList.contains('plyr--hide-controls') === false) {
+      return;
+    }
 
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTap;
+    
+    // Get the tap position
+    const screenWidth = window.innerWidth;
+    const touchX = e.touches[0].clientX;
+    const side = touchX < (screenWidth / 2) ? 'left' : 'right';
+    
+    clearTimeout(tapTimeout);
+    
+    if (tapLength < 500 && tapLength > 0) {
+      // Double tap detected
+      if (side === 'left') {
+        // Rewind
+        player.currentTime = Math.max(player.currentTime - 10, 0);
+        showTapOverlay(leftOverlay);
+      } else {
+        // Fast forward
+        player.currentTime = Math.min(player.currentTime + 10, player.duration);
+        showTapOverlay(rightOverlay);
+      }
+      
+      // Prevent default behavior
+      e.preventDefault();
+    } else {
+      // Single tap - wait for potential second tap
+      tappedSide = side;
+      tapTimeout = setTimeout(function() {
+        // Single tap timeout - reset
+        tappedSide = null;
+      }, 500);
+    }
+    
+    lastTap = currentTime;
+  });
+  
+  function showTapOverlay(overlay) {
+    overlay.classList.add('active');
+    setTimeout(() => {
+      overlay.classList.remove('active');
+    }, 500);
+  }
+}
+	
+	
+    // Setup download button functionality
+    function setupDownloadButton() {
+      const downloadBtn = document.getElementById('downloadBtn');
+      downloadBtn.addEventListener('click', downloadVideo);
+    }
+    
+    // Handle keyboard shortcuts
+    function handleKeyboardShortcuts(e) {
+      // Left arrow for seeking backward
+      if (e.key === 'ArrowLeft') {
+        seekBackward();
+      }
+      // Right arrow for seeking forward
+      else if (e.key === 'ArrowRight') {
+        seekForward();
+      }
+      // 'D' key for download
+      else if (e.key === 'd' || e.key === 'D') {
+        downloadVideo();
+      }
+    }
+    
+    // Seek forward function
+    function seekForward() {
+      if (!player) return;
+      
+      const newTime = Math.min(player.currentTime + seekTime, player.duration);
+      player.currentTime = newTime;
+      showToast(`Forwarded ${seekTime}s`);
+    }
+    
+    // Seek backward function
+    function seekBackward() {
+      if (!player) return;
+      
+      const newTime = Math.max(player.currentTime - seekTime, 0);
+      player.currentTime = newTime;
+      showToast(`Rewound ${seekTime}s`);
+    }
+    
+    // Download video function
+    function downloadVideo() {
+      let urlToDownload;
+      let filename;
+      
+      if (currentEpisodeId && episodes.length > 0) {
+        const episode = episodes[currentEpisodeIndex];
+        urlToDownload = episode.videoUrl;
+        filename = `${videoTitle}-S${episode.season}E${episode.episode}.mp4`;
+      } else if (currentVideoSources.length > 0) {
+        const activeSource = currentVideoSources.find(source => source.quality === currentQuality);
+        urlToDownload = activeSource ? activeSource.url : currentVideoSources[0].url;
+        filename = `${videoTitle}-${currentQuality}.mp4`;
+      }
+      
+      if (urlToDownload) {
+        showToast('Preparing download...');
+        
+        // Create a temporary anchor element
+        const a = document.createElement('a');
+        a.href = urlToDownload;
+        a.download = filename;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        
+        showToast('Download started!');
+      } else {
+        showToast('No video available for download');
+      }
+    }
     
     // Setup page content
     function setupPage() {
@@ -632,111 +875,106 @@
       }
     }
     
- function loadVideo(initialUrl) {
-  if (!player) return;
-  showLoading();
+    function loadVideo(initialUrl) {
+      if (!player) return;
+      showLoading();
 
-  const poster = decodeURIComponent(videoImage);
-  const currentTime = player.currentTime || 0;
+      const poster = decodeURIComponent(videoImage);
+      const currentTime = player.currentTime || 0;
 
-  const sources = currentVideoSources.map(source => ({
-    src: source.url,
-    type: 'video/mp4',
-    size: parseInt(source.quality.replace('p', ''))
-  }));
+      const sources = currentVideoSources.map(source => ({
+        src: source.url,
+        type: 'video/mp4',
+        size: parseInt(source.quality.replace('p', ''))
+      }));
 
-  player.source = {
-    type: 'video',
-    sources: sources,
-    poster: poster
-  };
+      player.source = {
+        type: 'video',
+        sources: sources,
+        poster: poster
+      };
 
-  player.once('canplay', () => {
-    player.currentTime = currentTime;
-    player.play().catch(err => {
-      showToast('Playback error. Trying fallback…');
-      tryFallback();
-    });
-    hideLoading();
-  });
-
-  player.once('error', () => {
-    showToast('Video load error. Trying fallback…');
-    tryFallback();
-  });
-}
-
-
-function tryFallback() {
-  const fallback = currentVideoSources.find(src => src.quality === '720p');
-  if (!fallback) return;
-
-  player.source = {
-    type: 'video',
-    sources: [{
-      src: fallback.url,
-      type: 'video/mp4',
-      size: 720
-    }],
-    poster: decodeURIComponent(videoImage)
-  };
-
-  player.play().catch(err => {
-    console.error('Fallback failed:', err);
-    showToast('Fallback failed. No video available.');
-    hideLoading();
-  });
-}
-
-
-
-    
-    function setupResolutionSelector() {
-  const resolutionSelector = document.getElementById('resolutionSelector');
-  resolutionSelector.innerHTML = '';
-
-  if (currentVideoSources.length <= 1) {
-    resolutionSelector.style.display = 'none';
-    return;
-  }
-
-  resolutionSelector.style.display = 'flex';
-
-  currentVideoSources.forEach(source => {
-    const button = document.createElement('button');
-    button.className = 'resolution-btn' + (source.quality === currentQuality ? ' active' : '');
-    button.textContent = source.quality;
-    button.onclick = () => {
-      const currentTime = player.currentTime;
-      currentQuality = source.quality;
-
-      document.querySelectorAll('.resolution-btn').forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-
-      // Reload video with selected quality
-      const selected = currentVideoSources.find(v => v.quality === currentQuality);
-      if (selected) {
-        player.source = {
-          type: 'video',
-          sources: [{
-            src: selected.url,
-            type: 'video/mp4',
-            size: parseInt(selected.quality.replace('p', ''))
-          }],
-          poster: decodeURIComponent(videoImage)
-        };
-        player.once('canplay', () => {
-          player.currentTime = currentTime;
-          player.play().catch(err => {
-            showToast('Playback error. Try another quality.');
-          });
+      player.once('canplay', () => {
+        player.currentTime = currentTime;
+        player.play().catch(err => {
+          showToast('Playback error. Trying fallback…');
+          tryFallback();
         });
-      }
-    };
-    resolutionSelector.appendChild(button);
-  });
-}
+        hideLoading();
+      });
 
+      player.once('error', () => {
+        showToast('Video load error. Trying fallback…');
+        tryFallback();
+      });
+    }
+
+    function tryFallback() {
+      const fallback = currentVideoSources.find(src => src.quality === '720p');
+      if (!fallback) return;
+
+      player.source = {
+        type: 'video',
+        sources: [{
+          src: fallback.url,
+          type: 'video/mp4',
+          size: 720
+        }],
+        poster: decodeURIComponent(videoImage)
+      };
+
+      player.play().catch(err => {
+        console.error('Fallback failed:', err);
+        showToast('Fallback failed. No video available.');
+        hideLoading();
+      });
+    }
+
+    function setupResolutionSelector() {
+      const resolutionSelector = document.getElementById('resolutionSelector');
+      resolutionSelector.innerHTML = '';
+
+      if (currentVideoSources.length <= 1) {
+        resolutionSelector.style.display = 'none';
+        return;
+      }
+
+      resolutionSelector.style.display = 'flex';
+
+      currentVideoSources.forEach(source => {
+        const button = document.createElement('button');
+        button.className = 'resolution-btn' + (source.quality === currentQuality ? ' active' : '');
+        button.textContent = source.quality;
+        button.onclick = () => {
+          const currentTime = player.currentTime;
+          currentQuality = source.quality;
+
+          document.querySelectorAll('.resolution-btn').forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+
+          // Reload video with selected quality
+          const selected = currentVideoSources.find(v => v.quality === currentQuality);
+          if (selected) {
+            player.source = {
+              type: 'video',
+              sources: [{
+                src: selected.url,
+                type: 'video/mp4',
+                size: parseInt(selected.quality.replace('p', ''))
+              }],
+              poster: decodeURIComponent(videoImage)
+            };
+            player.once('canplay', () => {
+              player.currentTime = currentTime;
+              player.play().catch(err => {
+                showToast('Playback error. Try another quality.');
+              });
+            });
+          }
+        };
+        resolutionSelector.appendChild(button);
+      });
+    }
     
     // Play episode for series
 function playEpisode(episodeId) {
