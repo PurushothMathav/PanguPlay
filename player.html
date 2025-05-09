@@ -717,9 +717,10 @@ function setupDoubleTapSeeking() {
 function enableLandscapeOnFullScreen() {
   const playerElement = document.getElementById('player');
 
-  playerElement.addEventListener('fullscreenchange', () => {
+  // Listen for fullscreen changes
+  document.addEventListener('fullscreenchange', () => {
     if (document.fullscreenElement) {
-      // Lock orientation to landscape
+      // Lock orientation to landscape when entering fullscreen
       if (screen.orientation && screen.orientation.lock) {
         screen.orientation.lock('landscape').catch(err => {
           console.warn('Orientation lock failed:', err);
@@ -730,6 +731,15 @@ function enableLandscapeOnFullScreen() {
       if (screen.orientation && screen.orientation.unlock) {
         screen.orientation.unlock();
       }
+    }
+  });
+
+  // Add a fullscreen button listener to ensure fullscreen works properly
+  playerElement.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      playerElement.requestFullscreen().catch(err => {
+        console.warn('Fullscreen request failed:', err);
+      });
     }
   });
 }
