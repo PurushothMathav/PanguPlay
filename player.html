@@ -670,74 +670,53 @@
   document.addEventListener('keydown', handleKeyboardShortcuts);
 });
 	
-	function setupDoubleTapSeeking() {
+function setupDoubleTapSeeking() {
   const videoContainer = document.querySelector('.video-container');
   const playerElement = document.getElementById('player');
   let lastTap = 0;
   let tapTimeout;
-  let tappedSide = null;
-  
-  // Create overlay elements for visual feedback
+
   const leftOverlay = document.createElement('div');
   leftOverlay.className = 'tap-overlay tap-overlay-left';
   leftOverlay.innerHTML = '<i class="fas fa-backward"></i><span>-10s</span>';
-  
+
   const rightOverlay = document.createElement('div');
   rightOverlay.className = 'tap-overlay tap-overlay-right';
   rightOverlay.innerHTML = '<i class="fas fa-forward"></i><span>+10s</span>';
-  
-  // Add overlays to the container
+
   videoContainer.appendChild(leftOverlay);
   videoContainer.appendChild(rightOverlay);
-  
-  // Handle touch events
-  playerElement.addEventListener('touchstart', function(e) {
-    // Don't process if the player controls are visible or if already interacting with controls
-    if (playerElement.classList.contains('plyr--hide-controls') === false) {
-      return;
-    }
+
+  playerElement.addEventListener('touchstart', function (e) {
+    if (!playerElement.classList.contains('plyr--hide-controls')) return;
 
     const currentTime = new Date().getTime();
     const tapLength = currentTime - lastTap;
-    
-    // Get the tap position
     const screenWidth = window.innerWidth;
     const touchX = e.touches[0].clientX;
-    const side = touchX < (screenWidth / 2) ? 'left' : 'right';
-    
+    const side = touchX < screenWidth / 2 ? 'left' : 'right';
+
     clearTimeout(tapTimeout);
-    
+
     if (tapLength < 500 && tapLength > 0) {
-      // Double tap detected
       if (side === 'left') {
-        // Rewind
         player.currentTime = Math.max(player.currentTime - 10, 0);
         showTapOverlay(leftOverlay);
       } else {
-        // Fast forward
         player.currentTime = Math.min(player.currentTime + 10, player.duration);
         showTapOverlay(rightOverlay);
       }
-      
-      // Prevent default behavior
       e.preventDefault();
     } else {
-      // Single tap - wait for potential second tap
-      tappedSide = side;
-      tapTimeout = setTimeout(function() {
-        // Single tap timeout - reset
-        tappedSide = null;
-      }, 500);
+      tapTimeout = setTimeout(() => {}, 500);
     }
-    
+
     lastTap = currentTime;
   });
-  
+
   function showTapOverlay(overlay) {
     overlay.classList.add('active');
-    setTimeout(() => {
-      overlay.classList.remove('active');
-    }, 500);
+    setTimeout(() => overlay.classList.remove('active'), 500);
   }
 }
 
