@@ -6,6 +6,8 @@
   <title>PanguPlay - Home</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1f1f1f">
 	<meta name="title" content="PanguPlay - Free Movies, TV Shows">
     <meta name="description" content="PanguPlay - Watch Latest Movies, TV Shows for free without Ads. Your ultimate destination for entertainment.">
     
@@ -7027,6 +7029,14 @@ function loadHomeSections() {
 
 loadHomeSections();
 
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('service-worker.js');
+  });
+}
 </script>
 
 </body>
