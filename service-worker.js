@@ -11,6 +11,7 @@ const urlsToCache = [
   "/PanguPlay/images/twitter-image.jpg",
   "/PanguPlay/images/og-image.jpg",
   "/PanguPlay/favicon.png",
+  "/PanguPlay/manifest.json",
   "https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.css",
   "https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.js"
   // Add more assets as needed

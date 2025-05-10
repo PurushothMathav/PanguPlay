@@ -1,7 +1,8 @@
 {
   "name": "PanguPlay",
   "short_name": "PanguPlay",
-  "start_url": "./index.html",
+  "lang": "en", 
+  "start_url": "/PanguPlay/index.html",
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#1f1f1f",
@@ -17,5 +18,7 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "iarc_rating_id": "", 
+  "prefer_related_applications": false
 }
