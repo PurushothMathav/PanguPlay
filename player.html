@@ -1026,35 +1026,34 @@ function enableLandscapeOnFullScreen() {
       });
     }
 
-  async function shareMovie() {
+  //setup share button
+  document.getElementById('shareBtn').addEventListener('click', () => {
+  // Ensure details are parsed correctly
   const details = videoDetailsEncoded ? JSON.parse(decodeURIComponent(videoDetailsEncoded)) : {};
-  const imageUrl = decodeURIComponent(videoImage);
-
-  // Fetch the image as a Blob
-  const response = await fetch(imageUrl);
-  const blob = await response.blob();
-  const file = new File([blob], "poster.jpg", { type: blob.type });
 
   const shareData = {
     title: videoTitle,
     text: `🎬 ${videoTitle}\n🌟 Rating: ${details.movieRating || 'N/A'}\n📀 Quality: ${details.quality || 'N/A'}\n🗣️ Language: ${details.language || 'N/A'}\n📁 Size: ${details.fileSize || 'N/A'}\n\nWatch now: https://purushothmathav.github.io/PanguPlay`,
-    files: [file]
+    //url: `https://purushothmathav.github.io/PanguPlay`,
   };
 
-  if (navigator.canShare && navigator.canShare({ files: [file] })) {
-    try {
-      await navigator.share(shareData);
-      showToast('Shared successfully!');
-    } catch (err) {
-      showToast('Failed to share. Please try again.');
-      console.error(err);
-    }
+  if (navigator.share) {
+    navigator.share(shareData)
+      .then(() => showToast('Shared successfully!'))
+      .catch(err => {
+        console.error('Share failed:', err);
+        showToast('Failed to share. Please try again.');
+      });
   } else {
-    showToast('Sharing images is not supported on this device/browser.');
+    // Fallback: Copy link to clipboard
+    navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`)
+      .then(() => showToast('Link copied to clipboard!'))
+      .catch(err => {
+        console.error('Failed to copy link:', err);
+        showToast('Failed to copy link.');
+      });
   }
-}
-
-document.getElementById('shareBtn').addEventListener('click', shareMovie);
+});
 
 //setup stream button
 document.getElementById('streamBtn').addEventListener('click', () => {
