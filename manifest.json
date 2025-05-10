@@ -1,12 +1,14 @@
 {
+  "id": "/PanguPlay/",
   "name": "PanguPlay",
   "short_name": "PanguPlay",
-  "lang": "en", 
+  "lang": "en",
   "start_url": "/PanguPlay/index.html",
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#1f1f1f",
   "description": "Watch Latest Movies, TV Shows for free without Ads.",
+  "orientation": "any",
   "icons": [
     {
       "src": "favicon.png",
@@ -19,6 +21,13 @@
       "type": "image/png"
     }
   ],
-  "iarc_rating_id": "", 
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "iarc_rating_id": "",
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "sizes": "540x720",
+      "type": "image/png"
+    }
+  ]
 }
