@@ -419,30 +419,12 @@ footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f
   <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">💬 Telegram</a>
 </div>
 
-<!-- Featured Title -->
-<!--div id="featuredTitle" style="padding: 10px 15px; font-size: 18px; font-weight: bold;"></div> -->
-
 <!-- Swiper -->
 <div class="swiper">
   <div class="swiper-wrapper" id="featured"></div>
   <div class="swiper-pagination"></div>
 </div>
 
-<!-- Sections 
-<div class="section">
-  <h2>Movies 🍿 <a href="movies.html" class="view-all-btn">View All</a></h2>
-  <div class="cards" id="moviesList"></div>
-</div>
-
-<div class="section">
-  <h2>TV Shows 📺 <a href="shows.html" class="view-all-btn">View All</a></h2>
-  <div class="cards" id="seriesList"></div>
-</div>
-
-<div class="section">
-  <h2>Tamil Dub 📺 <a href="dubbed.html" class="view-all-btn">View All</a></h2>
-  <div class="cards" id="dubbedList"></div>
-</div> -->
 
 <div class="section-header">
   <h2>Movies 🍿</h2>
@@ -7425,6 +7407,12 @@ function loadHomeSections() {
   const series = document.getElementById('seriesList');
   const dubbed = document.getElementById('dubbedList');
 
+  // Clear previous slides/cards (important for reloads)
+  featured.innerHTML = '';
+  movies.innerHTML = '';
+  series.innerHTML = '';
+  dubbed.innerHTML = '';
+
   videos
     .filter(v => v.type === 'movie')
     .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
@@ -7442,46 +7430,43 @@ function loadHomeSections() {
     .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
     .slice(0, 10)
     .forEach(v => dubbed.appendChild(createCard(v)));
-/*
-  videos
-    .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
-    .slice(0, 10)
-    .forEach(v => {
-      const slide = document.createElement('div');
-      slide.className = 'swiper-slide';
-      slide.innerHTML = `<img src="${v.image}" alt="${v.title}">`;
-      slide.onclick = () => openPlayer(v);
-      featured.appendChild(slide);
-    });
-*/
-const featuredVideos = [
-  ...videos.filter(v => v.type === 'movie').sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated)).slice(0, 6),
-  ...videos.filter(v => v.type === 'series').sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated)).slice(0, 2),
-  ...videos.filter(v => v.type === 'dubbed').sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated)).slice(0, 2)
-];
 
-featuredVideos.forEach(v => {
-  const slide = document.createElement('div');
-  slide.className = 'swiper-slide';
-  slide.innerHTML = `
-    <img src="${v.image}" alt="${v.title}">
-    <div style="text-align:center; font-size:14px; margin-top:5px; color:#fff; font-weight:600; text-shadow:0 1px 3px #000;">${v.title}</div>
-  `;
-  slide.onclick = () => openPlayer(v);
-  featured.appendChild(slide);
-});
+  // Pick featured videos (movies, series, dubbed)
+  const featuredVideos = [
+    ...videos.filter(v => v.type === 'movie').sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated)).slice(0, 6),
+    ...videos.filter(v => v.type === 'series').sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated)).slice(0, 2),
+    ...videos.filter(v => v.type === 'dubbed').sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated)).slice(0, 2)
+  ];
 
-  swiper = new Swiper('.swiper', {
-    slidesPerView: 3.0,
-    spaceBetween: 10,
-    loop: true,
-    autoplay: { delay: 2500 },
-    pagination: { el: '.swiper-pagination', clickable: true },
-	
-    on: { slideChange: updateFeaturedTitle }
+  // Add slides
+  featuredVideos.forEach(v => {
+    const slide = document.createElement('div');
+    slide.className = 'swiper-slide';
+    slide.innerHTML = `
+      <div class="swiper-slide-content">
+        <img src="${v.image}" alt="${v.title}">
+        <div class="swiper-slide-title">${v.title}</div>
+      </div>`;
+    slide.onclick = () => openPlayer(v);
+    featured.appendChild(slide);
   });
 
-  updateFeaturedTitle();
+  // Destroy previous Swiper instance if exists
+  if (window.swiper) {
+    window.swiper.destroy(true, true);
+    window.swiper = null;
+  }
+
+  // Wait for DOM update, then initialize Swiper
+  requestAnimationFrame(() => {
+    window.swiper = new Swiper('.swiper', {
+      slidesPerView: Math.min(3, featuredVideos.length),
+      spaceBetween: 10,
+      loop: featuredVideos.length >= 6,
+      autoplay: featuredVideos.length >= 6 ? { delay: 2500, disableOnInteraction: false } : false,
+      pagination: { el: '.swiper-pagination', clickable: true }
+    });
+  });
 }
 
 loadHomeSections();
