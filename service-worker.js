@@ -1,4 +1,4 @@
-const CACHE_NAME = "panguplay-v51125";
+const CACHE_NAME = "panguplay-v0511251059";
 const urlsToCache = [
   "/PanguPlay/",
   "/PanguPlay/index.html",
@@ -18,6 +18,7 @@ const urlsToCache = [
 ];
 
 self.addEventListener("install", event => {
+  self.skipWaiting(); // Force activate new SW immediately
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );
@@ -35,4 +36,5 @@ self.addEventListener('activate', event => {
       Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))
     )
   );
+  self.clients.claim();
 });
