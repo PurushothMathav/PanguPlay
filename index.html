@@ -262,12 +262,14 @@
     .card:hover { transform: scale(1.05); }
     .view-all-btn { background: #ff4500; border: none; color: #fff; padding: 5px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; margin-left: 10px; }
 
-    /* Swiper */
-    .swiper { width: 100%; height: 200px; margin-bottom: 20px; }
-    .swiper-slide img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; }
-    .swiper-pagination { position: relative; bottom: 10px; text-align: center; }
+ /* Swiper Styles */
+.swiper { width: 100%; height: 250px; margin-bottom: 20px; }
+.swiper-slide img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; }
+.swiper-slide-title { text-align: center; font-size: 14px; margin-top: 5px; color: #fff; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.swiper-pagination { position: relative; bottom: 10px; text-align: center; }
+.swiper-pagination-bullet {   width: 12px; height: 12px; border-radius: 0; background: #ff6600; }
 
-    footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f; margin-top: 20px; }
+footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f; margin-top: 20px; }
 	
 .section-header {
   display: flex;
@@ -418,7 +420,7 @@
 </div>
 
 <!-- Featured Title -->
-<div id="featuredTitle" style="padding: 10px 15px; font-size: 18px; font-weight: bold;"></div>
+<!--div id="featuredTitle" style="padding: 10px 15px; font-size: 18px; font-weight: bold;"></div> -->
 
 <!-- Swiper -->
 <div class="swiper">
@@ -530,6 +532,451 @@ function getQualityClass(quality) {
 }
 
 const videos = [ 
+
+	
+	{
+        type: "dubbed",
+		title: 'A Deadly American Marriage (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMThlZmQxMWYtMzI1NS00OTQ5LTk0NjEtY2VmZjM2MTgzZWYyXkEyXkFqcGc@._V1_QL75_UY562_CR35,0,380,562_.jpg',
+        video: 'https://s05.dubshare.one/A_Deadly_American_Marriage_2025_720p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '877.49 MB',
+		  streamURL: 'https://s05.dubshare.one/A_Deadly_American_Marriage_2025_720p_HD.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Nonnas (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BODM0M2M4YWQtMzhlNy00NjdkLWFkODktOGNlNTc4OTFiZjZmXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+        video: 'https://s10.dubshare.one/Nonnas_2025_720p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '986.22 MB',
+		  streamURL: 'https://s10.dubshare.one/Nonnas_2025_720p_HD.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Another Simple Favor (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMDBhNTg1MWMtMDc5Ni00YTk1LWFjNGUtMmE2Y2Q5MGQ2M2Q2XkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg',
+        video: 'https://s07.dubshare.one/Another_Simple_Favor_2025_720p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '1.02 GB',
+		  streamURL: 'https://s07.dubshare.one/Another_Simple_Favor_2025_720p_HD.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Bullet Train Explosion',
+        image: 'https://m.media-amazon.com/images/M/MV5BODNiYjcwY2UtYzZiNS00M2EzLWI2NmMtMmYzNTQ2ZTRjYWUzXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+        video: 'https://s09.dubshare.one/Bullet_Train_Explosion_2025_720p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '0.99 GB',
+		  streamURL: 'https://s09.dubshare.one/Bullet_Train_Explosion_2025_720p_HD.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Den of Thieves 2 Pantera (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BZGIyYTI5N2QtZmQ5ZC00NDE4LThhYWMtNGE5NjI1OGU2M2NjXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+        video: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Den%20of%20Thieves%202%20Pantera%202025/Den%20of%20Thieves%202%20Pantera%20(Original)/Den%20of%20Thieves%202%20Pantera%20(720p%20HD)/Den%20of%20Thieves%202%20Pantera%202025%20720p%20HD.mp4?h=1a6fa7b7e737bc105edae8ff17f80f9eb5c84312a342914c17a9ee7063330936&e=1747744138',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '1.10 GB',
+		  streamURL: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Den%20of%20Thieves%202%20Pantera%202025/Den%20of%20Thieves%202%20Pantera%20(Original)/Den%20of%20Thieves%202%20Pantera%20(720p%20HD)/Den%20of%20Thieves%202%20Pantera%202025%20720p%20HD.mp4?h=1a6fa7b7e737bc105edae8ff17f80f9eb5c84312a342914c17a9ee7063330936&e=1747744138'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Fight or Flight (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMmE4YTQxMjctMWFlZC00OTY5LWJiNTctZjFhNTJlMmIxMmViXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+        video: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Fight%20or%20Flight%20(2025)/Fight%20or%20Flight%20(Original)/Fight%20or%20Flight%20(720p%20HD)/Fight%20or%20Flight%202025%20720p%20HD.mp4?h=73af9adec391af620a05c2b2cdf6a5135aaf070878a43b94aec4f4a06334a37d&e=1747709200',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '970.91 MB',
+		  streamURL: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Fight%20or%20Flight%20(2025)/Fight%20or%20Flight%20(Original)/Fight%20or%20Flight%20(720p%20HD)/Fight%20or%20Flight%202025%20720p%20HD.mp4?h=73af9adec391af620a05c2b2cdf6a5135aaf070878a43b94aec4f4a06334a37d&e=1747709200'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'G20 (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMTc5MTg3MTEtNzQwMi00Y2VkLWI4N2UtNDdmMzFjMGIyNTEzXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+        video: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/G20%20(2025)/G20%20(Original)/G20%20(720p%20HD)/G20%202025%20720p%20HD.mp4?h=059a16daf6ba4d22dc17bd4739e99380282fe304f8f264732f44a28de6dd6469&e=1747710404',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '997.29 MB',
+		  streamURL: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/G20%20(2025)/G20%20(Original)/G20%20(720p%20HD)/G20%202025%20720p%20HD.mp4?h=059a16daf6ba4d22dc17bd4739e99380282fe304f8f264732f44a28de6dd6469&e=1747710404'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Havoc (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BZWJjMjdhNGEtZjEyMi00OTg2LTllMzQtN2JlZWNjYzI4YzFhXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+        video: 'https://s03.dubshare.one/Havoc_2025_720p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '911.33 MB',
+		  streamURL: 'https://s03.dubshare.one/Havoc_2025_720p_HD.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'iHostage (2025)',
+        image: 'https://media.themoviedb.org/t/p/w300_and_h450_bestv2/tn3Ckxyc7OWXnhMPkiIBvqLdFC6.jpg',
+        video: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/iHostage%20(2025)/iHostage%20(Original)/iHostage%20(720p%20HD)/iHostage%202025%20720p%20HD.mp4?h=447f842fc9648423506719d97d2d3999082b298f27298c40613e0a10472679e9&e=1747708818',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '943.08 MB',
+		  streamURL: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/iHostage%20(2025)/iHostage%20(Original)/iHostage%20(720p%20HD)/iHostage%202025%20720p%20HD.mp4?h=447f842fc9648423506719d97d2d3999082b298f27298c40613e0a10472679e9&e=1747708818'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Oklahoma City Bombing American Terror (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BZWNhYmUyMTgtOWZiOC00ZjUzLThjMDYtZDY2Y2Q0ZDQ4NmUxXkEyXkFqcGc@._V1_QL75_UY562_CR11,0,380,562_.jpg',
+        video: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Oklahoma%20City%20Bombing%20American%20Terror%20(2025)/Oklahoma%20City%20Bombing%20American%20Terror%20(Original)/Oklahoma%20City%20Bombing%20American%20Terror%20(720p%20HD)/Oklahoma%20City%20Bombing%20American%20Terror%202025%20720p%20HD.mp4?h=4d6ea01dd1103befa081228e09d9a9cb4bc7839b87c474184465c5af367e611d&e=1747708758',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '845.17 MB',
+		  streamURL: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Oklahoma%20City%20Bombing%20American%20Terror%20(2025)/Oklahoma%20City%20Bombing%20American%20Terror%20(Original)/Oklahoma%20City%20Bombing%20American%20Terror%20(720p%20HD)/Oklahoma%20City%20Bombing%20American%20Terror%202025%20720p%20HD.mp4?h=4d6ea01dd1103befa081228e09d9a9cb4bc7839b87c474184465c5af367e611d&e=1747708758'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Peter Pans Neverland Nightmare (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNGZmNzhkZDAtMzJlZC00OTkxLWE1NWUtZDNjYTVlNjk0ZjNkXkEyXkFqcGc@._V1_QL75_UX380_CR0,1,380,562_.jpg',
+        video: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Peter%20Pans%20Neverland%20Nightmare%20(2025)/Peter%20Pans%20Neverland%20Nightmare%20(Original)/Peter%20Pans%20Neverland%20Nightmare%20(720p%20HD)/Peter%20Pans%20Neverland%20Nightmare%202025%20720p%20HD.mp4?h=beac7f184697a1a538e6afbeb8ad85e48f969102f3130799a4a0b5d99f57e865&e=1747709198',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '838.76 MB',
+		  streamURL: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Peter%20Pans%20Neverland%20Nightmare%20(2025)/Peter%20Pans%20Neverland%20Nightmare%20(Original)/Peter%20Pans%20Neverland%20Nightmare%20(720p%20HD)/Peter%20Pans%20Neverland%20Nightmare%202025%20720p%20HD.mp4?h=beac7f184697a1a538e6afbeb8ad85e48f969102f3130799a4a0b5d99f57e865&e=1747709198'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Revelations (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BOGU2YWNiMTgtMDdmMi00M2FjLWE1MmQtMDg3NTE3MzA1YWQ3XkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+        video: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Revelations%20(2025)/Revelations%20(Original)/Revelations%20(720p%20HD)/Revelations%202025%20720p%20HD.mp4?h=06056e6b1119567ade65721a2174ac0ba13c7cc81c4e1b797c1d7978e2cb8161&e=1747744107',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '935.29 MB',
+		  streamURL: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Revelations%20(2025)/Revelations%20(Original)/Revelations%20(720p%20HD)/Revelations%202025%20720p%20HD.mp4?h=06056e6b1119567ade65721a2174ac0ba13c7cc81c4e1b797c1d7978e2cb8161&e=1747744107'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Bayou (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BOGQ5MGVmOWYtN2Y0NS00MWM5LWI1MjItNTI5NDdkNmRiMzkzXkEyXkFqcGc@._V1_QL75_UY562_CR7,0,380,562_.jpg',
+        video: 'https://s10.dubshare.one/The_Bayou_2025_720p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '928.85 MB',
+		  streamURL: 'https://s10.dubshare.one/The_Bayou_2025_720p_HD.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Life List (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMjNhNzUyMTQtYTFiZS00NzM2LWI3YTgtZmI1ZTA1MDUzMzBhXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+        video: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Life%20List%20(2025)/The%20Life%20List%20(Original)/The%20Life%20List%20(720p%20HD)/The%20Life%20List%202025%20720p%20HD.mp4?h=039695ee9e20079f8a80fe9cdcf6cba65235e50e52dda9121d0cf905514e9802&e=1747744175',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '0.98 GB',
+		  streamURL: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Life%20List%20(2025)/The%20Life%20List%20(Original)/The%20Life%20List%20(720p%20HD)/The%20Life%20List%202025%20720p%20HD.mp4?h=039695ee9e20079f8a80fe9cdcf6cba65235e50e52dda9121d0cf905514e9802&e=1747744175'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Monkey (2025)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNzZhMTc5MWUtOTE2MS00MjUwLTljYWEtYTk1ZmVjNzhmMzYzXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+        video: 'https://s06.dubshare.one/The_Monkey_2025_720p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '921.59 MB',
+		  streamURL: 'https://s06.dubshare.one/The_Monkey_2025_720p_HD.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Absolution (2024)',
+        image: 'https://m.media-amazon.com/images/M/MV5BYWRiM2ViOGItNGVjZS00NzZhLTlhMjAtZDIzMDJmODc0NzdhXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+        video: 'https://s05.dubshare.one/Absolution_2024_720p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '952.15 MB',
+		  streamURL: 'https://s05.dubshare.one/Absolution_2024_720p_HD.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Babygirl (2024)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMmUwODYwODAtYWZkZS00YmUwLWFmMWEtOGNjMjE2NDk3OWIwXkEyXkFqcGc@._V1_QL75_UX380_CR0,14,380,562_.jpg',
+        video: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Babygirl%20(2024)/Babygirl%20(Original)/Babygirl%20(720p%20HD)/Babygirl%202024%20720p%20HD.mp4?h=acdef0c12efb96e5297ace95327b0df6dc287c03ab71831544bbccb0e6621513&e=1747708820',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '0.99 GB',
+		  streamURL: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Babygirl%20(2024)/Babygirl%20(Original)/Babygirl%20(720p%20HD)/Babygirl%202024%20720p%20HD.mp4?h=acdef0c12efb96e5297ace95327b0df6dc287c03ab71831544bbccb0e6621513&e=1747708820'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Cruel War (2024)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMTQxM2UxNzctNTIyNi00YzZlLThkNzAtNzJiZmQ4MWJlMjM2XkEyXkFqcGc@._V1_QL75_UY562_CR7,0,380,562_.jpg',
+        video: 'https://s01.dubshare.one/Cruel_War_2024_720p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '938.31 MB',
+		  streamURL: 'https://s01.dubshare.one/Cruel_War_2024_720p_HD.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Grafted (2024)',
+        image: 'https://m.media-amazon.com/images/M/MV5BYTljYWQwNDktZGE2MS00YWE1LThkY2YtN2ZkNTJmOTAwNGU4XkEyXkFqcGc@._V1_QL75_UY562_CR8,0,380,562_.jpg',
+        video: 'https://s03.dubshare.one/Grafted_2024_720p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '1.29 GB',
+		  streamURL: 'https://s03.dubshare.one/Grafted_2024_720p_HD.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Mufasa The Lion King (2024)',
+        image: 'https://m.media-amazon.com/images/M/MV5BYjBkOWUwODYtYWI3YS00N2I0LWEyYTktOTJjM2YzOTc3ZDNlXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+        video: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Mufasa%20The%20Lion%20King%20(2024)/Mufasa%20The%20Lion%20King%20(Original)/Mufasa%20The%20Lion%20King%20(720p%20HD)/Mufasa%20The%20Lion%20King%202024%20720p%20HD.mp4?h=ace7d888c04f22b0fa384526b78d41026c7adb48d5af58fd613a3febdc87c075&e=1747744137',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '1.04 GB',
+		  streamURL: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Mufasa%20The%20Lion%20King%20(2024)/Mufasa%20The%20Lion%20King%20(Original)/Mufasa%20The%20Lion%20King%20(720p%20HD)/Mufasa%20The%20Lion%20King%202024%20720p%20HD.mp4?h=ace7d888c04f22b0fa384526b78d41026c7adb48d5af58fd613a3febdc87c075&e=1747744137'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Ordinary Angels (2024)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMzg3OTliZDMtNTBhYy00OGMzLTlhZmUtMDMyNjQ4NDc4MDk5XkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg',
+        video: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Ordinary%20Angels%20(2024)/Ordinary%20Angels%20(Original)/Ordinary%20Angels%20(720p%20HD)/Ordinary%20Angels%202024%20720p%20HD.mp4?h=ec89fd63035de8279c8ff383418f1de69091afd28cafbfc963cf008c7b6fa123&e=1747744029',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '1.01 GB',
+		  streamURL: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Ordinary%20Angels%20(2024)/Ordinary%20Angels%20(Original)/Ordinary%20Angels%20(720p%20HD)/Ordinary%20Angels%202024%20720p%20HD.mp4?h=ec89fd63035de8279c8ff383418f1de69091afd28cafbfc963cf008c7b6fa123&e=1747744029'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Prisons (2024)',
+        image: 'https://m.media-amazon.com/images/M/MV5BOGMxZTMxY2ItZWVlYS00NDYyLWE2YWUtY2IxMGM3YmU3MWMyXkEyXkFqcGc@._V1_QL75_UY562_CR9,0,380,562_.jpg',
+        video: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Prisons%20(2024)/Prisons%20(Original)/Prisons%20(720p%20HD)/Prisons%202024%20720p%20HD.mp4?h=7473516ab6e93e034f6405caa9575aaac63a708229ede04de9e7e93af262162d&e=1747744106',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '888.51 MB',
+		  streamURL: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Prisons%20(2024)/Prisons%20(Original)/Prisons%20(720p%20HD)/Prisons%202024%20720p%20HD.mp4?h=7473516ab6e93e034f6405caa9575aaac63a708229ede04de9e7e93af262162d&e=1747744106'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'River of Blood (2024)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNmY3NGRkZjItZjQzZS00NjQ2LTlhYmYtNGJiNDQ0M2VjZGRjXkEyXkFqcGc@._V1_QL75_UY562_CR9,0,380,562_.jpg',
+        video: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/River%20of%20Blood%20(2024)/River%20of%20Blood%20(Original)/River%20of%20Blood%20(720p%20HD)/River%20of%20Blood%202024%20720p%20HD.mp4?h=674aa9b98bd92f832ff861559961131f9170d2cdf2dd46ef682865911b4ff9b8&e=1747744068',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '932.60 MB',
+		  streamURL: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/River%20of%20Blood%20(2024)/River%20of%20Blood%20(Original)/River%20of%20Blood%20(720p%20HD)/River%20of%20Blood%202024%20720p%20HD.mp4?h=674aa9b98bd92f832ff861559961131f9170d2cdf2dd46ef682865911b4ff9b8&e=1747744068'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Season of Love (2024)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNTFmODE2N2QtYjEyMy00OGExLWFjMjctNWEyZjJkYjdjNGUxXkEyXkFqcGc@._V1_QL75_UY562_CR7,0,380,562_.jpg',
+        video: 'https://s08.dubshare.one/Season_of_Love_2024_720p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '1.05 GB',
+		  streamURL: 'https://s08.dubshare.one/Season_of_Love_2024_720p_HD.mp4'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'Terrifier 3 (2024)',
+        image: 'https://m.media-amazon.com/images/M/MV5BNzc2MWUyYzctY2E4Ny00ZTlmLThjNTMtMTViZGI5NjcyN2EzXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg',
+        video: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Terrifier%203%20(2024)/Terrifier%203%20(Original)/Terrifier%203%20(720p%20HD)/Terrifier%203%202024%20720p%20HD.mp4?h=f5901cf235657f6fce90398ee20ad008e39089ea1440b48d7ec3f4f7aa028235&e=1747744029',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '1.04 GB',
+		  streamURL: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Terrifier%203%20(2024)/Terrifier%203%20(Original)/Terrifier%203%20(720p%20HD)/Terrifier%203%202024%20720p%20HD.mp4?h=f5901cf235657f6fce90398ee20ad008e39089ea1440b48d7ec3f4f7aa028235&e=1747744029'
+        }
+	},
+	{
+        type: "dubbed",
+		title: 'The Best Christmas Pageant Ever (2024)',
+        image: 'https://m.media-amazon.com/images/M/MV5BMmZhOTNkYmEtMjRlNC00YzViLWFlNGMtNWFmN2FiODM5NmYzXkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg',
+        video: 'https://s05.dubshare.one/The_Best_Christmas_Pageant_Ever_2024_720p_HD.mp4',
+        details: {
+          director: '',
+          starring: '',
+          genres: '',
+          quality: '720p',
+          language: 'Tamil',
+          movieRating: '',
+          lastUpdated: '25 April 2025',
+		  fileSize: '950.01 MB',
+		  streamURL: 'https://s05.dubshare.one/The_Best_Christmas_Pageant_Ever_2024_720p_HD.mp4'
+        }
+	},
+
 	
 	{
         type: "movie",
@@ -1108,23 +1555,6 @@ const videos = [
           lastUpdated: '18 April 2025',
 		  fileSize: '1.5 GB',
 		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Shivangi%202025.mp4'
-        }
-	},
-	{
-        type: "dubbed",
-		title: 'Fight or Flight (2025)',
-        image: 'https://m.media-amazon.com/images/M/MV5BMmE4YTQxMjctMWFlZC00OTY5LWJiNTctZjFhNTJlMmIxMmViXkEyXkFqcGc@._V1_FMjpg_UY2160_.jpg',
-        video: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Fight%20or%20Flight%202025.mp4',
-        details: {
-          director: 'James Madigan',
-          starring: 'Josh Hartnett, Charithra Chandran, Marko Zaror, Katee Sackhoff, Julian Kostov, JuJu Chan Szeto',
-          genres: 'Action, Comedy',
-          quality: '720p',
-          language: 'Tamil',
-          movieRating: '⭐6.4/10',
-          lastUpdated: '18 April 2025',
-		  fileSize: '1 GB',
-		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/Movies/April/Fight%20or%20Flight%202025.mp4'
         }
 	},
 	{
@@ -7012,7 +7442,7 @@ function loadHomeSections() {
     .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
     .slice(0, 10)
     .forEach(v => dubbed.appendChild(createCard(v)));
-
+/*
   videos
     .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
     .slice(0, 10)
@@ -7023,6 +7453,23 @@ function loadHomeSections() {
       slide.onclick = () => openPlayer(v);
       featured.appendChild(slide);
     });
+*/
+const featuredVideos = [
+  ...videos.filter(v => v.type === 'movie').sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated)).slice(0, 6),
+  ...videos.filter(v => v.type === 'series').sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated)).slice(0, 2),
+  ...videos.filter(v => v.type === 'dubbed').sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated)).slice(0, 2)
+];
+
+featuredVideos.forEach(v => {
+  const slide = document.createElement('div');
+  slide.className = 'swiper-slide';
+  slide.innerHTML = `
+    <img src="${v.image}" alt="${v.title}">
+    <div style="text-align:center; font-size:14px; margin-top:5px; color:#fff; font-weight:600; text-shadow:0 1px 3px #000;">${v.title}</div>
+  `;
+  slide.onclick = () => openPlayer(v);
+  featured.appendChild(slide);
+});
 
   swiper = new Swiper('.swiper', {
     slidesPerView: 3.0,
@@ -7030,6 +7477,7 @@ function loadHomeSections() {
     loop: true,
     autoplay: { delay: 2500 },
     pagination: { el: '.swiper-pagination', clickable: true },
+	
     on: { slideChange: updateFeaturedTitle }
   });
 
