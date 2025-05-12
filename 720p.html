@@ -199,7 +199,75 @@
       .cards { grid-template-columns: repeat(3, 1fr); }
 	  .search-bar input { width: 140px; }
     }
-	
+
+	.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 20px 0 10px 0;
+}
+
+.section-header h2 {
+  font-size: 20px;
+  margin: 0;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filters select,
+.filters button {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid #444;
+  background: #232323;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s, background 0.2s;
+  min-width: 90px;
+}
+
+.filters button {
+  background: #ff4500;
+  border: none;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.filters button:hover {
+  background: #e03e00;
+}
+
+@media (max-width: 600px) {
+  .section-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 16px 0 8px 0;
+  }
+  .filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 6px;
+    padding-bottom: 4px;
+  }
+  .filters select,
+  .filters button {
+    min-width: 80px;
+    font-size: 13px;
+    padding: 5px 8px;
+    flex: 0 0 auto;
+  }
+}
     /* Back to top button styling */
     #backToTopBtn {
       display: none; /* Hidden by default */
@@ -290,7 +358,7 @@
 
 <div class="section" style="padding: 20px 15px;">
   <div class="section-header" style="display: flex; justify-content: space-between; align-items: center;">
-    <h2>Filter</h2>
+    <h2>720P Movies</h2>
     <div class="filters">
       <select id="yearFilter">
         <option value="">Year</option>
@@ -315,6 +383,15 @@
 
 <!-- Back to top button -->
 <button id="backToTopBtn" title="Go to top"></button>
+
+<script disable-devtool-auto='true'
+src='https://cdn.jsdelivr.net/npm/disable-devtool'
+clear-log='true'
+disable-select='true' 
+disable-copy='true'
+disable-cut='true' 
+disable-paste='true'>
+</script>
 
 <footer>
   &copy; 2025 PanguPlay
