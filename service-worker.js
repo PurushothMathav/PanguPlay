@@ -1,4 +1,4 @@
-const CACHE_NAME = "panguplay-v0512250839";
+const CACHE_NAME = "panguplay-v0512251346";
 const urlsToCache = [
   "/PanguPlay/",
   "/PanguPlay/index.html",
