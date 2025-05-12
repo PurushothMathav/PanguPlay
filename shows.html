@@ -281,8 +281,34 @@
   <div class="swiper-pagination"></div>
 </div>
 
+<!--
 <div class="section">
   <h2>📺 All Shows 📽️</h2>
+  <div class="cards" id="showsList"></div>
+</div> -->
+
+<div class="section" style="padding: 20px 15px;">
+  <div class="section-header" style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>📺 All Shows 📽️</h2>
+    <div class="filters">
+      <select id="yearFilter">
+        <option value="">Year</option>
+        <!-- Years will be populated by JS -->
+      </select>
+      <select id="qualityFilter">
+        <option value="">Quality</option>
+        <!-- <option value="1080p">1080p</option> -->
+        <option value="HD">HD</option>
+       <!-- <option value="PreDVD">PreDVD</option> -->
+      </select>
+      <select id="sortFilter">
+        <option value="lastupdated">Last Updated</option>
+        <option value="desc">Title Z-A</option>
+        <option value="asc">Title A-Z</option>
+      </select>
+      <button id="clearFilters" style="margin-left:8px;">Clear</button>
+    </div>
+  </div>
   <div class="cards" id="showsList"></div>
 </div>
 
@@ -639,7 +665,7 @@ const videos = [
 {
     type: "series",
     id: "cbstrike",
-    title: 'C.B Strike The Ink Black Heart 2025 Season 01',
+    title: 'C.B Strike The Ink Black Heart (2025) Season 01',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/C.B%20Strike%202025%20Season%2001.jpg',
     details: 
 	{
@@ -690,7 +716,7 @@ const videos = [
 		{
     type: "series",
     id: "devils1",
-    title: 'Daredevil Born Again 2025 Season 01',
+    title: 'Daredevil Born Again (2025) Season 01',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/Daredevil%20Born%20Again%202025%20Season%2001.jpg',
     details: 
 	{
@@ -781,7 +807,7 @@ const videos = [
 		{
     type: "series",
     id: "gmbs1",
-    title: 'Get Millie Black 2025 Season 01',
+    title: 'Get Millie Black (2025) Season 01',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/Get%20Millie%20Black%202025%20Season%2001.jpg',
     details: 
 	{
@@ -840,7 +866,7 @@ const videos = [
 		{
     type: "series",
     id: "karmas1",
-    title: 'Karma 2025 Season 01',
+    title: 'Karma (2025) Season 01',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/Karma%202025%20Season%2001.jpg',
     details: 
 	{
@@ -907,7 +933,7 @@ const videos = [
 		{
     type: "series",
     id: "maxhs1",
-    title: 'Maxton Hall 2024 Season 01 EP(01-06)',
+    title: 'Maxton Hall (2024) Season 01 EP(01-06)',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/Maxton%20Hall%202024%20Season%2001.jpg',
     details: 
 	{
@@ -934,7 +960,7 @@ const videos = [
 		{
     type: "series",
     id: "outrs1",
-    title: 'Outer Range 2022 Season 01 EP(01-08)',
+    title: 'Outer Range (2022) Season 01 EP(01-08)',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/Outer%20Range%202022%20Season%2001.jpg',
     details: 
 	{
@@ -961,7 +987,7 @@ const videos = [
 		{
     type: "series",
     id: "reachs3",
-    title: 'Reacher 2025 Season 03',
+    title: 'Reacher (2025) Season 03',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/Reacher%202025%20Season%2003.jpg',
     details: 
 	{
@@ -1044,7 +1070,7 @@ const videos = [
 		{
     type: "series",
     id: "suits1",
-    title: 'Suits A 2025 Season 01',
+    title: 'Suits A (2025) Season 01',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/Suits%20A%202025%20Season%2001.jpg',
     details: 
 	{
@@ -1127,7 +1153,7 @@ const videos = [
 		{
     type: "series",
     id: "thps1",
-    title: 'The Hunting Party 2025 Season 01',
+    title: 'The Hunting Party (2025) Season 01',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/The%20Hunting%20Party%202025%20Season%2001.jpg',
     details: 
 	{
@@ -1226,7 +1252,7 @@ const videos = [
 		{
     type: "series",
     id: "theps1",
-    title: 'The Pitt 2025 Season 01',
+    title: 'The Pitt (2025) Season 01',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/The%20Pitt%202025%20Season%2001.jpg',
     details: 
 	{
@@ -1333,7 +1359,7 @@ const videos = [
 		{
     type: "series",
     id: "trpbs1",
-    title: 'The Real Peaky Blinders 2025 Documentary',
+    title: 'The Real Peaky Blinders (2025) Documentary',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/The%20Real%20Peaky%20Blinders%202025%20Documentary.jpg',
     details: 
 	{
@@ -1368,7 +1394,7 @@ const videos = [
 		{
     type: "series",
     id: "tsyms1",
-    title: 'The Sympathizer 2024 Season 01',
+    title: 'The Sympathizer (2024) Season 01',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/The%20Sympathizer%202024%20Season%2001.jpg',
     details: 
 	{
@@ -1443,7 +1469,7 @@ const videos = [
 		{
     type: "series",
     id: "twots3",
-    title: 'The Wheel of Time 2025 Season 03',
+    title: 'The Wheel of Time (2025) Season 03',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/The%20Wheel%20of%20Time%202025%20Season%2003.jpg',
     details: 
 	{
@@ -1526,7 +1552,7 @@ const videos = [
 		{
     type: "series",
     id: "twls3",
-    title: 'The White Lotus 2025 Season 03',
+    title: 'The White Lotus (2025) Season 03',
     image: 'https://storage.googleapis.com/panguplaybucket/Images/TV%20Series/The%20White%20Lotus%202025%20Season%2003.jpg',
     details: 
 	{
@@ -2568,6 +2594,102 @@ function searchFunction() {
   }
 }
 
+
+// Helper to get unique years from videos
+function getYears() {
+  const years = new Set();
+  videos.forEach(v => {
+    const match = v.title && v.title.match(/\((\d{4})\)/);
+    if (match) {
+      years.add(match[1]);
+    }
+  });
+  return Array.from(years).sort((a, b) => b - a);
+}
+
+// Populate year filter
+function populateYearFilter() {
+  const yearFilter = document.getElementById('yearFilter');
+  getYears().forEach(year => {
+    const opt = document.createElement('option');
+    opt.value = year;
+    opt.textContent = year;
+    yearFilter.appendChild(opt);
+  });
+}
+
+// Filtering logic
+function filterAndRenderSeries() {
+  const year = document.getElementById('yearFilter').value;
+  const quality = document.getElementById('qualityFilter').value;
+  const sort = document.getElementById('sortFilter').value;
+
+  let filtered = videos.filter(v => v.type === 'series');
+
+  if (year) {
+    filtered = filtered.filter(v => {
+      const match = v.title && v.title.match(/\((\d{4})\)/);
+      return match && match[1] === year;
+    });
+  }
+  if (quality) {
+    filtered = filtered.filter(v => v.details && v.details.quality === quality);
+  }
+
+  // Sorting
+  if (sort === 'asc') {
+    filtered = filtered.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (sort === 'desc') {
+    filtered = filtered.sort((a, b) => b.title.localeCompare(a.title));
+  } else { // "lastupdated" or default
+    filtered = filtered.sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated));
+  }
+
+  // Render
+  const series = document.getElementById('showsList');
+  series.innerHTML = '';
+  filtered.forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    let imageContent;
+    const quality = v.details.quality || 'SD';
+    const qualityClass = getQualityClass(quality);
+    if (v.image && v.image.trim() !== '') {
+      imageContent = `
+        <div class="card-image-container">
+          <img src="${v.image}" alt="${v.title}" loading="lazy">
+          <div class="quality-tag ${qualityClass}">${quality}</div>
+        </div>`;
+    } else {
+      imageContent = `
+        <div class="card-image-container">
+          ${generatePlaceholderImage(v.title)}
+          <div class="quality-tag ${qualityClass}">${quality}</div>
+        </div>`;
+    }
+    card.innerHTML = `${imageContent}
+                     <div class="card-title" style="padding:5px">${v.title}</div>`;
+    card.onclick = () => openPlayer(v);
+    series.appendChild(card);
+  });
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  populateYearFilter();
+  document.getElementById('yearFilter').onchange = filterAndRenderSeries;
+  document.getElementById('qualityFilter').onchange = filterAndRenderSeries;
+  document.getElementById('sortFilter').onchange = filterAndRenderSeries;
+  document.getElementById('clearFilters').onclick = () => {
+  document.getElementById('yearFilter').value = '';
+  document.getElementById('qualityFilter').value = '';
+  document.getElementById('sortFilter').value = 'lastupdated';
+  filterAndRenderSeries();
+};
+  filterAndRenderSeries();
+});
+
+
 function openPlayer(video) {
   const details = encodeURIComponent(JSON.stringify(video.details));
   let url = `player.html?title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${details}`;
@@ -2622,7 +2744,7 @@ function loadSwiper() {
 }
 
 loadSwiper();
-
+/*
 function loadShows() {
   const shows = document.getElementById('showsList');
 
@@ -2660,7 +2782,7 @@ function loadShows() {
 }
 
 loadShows();
-
+*/
 
 </script>
 

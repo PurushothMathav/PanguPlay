@@ -282,8 +282,39 @@
       .menu-icon { display: block; }
       .cards { grid-template-columns: repeat(3, 1fr); }
 	  .search-bar input { width: 140px; }
+    
     }
-	
+   /* 
+  .filters {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 6px;
+    padding-bottom: 4px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .filters select,
+  .filters button {
+    min-width: 90px;
+    font-size: 13px;
+    padding: 5px 8px;
+    flex: 0 0 auto;
+  }
+  .filters button {
+    min-width: 60px;
+    padding: 5px 12px;
+  }
+}
+*/
+
     /* Back to top button styling */
     #backToTopBtn {
       display: none; /* Hidden by default */
@@ -366,8 +397,34 @@
   <div class="swiper-pagination"></div>
 </div>
 
+<!--
 <div class="section">
   <h2>🎬 All Movies 📽️</h2>
+  <div class="cards" id="moviesList"></div>
+</div> -->
+
+<div class="section" style="padding: 20px 15px;">
+  <div class="section-header" style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>🎬 All Movies 📽️</h2>
+    <div class="filters">
+      <select id="yearFilter">
+        <option value="">Year</option>
+        <!-- Years will be populated by JS -->
+      </select>
+      <select id="qualityFilter">
+        <option value="">Quality</option>
+        <option value="1080p">1080p</option>
+        <option value="720p">720p</option>
+        <option value="PreDVD">PreDVD</option>
+      </select>
+      <select id="sortFilter">
+        <option value="lastupdated">Last Updated</option>
+        <option value="desc">Title Z-A</option>
+        <option value="asc">Title A-Z</option>
+      </select>
+      <button id="clearFilters" style="margin-left:8px;">Clear</button>
+    </div>
+  </div>
   <div class="cards" id="moviesList"></div>
 </div>
 
@@ -4580,6 +4637,104 @@ function searchFunction() {
   }
 }
 
+
+// Helper to get unique years from videos
+function getYears() {
+  const years = new Set();
+  videos.forEach(v => {
+    const match = v.title && v.title.match(/\((\d{4})\)/);
+    if (match) {
+      years.add(match[1]);
+    }
+  });
+  return Array.from(years).sort((a, b) => b - a);
+}
+
+// Populate year filter
+function populateYearFilter() {
+  const yearFilter = document.getElementById('yearFilter');
+  getYears().forEach(year => {
+    const opt = document.createElement('option');
+    opt.value = year;
+    opt.textContent = year;
+    yearFilter.appendChild(opt);
+  });
+}
+
+// Filtering logic
+function filterAndRenderMovies() {
+  const year = document.getElementById('yearFilter').value;
+  const quality = document.getElementById('qualityFilter').value;
+  const sort = document.getElementById('sortFilter').value;
+
+  let filtered = videos.filter(v => v.type === 'movie');
+
+  if (year) {
+    filtered = filtered.filter(v => {
+      const match = v.title && v.title.match(/\((\d{4})\)/);
+      return match && match[1] === year;
+    });
+  }
+  if (quality) {
+    filtered = filtered.filter(v => v.details && v.details.quality === quality);
+  }
+
+  // Sorting
+  if (sort === 'asc') {
+    filtered = filtered.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (sort === 'desc') {
+    filtered = filtered.sort((a, b) => b.title.localeCompare(a.title));
+  } else { // "lastupdated" or default
+    filtered = filtered.sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated));
+  }
+
+  // Render
+  const movies = document.getElementById('moviesList');
+  movies.innerHTML = '';
+  filtered.forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    let imageContent;
+    const quality = v.details.quality || 'SD';
+    const qualityClass = getQualityClass(quality);
+    if (v.image && v.image.trim() !== '') {
+      imageContent = `
+        <div class="card-image-container">
+          <img src="${v.image}" alt="${v.title}" loading="lazy">
+          <div class="quality-tag ${qualityClass}">${quality}</div>
+        </div>`;
+    } else {
+      imageContent = `
+        <div class="card-image-container">
+          ${generatePlaceholderImage(v.title)}
+          <div class="quality-tag ${qualityClass}">${quality}</div>
+        </div>`;
+    }
+    card.innerHTML = `${imageContent}
+                     <div class="card-title" style="padding:5px">${v.title}</div>`;
+    card.onclick = () => openPlayer(v);
+    movies.appendChild(card);
+  });
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  populateYearFilter();
+  document.getElementById('yearFilter').onchange = filterAndRenderMovies;
+  document.getElementById('qualityFilter').onchange = filterAndRenderMovies;
+  document.getElementById('sortFilter').onchange = filterAndRenderMovies;
+  document.getElementById('clearFilters').onclick = () => {
+  document.getElementById('yearFilter').value = '';
+  document.getElementById('qualityFilter').value = '';
+  document.getElementById('sortFilter').value = 'lastupdated';
+  filterAndRenderMovies();
+};
+  filterAndRenderMovies();
+});
+
+
+
+
 function openPlayer(video) {
   const details = encodeURIComponent(JSON.stringify(video.details));
   let url = `player.html?title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${details}`;
@@ -4638,7 +4793,7 @@ function loadSwiper() {
 
 loadSwiper();
 
-
+/*
 function loadMovies() {
   const movies = document.getElementById('moviesList');
   
@@ -4677,7 +4832,7 @@ function loadMovies() {
 }
 
 loadMovies();
-    
+*/
 </script>
 
 </body>

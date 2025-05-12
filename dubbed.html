@@ -282,8 +282,34 @@
   <div class="swiper-pagination"></div>
 </div>
 
+<!--
 <div class="section">
   <h2>🎙 All Dubbed Movies 📽️</h2>
+  <div class="cards" id="dubbedList"></div>
+</div> -->
+
+<div class="section" style="padding: 20px 15px;">
+  <div class="section-header" style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>🎙 Dubbed Movies 📽️</h2>
+    <div class="filters">
+      <select id="yearFilter">
+        <option value="">Year</option>
+        <!-- Years will be populated by JS -->
+      </select>
+      <select id="qualityFilter">
+        <option value="">Quality</option>
+        <!-- <option value="1080p">1080p</option> -->
+        <option value="HD">HD</option>
+       <!-- <option value="PreDVD">PreDVD</option> -->
+      </select>
+      <select id="sortFilter">
+        <option value="lastupdated">Last Updated</option>
+        <option value="desc">Title Z-A</option>
+        <option value="asc">Title A-Z</option>
+      </select>
+      <button id="clearFilters" style="margin-left:8px;">Clear</button>
+    </div>
+  </div>
   <div class="cards" id="dubbedList"></div>
 </div>
 
@@ -3890,6 +3916,102 @@ function searchFunction() {
   }
 }
 
+// Helper to get unique years from videos
+function getYears() {
+  const years = new Set();
+  videos.forEach(v => {
+    const match = v.title && v.title.match(/\((\d{4})\)/);
+    if (match) {
+      years.add(match[1]);
+    }
+  });
+  return Array.from(years).sort((a, b) => b - a);
+}
+
+// Populate year filter
+function populateYearFilter() {
+  const yearFilter = document.getElementById('yearFilter');
+  getYears().forEach(year => {
+    const opt = document.createElement('option');
+    opt.value = year;
+    opt.textContent = year;
+    yearFilter.appendChild(opt);
+  });
+}
+
+// Filtering logic
+function filterAndRenderDubbed() {
+  const year = document.getElementById('yearFilter').value;
+  const quality = document.getElementById('qualityFilter').value;
+  const sort = document.getElementById('sortFilter').value;
+
+  let filtered = videos.filter(v => v.type === 'dubbed');
+
+  if (year) {
+    filtered = filtered.filter(v => {
+      const match = v.title && v.title.match(/\((\d{4})\)/);
+      return match && match[1] === year;
+    });
+  }
+  if (quality) {
+    filtered = filtered.filter(v => v.details && v.details.quality === quality);
+  }
+
+  // Sorting
+  if (sort === 'asc') {
+    filtered = filtered.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (sort === 'desc') {
+    filtered = filtered.sort((a, b) => b.title.localeCompare(a.title));
+  } else { // "lastupdated" or default
+    filtered = filtered.sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated));
+  }
+
+  // Render
+  const dubbed = document.getElementById('dubbedList');
+  dubbed.innerHTML = '';
+  filtered.forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    let imageContent;
+    const quality = v.details.quality || 'SD';
+    const qualityClass = getQualityClass(quality);
+    if (v.image && v.image.trim() !== '') {
+      imageContent = `
+        <div class="card-image-container">
+          <img src="${v.image}" alt="${v.title}" loading="lazy">
+          <div class="quality-tag ${qualityClass}">${quality}</div>
+        </div>`;
+    } else {
+      imageContent = `
+        <div class="card-image-container">
+          ${generatePlaceholderImage(v.title)}
+          <div class="quality-tag ${qualityClass}">${quality}</div>
+        </div>`;
+    }
+    card.innerHTML = `${imageContent}
+                     <div class="card-title" style="padding:5px">${v.title}</div>`;
+    card.onclick = () => openPlayer(v);
+    dubbed.appendChild(card);
+  });
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  populateYearFilter();
+  document.getElementById('yearFilter').onchange = filterAndRenderDubbed;
+  document.getElementById('qualityFilter').onchange = filterAndRenderDubbed;
+  document.getElementById('sortFilter').onchange = filterAndRenderDubbed;
+  document.getElementById('clearFilters').onclick = () => {
+  document.getElementById('yearFilter').value = '';
+  document.getElementById('qualityFilter').value = '';
+  document.getElementById('sortFilter').value = 'lastupdated';
+  filterAndRenderDubbed();
+};
+  filterAndRenderDubbed();
+});
+
+
+
 function openPlayer(video) {
   const details = encodeURIComponent(JSON.stringify(video.details));
   let url = `player.html?title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${details}`;
@@ -3944,7 +4066,7 @@ function loadSwiper() {
 }
 
 loadSwiper();
-
+/*
 function loadDubbed() {
   const dubbed = document.getElementById('dubbedList');
 
@@ -3984,7 +4106,7 @@ function loadDubbed() {
 
 loadDubbed();
 
-
+*/
 </script>
 
 </body>
