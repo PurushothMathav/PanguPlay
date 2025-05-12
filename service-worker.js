@@ -1,4 +1,4 @@
-const CACHE_NAME = "panguplay-v0512251346";
+const CACHE_NAME = "panguplay-v0512251543";
 const urlsToCache = [
   "/PanguPlay/",
   "/PanguPlay/index.html",
@@ -13,11 +13,11 @@ const urlsToCache = [
   "/PanguPlay/favicon.png",
   "/PanguPlay/manifest.json",
   "https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.css",
-  "https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.js"
-  "https://unpkg.com/swiper/swiper-bundle.min.js"
-  "https://unpkg.com/swiper/swiper-bundle.min.css"
-  "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  "https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.css"
+  "https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.js",
+  "https://unpkg.com/swiper/swiper-bundle.min.js",
+  "https://unpkg.com/swiper/swiper-bundle.min.css",
+  "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+  "https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.css",
   "https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"
   // Add more assets as needed
 ];
