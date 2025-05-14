@@ -522,6 +522,49 @@
         justify-content: space-between;
       }
     }
+
+    .season-selector {
+  display: flex;
+  gap: 10px;
+  margin: 18px 0 10px 0;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.season-selector button {
+  background: #232323;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  font-weight: 500;
+  outline: none;
+}
+
+.season-selector button.active,
+.season-selector button:focus {
+  background: #ff4500;
+  color: #fff;
+  font-weight: 600;
+}
+
+.season-selector button:hover:not(.active) {
+  background: #333;
+}
+
+@media (max-width: 600px) {
+  .season-selector {
+    gap: 6px;
+    margin: 12px 0 8px 0;
+  }
+  .season-selector button {
+    font-size: 13px;
+    padding: 7px 12px;
+  }
+}
   </style>
 </head>
 <body>
@@ -532,7 +575,7 @@
       <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="movies.html">Movies</a>
-        <a href="shows.html">Shows</a>
+        <a href="series.html">Shows</a>
         <a href="dubbed.html">Tamil Dub</a>
         <a href="720p.html">720p</a>
         <a href="request.html">Request</a>
@@ -557,7 +600,7 @@
     <button class="close-btn" onclick="closeMenu()">✖</button>
     <a href="index.html">🏠 Home</a>
     <a href="movies.html">🎬 Movies</a>
-    <a href="shows.html">📺 Shows</a>
+    <a href="series.html">📺 Shows</a>
     <a href="dubbed.html">🎙 Tamil Dub</a>
     <a href="720p.html">🎞️ 720p HD</a>
     <a href="request.html">📩 Request</a>
@@ -583,6 +626,15 @@
           Your browser does not support the video tag.
         </video>
       </div>
+    </div>
+
+     <div class="nav-buttons" id="navButtons">
+      <button class="nav-button" id="prevBtn" onclick="playPreviousEpisode()">
+        <i class="fas fa-step-backward"></i> Previous Episode
+      </button>
+      <button class="nav-button" id="nextBtn" onclick="playNextEpisode()">
+        Next Episode <i class="fas fa-step-forward"></i>
+      </button>
     </div>
     
     <!-- Custom player controls -->
@@ -623,15 +675,8 @@
       </div>
     </div>
     
-    <div class="nav-buttons" id="navButtons">
-      <button class="nav-button" id="prevBtn" onclick="playPreviousEpisode()">
-        <i class="fas fa-step-backward"></i> Previous Episode
-      </button>
-      <button class="nav-button" id="nextBtn" onclick="playNextEpisode()">
-        Next Episode <i class="fas fa-step-forward"></i>
-      </button>
-    </div>
-    
+   
+    <div id="seasonSelector" class="season-selector"></div>
     <div class="episodes-section" id="episodesSection">
       <div class="episodes-title">Episodes</div>
       <div class="episode-buttons-wrapper" id="episodeButtons"></div>
@@ -639,16 +684,16 @@
   </div>
   
   <div id="toast" class="toast"></div>
-<!--
-  <script disable-devtool-auto='true'
+
+ <!-- <script disable-devtool-auto='true'
 src='https://cdn.jsdelivr.net/npm/disable-devtool'
 clear-log='true'
 disable-select='true' 
 disable-copy='true'
 disable-cut='true' 
 disable-paste='true'>
-</script>
-  -->
+</script> -->
+  
   <footer>
     &copy; 2025 PanguPlay
   </footer>
@@ -658,21 +703,27 @@ disable-paste='true'>
   <script>
     // Global variables
     const urlParams = new URLSearchParams(window.location.search);
-    const videoUrl = urlParams.get('video');
-    const altVideoUrl = urlParams.get('alt');
-    const videoTitle = urlParams.get('title');
-    const videoImage = urlParams.get('image');
-    const videoDetailsEncoded = urlParams.get('details');
-    const seriesId = urlParams.get('id');
-    const episodesEncoded = urlParams.get('episodes');
+const id = urlParams.get('id');
+let video = null;
+let episodes = [];
+let currentEpisodeId = null;
+let currentEpisodeIndex = 0;
+let player;
+let currentVideoSources = [];
+let currentQuality = '1080p';
+const seekTime = 10; // Seconds to skip when seeking
+
+fetch('series.json')
+  .then(res => res.json())
+  .then(data => {
+    video = data.find(v => v.id === id);
+    if (!video) {
+      showToast('Video not found.');
+      return;
+    }
+    setupPage();
+  });
     
-    let episodes = [];
-    let currentEpisodeId = null;
-    let currentEpisodeIndex = 0;
-    let player;
-    let currentVideoSources = [];
-    let currentQuality = '1080p';
-    const seekTime = 10; // Seconds to skip when seeking
     
     function initPlayer() {
   const isMobile = window.innerWidth <= 768; // Detect mobile devices
@@ -847,9 +898,11 @@ function enableLandscapeOnFullScreen() {
 	
     // Setup download button functionality
     function setupDownloadButton() {
-      const downloadBtn = document.getElementById('downloadBtn');
-      downloadBtn.addEventListener('click', downloadVideo);
-    }
+  const downloadBtn = document.getElementById('downloadBtn');
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', downloadVideo);
+  }
+}
     
     // Handle keyboard shortcuts
     function handleKeyboardShortcuts(e) {
@@ -886,105 +939,118 @@ function enableLandscapeOnFullScreen() {
     }
     
     // Download video function
-    function downloadVideo() {
-      let urlToDownload;
-      let filename;
-      
-      if (currentEpisodeId && episodes.length > 0) {
-        const episode = episodes[currentEpisodeIndex];
-        urlToDownload = episode.videoUrl;
-        filename = `${videoTitle}-S${episode.season}E${episode.episode}.mp4`;
-      } else if (currentVideoSources.length > 0) {
-        const activeSource = currentVideoSources.find(source => source.quality === currentQuality);
-        urlToDownload = activeSource ? activeSource.url : currentVideoSources[0].url;
-        filename = `${videoTitle}-${currentQuality}.mp4`;
-      }
-      
-      if (urlToDownload) {
-        showToast('Preparing download...');
-        
-        // Create a temporary anchor element
-        const a = document.createElement('a');
-        a.href = urlToDownload;
-        a.download = filename;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        
-        showToast('Download started!');
-      } else {
-        showToast('No video available for download');
-      }
+function downloadVideo() {
+  let urlToDownload;
+  let filename;
+
+  // Fallback to first episode if currentEpisodeIndex is invalid
+  let episode = episodes && episodes.length > 0
+    ? episodes[currentEpisodeIndex] || episodes[0]
+    : null;
+
+  if (episode) {
+    let source = null;
+    if (currentQuality === '720p' && episode.altVideoUrl) {
+      source = episode.altVideoUrl;
+    } else if (episode.videoUrl) {
+      source = episode.videoUrl;
     }
-    
+    urlToDownload = source;
+    filename = `${video.title.replace(/\s+/g, '_')}-S${episode.season}E${episode.episode}-${currentQuality}.mp4`;
+  } else if (currentVideoSources.length > 0) {
+    const activeSource = currentVideoSources.find(source => source.quality === currentQuality);
+    urlToDownload = activeSource ? activeSource.url : currentVideoSources[0].url;
+    filename = `${video.title.replace(/\s+/g, '_')}-${currentQuality}.mp4`;
+  }
+
+  if (urlToDownload) {
+    showToast('If download does not start, long-press the video and choose "Download" or "Save As".');
+    const a = document.createElement('a');
+    a.href = urlToDownload;
+    a.download = filename;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  } else {
+    showToast('No video available for download');
+  }
+}
+    let currentSeasonIndex = 0;
     // Setup page content
     function setupPage() {
-      document.getElementById('videoTitle').textContent = videoTitle;
-      document.getElementById('pageHeading').textContent = videoTitle;
-      document.title = videoTitle + ' - PanguPlay';
-      
-      const posterUrl = decodeURIComponent(videoImage);
-      document.getElementById('videoPoster').src = posterUrl;
-      document.getElementById('player').setAttribute('data-poster', posterUrl);
+  document.getElementById('videoTitle').textContent = video.title;
+  document.getElementById('pageHeading').textContent = video.title;
+  document.title = video.title + ' - PanguPlay';
 
-      const details = JSON.parse(decodeURIComponent(videoDetailsEncoded));
-      document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
-      document.getElementById('director').textContent = details.director || 'N/A';
-      document.getElementById('starring').textContent = details.starring || 'N/A';
-      document.getElementById('genres').textContent = details.genres || 'N/A';
-      document.getElementById('quality').textContent = details.quality || 'N/A';
-      document.getElementById('language').textContent = details.language || 'N/A';
-      document.getElementById('fileSize').textContent = details.fileSize || 'N/A';
-      document.getElementById('lastUpdated').textContent = details.lastUpdated || 'N/A';
+  const posterUrl = video.image;
+  document.getElementById('videoPoster').src = posterUrl;
+  document.getElementById('player').setAttribute('data-poster', posterUrl);
 
-      if (seriesId && episodesEncoded) {
-        // Series handling
-        episodes = JSON.parse(decodeURIComponent(episodesEncoded));
-        const episodeId = urlParams.get('episodeId');
-        if (episodeId) {
-          playEpisode(episodeId);
-        } else if (episodes.length > 0) {
-          playEpisode(episodes[0].id);
-        }
-        document.getElementById('episodesSection').style.display = 'block';
-        document.getElementById('navButtons').style.display = 'flex';
-      } else {
-        // Movie handling
-        document.getElementById('episodesSection').style.display = 'none';
-        document.getElementById('navButtons').style.display = 'none';
-        
-        // Setup the video sources
-        currentVideoSources = [];
-        
-        if (videoUrl) {
-          currentVideoSources.push({
-            url: decodeURIComponent(videoUrl),
-            quality: '1080p'
-          });
-        }
-        
-        if (altVideoUrl) {
-          currentVideoSources.push({
-            url: decodeURIComponent(altVideoUrl),
-            quality: '720p'
-          });
-        }
-        
-        // Set up resolution selector
-        setupResolutionSelector();
-        
-        // Load the video
-        loadVideo(currentVideoSources[0].url);
-      }
+  const details = video.details || {};
+  document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
+  document.getElementById('director').textContent = details.director || 'N/A';
+  document.getElementById('starring').textContent = details.starring || 'N/A';
+  document.getElementById('genres').textContent = details.genres || 'N/A';
+  document.getElementById('quality').textContent = details.quality || 'N/A';
+  document.getElementById('language').textContent = details.language || 'N/A';
+  document.getElementById('fileSize').textContent = details.fileSize || 'N/A';
+  document.getElementById('lastUpdated').textContent = details.lastUpdated || 'N/A';
+
+  if (video.seasons && video.seasons.length > 0) {
+    currentSeasonIndex = 0;
+    episodes = video.seasons[currentSeasonIndex].episodes;
+    renderSeasonSelector();
+    playEpisode(episodes[0].id);
+    document.getElementById('episodesSection').style.display = 'block';
+    document.getElementById('navButtons').style.display = 'flex';
+  } else {
+    document.getElementById('episodesSection').style.display = 'none';
+    document.getElementById('navButtons').style.display = 'none';
+
+    // Setup the video sources
+    currentVideoSources = [];
+    if (video.video) {
+      currentVideoSources.push({
+        url: video.video,
+        quality: '1080p'
+      });
     }
+    if (video.altVideo) {
+      currentVideoSources.push({
+        url: video.altVideo,
+        quality: '720p'
+      });
+    }
+    setupResolutionSelector();
+    loadVideo(currentVideoSources[0]?.url);
+  }
+}
+
+function renderSeasonSelector() {
+  const container = document.getElementById('seasonSelector');
+  container.innerHTML = '';
+  video.seasons.forEach((season, idx) => {
+    const btn = document.createElement('button');
+    btn.textContent = `Season ${season.season}`;
+    btn.className = idx === currentSeasonIndex ? 'active' : '';
+    btn.onclick = () => {
+      currentSeasonIndex = idx;
+      episodes = video.seasons[idx].episodes;
+      currentEpisodeIndex = 0; // Reset to first episode
+      playEpisode(episodes[0].id);
+      renderSeasonSelector();
+    };
+    container.appendChild(btn);
+  });
+}
     
     function loadVideo(initialUrl) {
       if (!player) return;
       showLoading();
 
-      const poster = decodeURIComponent(videoImage);
+      const poster = video.image;
       const currentTime = player.currentTime || 0;
 
       const sources = currentVideoSources.map(source => ({
@@ -1015,36 +1081,35 @@ function enableLandscapeOnFullScreen() {
     }
 
     function tryFallback() {
-      const fallback = currentVideoSources.find(src => src.quality === '720p');
-      if (!fallback) return;
+  const fallback = currentVideoSources.find(src => src.quality === '720p');
+  if (!fallback) return;
 
-      player.source = {
-        type: 'video',
-        sources: [{
-          src: fallback.url,
-          type: 'video/mp4',
-          size: 720
-        }],
-        poster: decodeURIComponent(videoImage)
-      };
+  player.source = {
+    type: 'video',
+    sources: [{
+      src: fallback.url,
+      type: 'video/mp4',
+      size: 720
+    }],
+    poster: video.image // <-- FIXED
+  };
 
-      player.play().catch(err => {
-        console.error('Fallback failed:', err);
-        showToast('Fallback failed. No video available.');
-        hideLoading();
-      });
-    }
+  player.play().catch(err => {
+    console.error('Fallback failed:', err);
+    showToast('Fallback failed. No video available.');
+    hideLoading();
+  });
+}
 
   //setup share button
   document.getElementById('shareBtn').addEventListener('click', () => {
   // Ensure details are parsed correctly
-  const details = videoDetailsEncoded ? JSON.parse(decodeURIComponent(videoDetailsEncoded)) : {};
+  const details = video.details || {};
 
-  const shareData = {
-    title: videoTitle,
-    text: `🎬 ${videoTitle}\n🌟 Rating: ${details.movieRating || 'N/A'}\n📀 Quality: ${details.quality || 'N/A'}\n🗣️ Language: ${details.language || 'N/A'}\n📁 Size: ${details.fileSize || 'N/A'}\n\nWatch now: https://purushothmathav.github.io/PanguPlay`,
-    //url: `https://purushothmathav.github.io/PanguPlay`,
-  };
+const shareData = {
+  title: video.title,
+  text: `🎬 ${video.title}\n🌟 Rating: ${details.movieRating || 'N/A'}\n📀 Quality: ${details.quality || 'N/A'}\n🗣️ Language: ${details.language || 'N/A'}\n📁 Size: ${details.fileSize || 'N/A'}\n\nWatch now: https://purushothmathav.github.io/PanguPlay`,
+};
 
   if (navigator.share) {
     navigator.share(shareData)
@@ -1091,85 +1156,79 @@ document.getElementById('streamBtn').addEventListener('click', () => {
 
     // Setup resolution selector
     function setupResolutionSelector() {
-      const resolutionSelector = document.getElementById('resolutionSelector');
-      resolutionSelector.innerHTML = '';
+  const resolutionSelector = document.getElementById('resolutionSelector');
+  resolutionSelector.innerHTML = '';
 
-      if (currentVideoSources.length <= 1) {
-        resolutionSelector.style.display = 'none';
-        return;
-      }
+  if (currentVideoSources.length <= 1) {
+    resolutionSelector.style.display = 'none';
+    return;
+  }
 
-      resolutionSelector.style.display = 'flex';
+  resolutionSelector.style.display = 'flex';
 
-      currentVideoSources.forEach(source => {
-        const button = document.createElement('button');
-        button.className = 'resolution-btn' + (source.quality === currentQuality ? ' active' : '');
-        button.textContent = source.quality;
-        button.onclick = () => {
-          const currentTime = player.currentTime;
-          currentQuality = source.quality;
+  currentVideoSources.forEach(source => {
+    const button = document.createElement('button');
+    button.className = 'resolution-btn' + (source.quality === currentQuality ? ' active' : '');
+    button.textContent = source.quality;
+    button.onclick = () => {
+      const currentTime = player.currentTime;
+      currentQuality = source.quality;
 
-          document.querySelectorAll('.resolution-btn').forEach(btn => btn.classList.remove('active'));
-          button.classList.add('active');
+      document.querySelectorAll('.resolution-btn').forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
 
-          // Reload video with selected quality
-          const selected = currentVideoSources.find(v => v.quality === currentQuality);
-          if (selected) {
-            player.source = {
-              type: 'video',
-              sources: [{
-                src: selected.url,
-                type: 'video/mp4',
-                size: parseInt(selected.quality.replace('p', ''))
-              }],
-              poster: decodeURIComponent(videoImage)
-            };
-            player.once('canplay', () => {
-              player.currentTime = currentTime;
-              player.play().catch(err => {
-                showToast('Playback error. Try another quality.');
-              });
-            });
-          }
+      // Reload video with selected quality
+      const selected = currentVideoSources.find(v => v.quality === currentQuality);
+      if (selected) {
+        player.source = {
+          type: 'video',
+          sources: [{
+            src: selected.url,
+            type: 'video/mp4',
+            size: parseInt(selected.quality.replace('p', ''))
+          }],
+          poster: video.image // <-- FIXED
         };
-        resolutionSelector.appendChild(button);
-      });
-    }
+        player.once('canplay', () => {
+          player.currentTime = currentTime;
+          player.play().catch(err => {
+            showToast('Playback error. Try another quality.');
+          });
+        });
+      }
+    };
+    resolutionSelector.appendChild(button);
+  });
+}
     
     // Play episode for series
 function playEpisode(episodeId) {
   const index = episodes.findIndex(e => e.id === episodeId);
   if (index === -1) return;
-  
+
   currentEpisodeId = episodeId;
   currentEpisodeIndex = index;
   const episode = episodes[index];
-  
+
   // Set up video sources
   currentVideoSources = [];
-  
   if (episode.videoUrl) {
     currentVideoSources.push({
       url: episode.videoUrl,
       quality: '1080p'
     });
   }
-  
   if (episode.altVideoUrl) {
     currentVideoSources.push({
       url: episode.altVideoUrl,
       quality: '720p'
     });
   }
-  
-  // Update resolution selector
+
   setupResolutionSelector();
-  
-  // Load the video
   loadVideo(currentVideoSources[0].url);
-  
-  // Update UI
-  updateHeaderTitle(videoTitle, true, episode.season, episode.episode, episode.title);
+
+  updateHeaderTitle(video.title, true, episode.season, episode.episode, episode.title);
   updateEpisodeButtons();
   updateNavButtons();
 }
