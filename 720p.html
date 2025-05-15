@@ -16,13 +16,68 @@
     a { color: inherit; text-decoration: none; }
     img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px }
 
-    .navbar { background: #1f1f1f; display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; position: sticky; top: 0; z-index: 1000; }
-    .nav-left, .nav-right { display: flex; align-items: center; }
-    .nav-logo { font-weight: bold; font-size: 20px; }
-    .nav-links { display: flex; gap: 15px; margin-left: 20px; }
-    .nav-links a { padding: 5px 10px; border-radius: 5px; transition: 0.3s; }
-    .nav-links a:hover { background: #333; }
-    .menu-icon { font-size: 24px; cursor: pointer; display: none; }
+        /* Navbar */
+  .navbar {
+  background: #1f1f1f;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  flex-wrap: wrap;
+}
+
+.nav-left { 
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo {
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.nav-center {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.nav-center a {
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+.nav-center a:hover {
+  background: #333;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+
+.nav-links a {
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 5px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.nav-links a:hover {
+  background: #333;
+  color: #ff4500;
+}
+/* Menu icon for mobile */
+.menu-icon {
+  font-size: 24px;
+  cursor: pointer;
+  display: none;
+}
     .search-bar { display: flex; align-items: center; position: relative; }
 	.search-bar input { padding: 6px 10px; border: 1px solid #444; background: #2a2a2a; color: #fff; border-radius: 20px; outline: none; width: 180px; transition: all 0.3s ease; }
 	.search-bar input:focus { border-color: #ff4500; background: #1e1e1e; }
@@ -302,25 +357,78 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }	
+
+    .nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.bell-btn {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.notification-popup {
+  position: absolute;
+  top: 48px; /* Adjust to be just below navbar */
+  left: 150px; /* Adjust to align with bell icon */
+  background: #222;
+  color: #fff;
+  border: 1.5px solid #ff4500;
+  padding: 14px 18px 10px 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  z-index: 9999;
+  min-width: 210px;
+  font-size: 15px;
+  font-family: inherit;
+  pointer-events: auto;
+  width: auto;
+  max-width: 50vw;
+ 
+}
+.notification-popup ul {
+  margin: 8px 0 0 0;
+  padding-left: 18px;
+}
+.notification-popup li {
+  margin-bottom: 2px;
+}
+
+@media (max-width: 768px) {
+  .notification-popup {
+    left: 150px;
+    right: 10px;
+    min-width: unset;
+    width: auto;
+    max-width: 50vw;
+  }
+}
   </style>
 </head>
 <body>
 
+<!-- Navbar -->
 <div class="navbar">
   <div class="nav-left">
-    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
-    <a href="index.html" class="nav-logo">PanguPlay</a>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="movies.html">Movies</a>
-      <a href="shows.html">Shows</a>
-      <a href="dubbed.html">Tamil Dub</a>
-	  <a href="720p.html">720p</a>
-	  <a href="request.html">Request</a>
-      <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a>
-    </div>
+  <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+  <a href="index.html" class="nav-logo">PanguPlay</a>
+  <button class="bell-btn" id="bellBtn" title="Notifications">🔔</button>
+</div>
+
+  <div class="nav-center nav-links">
+    <a href="index.html">Home</a>
+    <a href="movies.html">Movies</a>
+    <a href="shows.html">Shows</a>
+    <a href="dubbed.html">Tamil Dub</a>
+	<a href="720p.html">720p</a>
+    <a href="request.html">Request</a>
+    <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a>
   </div>
-  
+
   <div class="nav-right">
     <div class="search-bar">
       <input type="text" placeholder="Search..." id="searchInput" oninput="searchFunction()">
@@ -328,6 +436,17 @@
       <div class="search-results" id="searchResults"></div>
     </div>
   </div>
+</div>
+
+<!-- Notification Popup -->
+<div id="notificationPopup" class="notification-popup" style="display:none;">
+  <strong>What's New</strong>
+  <ul style="margin:8px 0 0 0; padding-left:18px;">
+    <li style="display:flex;align-items:center;gap:8px;">
+      <img src="https://m.media-amazon.com/images/M/MV5BYjIzOTgxZTQtN2ExMy00MGM1LThjYTgtNGE5MTUxN2Q5YjRjXkEyXkFqcGc@._V1_SX300.jpg" alt="Sattur Railway Station" style="width:50px;height:70px;object-fit:cover;border-radius:4px;">
+      Sattur Railway Station (2023)
+    </li>
+  </ul>
 </div>
 
 <!-- Mobile Menu Backdrop -->
@@ -1723,6 +1842,18 @@ function searchFunction() {
   }
 }
 
+// Hide search results when clicking outside
+document.addEventListener('click', function(e) {
+  if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+    searchResults.style.display = 'none';
+  }
+});
+searchInput.addEventListener('focus', function() {
+  if (searchInput.value.trim().length > 0) {
+    searchResults.style.display = 'block';
+  }
+});
+
 // Helper to get unique years from videos
 function getYears() {
   const years = new Set();
@@ -1817,7 +1948,21 @@ document.addEventListener('DOMContentLoaded', () => {
   filterAndRenderWebdl();
 });
 
+// Show/hide notification popup
+const bellBtn = document.getElementById('bellBtn');
+const popup = document.getElementById('notificationPopup');
 
+bellBtn.addEventListener('click', function(event) {
+  event.stopPropagation();
+  popup.style.display = (popup.style.display === 'none' || popup.style.display === '') ? 'block' : 'none';
+});
+
+// Hide popup when clicking outside
+document.addEventListener('click', function(event) {
+  if (popup.style.display === 'block' && !popup.contains(event.target) && event.target !== bellBtn) {
+    popup.style.display = 'none';
+  }
+}); 
 
 /*
 function openPlayer(video) {

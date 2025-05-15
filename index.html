@@ -303,7 +303,59 @@ footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f
     }
     #backToTopBtn:hover { background-color: #0f2042; transform: translateY(-3px); }
     #backToTopBtn::after { content: "↑"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-  </style>
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.bell-btn {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.notification-popup {
+  position: absolute;
+  top: 48px; /* Adjust to be just below navbar */
+  left: 150px; /* Adjust to align with bell icon */
+  background: #222;
+  color: #fff;
+  border: 1.5px solid #ff4500;
+  padding: 14px 18px 10px 18px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  z-index: 9999;
+  min-width: 210px;
+  font-size: 15px;
+  font-family: inherit;
+  pointer-events: auto;
+  width: auto;
+  max-width: 50vw;
+ 
+}
+.notification-popup ul {
+  margin: 8px 0 0 0;
+  padding-left: 18px;
+}
+.notification-popup li {
+  margin-bottom: 2px;
+}
+
+@media (max-width: 768px) {
+  .notification-popup {
+    left: 150px;
+    right: 10px;
+    min-width: unset;
+    width: auto;
+    max-width: 50vw;
+  }
+}
+
+
+</style>
 </head>
 
 <body>
@@ -311,9 +363,10 @@ footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f
 <!-- Navbar -->
 <div class="navbar">
   <div class="nav-left">
-    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
-    <a href="index.html" class="nav-logo">PanguPlay</a>
-  </div>
+  <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+  <a href="index.html" class="nav-logo">PanguPlay</a>
+  <button class="bell-btn" id="bellBtn" title="Notifications">🔔</button>
+</div>
 
   <div class="nav-center nav-links">
     <a href="index.html">Home</a>
@@ -334,7 +387,16 @@ footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f
   </div>
 </div>
 
-
+<!-- Notification Popup -->
+<div id="notificationPopup" class="notification-popup" style="display:none;">
+  <strong>What's New</strong>
+  <ul style="margin:8px 0 0 0; padding-left:18px;">
+    <li style="display:flex;align-items:center;gap:8px;">
+      <img src="https://m.media-amazon.com/images/M/MV5BYjIzOTgxZTQtN2ExMy00MGM1LThjYTgtNGE5MTUxN2Q5YjRjXkEyXkFqcGc@._V1_SX300.jpg" alt="Sattur Railway Station" style="width:50px;height:70px;object-fit:cover;border-radius:4px;">
+      Sattur Railway Station (2023)
+    </li>
+  </ul>
+</div>
 
 <!-- Mobile Menu Backdrop -->
 <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMenu()"></div>
@@ -382,6 +444,11 @@ footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f
 <!-- Back to top button -->
   <button id="backToTopBtn" title="Go to top"></button>
 
+<!-- Footer -->
+<footer>
+  &copy; 2025 PanguPlay
+</footer>
+
 <script disable-devtool-auto='true'
 src='https://cdn.jsdelivr.net/npm/disable-devtool'
 clear-log='true'
@@ -390,11 +457,6 @@ disable-copy='true'
 disable-cut='true' 
 disable-paste='true'>
 </script>
-
-<!-- Footer -->
-<footer>
-  &copy; 2025 PanguPlay
-</footer>
 
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.js"></script>
@@ -416,6 +478,10 @@ disable-paste='true'>
       }
     }
     
+
+
+  
+
     // When the user clicks on the button, scroll to the top of the document
     backToTopButton.addEventListener("click", function() {
       // For smooth scrolling
@@ -19133,6 +19199,34 @@ function searchFunction() {
     results.style.display = 'none';
   }
 }
+
+// Hide search results when clicking outside
+document.addEventListener('click', function(e) {
+  if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+    searchResults.style.display = 'none';
+  }
+});
+searchInput.addEventListener('focus', function() {
+  if (searchInput.value.trim().length > 0) {
+    searchResults.style.display = 'block';
+  }
+});
+
+// Show/hide notification popup
+const bellBtn = document.getElementById('bellBtn');
+const popup = document.getElementById('notificationPopup');
+
+bellBtn.addEventListener('click', function(event) {
+  event.stopPropagation();
+  popup.style.display = (popup.style.display === 'none' || popup.style.display === '') ? 'block' : 'none';
+});
+
+// Hide popup when clicking outside
+document.addEventListener('click', function(event) {
+  if (popup.style.display === 'block' && !popup.contains(event.target) && event.target !== bellBtn) {
+    popup.style.display = 'none';
+  }
+}); 
 /*
 function openPlayer(video) {
   const details = encodeURIComponent(JSON.stringify(video.details));
@@ -19265,6 +19359,8 @@ function loadHomeSections() {
 }
 
 loadHomeSections();
+
+
 
 </script>
 
