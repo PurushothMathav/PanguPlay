@@ -10341,6 +10341,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+/*
 function openPlayer(video) {
   const details = encodeURIComponent(JSON.stringify(video.details));
   let url = `player.html?title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${details}`;
@@ -10354,6 +10355,12 @@ function openPlayer(video) {
 	}
   }
   window.location.href = url;
+}
+*/
+
+function openPlayer(video) {
+  sessionStorage.setItem('playerData', JSON.stringify(video));
+  window.location.href = `player.html?id=${video.id}`;
 }
 
 function parseDate(dateString) {

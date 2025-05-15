@@ -6048,6 +6048,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+/*
 function openPlayer(video) {
   const details = encodeURIComponent(JSON.stringify(video.details));
   let url = `player.html?title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${details}`;
@@ -6056,8 +6057,17 @@ function openPlayer(video) {
     url += `&id=${video.id}&episodes=${episodes}`;
   } else {
     url += `&video=${encodeURIComponent(video.video)}`;
+	if (video.alt) {
+		url += `&alt=${encodeURIComponent(video.alt)}`;
+	}
   }
   window.location.href = url;
+}
+*/
+
+function openPlayer(video) {
+  sessionStorage.setItem('playerData', JSON.stringify(video));
+  window.location.href = `player.html?id=${video.id}`;
 }
 
 function parseDate(dateString) {

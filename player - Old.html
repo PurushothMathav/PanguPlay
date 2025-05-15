@@ -657,8 +657,15 @@ disable-paste='true'>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.js"></script>
   <script>
     // Global variables
-// Instead of reading from URL, read from sessionStorage
-    let playerData = null;
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoUrl = urlParams.get('video');
+    const altVideoUrl = urlParams.get('alt');
+    const videoTitle = urlParams.get('title');
+    const videoImage = urlParams.get('image');
+    const videoDetailsEncoded = urlParams.get('details');
+    const seriesId = urlParams.get('id');
+    const episodesEncoded = urlParams.get('episodes');
+    
     let episodes = [];
     let currentEpisodeId = null;
     let currentEpisodeIndex = 0;
@@ -666,45 +673,51 @@ disable-paste='true'>
     let currentVideoSources = [];
     let currentQuality = '1080p';
     const seekTime = 10; // Seconds to skip when seeking
-
+    
     function initPlayer() {
-      const isMobile = window.innerWidth <= 768;
-      player = new Plyr('#player', {
-        controls: isMobile
-          ? ['play-large', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']
-          : ['play-large', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
-        settings: ['captions', 'speed'],
-        resetOnEnd: false,
-        keyboard: { focused: true, global: true },
-        tooltips: { controls: true, seek: true },
-        seekTime: 10,
-        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.svg',
-        blankVideo: 'https://cdn.plyr.io/static/blank.mp4',
-      });
+  const isMobile = window.innerWidth <= 768; // Detect mobile devices
+  player = new Plyr('#player', {
+    controls: isMobile
+      ? ['play-large', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']
+      : ['play-large', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+    settings: ['captions', 'speed'],
+    resetOnEnd: false,
+    keyboard: { focused: true, global: true },
+    tooltips: { controls: true, seek: true },
+    seekTime: 10,
+    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.svg',
+    blankVideo: 'https://cdn.plyr.io/static/blank.mp4',
+  });
 
-      player.on('ready', () => hideLoading());
-      player.on('loadstart', () => showLoading());
-      player.on('canplay', () => hideLoading());
-      player.on('error', () => {
-        hideLoading();
-        showToast('Error playing video. Please try another quality or source.');
-      });
-    }
+  player.on('ready', () => {
+    hideLoading();
+  });
 
+  player.on('loadstart', () => {
+    showLoading();
+  });
+
+  player.on('canplay', () => {
+    hideLoading();
+  });
+
+  player.on('error', () => {
+    hideLoading();
+    showToast('Error playing video. Please try another quality or source.');
+  });
+}
+    
+	// Initialize the page
     document.addEventListener('DOMContentLoaded', function() {
-      // Get playerData from sessionStorage
-      playerData = JSON.parse(sessionStorage.getItem('playerData') || 'null');
-      if (!playerData) {
-        showToast('No video data found. Please go back and select a video.');
-        return;
-      }
-      initPlayer();
-      setupPage();
-      setupDownloadButton();
-      setupDoubleTapSeeking();
-      enableLandscapeOnFullScreen();
-      document.addEventListener('keydown', handleKeyboardShortcuts);
-    });
+  initPlayer(); // Initialize the player
+  setupPage();  // Setup page content
+  setupDownloadButton(); //Setup Download Button
+  setupDoubleTapSeeking(); // Enable double-tap seeking
+  enableLandscapeOnFullScreen(); // Enable landscape mode on full-screen
+  
+  // Listen for keyboard shortcuts
+  document.addEventListener('keydown', handleKeyboardShortcuts);
+});
 	
 function setupDoubleTapSeeking() {
   const videoContainer = document.querySelector('.video-container');
@@ -781,22 +794,10 @@ function loadMediaToCast(castSession) {
     return;
   }
 
-  // Use playerData from sessionStorage
-  const title = playerData?.title || 'PanguPlay';
-  const image = playerData?.image || '';
-  const videoUrl = currentVideoSources[0]?.url;
-
-  if (!videoUrl) {
-    showToast('No video to cast.');
-    return;
-  }
-
-  const mediaInfo = new chrome.cast.media.MediaInfo(videoUrl, 'video/mp4');
+  const mediaInfo = new chrome.cast.media.MediaInfo(currentVideoSources[0].url, 'video/mp4');
   mediaInfo.metadata = new chrome.cast.media.GenericMediaMetadata();
-  mediaInfo.metadata.title = title;
-  if (image) {
-    mediaInfo.metadata.images = [{ url: image }];
-  }
+  mediaInfo.metadata.title = videoTitle;
+  mediaInfo.metadata.images = [{ url: decodeURIComponent(videoImage) }];
 
   const request = new chrome.cast.media.LoadRequest(mediaInfo);
   castSession.loadMedia(request).then(() => {
@@ -867,8 +868,9 @@ function enableLandscapeOnFullScreen() {
     }
     
     // Seek forward function
-     function seekForward() {
+    function seekForward() {
       if (!player) return;
+      
       const newTime = Math.min(player.currentTime + seekTime, player.duration);
       player.currentTime = newTime;
       showToast(`Forwarded ${seekTime}s`);
@@ -877,6 +879,7 @@ function enableLandscapeOnFullScreen() {
     // Seek backward function
     function seekBackward() {
       if (!player) return;
+      
       const newTime = Math.max(player.currentTime - seekTime, 0);
       player.currentTime = newTime;
       showToast(`Rewound ${seekTime}s`);
@@ -886,17 +889,21 @@ function enableLandscapeOnFullScreen() {
     function downloadVideo() {
       let urlToDownload;
       let filename;
+      
       if (currentEpisodeId && episodes.length > 0) {
         const episode = episodes[currentEpisodeIndex];
         urlToDownload = episode.videoUrl;
-        filename = `${playerData.title}-S${episode.season}E${episode.episode}.mp4`;
+        filename = `${videoTitle}-S${episode.season}E${episode.episode}.mp4`;
       } else if (currentVideoSources.length > 0) {
         const activeSource = currentVideoSources.find(source => source.quality === currentQuality);
         urlToDownload = activeSource ? activeSource.url : currentVideoSources[0].url;
-        filename = `${playerData.title}-${currentQuality}.mp4`;
+        filename = `${videoTitle}-${currentQuality}.mp4`;
       }
+      
       if (urlToDownload) {
         showToast('Preparing download...');
+        
+        // Create a temporary anchor element
         const a = document.createElement('a');
         a.href = urlToDownload;
         a.download = filename;
@@ -905,6 +912,7 @@ function enableLandscapeOnFullScreen() {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+        
         showToast('Download started!');
       } else {
         showToast('No video available for download');
@@ -912,16 +920,16 @@ function enableLandscapeOnFullScreen() {
     }
     
     // Setup page content
-function setupPage() {
-      document.getElementById('videoTitle').textContent = playerData.title;
-      document.getElementById('pageHeading').textContent = playerData.title;
-      document.title = playerData.title + ' - PanguPlay';
-      const posterUrl = playerData.image;
+    function setupPage() {
+      document.getElementById('videoTitle').textContent = videoTitle;
+      document.getElementById('pageHeading').textContent = videoTitle;
+      document.title = videoTitle + ' - PanguPlay';
+      
+      const posterUrl = decodeURIComponent(videoImage);
       document.getElementById('videoPoster').src = posterUrl;
       document.getElementById('player').setAttribute('data-poster', posterUrl);
 
-      // Details
-      const details = playerData.details || {};
+      const details = JSON.parse(decodeURIComponent(videoDetailsEncoded));
       document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
       document.getElementById('director').textContent = details.director || 'N/A';
       document.getElementById('starring').textContent = details.starring || 'N/A';
@@ -931,49 +939,66 @@ function setupPage() {
       document.getElementById('fileSize').textContent = details.fileSize || 'N/A';
       document.getElementById('lastUpdated').textContent = details.lastUpdated || 'N/A';
 
-      if (playerData.type === 'series' && Array.isArray(playerData.episodes)) {
-        episodes = playerData.episodes;
-        if (episodes.length > 0) {
+      if (seriesId && episodesEncoded) {
+        // Series handling
+        episodes = JSON.parse(decodeURIComponent(episodesEncoded));
+        const episodeId = urlParams.get('episodeId');
+        if (episodeId) {
+          playEpisode(episodeId);
+        } else if (episodes.length > 0) {
           playEpisode(episodes[0].id);
         }
         document.getElementById('episodesSection').style.display = 'block';
         document.getElementById('navButtons').style.display = 'flex';
       } else {
+        // Movie handling
         document.getElementById('episodesSection').style.display = 'none';
         document.getElementById('navButtons').style.display = 'none';
+        
+        // Setup the video sources
         currentVideoSources = [];
-        if (playerData.video) {
+        
+        if (videoUrl) {
           currentVideoSources.push({
-            url: playerData.video,
+            url: decodeURIComponent(videoUrl),
             quality: '1080p'
           });
         }
-        if (playerData.alt) {
+        
+        if (altVideoUrl) {
           currentVideoSources.push({
-            url: playerData.alt,
+            url: decodeURIComponent(altVideoUrl),
             quality: '720p'
           });
         }
+        
+        // Set up resolution selector
         setupResolutionSelector();
-        loadVideo(currentVideoSources[0]?.url || '');
+        
+        // Load the video
+        loadVideo(currentVideoSources[0].url);
       }
     }
     
     function loadVideo(initialUrl) {
       if (!player) return;
       showLoading();
-      const poster = playerData.image;
+
+      const poster = decodeURIComponent(videoImage);
       const currentTime = player.currentTime || 0;
+
       const sources = currentVideoSources.map(source => ({
         src: source.url,
         type: 'video/mp4',
         size: parseInt(source.quality.replace('p', ''))
       }));
+
       player.source = {
         type: 'video',
         sources: sources,
         poster: poster
       };
+
       player.once('canplay', () => {
         player.currentTime = currentTime;
         player.play().catch(err => {
@@ -982,6 +1007,7 @@ function setupPage() {
         });
         hideLoading();
       });
+
       player.once('error', () => {
         showToast('Video load error. Trying fallback…');
         tryFallback();
@@ -991,6 +1017,7 @@ function setupPage() {
     function tryFallback() {
       const fallback = currentVideoSources.find(src => src.quality === '720p');
       if (!fallback) return;
+
       player.source = {
         type: 'video',
         sources: [{
@@ -998,8 +1025,9 @@ function setupPage() {
           type: 'video/mp4',
           size: 720
         }],
-        poster: playerData.image
+        poster: decodeURIComponent(videoImage)
       };
+
       player.play().catch(err => {
         console.error('Fallback failed:', err);
         showToast('Fallback failed. No video available.');
@@ -1008,59 +1036,71 @@ function setupPage() {
     }
 
   //setup share button
-    document.getElementById('shareBtn').addEventListener('click', () => {
-      const details = playerData.details || {};
-      const shareData = {
-        title: playerData.title,
-        text: `🎬 ${playerData.title}\n🌟 Rating: ${details.movieRating || 'N/A'}\n📀 Quality: ${details.quality || 'N/A'}\n🗣️ Language: ${details.language || 'N/A'}\n📁 Size: ${details.fileSize || 'N/A'}\n\nWatch now: https://purushothmathav.github.io/PanguPlay`,
-      };
-      if (navigator.share) {
-        navigator.share(shareData)
-          .then(() => showToast('Shared successfully!'))
-          .catch(err => {
-            console.error('Share failed:', err);
-            showToast('Failed to share. Please try again.');
-          });
-      } else {
-        navigator.clipboard.writeText(`${shareData.text}\n${shareData.url || ''}`)
-          .then(() => showToast('Link copied to clipboard!'))
-          .catch(err => {
-            console.error('Failed to copy link:', err);
-            showToast('Failed to copy link.');
-          });
-      }
-    });
+  document.getElementById('shareBtn').addEventListener('click', () => {
+  // Ensure details are parsed correctly
+  const details = videoDetailsEncoded ? JSON.parse(decodeURIComponent(videoDetailsEncoded)) : {};
+
+  const shareData = {
+    title: videoTitle,
+    text: `🎬 ${videoTitle}\n🌟 Rating: ${details.movieRating || 'N/A'}\n📀 Quality: ${details.quality || 'N/A'}\n🗣️ Language: ${details.language || 'N/A'}\n📁 Size: ${details.fileSize || 'N/A'}\n\nWatch now: https://purushothmathav.github.io/PanguPlay`,
+    //url: `https://purushothmathav.github.io/PanguPlay`,
+  };
+
+  if (navigator.share) {
+    navigator.share(shareData)
+      .then(() => showToast('Shared successfully!'))
+      .catch(err => {
+        console.error('Share failed:', err);
+        showToast('Failed to share. Please try again.');
+      });
+  } else {
+    // Fallback: Copy link to clipboard
+    navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`)
+      .then(() => showToast('Link copied to clipboard!'))
+      .catch(err => {
+        console.error('Failed to copy link:', err);
+        showToast('Failed to copy link.');
+      });
+  }
+});
 
 //setup stream button
-    document.getElementById('streamBtn').addEventListener('click', () => {
-      let streamUrl;
-      if (currentEpisodeId && episodes.length > 0) {
-        streamUrl = episodes[currentEpisodeIndex].videoUrl;
-      } else if (currentVideoSources.length > 0) {
-        const activeSource = currentVideoSources.find(source => source.quality === currentQuality);
-        streamUrl = activeSource ? activeSource.url : currentVideoSources[0].url;
-      }
-      if (streamUrl) {
-        const isAndroid = /Android/i.test(navigator.userAgent);
-        if (isAndroid) {
-          window.location.href = `intent://${streamUrl.replace(/^https?:\/\//, '')}#Intent;package=com.mxtech.videoplayer.ad;scheme=http;end;`;
-        } else {
-          window.open(streamUrl, '_blank');
-        }
-      } else {
-        showToast('No stream URL available.');
-      }
-    });
+document.getElementById('streamBtn').addEventListener('click', () => {
+  let streamUrl;
+
+  if (currentEpisodeId && episodes.length > 0) {
+    streamUrl = episodes[currentEpisodeIndex].videoUrl;
+  } else if (currentVideoSources.length > 0) {
+    const activeSource = currentVideoSources.find(source => source.quality === currentQuality);
+    streamUrl = activeSource ? activeSource.url : currentVideoSources[0].url;
+  }
+
+  if (streamUrl) {
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    if (isAndroid) {
+      // Properly formatted intent URL for MX Player
+      window.location.href = `intent://${streamUrl.replace(/^https?:\/\//, '')}#Intent;package=com.mxtech.videoplayer.ad;scheme=http;end;`;
+    } else {
+      // Open in default player for other platforms
+      window.open(streamUrl, '_blank');
+    }
+  } else {
+    showToast('No stream URL available.');
+  }
+});
 
     // Setup resolution selector
     function setupResolutionSelector() {
       const resolutionSelector = document.getElementById('resolutionSelector');
       resolutionSelector.innerHTML = '';
+
       if (currentVideoSources.length <= 1) {
         resolutionSelector.style.display = 'none';
         return;
       }
+
       resolutionSelector.style.display = 'flex';
+
       currentVideoSources.forEach(source => {
         const button = document.createElement('button');
         button.className = 'resolution-btn' + (source.quality === currentQuality ? ' active' : '');
@@ -1068,8 +1108,11 @@ function setupPage() {
         button.onclick = () => {
           const currentTime = player.currentTime;
           currentQuality = source.quality;
+
           document.querySelectorAll('.resolution-btn').forEach(btn => btn.classList.remove('active'));
           button.classList.add('active');
+
+          // Reload video with selected quality
           const selected = currentVideoSources.find(v => v.quality === currentQuality);
           if (selected) {
             player.source = {
@@ -1079,7 +1122,7 @@ function setupPage() {
                 type: 'video/mp4',
                 size: parseInt(selected.quality.replace('p', ''))
               }],
-              poster: playerData.image
+              poster: decodeURIComponent(videoImage)
             };
             player.once('canplay', () => {
               player.currentTime = currentTime;
@@ -1094,32 +1137,44 @@ function setupPage() {
     }
     
     // Play episode for series
-   function playEpisode(episodeId) {
-      const index = episodes.findIndex(e => e.id === episodeId);
-      if (index === -1) return;
-      currentEpisodeId = episodeId;
-      currentEpisodeIndex = index;
-      const episode = episodes[index];
-      currentVideoSources = [];
-      if (episode.videoUrl) {
-        currentVideoSources.push({
-          url: episode.videoUrl,
-          quality: '1080p'
-        });
-      }
-      if (episode.altVideoUrl) {
-        currentVideoSources.push({
-          url: episode.altVideoUrl,
-          quality: '720p'
-        });
-      }
-      setupResolutionSelector();
-      loadVideo(currentVideoSources[0]?.url || '');
-      updateHeaderTitle(playerData.title, true, episode.season, episode.episode, episode.title);
-      updateEpisodeButtons();
-      updateNavButtons();
-    }
+function playEpisode(episodeId) {
+  const index = episodes.findIndex(e => e.id === episodeId);
+  if (index === -1) return;
+  
+  currentEpisodeId = episodeId;
+  currentEpisodeIndex = index;
+  const episode = episodes[index];
+  
+  // Set up video sources
+  currentVideoSources = [];
+  
+  if (episode.videoUrl) {
+    currentVideoSources.push({
+      url: episode.videoUrl,
+      quality: '1080p'
+    });
+  }
+  
+  if (episode.altVideoUrl) {
+    currentVideoSources.push({
+      url: episode.altVideoUrl,
+      quality: '720p'
+    });
+  }
+  
+  // Update resolution selector
+  setupResolutionSelector();
+  
+  // Load the video
+  loadVideo(currentVideoSources[0].url);
+  
+  // Update UI
+  updateHeaderTitle(videoTitle, true, episode.season, episode.episode, episode.title);
+  updateEpisodeButtons();
+  updateNavButtons();
+}
     
+    // Update header title for episodes
     function updateHeaderTitle(title, isSeries = false, seasonNumber = null, episodeNumber = null, episodeTitle = null) {
       const headerElement = document.getElementById('pageHeading');
       if (isSeries && seasonNumber !== null && episodeNumber !== null) {
@@ -1128,7 +1183,8 @@ function setupPage() {
         headerElement.textContent = title;
       }
     }
-
+    
+    // Update episode buttons
     function updateEpisodeButtons() {
       const container = document.getElementById('episodeButtons');
       container.innerHTML = '';
@@ -1140,40 +1196,48 @@ function setupPage() {
         container.appendChild(btn);
       });
     }
-
+    
+    // Update navigation buttons
     function updateNavButtons() {
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
       const navContainer = document.getElementById('navButtons');
+
       if (episodes.length <= 1) {
         navContainer.style.display = 'none';
         return;
       }
+
       navContainer.style.display = 'flex';
       prevBtn.disabled = currentEpisodeIndex <= 0;
       nextBtn.disabled = currentEpisodeIndex >= episodes.length - 1;
     }
-
+    
+    // Play previous episode
     function playPreviousEpisode() {
       if (currentEpisodeIndex > 0) {
         playEpisode(episodes[currentEpisodeIndex - 1].id);
       }
     }
-
+    
+    // Play next episode
     function playNextEpisode() {
       if (currentEpisodeIndex < episodes.length - 1) {
         playEpisode(episodes[currentEpisodeIndex + 1].id);
       }
     }
-
+    
+    // Copy stream URL
     function copyStreamUrl() {
       let urlToCopy;
+      
       if (currentEpisodeId && episodes.length > 0) {
         urlToCopy = episodes[currentEpisodeIndex].videoUrl;
       } else if (currentVideoSources.length > 0) {
         const activeSource = currentVideoSources.find(source => source.quality === currentQuality);
         urlToCopy = activeSource ? activeSource.url : currentVideoSources[0].url;
       }
+      
       if (urlToCopy) {
         navigator.clipboard.writeText(urlToCopy)
           .then(() => showToast('Stream URL copied to clipboard!'))
@@ -1183,45 +1247,60 @@ function setupPage() {
           });
       }
     }
-
+    
+    // Show loading overlay
     function showLoading() {
       document.getElementById('loadingOverlay').style.display = 'flex';
     }
+    
+    // Hide loading overlay
     function hideLoading() {
       document.getElementById('loadingOverlay').style.display = 'none';
     }
+    
+    // Show toast notification
     function showToast(message) {
       const toast = document.getElementById('toast');
       toast.textContent = message;
       toast.style.opacity = 1;
+      
       setTimeout(() => {
         toast.style.opacity = 0;
       }, 3000);
     }
+    
+    // Go back function
     function goBack() {
       window.history.back();
     }
+    
+    // Toggle mobile menu
     function toggleMenu() {
       document.getElementById('mobileMenu').classList.add('open');
       document.getElementById('mobileBackdrop').style.display = 'block';
     }
+    
+    // Close mobile menu
     function closeMenu() {
       document.getElementById('mobileMenu').classList.remove('open');
       document.getElementById('mobileBackdrop').style.display = 'none';
     }
-
+    
+    // Search function
     function searchFunction() {
       const input = document.getElementById('searchInput');
       const clearButton = document.getElementById('clearButton');
+      
       if (input.value) {
         clearButton.style.display = 'block';
+        // Implement search logic here
       } else {
         clearButton.style.display = 'none';
         document.getElementById('searchResults').style.display = 'none';
       }
     }
-
-  
+    
+    // Clear search
     function clearSearch() {
       const input = document.getElementById('searchInput');
       input.value = '';
