@@ -750,20 +750,27 @@ function setupDoubleTapSeeking() {
 }
 
 function initializeCastApi() {
+  // Defensive: Only attach event if button exists
+  const castButton = document.getElementById('castBtn');
+  if (!castButton) return;
+
   cast.framework.CastContext.getInstance().setOptions({
     receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
     autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED,
   });
 
-  const castButton = document.getElementById('castBtn');
   castButton.addEventListener('click', () => {
+    // Defensive: Ensure video sources are ready
+    if (!currentVideoSources || !currentVideoSources.length || !currentVideoSources[0].url) {
+      showToast('No video to cast.');
+      return;
+    }
+
     const castSession = cast.framework.CastContext.getInstance().getCurrentSession();
 
     if (castSession) {
-      // If a session is already active, load the media
       loadMediaToCast(castSession);
     } else {
-      // Otherwise, request a session
       cast.framework.CastContext.getInstance().requestSession().then(() => {
         const newSession = cast.framework.CastContext.getInstance().getCurrentSession();
         loadMediaToCast(newSession);
@@ -781,15 +788,15 @@ function loadMediaToCast(castSession) {
     return;
   }
 
-  // Use playerData from sessionStorage
-  const title = playerData?.title || 'PanguPlay';
-  const image = playerData?.image || '';
-  const videoUrl = currentVideoSources[0]?.url;
-
-  if (!videoUrl) {
+  // Defensive: Ensure video sources are ready
+  if (!currentVideoSources || !currentVideoSources.length || !currentVideoSources[0].url) {
     showToast('No video to cast.');
     return;
   }
+
+  const title = playerData?.title || 'PanguPlay';
+  const image = playerData?.image || '';
+  const videoUrl = currentVideoSources[0].url;
 
   const mediaInfo = new chrome.cast.media.MediaInfo(videoUrl, 'video/mp4');
   mediaInfo.metadata = new chrome.cast.media.GenericMediaMetadata();
@@ -810,7 +817,8 @@ function loadMediaToCast(castSession) {
 // Initialize the Cast API when the page loads
 window['__onGCastApiAvailable'] = function(isAvailable) {
   if (isAvailable) {
-    initializeCastApi();
+    // Wait until DOM and setupPage are done
+    setTimeout(initializeCastApi, 500);
   }
 };
 
@@ -900,8 +908,8 @@ function enableLandscapeOnFullScreen() {
         const a = document.createElement('a');
         a.href = urlToDownload;
         a.download = filename;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
+        //a.target = '_blank';
+        //a.rel = 'noopener noreferrer';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
