@@ -603,6 +603,15 @@
   </div>
 </div>
 
+<div class="nav-buttons" id="navButtons">
+      <button class="nav-button" id="prevBtn" onclick="playPreviousEpisode()">
+        <i class="fas fa-step-backward"></i> Previous Episode
+      </button>
+      <button class="nav-button" id="nextBtn" onclick="playNextEpisode()">
+        Next Episode <i class="fas fa-step-forward"></i>
+      </button>
+</div>
+
 <div class="resolution-selector" id="resolutionSelector">
   <!-- Resolution buttons will be dynamically added here -->
 </div>
@@ -621,15 +630,6 @@
         <div class="detail-row"><span>Updated:</span> <span id="lastUpdated">N/A</span></div>
         <div class="detail-row"><span>Stream:</span> <button class="copy-link" onclick="copyStreamUrl()">Copy Link</button></div>
       </div>
-    </div>
-    
-    <div class="nav-buttons" id="navButtons">
-      <button class="nav-button" id="prevBtn" onclick="playPreviousEpisode()">
-        <i class="fas fa-step-backward"></i> Previous Episode
-      </button>
-      <button class="nav-button" id="nextBtn" onclick="playNextEpisode()">
-        Next Episode <i class="fas fa-step-forward"></i>
-      </button>
     </div>
     
     <div class="episodes-section" id="episodesSection">
