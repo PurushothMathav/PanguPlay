@@ -583,6 +583,9 @@
           Your browser does not support the video tag.
         </video>
       </div>
+      <div id="seekPreview" style="display:none; position:absolute; bottom:60px; left:0; z-index:20;">
+        <img src="" id="seekPreviewImg" style="width:160px; height:90px; border-radius:6px; box-shadow:0 2px 8px #000;" />
+      </div>
     </div>
     
     <!-- Custom player controls -->
@@ -655,6 +658,7 @@ disable-paste='true'>
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.min.js"></script>
+  
   <script>
     // Global variables
 // Instead of reading from URL, read from sessionStorage
@@ -680,6 +684,7 @@ disable-paste='true'>
         seekTime: 10,
         iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.svg',
         blankVideo: 'https://cdn.plyr.io/static/blank.mp4',
+       
       });
 
       player.on('ready', () => hideLoading());
@@ -748,6 +753,37 @@ function setupDoubleTapSeeking() {
     setTimeout(() => overlay.classList.remove('active'), 500);
   }
 }
+
+const playerElem = document.getElementById('player');
+const seekPreview = document.getElementById('seekPreview');
+const seekPreviewImg = document.getElementById('seekPreviewImg');
+
+// Set your thumbs.jpg as the preview image
+seekPreviewImg.src = playerData.thumbnail || playerData.thumb || 'thumbs.jpg';
+
+// Show preview on progress bar hover
+playerElem.addEventListener('mousemove', function(e) {
+  // Find the progress bar element
+  const progress = playerElem.closest('.player-wrapper').querySelector('.plyr__progress input[type="range"]');
+  if (!progress) return;
+
+  // Only show if hovering over progress bar
+  const rect = progress.getBoundingClientRect();
+  if (e.clientY > rect.top && e.clientY < rect.bottom) {
+    seekPreview.style.display = 'block';
+    // Position preview horizontally
+    let left = e.clientX - rect.left - 80; // Center the preview
+    left = Math.max(0, Math.min(left, rect.width - 160));
+    seekPreview.style.left = (rect.left + left) + 'px';
+  } else {
+    seekPreview.style.display = 'none';
+  }
+});
+
+// Hide preview when mouse leaves player
+playerElem.addEventListener('mouseleave', function() {
+  seekPreview.style.display = 'none';
+});
 
 function initializeCastApi() {
   // Defensive: Only attach event if button exists

@@ -418,7 +418,7 @@
   <div class="nav-left">
   <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
   <a href="index.html" class="nav-logo">PanguPlay</a>
-  <button class="bell-btn" id="bellBtn" title="Notifications">🔔</button>
+  <!-- <button class="bell-btn" id="bellBtn" title="Notifications">🔔</button> -->
 </div>
 
   <div class="nav-center nav-links">
@@ -440,7 +440,7 @@
   </div>
 </div>
 
-<!-- Notification Popup -->
+<!-- Notification Popup 
 <div id="notificationPopup" class="notification-popup" style="display:none;">
   <strong>What's New</strong>
   <ul style="margin:8px 0 0 0; padding-left:18px;">
@@ -449,8 +449,8 @@
       Sattur Railway Station (2023)
     </li>
   </ul>
-</div>
-
+</div> -->
+ 
 <!-- Mobile Menu Backdrop -->
 <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMenu()"></div>
 
@@ -4214,7 +4214,7 @@ document.addEventListener('DOMContentLoaded', () => {
 };
   filterAndRenderDubbed();
 });
-
+/*
 // Show/hide notification popup
 const bellBtn = document.getElementById('bellBtn');
 const popup = document.getElementById('notificationPopup');
@@ -4229,7 +4229,7 @@ document.addEventListener('click', function(event) {
   if (popup.style.display === 'block' && !popup.contains(event.target) && event.target !== bellBtn) {
     popup.style.display = 'none';
   }
-}); 
+}); */
 
 /*
 function openPlayer(video) {

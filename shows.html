@@ -417,7 +417,7 @@
   <div class="nav-left">
   <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
   <a href="index.html" class="nav-logo">PanguPlay</a>
-  <button class="bell-btn" id="bellBtn" title="Notifications">🔔</button>
+  <!-- <button class="bell-btn" id="bellBtn" title="Notifications">🔔</button> -->
 </div>
 
   <div class="nav-center nav-links">
@@ -439,7 +439,7 @@
   </div>
 </div>
 
-<!-- Notification Popup -->
+<!-- Notification Popup 
 <div id="notificationPopup" class="notification-popup" style="display:none;">
   <strong>What's New</strong>
   <ul style="margin:8px 0 0 0; padding-left:18px;">
@@ -448,7 +448,7 @@
       Sattur Railway Station (2023)
     </li>
   </ul>
-</div>
+</div> -->
 
 <!-- Mobile Menu Backdrop -->
 <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMenu()"></div>
@@ -5397,7 +5397,7 @@ const videos = [
       "language": "Tamil",
       "Season": "S01",
       "movieRating": "⭐7/10",
-      "lastUpdated": "11 April 2025"
+      "lastUpdated": "15 May 2025"
     },
     "episodes": [
       {
@@ -5783,7 +5783,39 @@ const videos = [
         "title": "Redemption Road",
         "videoUrl": "https://big2.bigbosscdn.cfd/Moviesda.Mobi_-_Office_2025_Season_01__Epi_48_.mp4",
         "streamURL": "https://big2.bigbosscdn.cfd/Moviesda.Mobi_-_Office_2025_Season_01__Epi_48_.mp4"
-      }
+      },
+	  {
+      id: "office-s1e49",
+      season: 1,
+      episode: 49,
+      title: "Episode 49",
+      videoUrl: "https://big3.bigbosscdn.cfd/Moviesda.Mobi_-_Office_2025_Season_01__Epi_49_.mp4",
+      streamURL: "https://big3.bigbosscdn.cfd/Moviesda.Mobi_-_Office_2025_Season_01__Epi_49_.mp4"
+    },
+    {
+      id: "office-s1e50",
+      season: 1,
+      episode: 50,
+      title: "Episode 50",
+      videoUrl: "https://big3.bigbosscdn.cfd/Moviesda.Mobi_-_Office_2025_Season_01__Epi_50_.mp4",
+      streamURL: "https://big3.bigbosscdn.cfd/Moviesda.Mobi_-_Office_2025_Season_01__Epi_50_.mp4"
+    },
+    {
+      id: "office-s1e51",
+      season: 1,
+      episode: 51,
+      title: "Episode 51",
+      videoUrl: "https://big3.bigbosscdn.cfd/Moviesda.Mobi_-_Office_2025_Season_01__Epi_51_.mp4",
+      streamURL: "https://big3.bigbosscdn.cfd/Moviesda.Mobi_-_Office_2025_Season_01__Epi_51_.mp4"
+    },
+    {
+      id: "office-s1e52",
+      season: 1,
+      episode: 52,
+      title: "Episode 52",
+      videoUrl: "https://big3.bigbosscdn.cfd/Moviesda.Mobi_-_Office_2025_Season_01__Epi_52_.mp4",
+      streamURL: "https://big3.bigbosscdn.cfd/Moviesda.Mobi_-_Office_2025_Season_01__Epi_52_.mp4"
+    }
     ]
   }
 ]; // Insert your full series list here
@@ -5936,7 +5968,7 @@ document.addEventListener('DOMContentLoaded', () => {
 };
   filterAndRenderSeries();
 });
-
+/*
 // Show/hide notification popup
 const bellBtn = document.getElementById('bellBtn');
 const popup = document.getElementById('notificationPopup');
@@ -5951,7 +5983,7 @@ document.addEventListener('click', function(event) {
   if (popup.style.display === 'block' && !popup.contains(event.target) && event.target !== bellBtn) {
     popup.style.display = 'none';
   }
-}); 
+}); */
 
 /*
 function openPlayer(video) {
