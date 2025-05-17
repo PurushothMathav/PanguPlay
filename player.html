@@ -549,6 +549,15 @@
 } 
 }
 
+.player-wrapper video {
+  object-fit: contain; /* Default */
+  transition: object-fit 0.3s ease;
+}
+
+.player-wrapper.stretch video {
+  object-fit: cover;
+}
+
   </style>
 </head>
 <body>
@@ -821,6 +830,57 @@ function updateLogoInFullscreen() {
     }
   });
 }
+
+let initialDistance = null;
+
+function getDistance(touches) {
+  const dx = touches[0].clientX - touches[1].clientX;
+  const dy = touches[0].clientY - touches[1].clientY;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+function handleTouchStart(e) {
+  if (e.touches.length === 2) {
+    initialDistance = getDistance(e.touches);
+  }
+}
+
+function handleTouchMove(e) {
+  if (e.touches.length === 2 && initialDistance !== null) {
+    const currentDistance = getDistance(e.touches);
+    const diff = currentDistance - initialDistance;
+
+    if (Math.abs(diff) > 30) { // Minimum pinch distance to trigger
+      const wrapper = document.querySelector('.player-wrapper');
+
+      if (diff > 0) {
+        // Pinch out → stretch
+        wrapper.classList.add('stretch');
+        showToast('Stretch to fill screen');
+      } else {
+        // Pinch in → fit
+        wrapper.classList.remove('stretch');
+        showToast('Fit to screen');
+      }
+
+      // Prevent multiple toggles in one gesture
+      initialDistance = null;
+    }
+  }
+}
+
+function handleTouchEnd(e) {
+  if (e.touches.length < 2) {
+    initialDistance = null;
+  }
+}
+
+// Attach listeners to the video area
+const videoContainer = document.querySelector('.video-container');
+videoContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
+videoContainer.addEventListener('touchmove', handleTouchMove, { passive: true });
+videoContainer.addEventListener('touchend', handleTouchEnd);
+videoContainer.addEventListener('touchcancel', handleTouchEnd);
 
 function setupDoubleTapSeeking() {
   const videoContainer = document.querySelector('.video-container');
