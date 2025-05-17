@@ -559,25 +559,12 @@
 }
 
 
-#brightnessOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: black;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-  z-index: 5;
-}
-
 .hud-overlay {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(30, 30, 30, 0.8);
+  background: rgba(30, 30, 30, 0.85);
   color: white;
   border-radius: 12px;
   padding: 15px 20px;
@@ -593,12 +580,10 @@
   font-size: 24px;
   margin-bottom: 8px;
 }
-
 body.lock-scroll {
   overflow: hidden;
   touch-action: none;
 }
-
 
 
   </style>
@@ -652,13 +637,11 @@ body.lock-scroll {
     </div>
     
     <div class="video-container">
-		<div id="brightnessOverlay"></div>
-		<!-- HUD for Brightness/Volume -->
+		<!-- HUD for Volume Control -->
 		<div id="hudOverlay" class="hud-overlay">
-			<i id="hudIcon" class="fas fa-sun"></i>
+			<i id="hudIcon" class="fas fa-volume-up"></i>
 			<div id="hudValue">50%</div>
 		</div>
-
 		<div class="player-wrapper">
 			<div class="player-logo-overlay" id="logoOverlay">
 				<img src="ply-logo.png" alt="Logo" />
@@ -934,12 +917,11 @@ videoContainer.addEventListener('touchend', handleTouchEnd);
 videoContainer.addEventListener('touchcancel', handleTouchEnd);
 
 
-//Brightness & Volume Control
+// Volume control swipe gesture (fullscreen only)
 let swipeStartX = 0;
 let swipeStartY = 0;
-let lastBrightness = 0.3;
 let lastVolume = 0.5;
-const brightnessOverlay = document.getElementById('brightnessOverlay');
+
 const hudOverlay = document.getElementById('hudOverlay');
 const hudIcon = document.getElementById('hudIcon');
 const hudValue = document.getElementById('hudValue');
@@ -952,8 +934,8 @@ function isFullscreen() {
   return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
 }
 
-function showHud(type, value) {
-  hudIcon.className = type === 'volume' ? 'fas fa-volume-up' : 'fas fa-sun';
+function showVolumeHud(value) {
+  hudIcon.className = 'fas fa-volume-up';
   hudValue.textContent = `${Math.round(value * 100)}%`;
   hudOverlay.style.display = 'flex';
 
@@ -967,7 +949,6 @@ const videoArea = document.querySelector('.video-container');
 
 videoArea.addEventListener('touchstart', (e) => {
   if (!isFullscreen()) return;
-
   document.body.classList.add('lock-scroll');
 
   if (e.touches.length === 1) {
@@ -978,8 +959,8 @@ videoArea.addEventListener('touchstart', (e) => {
 
 videoArea.addEventListener('touchmove', (e) => {
   if (!isFullscreen()) return;
+  e.preventDefault();
 
-  e.preventDefault(); // prevent page scroll
   if (e.touches.length !== 1) return;
 
   const deltaX = e.touches[0].clientX - swipeStartX;
@@ -987,26 +968,19 @@ videoArea.addEventListener('touchmove', (e) => {
 
   if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > swipeThreshold) {
     const screenWidth = window.innerWidth;
-    const isLeft = swipeStartX < screenWidth / 2;
+    const isRight = swipeStartX > screenWidth / 2;
     const goingUp = deltaY < 0;
 
-    if (isLeft) {
-      // Brightness control (simulated)
-      lastBrightness += goingUp ? -0.05 : 0.05;
-      lastBrightness = Math.min(Math.max(lastBrightness, 0), 1);
-      brightnessOverlay.style.opacity = lastBrightness;
-      showHud('brightness', 1 - lastBrightness);
-    } else {
-      // Volume control
+    if (isRight) {
       lastVolume += goingUp ? 0.05 : -0.05;
       lastVolume = Math.min(Math.max(lastVolume, 0), 1);
       if (player && typeof player.volume === 'number') {
         player.volume = lastVolume;
-        showHud('volume', lastVolume);
+        showVolumeHud(lastVolume);
       }
     }
 
-    swipeStartY = e.touches[0].clientY; // Reset for smoother control
+    swipeStartY = e.touches[0].clientY;
   }
 }, { passive: false });
 
