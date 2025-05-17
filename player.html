@@ -525,24 +525,23 @@
 
 .player-logo-overlay {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 0%;
+  right: 1%;
   z-index: 9999;
-  opacity: 0.8;
+  opacity: 0.2;
   pointer-events: none; /* Prevent click blocking */
 }
 
 .player-logo-overlay img {
-  height: 80px;
+  height: 90px;
   width: auto;
 } 
 
 /* Adjust for mobile specifically */
 @media (max-width: 768px) {
   .player-logo-overlay {
-    top: 10px;
-    right: 30px;
-    max-width: 35px;   /* Even smaller on mobile */
+    top: 0%;
+    right: 1%;
   }
   .player-logo-overlay img {
   height: 50px;
@@ -703,7 +702,7 @@ disable-paste='true'>
       player = new Plyr('#player', {
         controls: isMobile
           ? ['play-large', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']
-          : ['play-large', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+          : ['play-large', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
         settings: ['captions', 'speed'],
         resetOnEnd: false,
         keyboard: { focused: true, global: true },
@@ -737,7 +736,8 @@ disable-paste='true'>
 	  updateLogoInFullscreen();
       document.addEventListener('keydown', handleKeyboardShortcuts);
     });
-	
+
+/*	
 function updateLogoInFullscreen() {
   const logoOverlay = document.getElementById('logoOverlay');
   const playerWrapper = document.querySelector('.player-wrapper');
@@ -775,7 +775,91 @@ function updateLogoInFullscreen() {
   document.addEventListener('mozfullscreenchange', handleFullscreenChange);
   document.addEventListener('MSFullscreenChange', handleFullscreenChange);
 }
+*/
 
+function updateLogoInFullscreen() {
+  const logoOverlay = document.getElementById('logoOverlay');
+  const playerWrapper = document.querySelector('.player-wrapper');
+  
+  if (!logoOverlay || !playerWrapper) return; // Guard clause
+  
+  // Create a clone of the logo to avoid moving the original
+  const logoForFullscreen = logoOverlay.cloneNode(true);
+  logoForFullscreen.id = 'logoOverlayFullscreen';
+  
+  function handleFullscreenChange() {
+    const isFullscreen = document.fullscreenElement !== null;
+    
+    if (isFullscreen) {
+      // Remove any existing cloned logo first
+      const existingLogo = document.getElementById('logoOverlayFullscreen');
+      if (existingLogo) existingLogo.remove();
+      
+      // Add the cloned logo to the fullscreen element
+      document.fullscreenElement.appendChild(logoForFullscreen);
+      
+      // Set responsive positioning based on screen orientation and device
+      logoForFullscreen.style.position = 'fixed';
+      logoForFullscreen.style.zIndex = '9999';
+      logoForFullscreen.style.display = 'block';
+      
+      // Check if device is mobile
+      const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      // Check orientation
+      const isLandscape = window.innerWidth > window.innerHeight;
+      
+      if (isMobile) {
+        if (isLandscape) {
+          // Mobile landscape mode
+          logoForFullscreen.style.top = '1%';
+          logoForFullscreen.style.right = '1%';
+          
+          // Make logo smaller on mobile landscape
+          const logoImg = logoForFullscreen.querySelector('img');
+          if (logoImg) {
+            logoImg.style.height = '40px';
+            logoImg.style.width = 'auto';
+          }
+        } else {
+          // Mobile portrait mode (though fullscreen is typically landscape)
+          logoForFullscreen.style.top = '1%';
+          logoForFullscreen.style.right = '1%';
+        }
+      } else {
+        // Desktop/larger screens
+        logoForFullscreen.style.top = '0%';
+        logoForFullscreen.style.right = '1%';
+      }
+    } else {
+      // Remove the cloned logo when exiting fullscreen
+      const existingLogo = document.getElementById('logoOverlayFullscreen');
+      if (existingLogo) existingLogo.remove();
+    }
+  }
+  
+  // Listen for fullscreen changes
+  document.addEventListener('fullscreenchange', handleFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+  document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+  document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+  
+  // Also check when orientation changes while in fullscreen
+  window.addEventListener('orientationchange', () => {
+    if (document.fullscreenElement) {
+      // Small delay to ensure window dimensions are updated
+      setTimeout(handleFullscreenChange, 100);
+    }
+  });
+  
+  // For browsers that don't support orientation event
+  window.addEventListener('resize', () => {
+    if (document.fullscreenElement) {
+      // Small delay to avoid excessive calls
+      setTimeout(handleFullscreenChange, 100);
+    }
+  });
+}
 
 function setupDoubleTapSeeking() {
   const videoContainer = document.querySelector('.video-container');

@@ -1,4 +1,4 @@
-const CACHE_NAME = "panguplay-v0517250200";
+const CACHE_NAME = "panguplay-v0517251030";
 const urlsToCache = [
   "/PanguPlay/",
   "/PanguPlay/index.html",
@@ -12,6 +12,7 @@ const urlsToCache = [
   "/PanguPlay/images/og-image.jpg",
   "/PanguPlay/favicon.png",
   "/PanguPlay/manifest.json",
+  "/PanguPlay/ply-logo.png",
   "https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.css",
   "https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.js",
   "https://unpkg.com/swiper/swiper-bundle.min.js",
