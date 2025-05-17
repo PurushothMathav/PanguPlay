@@ -558,6 +558,7 @@
   object-fit: cover;
 }
 
+
 #brightnessOverlay {
   position: absolute;
   top: 0;
@@ -569,6 +570,28 @@
   pointer-events: none;
   transition: opacity 0.2s ease;
   z-index: 5;
+}
+
+.hud-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(30, 30, 30, 0.8);
+  color: white;
+  border-radius: 12px;
+  padding: 15px 20px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  z-index: 999;
+  font-size: 18px;
+  text-align: center;
+  min-width: 100px;
+}
+.hud-overlay i {
+  font-size: 24px;
+  margin-bottom: 8px;
 }
 
 
@@ -624,6 +647,12 @@
     
     <div class="video-container">
 		<div id="brightnessOverlay"></div>
+		<!-- HUD for Brightness/Volume -->
+		<div id="hudOverlay" class="hud-overlay">
+			<i id="hudIcon" class="fas fa-sun"></i>
+			<div id="hudValue">50%</div>
+		</div>
+
 		<div class="player-wrapper">
 			<div class="player-logo-overlay" id="logoOverlay">
 				<img src="ply-logo.png" alt="Logo" />
@@ -898,54 +927,79 @@ videoContainer.addEventListener('touchmove', handleTouchMove, { passive: true })
 videoContainer.addEventListener('touchend', handleTouchEnd);
 videoContainer.addEventListener('touchcancel', handleTouchEnd);
 
+
 //Brightness & Volume Control
-let startX = 0;
-let startY = 0;
-let lastBrightness = 0.5; // initial value (0 = bright, 1 = dark overlay)
+let swipeStartX = 0;
+let swipeStartY = 0;
+let lastBrightness = 0.3;
 let lastVolume = 0.5;
 const brightnessOverlay = document.getElementById('brightnessOverlay');
+const hudOverlay = document.getElementById('hudOverlay');
+const hudIcon = document.getElementById('hudIcon');
+const hudValue = document.getElementById('hudValue');
 
-const videoWrapper = document.querySelector('.video-container');
-const threshold = 30; // min pixels to consider a swipe
+const swipeThreshold = 15;
+const hudTimeout = 1000;
 
-videoWrapper.addEventListener('touchstart', (e) => {
+let hudTimer = null;
+
+function showHud(type, value) {
+  hudIcon.className = type === 'volume' ? 'fas fa-volume-up' : 'fas fa-sun';
+  hudValue.textContent = `${Math.round(value * 100)}%`;
+  hudOverlay.style.display = 'flex';
+
+  if (hudTimer) clearTimeout(hudTimer);
+  hudTimer = setTimeout(() => {
+    hudOverlay.style.display = 'none';
+  }, hudTimeout);
+}
+
+const videoArea = document.querySelector('.video-container');
+
+videoArea.addEventListener('touchstart', (e) => {
   if (e.touches.length === 1) {
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
+    swipeStartX = e.touches[0].clientX;
+    swipeStartY = e.touches[0].clientY;
   }
 }, { passive: true });
 
-videoWrapper.addEventListener('touchmove', (e) => {
+videoArea.addEventListener('touchmove', (e) => {
   if (e.touches.length !== 1) return;
 
-  const deltaX = e.touches[0].clientX - startX;
-  const deltaY = e.touches[0].clientY - startY;
+  const deltaX = e.touches[0].clientX - swipeStartX;
+  const deltaY = e.touches[0].clientY - swipeStartY;
 
-  if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > threshold) {
+  if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > swipeThreshold) {
     const screenWidth = window.innerWidth;
-    const isLeftSide = startX < screenWidth / 2;
-    const direction = deltaY < 0 ? 'up' : 'down';
+    const isLeft = swipeStartX < screenWidth / 2;
+    const goingUp = deltaY < 0;
 
-    if (isLeftSide) {
-      // Brightness control
-      lastBrightness += direction === 'up' ? -0.05 : 0.05;
+    if (isLeft) {
+      // Brightness control (simulate with dark overlay)
+      lastBrightness += goingUp ? -0.05 : 0.05;
       lastBrightness = Math.min(Math.max(lastBrightness, 0), 1);
-      brightnessOverlay.style.opacity = lastBrightness.toFixed(2);
-      showToast(`Brightness: ${Math.round((1 - lastBrightness) * 100)}%`);
+      brightnessOverlay.style.opacity = lastBrightness;
+      showHud('brightness', 1 - lastBrightness);
     } else {
       // Volume control
-      lastVolume += direction === 'up' ? 0.05 : -0.05;
+      lastVolume += goingUp ? 0.05 : -0.05;
       lastVolume = Math.min(Math.max(lastVolume, 0), 1);
       if (player && typeof player.volume === 'number') {
         player.volume = lastVolume;
-        showToast(`Volume: ${Math.round(lastVolume * 100)}%`);
+        showHud('volume', lastVolume);
       }
     }
 
-    // Reset for next swipe
-    startY = e.touches[0].clientY;
+    // Prevent further movement during same gesture
+    swipeStartY = e.touches[0].clientY;
   }
 }, { passive: true });
+
+videoArea.addEventListener('touchend', () => {
+  swipeStartX = 0;
+  swipeStartY = 0;
+});
+
 
 //DoubleTap Function
 function setupDoubleTapSeeking() {
