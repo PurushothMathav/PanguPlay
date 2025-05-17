@@ -549,6 +549,16 @@
 } 
 }
 
+.player-wrapper video {
+  object-fit: contain; /* Default */
+  transition: object-fit 0.3s ease;
+}
+
+.player-wrapper.stretch video {
+  object-fit: cover;
+}
+
+
   </style>
 </head>
 <body>
@@ -737,46 +747,6 @@ disable-paste='true'>
       document.addEventListener('keydown', handleKeyboardShortcuts);
     });
 
-/*	
-function updateLogoInFullscreen() {
-  const logoOverlay = document.getElementById('logoOverlay');
-  const playerWrapper = document.querySelector('.player-wrapper');
-  
-  if (!logoOverlay || !playerWrapper) return; // Guard clause
-  
-  // Create a clone of the logo to avoid moving the original
-  const logoForFullscreen = logoOverlay.cloneNode(true);
-  logoForFullscreen.id = 'logoOverlayFullscreen';
-  
-  function handleFullscreenChange() {
-    const isFullscreen = document.fullscreenElement !== null;
-    
-    if (isFullscreen) {
-      // Remove any existing cloned logo first
-      const existingLogo = document.getElementById('logoOverlayFullscreen');
-      if (existingLogo) existingLogo.remove();
-      
-      // Add the cloned logo to the fullscreen element
-      document.fullscreenElement.appendChild(logoForFullscreen);
-      logoForFullscreen.style.position = 'fixed';
-      logoForFullscreen.style.top = '50px';
-      logoForFullscreen.style.right = '60px';
-      logoForFullscreen.style.zIndex = '9999';
-      logoForFullscreen.style.display = 'block';
-    } else {
-      // Remove the cloned logo when exiting fullscreen
-      const existingLogo = document.getElementById('logoOverlayFullscreen');
-      if (existingLogo) existingLogo.remove();
-    }
-  }
-  
-  document.addEventListener('fullscreenchange', handleFullscreenChange);
-  document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
-  document.addEventListener('mozfullscreenchange', handleFullscreenChange);
-  document.addEventListener('MSFullscreenChange', handleFullscreenChange);
-}
-*/
-
 function updateLogoInFullscreen() {
   const logoOverlay = document.getElementById('logoOverlay');
   const playerWrapper = document.querySelector('.player-wrapper');
@@ -860,6 +830,58 @@ function updateLogoInFullscreen() {
     }
   });
 }
+
+let initialDistance = null;
+
+function getDistance(touches) {
+  const dx = touches[0].clientX - touches[1].clientX;
+  const dy = touches[0].clientY - touches[1].clientY;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+function handleTouchStart(e) {
+  if (e.touches.length === 2) {
+    initialDistance = getDistance(e.touches);
+  }
+}
+
+function handleTouchMove(e) {
+  if (e.touches.length === 2 && initialDistance !== null) {
+    const currentDistance = getDistance(e.touches);
+    const diff = currentDistance - initialDistance;
+
+    if (Math.abs(diff) > 30) { // Minimum pinch distance to trigger
+      const wrapper = document.querySelector('.player-wrapper');
+
+      if (diff > 0) {
+        // Pinch out → stretch
+        wrapper.classList.add('stretch');
+        showToast('Stretch to fill screen');
+      } else {
+        // Pinch in → fit
+        wrapper.classList.remove('stretch');
+        showToast('Fit to screen');
+      }
+
+      // Prevent multiple toggles in one gesture
+      initialDistance = null;
+    }
+  }
+}
+
+function handleTouchEnd(e) {
+  if (e.touches.length < 2) {
+    initialDistance = null;
+  }
+}
+
+// Attach listeners to the video area
+const videoContainer = document.querySelector('.video-container');
+videoContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
+videoContainer.addEventListener('touchmove', handleTouchMove, { passive: true });
+videoContainer.addEventListener('touchend', handleTouchEnd);
+videoContainer.addEventListener('touchcancel', handleTouchEnd);
+
 
 function setupDoubleTapSeeking() {
   const videoContainer = document.querySelector('.video-container');
