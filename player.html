@@ -594,6 +594,12 @@
   margin-bottom: 8px;
 }
 
+body.lock-scroll {
+  overflow: hidden;
+  touch-action: none;
+}
+
+
 
   </style>
 </head>
@@ -940,8 +946,11 @@ const hudValue = document.getElementById('hudValue');
 
 const swipeThreshold = 15;
 const hudTimeout = 1000;
-
 let hudTimer = null;
+
+function isFullscreen() {
+  return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+}
 
 function showHud(type, value) {
   hudIcon.className = type === 'volume' ? 'fas fa-volume-up' : 'fas fa-sun';
@@ -957,13 +966,20 @@ function showHud(type, value) {
 const videoArea = document.querySelector('.video-container');
 
 videoArea.addEventListener('touchstart', (e) => {
+  if (!isFullscreen()) return;
+
+  document.body.classList.add('lock-scroll');
+
   if (e.touches.length === 1) {
     swipeStartX = e.touches[0].clientX;
     swipeStartY = e.touches[0].clientY;
   }
-}, { passive: true });
+}, { passive: false });
 
 videoArea.addEventListener('touchmove', (e) => {
+  if (!isFullscreen()) return;
+
+  e.preventDefault(); // prevent page scroll
   if (e.touches.length !== 1) return;
 
   const deltaX = e.touches[0].clientX - swipeStartX;
@@ -975,7 +991,7 @@ videoArea.addEventListener('touchmove', (e) => {
     const goingUp = deltaY < 0;
 
     if (isLeft) {
-      // Brightness control (simulate with dark overlay)
+      // Brightness control (simulated)
       lastBrightness += goingUp ? -0.05 : 0.05;
       lastBrightness = Math.min(Math.max(lastBrightness, 0), 1);
       brightnessOverlay.style.opacity = lastBrightness;
@@ -990,14 +1006,14 @@ videoArea.addEventListener('touchmove', (e) => {
       }
     }
 
-    // Prevent further movement during same gesture
-    swipeStartY = e.touches[0].clientY;
+    swipeStartY = e.touches[0].clientY; // Reset for smoother control
   }
-}, { passive: true });
+}, { passive: false });
 
 videoArea.addEventListener('touchend', () => {
   swipeStartX = 0;
   swipeStartY = 0;
+  document.body.classList.remove('lock-scroll');
 });
 
 
