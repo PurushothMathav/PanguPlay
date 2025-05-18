@@ -523,7 +523,6 @@
       }
     }
 
-
 .player-logo-overlay {
   position: absolute;
   top: 0%;
@@ -586,6 +585,7 @@ body.lock-scroll {
   touch-action: none;
 }
 
+
   </style>
 </head>
 <body>
@@ -637,30 +637,25 @@ body.lock-scroll {
     </div>
     
     <div class="video-container">
-
-
-
 		<!-- HUD for Volume Control -->
 		<div id="hudOverlay" class="hud-overlay">
 			<i id="hudIcon" class="fas fa-volume-up"></i>
 			<div id="hudValue">50%</div>
 		</div>
 		<div class="player-wrapper">
-		<div class="player-logo-overlay" id="logoOverlay">
-			<img src="ply-logo.png" alt="Logo" />
+			<div class="player-logo-overlay" id="logoOverlay">
+				<img src="ply-logo.png" alt="Logo" />
+			</div>
+			<div id="loadingOverlay" class="loading-overlay">
+				<div class="loading-spinner"></div>
+			</div>
+			<video id="player" playsinline controls data-poster="">
+				<source src="" type="video/mp4" size="1080">
+				<source src="" type="video/mp4" size="720">
+					Your browser does not support the video tag.
+			</video>
 		</div>
-		<div id="loadingOverlay" class="loading-overlay">
-			<div class="loading-spinner"></div>
-		</div>
-		<video id="player" playsinline controls data-poster="">
-			<source src="" type="video/mp4" size="1080">
-			<source src="" type="video/mp4" size="720">
-				Your browser does not support the video tag.
-		</video>
-		
-
-	</div>
-   </div>
+    </div>
     
     <!-- Custom player controls -->
 <div class="custom-controls">
@@ -748,8 +743,8 @@ disable-paste='true'>
       const isMobile = window.innerWidth <= 768;
       player = new Plyr('#player', {
         controls: isMobile
-          ? ['mute', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']
-          : ['mute', 'rewind', 'play', 'fast-forward', 'progress', 'current-time',  'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+          ? ['play-large', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']
+          : ['play-large', 'rewind', 'play', 'fast-forward', 'mute', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
         settings: ['captions', 'speed'],
         resetOnEnd: false,
         keyboard: { focused: true, global: true },
@@ -778,7 +773,7 @@ disable-paste='true'>
       initPlayer();
       setupPage();
       setupDownloadButton();
-      //setupDoubleTapSeeking();
+      setupDoubleTapSeeking();
       enableLandscapeOnFullScreen();
 	  updateLogoInFullscreen();
       document.addEventListener('keydown', handleKeyboardShortcuts);
