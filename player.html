@@ -586,65 +586,6 @@ body.lock-scroll {
   touch-action: none;
 }
 
-/* Hide HUD by default */
-.mobile-hud {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .mobile-hud {
-    display: block;
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 50;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .mobile-hud.visible {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .hud-button {
-    position: absolute;
-    background: rgba(0, 0, 0, 0.6);
-    border: none;
-    padding: 18px;
-    font-size: 24px;
-    color: white;
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: background 0.3s, transform 0.2s;
-    touch-action: manipulation;
-  }
-
-  .hud-button:active {
-    transform: scale(0.95);
-  }
-
-  .hud-button.hud-left {
-    top: 50%;
-    left: 6%;
-    transform: translateY(-50%);
-  }
-
-  .hud-button.hud-center {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .hud-button.hud-right {
-    top: 50%;
-    right: 6%;
-    transform: translateY(-50%);
-  }
-}
-
-
   </style>
 </head>
 <body>
@@ -716,18 +657,7 @@ body.lock-scroll {
 			<source src="" type="video/mp4" size="720">
 				Your browser does not support the video tag.
 		</video>
-		<!-- Mobile HUD (hidden by default on desktop) -->
-<div class="mobile-hud" id="mobileHud">
-  <button class="hud-button hud-left" id="btnRewind" aria-label="Rewind 10 seconds">
-    <i class="fas fa-undo-alt"></i>
-  </button>
-  <button class="hud-button hud-center" id="btnPlayPause" aria-label="Play or Pause">
-    <i class="fas fa-play"></i>
-  </button>
-  <button class="hud-button hud-right" id="btnForward" aria-label="Forward 10 seconds">
-    <i class="fas fa-redo-alt"></i>
-  </button>
-</div>
+		
 
 	</div>
    </div>
@@ -818,7 +748,7 @@ disable-paste='true'>
       const isMobile = window.innerWidth <= 768;
       player = new Plyr('#player', {
         controls: isMobile
-          ? ['mute', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']
+          ? ['mute', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']
           : ['mute', 'rewind', 'play', 'fast-forward', 'progress', 'current-time',  'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
         settings: ['captions', 'speed'],
         resetOnEnd: false,
@@ -1065,7 +995,7 @@ videoArea.addEventListener('touchend', () => {
   document.body.classList.remove('lock-scroll');
 });
 
-/*
+
 //DoubleTap Function
 function setupDoubleTapSeeking() {
   const videoContainer = document.querySelector('.video-container');
@@ -1109,74 +1039,6 @@ function setupDoubleTapSeeking() {
     setTimeout(() => overlay.classList.remove('active'), 500);
   }
 }
-*/
-
-document.addEventListener('DOMContentLoaded', () => {
-  const hud = document.getElementById('mobileHud');
-  const rewindBtn = document.getElementById('btnRewind');
-  const playPauseBtn = document.getElementById('btnPlayPause');
-  const forwardBtn = document.getElementById('btnForward');
-  const videoContainer = document.querySelector('.video-container');
-  let hudTimeout = null;
-
-  // Only activate HUD logic on mobile
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  if (!isMobile) return;
-
-  function showHud() {
-    hud.classList.add('visible');
-    clearTimeout(hudTimeout);
-    hudTimeout = setTimeout(() => {
-      hud.classList.remove('visible');
-    }, 3000);
-  }
-
-  function updatePlayPauseIcon() {
-    playPauseBtn.innerHTML = player.paused
-      ? '<i class="fas fa-play"></i>'
-      : '<i class="fas fa-pause"></i>';
-  }
-
-  // Show HUD on tap but don’t affect playback
-  videoContainer.addEventListener('click', (e) => {
-    if (e.target.tagName.toLowerCase() === 'video') {
-      e.preventDefault();
-      showHud();
-      updatePlayPauseIcon();
-    }
-  });
-
-  rewindBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    player.currentTime = Math.max(player.currentTime - 10, 0);
-    showToast('Rewound 10s');
-    showHud();
-  });
-
-  forwardBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    player.currentTime = Math.min(player.currentTime + 10, player.duration);
-    showToast('Forwarded 10s');
-    showHud();
-  });
-
-  playPauseBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (player.paused) {
-      player.play();
-    } else {
-      player.pause();
-    }
-    updatePlayPauseIcon();
-    showToast(player.paused ? 'Paused' : 'Playing');
-    showHud();
-  });
-
-  // Update icon when playback changes
-  player.on('play', updatePlayPauseIcon);
-  player.on('pause', updatePlayPauseIcon);
-});
-
 
 //CastAPI Initialization
 function initializeCastApi() {
