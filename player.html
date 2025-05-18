@@ -773,9 +773,8 @@ disable-paste='true'>
       initPlayer();
       setupPage();
       setupDownloadButton();
-      //setupDoubleTapSeeking();
-	  setupTripleZoneControls();
-      enableLandscapeOnFullScreen();
+      setupDoubleTapSeeking();
+	  enableLandscapeOnFullScreen();
 	  updateLogoInFullscreen();
       document.addEventListener('keydown', handleKeyboardShortcuts);
     });
@@ -991,7 +990,7 @@ videoArea.addEventListener('touchend', () => {
   document.body.classList.remove('lock-scroll');
 });
 
-/*
+
 //DoubleTap Function
 function setupDoubleTapSeeking() {
   const videoContainer = document.querySelector('.video-container');
@@ -1035,92 +1034,6 @@ function setupDoubleTapSeeking() {
     setTimeout(() => overlay.classList.remove('active'), 500);
   }
 }
-*/
-
-function setupTripleZoneControls() {
-  const videoContainer = document.querySelector('.video-container');
-  const playerElement = document.getElementById('player');
-  let lastTap = 0;
-  const tapThreshold = 300; // ms for double tap detection
-  
-  // Create the three overlay zones
-  const leftOverlay = document.createElement('div');
-  leftOverlay.className = 'tap-overlay tap-overlay-left';
-  leftOverlay.innerHTML = '<i class="fas fa-backward"></i><span>-10s</span>';
-  leftOverlay.style.width = '33.33%';
-  
-  const middleOverlay = document.createElement('div');
-  middleOverlay.className = 'tap-overlay tap-overlay-middle';
-  middleOverlay.innerHTML = '<i class="fas fa-play"></i><span>Play</span>';
-  middleOverlay.style.left = '33.33%';
-  middleOverlay.style.width = '33.33%';
-  
-  const rightOverlay = document.createElement('div');
-  rightOverlay.className = 'tap-overlay tap-overlay-right';
-  rightOverlay.innerHTML = '<i class="fas fa-forward"></i><span>+10s</span>';
-  rightOverlay.style.left = '66.66%';
-  rightOverlay.style.width = '33.33%';
-  
-  videoContainer.appendChild(leftOverlay);
-  videoContainer.appendChild(middleOverlay);
-  videoContainer.appendChild(rightOverlay);
-  
-  // Add tap handlers
-  videoContainer.addEventListener('touchend', function(e) {
-    const currentTime = new Date().getTime();
-    const tapLength = currentTime - lastTap;
-    const screenWidth = window.innerWidth;
-    const touchX = e.changedTouches[0].clientX;
-    
-    // Determine which zone was tapped
-    let zone;
-    if (touchX < screenWidth / 3) {
-      zone = 'left';
-    } else if (touchX < (screenWidth / 3) * 2) {
-      zone = 'middle';
-    } else {
-      zone = 'right';
-    }
-    
-    // Handle double taps for seeking
-    if (tapLength < tapThreshold && tapLength > 0) {
-      if (zone === 'left') {
-        player.currentTime = Math.max(player.currentTime - 10, 0);
-        showTapOverlay(leftOverlay);
-      } else if (zone === 'right') {
-        player.currentTime = Math.min(player.currentTime + 10, player.duration);
-        showTapOverlay(rightOverlay);
-      }
-    } else if (zone === 'middle') {
-      // For middle zone, toggle play/pause on single tap
-      if (player.paused) {
-        player.play();
-        middleOverlay.innerHTML = '<i class="fas fa-pause"></i><span>Pause</span>';
-      } else {
-        player.pause();
-        middleOverlay.innerHTML = '<i class="fas fa-play"></i><span>Play</span>';
-      }
-      showTapOverlay(middleOverlay);
-    }
-    
-    lastTap = currentTime;
-  });
-  
-  function showTapOverlay(overlay) {
-    overlay.classList.add('active');
-    setTimeout(() => overlay.classList.remove('active'), 500);
-  }
-  
-  // Update middle overlay icon based on play state
-  player.addEventListener('play', () => {
-    middleOverlay.innerHTML = '<i class="fas fa-pause"></i><span>Pause</span>';
-  });
-  
-  player.addEventListener('pause', () => {
-    middleOverlay.innerHTML = '<i class="fas fa-play"></i><span>Play</span>';
-  });
-}
-
 
 
 //CastAPI Initialization
@@ -1526,20 +1439,7 @@ function setupPage() {
         container.appendChild(btn);
       });
     }
-/*
-    function updateNavButtons() {
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-      const navContainer = document.getElementById('navButtons');
-      if (episodes.length <= 1) {
-        navContainer.style.display = 'none';
-        return;
-      }
-      navContainer.style.display = 'flex';
-      prevBtn.disabled = currentEpisodeIndex <= 0;
-      nextBtn.disabled = currentEpisodeIndex >= episodes.length - 1;
-    } */
-	
+
 	function updateNavButtons() {
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
