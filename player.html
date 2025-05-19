@@ -589,6 +589,7 @@ body.lock-scroll {
   </style>
 </head>
 <body>
+
   <div class="navbar">
     <div class="nav-left">
       <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
@@ -1209,7 +1210,28 @@ window['__onGCastApiAvailable'] = function(isAvailable) {
         showToast('No video available for download');
       }
     }
-    
+
+/*
+function addCaptionsToPlayer(captions) {
+  const videoElement = document.getElementById('player');
+
+  // Remove existing tracks
+  const oldTracks = videoElement.querySelectorAll('track');
+  oldTracks.forEach(track => track.remove());
+
+  // Add new tracks
+  captions.forEach((caption) => {
+    const track = document.createElement('track');
+    track.kind = 'subtitles';
+    track.label = caption.label;
+    track.srclang = caption.srclang;
+    track.src = caption.src;
+    if (caption.default) track.default = true;
+    videoElement.appendChild(track);
+  });
+}
+	*/
+   
     // Setup page content
 function setupPage() {
       document.getElementById('videoTitle').textContent = playerData.title;
@@ -1253,11 +1275,62 @@ function setupPage() {
             quality: '720p'
           });
         }
+		/*
+		if (playerData.captions) {
+  addCaptionsToPlayer(playerData.captions);
+} */
         setupResolutionSelector();
         loadVideo(currentVideoSources[0]?.url || '');
       }
+
     }
-    
+	
+function loadVideo(initialUrl) {
+  if (!player) return;
+  showLoading();
+  const poster = playerData.image;
+  const currentTime = player.currentTime || 0;
+
+  const sources = currentVideoSources.map(source => ({
+    src: source.url,
+    type: 'video/mp4',
+    size: parseInt(source.quality.replace('p', ''))
+  }));
+
+  // ✅ Prepare subtitles inside the `source` object
+  const tracks = (playerData.captions || []).map(caption => ({
+    kind: 'subtitles',
+    label: caption.label,
+    srclang: caption.srclang,
+    src: caption.src,
+    default: caption.default || false
+  }));
+
+  player.source = {
+    type: 'video',
+    title: playerData.title,
+    sources: sources,
+    poster: poster,
+    tracks: tracks // ✅ Pass captions here
+  };
+
+  player.once('canplay', () => {
+    player.currentTime = currentTime;
+    player.play().catch(err => {
+      showToast('Playback error. Trying fallback…');
+      tryFallback();
+    });
+    hideLoading();
+  });
+
+  player.once('error', () => {
+    showToast('Video load error. Trying fallback…');
+    tryFallback();
+  });
+}
+
+
+/*    
     function loadVideo(initialUrl) {
       if (!player) return;
       showLoading();
@@ -1273,6 +1346,9 @@ function setupPage() {
         sources: sources,
         poster: poster
       };
+	  if (playerData.captions) {
+  addCaptionsToPlayer(playerData.captions);
+}
       player.once('canplay', () => {
         player.currentTime = currentTime;
         player.play().catch(err => {
@@ -1285,7 +1361,8 @@ function setupPage() {
         showToast('Video load error. Trying fallback…');
         tryFallback();
       });
-    }
+	  
+    } */
 
     function tryFallback() {
       const fallback = currentVideoSources.find(src => src.quality === '720p');
