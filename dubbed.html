@@ -477,17 +477,6 @@
   </div>
 </div>
 
-<!-- Notification Popup 
-<div id="notificationPopup" class="notification-popup" style="display:none;">
-  <strong>What's New</strong>
-  <ul style="margin:8px 0 0 0; padding-left:18px;">
-    <li style="display:flex;align-items:center;gap:8px;">
-      <img src="https://m.media-amazon.com/images/M/MV5BYjIzOTgxZTQtN2ExMy00MGM1LThjYTgtNGE5MTUxN2Q5YjRjXkEyXkFqcGc@._V1_SX300.jpg" alt="Sattur Railway Station" style="width:50px;height:70px;object-fit:cover;border-radius:4px;">
-      Sattur Railway Station (2023)
-    </li>
-  </ul>
-</div> -->
- 
 <!-- Mobile Menu Backdrop -->
 <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMenu()"></div>
 
@@ -666,7 +655,7 @@ const videos = [
       "director": "",
       "starring": "",
       "genres": "",
-      "quality": "720p",
+      "quality": "PreDVD",
       "language": "Tamil",
       "movieRating": "",
       "lastUpdated": "15 May 2025",
@@ -4519,11 +4508,17 @@ loadDubbed();
 </script>
 
 <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/PanguPlay/service-worker.js');
-  });
-}
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/PanguPlay/service-worker.js')
+        .then(registration => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(error => {
+          console.error('Service Worker registration failed:', error);
+        });
+    });
+  }
 </script>
 
 </body>
