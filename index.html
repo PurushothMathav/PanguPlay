@@ -360,7 +360,7 @@ footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f
 
 <body>
 
-<div id="splash-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#121212;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;">
+<div id="splash-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#121212;display:none;flex-direction:column;justify-content:center;align-items:center;z-index:9999;">
   <img src="favicon.png" alt="Loading..." style="width:100px;height:auto;margin-bottom:20px;">
   <div class="loader"></div>
 </div>
@@ -381,13 +381,21 @@ footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f
 </style>
 
 <script>
-    window.addEventListener('load', () => {
-      const splash = document.getElementById('splash-screen');
-      if (splash) {
-        splash.style.display = 'none';
-      }
-    });
-  </script>
+  const splash = document.getElementById('splash-screen');
+  let splashTimeout = setTimeout(() => {
+    if (splash) {
+      splash.style.display = 'flex';
+    }
+  }, 2000); // Show splash only if load takes longer than 2s
+
+  window.addEventListener('load', () => {
+    clearTimeout(splashTimeout); // Cancel showing splash if load completes in time
+    if (splash) {
+      splash.style.display = 'none';
+    }
+  });
+</script>
+
 
 <!-- Navbar -->
 <div class="navbar">
@@ -613,17 +621,18 @@ const videos = [
     "type": "movie",
     "title": "Rakshana (2024)",
     "image": "https://m.media-amazon.com/images/M/MV5BZGY4NjNkMmItZjFkZC00MjdkLTlkNzctNWUyM2UwNjFmZmYxXkEyXkFqcGc@._V1_SX300.jpg",
-	"video": "https://s03.hotshare.link/Rakshana_2024_Original_720p_HD.mp4",
+	"video": "https://s07.hotshare.link/Moviesda.Mobi_-_Rakshana_2024_Original_1080p_HD.mp4",
+	"alt": "https://s03.hotshare.link/Rakshana_2024_Original_720p_HD.mp4",
     "details": {
       "director": "",
       "starring": "",
       "genres": "",
-      "quality": "720p",
+      "quality": "1080p",
       "language": "Tamil",
       "movieRating": "⭐",
       "lastUpdated": "16 May 2025",
       "fileSize": "1.4 GB",
-      "streamURL": "https://s03.hotshare.link/Rakshana_2024_Original_720p_HD.mp4"
+      "streamURL": "https://s07.hotshare.link/Moviesda.Mobi_-_Rakshana_2024_Original_1080p_HD.mp4"
     },
     "id": "rakshana-2024"
   },
