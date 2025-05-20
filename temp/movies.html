@@ -442,6 +442,32 @@
     max-width: 50vw;
   }
 }
+
+.ott-tags {
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+
+.ott-tag {
+  background: #444;
+  color: #fff;
+  padding: 2px 6px;
+  font-size: 11px;
+  border-radius: 8px;
+  text-transform: capitalize;
+}
+
+.ott-tag.netflix { background-color: #e50914; }
+.ott-tag.amazonprime { background-color: #00a8e1; }
+.ott-tag.hotstar { background-color: #1c1c1c; }
+.ott-tag.zee5 { background-color: #5c2d91; }
+.ott-tag.mxplayer { background-color: #0e76a8; }
+.ott-tag.sunnxt { background-color: #ef3d55; }
+.ott-tag.sonyliv { background-color: #2e3192; }
+
   </style>
 </head>
 <body>
@@ -555,11 +581,17 @@
         <option value="720p">720p</option>
         <option value="PreDVD">PreDVD</option>
       </select>
-      <select id="sortFilter">
-        <option value="lastupdated">Last Updated</option>
-        <option value="desc">Title Z-A</option>
-        <option value="asc">Title A-Z</option>
-      </select>
+      <select id="ottFilter">
+		<option value="">OTT Platform</option>
+		<option value="Netflix">Netflix</option>
+		<option value="Amazon Prime">Amazon Prime</option>
+		<option value="Hotstar">Hotstar</option>
+		<option value="Zee5">Zee5</option>
+		<option value="MX Player">MX Player</option>
+		<option value="Sun NXT">Sun NXT</option>
+		<option value="Sony LIV">Sony LIV</option>
+	  </select>
+
       <button id="clearFilters" style="margin-left:8px;">Clear</button>
     </div>
   </div>
@@ -659,6 +691,7 @@ function getQualityClass(quality) {
     "title": "Maaman (2025)",
     "image": "https://m.media-amazon.com/images/M/MV5BZjQ5MzBkM2YtOGRkNS00ODA0LWI5ZTMtY2MxNjE2MmRmYzI5XkEyXkFqcGc@._V1_SX300.jpg",
 	"video": "https://dl6.hotshare.click/Maaman_2025_HQ_PreDVD_720p_HD.mp4",
+	"ottPlatforms": ["Amazon Prime", "Sun NXT"],
     "details": {
       "director": "Prasanth Pandiyaraj",
       "starring": "Soori, Aishwarya Lekshmi, Swasika Vijay",
@@ -1188,205 +1221,6 @@ function getQualityClass(quality) {
     },
     "id": "aay-2024"
   },
-  {
-    "title": "14 Days Girlfriend Intlo (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BMzA5ZjFiN2YtYWQ2Yi00MzlkLTk2MTgtNDU4MzMxNmY5Mzk0XkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://dl5.hotshare.click/Moviesda.Mobi_-_14_Days_Girlfriend_Intlo_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "0.98 GB",
-      "streamURL": "https://dl5.hotshare.click/Moviesda.Mobi_-_14_Days_Girlfriend_Intlo_2025_Original_720p_HD.mp4"
-    },
-    "id": "14-days-girlfriend-intlo-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Baapu A Fathers Story (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BYjFjMDI3ZDYtMTNiOS00NzJmLWIyZmYtZjY2MGE1NGFlMTgwXkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://s05.hotshare.link/Baapu_A_Fathers_Story_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "1.39 GB",
-      "streamURL": "https://s05.hotshare.link/Baapu_A_Fathers_Story_2025_Original_720p_HD.mp4"
-    },
-    "id": "baapu-a-fathers-story-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Baby and Baby (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BNDBjYTQ4N2MtNGVmNS00MDNmLTkxMmUtMDU4NWFlOTE4ZDI4XkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://s03.hotshare.link/Moviesda.Mobi_-_Baby_and_Baby_2025_Original_1080p_HD.mp4",
-    "alt": "https://dl6.hotshare.top/Moviesda.Mobi_-_Baby_and_Baby_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "1080p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "1.71 GB",
-      "streamURL": "https://s03.hotshare.link/Moviesda.Mobi_-_Baby_and_Baby_2025_Original_1080p_HD.mp4"
-    },
-    "id": "baby-and-baby-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Cheddi Gang Tamasha (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BN2M3YzkxY2MtNjQwMS00YTI1LWEwZmYtMjkzOTYyMzkxMjY0XkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://dl5.hotshare.click/Moviesda.Mobi_-_Cheddi_Gang_Tamasha_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "1.33 GB",
-      "streamURL": "https://dl5.hotshare.click/Moviesda.Mobi_-_Cheddi_Gang_Tamasha_2025_Original_720p_HD.mp4"
-    },
-    "id": "cheddi-gang-tamasha-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Court - State vs a NoBody (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BYTQ3ZjRlYTctYjFmYy00YTAyLWI4MmQtMzUxMjg1ZDZmMTQ1XkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://s06.hotshare.link/Moviesda.Mobi_-_Court_-_State_vs_a_NoBody_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "1.50 GB",
-      "streamURL": "https://s06.hotshare.link/Moviesda.Mobi_-_Court_-_State_vs_a_NoBody_2025_Original_720p_HD.mp4"
-    },
-    "id": "court---state-vs-a-nobody-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Emagadhagan (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BYmUyNDU2OWQtNDEzZS00YTk1LTgyZGUtZTI0NWYxNTc0YzYyXkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://cdn7.uptodl.ch/files/Tamil%202024%20Movies/Emagadhagan%20(2024)/Emagadhagan%20(Original)/Emagadhagan%20(720p%20HD)/Moviesda.Mobi%20-%20Emagadhagan%202025%20Original%20720p%20HD.mp4?h=1c105348ccca73097a877e898847a89b059bf02e&e=1747853251",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "992.02 MB",
-      "streamURL": "https://cdn7.uptodl.ch/files/Tamil%202024%20Movies/Emagadhagan%20(2024)/Emagadhagan%20(Original)/Emagadhagan%20(720p%20HD)/Moviesda.Mobi%20-%20Emagadhagan%202025%20Original%20720p%20HD.mp4?h=1c105348ccca73097a877e898847a89b059bf02e&e=1747853251"
-    },
-    "id": "emagadhagan-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Emergency Exit (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BMTc5NzU1NjM2MV5BMl5BanBnXkFtZTYwODA3Nzc5._V1_SX300.jpg",
-    "video": "https://cdn10.uptodl.ch/files/Tamil%20Dubbed%20Movies/Emergency%20Exit%20(2025)/Emergency%20Exit%20(Original)/Emergency%20Exit%20(720p%20HD)/Moviesda.Mobi%20-%20Emergency%20Exit%202025%20Original%20720p%20HD.mp4?h=bbfeba623b10b30c2cec9c22f1c181f60b77833c&e=1747853180",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "1.19 GB",
-      "streamURL": "https://cdn10.uptodl.ch/files/Tamil%20Dubbed%20Movies/Emergency%20Exit%20(2025)/Emergency%20Exit%20(Original)/Emergency%20Exit%20(720p%20HD)/Moviesda.Mobi%20-%20Emergency%20Exit%202025%20Original%20720p%20HD.mp4?h=bbfeba623b10b30c2cec9c22f1c181f60b77833c&e=1747853180"
-    },
-    "id": "emergency-exit-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Otha Votu Muthaiya (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BMTBjYzMwNGUtZmRmZC00MTc0LTlhZmItNWQ5NGIwMTdlMWEzXkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://s01.hotshare.link/Moviesda.Mobi_-_Otha_Votu_Muthaiya_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "1.33 GB",
-      "streamURL": "https://s01.hotshare.link/Moviesda.Mobi_-_Otha_Votu_Muthaiya_2025_Original_720p_HD.mp4"
-    },
-    "id": "otha-votu-muthaiya-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Pravinkoodu Shappu (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BMTU4NWM2ZWUtMGJiNy00NmQxLTgzM2MtYjQwYjVhNzQxNjAyXkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://s01.hotshare.link/Pravinkoodu_Shappu_2025_Original_1080p_HD.mp4",
-    "alt": "https://s07.hotshare.link/Pravinkoodu_Shappu_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "1080p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "1.55 GB",
-      "streamURL": "https://s01.hotshare.link/Pravinkoodu_Shappu_2025_Original_1080p_HD.mp4"
-    },
-    "id": "pravinkoodu-shappu-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Superboys of Malegaon (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BNTllODgyODEtMTk4Zi00YzRlLWEzNDUtMjAwYmZiMDk2MTkxXkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://s02.hotshare.link/Moviesda.Mobi_-_Superboys_of_Malegaon_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "0.98 GB",
-      "streamURL": "https://s02.hotshare.link/Moviesda.Mobi_-_Superboys_of_Malegaon_2025_Original_720p_HD.mp4"
-    },
-    "id": "superboys-of-malegaon-2025"
-  },
-  {
-    "type": "movie",
-    "title": "The Mehta Boys (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BNjE0ZjkzOTUtNTRhZC00MjdmLTlmYjItNTVmZmVhYThhY2ZhXkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://s06.hotshare.link/Moviesda.io_-_The_Mehta_Boys_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "677.19 MB",
-      "streamURL": "https://s06.hotshare.link/Moviesda.io_-_The_Mehta_Boys_2025_Original_720p_HD.mp4"
-    },
-    "id": "the-mehta-boys-2025"
-  },  
   {
     "type": "movie",
     "title": "Abdhul (2024)",
@@ -10695,7 +10529,9 @@ function populateYearFilter() {
 function filterAndRenderMovies() {
   const year = document.getElementById('yearFilter').value;
   const quality = document.getElementById('qualityFilter').value;
-  const sort = document.getElementById('sortFilter').value;
+  //const sort = document.getElementById('sortFilter').value;
+  const ott = document.getElementById('ottFilter').value;
+
 
   let filtered = videos.filter(v => v.type === 'movie');
 
@@ -10709,14 +10545,19 @@ function filterAndRenderMovies() {
     filtered = filtered.filter(v => v.details && v.details.quality === quality);
   }
 
-  // Sorting
+  /* Sorting
   if (sort === 'asc') {
     filtered = filtered.sort((a, b) => a.title.localeCompare(b.title));
   } else if (sort === 'desc') {
     filtered = filtered.sort((a, b) => b.title.localeCompare(a.title));
   } else { // "lastupdated" or default
     filtered = filtered.sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated));
-  }
+  } */
+  
+  if (ott) {
+  filtered = filtered.filter(v => v.ottPlatforms && v.ottPlatforms.includes(ott));
+	}
+
 
   // Render
   const movies = document.getElementById('moviesList');
@@ -10740,8 +10581,19 @@ function filterAndRenderMovies() {
           <div class="quality-tag ${qualityClass}">${quality}</div>
         </div>`;
     }
-    card.innerHTML = `${imageContent}
-                     <div class="card-title" style="padding:5px">${v.title}</div>`;
+	card.innerHTML = `${imageContent}
+                 <div class="card-title" style="padding:5px">${v.title}</div>`;
+/*
+    const ottHTML = v.ottPlatforms && v.ottPlatforms.length > 0
+  ? `<div class="ott-tags">` + 
+      v.ottPlatforms.map(p => `<span class="ott-tag ${p.toLowerCase().replace(/\s+/g, '')}">${p}</span>`).join(' ') +
+    `</div>` 
+  : '';
+
+card.innerHTML = `${imageContent}
+                 <div class="card-title" style="padding:5px">${v.title}</div>
+                 ${ottHTML}`; 
+				 */
     card.onclick = () => openPlayer(v);
     movies.appendChild(card);
   });
@@ -10752,11 +10604,13 @@ document.addEventListener('DOMContentLoaded', () => {
   populateYearFilter();
   document.getElementById('yearFilter').onchange = filterAndRenderMovies;
   document.getElementById('qualityFilter').onchange = filterAndRenderMovies;
-  document.getElementById('sortFilter').onchange = filterAndRenderMovies;
+  //document.getElementById('sortFilter').onchange = filterAndRenderMovies;
+  document.getElementById('ottFilter').onchange = filterAndRenderMovies;
   document.getElementById('clearFilters').onclick = () => {
   document.getElementById('yearFilter').value = '';
   document.getElementById('qualityFilter').value = '';
-  document.getElementById('sortFilter').value = 'lastupdated';
+  //document.getElementById('sortFilter').value = 'lastupdated';
+  document.getElementById('ottFilter').value = '';
   filterAndRenderMovies();
 };
   filterAndRenderMovies();
