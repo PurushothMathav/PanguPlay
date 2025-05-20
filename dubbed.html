@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.js"></script>
-  <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"> -->
-  <!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1f1f1f">
   <!-- Favicon -->
@@ -414,41 +412,6 @@
 </head>
 <body>
 
-<div id="splash-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#121212;display:none;flex-direction:column;justify-content:center;align-items:center;z-index:9999;">
-  <img src="favicon.png" alt="Loading..." style="width:100px;height:auto;margin-bottom:20px;">
-  <div class="loader"></div>
-</div>
-
-<style>
-  .loader {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #ffffff33;
-    border-top: 4px solid #ffffff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-</style>
-
-<script>
-  const splash = document.getElementById('splash-screen');
-  let splashTimeout = setTimeout(() => {
-    if (splash) {
-      splash.style.display = 'flex';
-    }
-  }, 2000); // Show splash only if load takes longer than 2s
-
-  window.addEventListener('load', () => {
-    clearTimeout(splashTimeout); // Cancel showing splash if load completes in time
-    if (splash) {
-      splash.style.display = 'none';
-    }
-  });
-</script>
 
 <!-- Navbar -->
 <div class="navbar">
@@ -477,6 +440,17 @@
   </div>
 </div>
 
+<!-- Notification Popup 
+<div id="notificationPopup" class="notification-popup" style="display:none;">
+  <strong>What's New</strong>
+  <ul style="margin:8px 0 0 0; padding-left:18px;">
+    <li style="display:flex;align-items:center;gap:8px;">
+      <img src="https://m.media-amazon.com/images/M/MV5BYjIzOTgxZTQtN2ExMy00MGM1LThjYTgtNGE5MTUxN2Q5YjRjXkEyXkFqcGc@._V1_SX300.jpg" alt="Sattur Railway Station" style="width:50px;height:70px;object-fit:cover;border-radius:4px;">
+      Sattur Railway Station (2023)
+    </li>
+  </ul>
+</div> -->
+ 
 <!-- Mobile Menu Backdrop -->
 <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMenu()"></div>
 
@@ -510,7 +484,7 @@
         <option value="">Quality</option>
         <!-- <option value="1080p">1080p</option> -->
         <option value="HD">HD</option>
-        <option value="PreDVD">PreDVD</option>
+       <!-- <option value="PreDVD">PreDVD</option> -->
       </select>
       <select id="sortFilter">
         <option value="lastupdated">Last Updated</option>
@@ -637,7 +611,7 @@ const videos = [
       "director": "",
       "starring": "",
       "genres": "",
-      "quality": "HD",
+      "quality": "720p",
       "language": "Tamil",
       "movieRating": "",
       "lastUpdated": "30 Aprill 2025",
@@ -655,7 +629,7 @@ const videos = [
       "director": "",
       "starring": "",
       "genres": "",
-      "quality": "PreDVD",
+      "quality": "720p",
       "language": "Tamil",
       "movieRating": "",
       "lastUpdated": "15 May 2025",
@@ -673,7 +647,7 @@ const videos = [
       "director": "",
       "starring": "",
       "genres": "",
-      "quality": "HD",
+      "quality": "720p",
       "language": "Tamil",
       "movieRating": "",
       "lastUpdated": "30 Aprill 2025",
@@ -691,7 +665,7 @@ const videos = [
       "director": "",
       "starring": "",
       "genres": "",
-      "quality": "HD",
+      "quality": "720p",
       "language": "Tamil",
       "movieRating": "",
       "lastUpdated": "30 Aprill 2025",
@@ -709,7 +683,7 @@ const videos = [
       "director": "",
       "starring": "",
       "genres": "",
-      "quality": "HD",
+      "quality": "720p",
       "language": "Tamil",
       "movieRating": "",
       "lastUpdated": "30 Aprill 2025",
@@ -727,7 +701,7 @@ const videos = [
       "director": "",
       "starring": "",
       "genres": "",
-      "quality": "HD",
+      "quality": "720p",
       "language": "Tamil",
       "movieRating": "",
       "lastUpdated": "30 Aprill 2025",
@@ -745,7 +719,7 @@ const videos = [
       "director": "",
       "starring": "",
       "genres": "",
-      "quality": "HD",
+      "quality": "720p",
       "language": "Tamil",
       "movieRating": "",
       "lastUpdated": "30 Aprill 2025",
@@ -763,7 +737,7 @@ const videos = [
       "director": "",
       "starring": "",
       "genres": "",
-      "quality": "HD",
+      "quality": "720p",
       "language": "Tamil",
       "movieRating": "",
       "lastUpdated": "30 Aprill 2025",
@@ -4219,7 +4193,7 @@ const videos = [
         type: "dubbed",
 		title: 'Captain America Brave New World (2025)',
         image: 'https://storage.googleapis.com/panguplaybucket/Images/13-03-2025/Captain%20America%20Brave%20New%20World%20(2025)_Resized.png',
-        video: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Captain%20America%20Brave%20New%20World%20(2025)/Captain%20America%20Brave%20New%20World%20(Original)/Captain%20America%20Brave%20New%20World%20(720p%20HD)/Captain%20America%20Brave%20New%20World%202025%20720p%20HD.mp4?h=5c498bf5f93caa11d75859773d170126f4480ee057a03663d6fe00e85c95da12&e=1748545617',
+        video: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Captain%20America%20Brave%20New%20World%20(2025).mp4',
         details: {
           director: 'Julius Onah',
           starring: 'Anthony Mackie, Harrison Ford, Danny Ramirez, Shira Haas, Carl Lumbly, Tim Blake Nelson, Giancarlo Esposito, Xosha Roquemore, Liv Tyler',
@@ -4228,7 +4202,7 @@ const videos = [
           language: 'Tamil',
           movieRating: '⭐6.0/10',
           lastUpdated: '13 March 2025',
-		  streamURL: 'https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Captain%20America%20Brave%20New%20World%20(2025)/Captain%20America%20Brave%20New%20World%20(Original)/Captain%20America%20Brave%20New%20World%20(720p%20HD)/Captain%20America%20Brave%20New%20World%202025%20720p%20HD.mp4?h=5c498bf5f93caa11d75859773d170126f4480ee057a03663d6fe00e85c95da12&e=1748545617'
+		  streamURL: 'https://storage.googleapis.com/panguplaybucket/Videos/13-03-2025/Captain%20America%20Brave%20New%20World%20(2025).mp4'
         }
 },
 
@@ -4505,14 +4479,6 @@ function loadDubbed() {
 loadDubbed();
 
 */
-</script>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/PanguPlay/service-worker.js');
-  });
-}
 </script>
 
 </body>

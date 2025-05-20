@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.js"></script>
-  <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"> -->
-  <!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1f1f1f">
   <!-- Favicon -->
@@ -446,41 +444,6 @@
 </head>
 <body>
 
-<div id="splash-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#121212;display:none;flex-direction:column;justify-content:center;align-items:center;z-index:9999;">
-  <img src="favicon.png" alt="Loading..." style="width:100px;height:auto;margin-bottom:20px;">
-  <div class="loader"></div>
-</div>
-
-<style>
-  .loader {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #ffffff33;
-    border-top: 4px solid #ffffff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-</style>
-
-<script>
-  const splash = document.getElementById('splash-screen');
-  let splashTimeout = setTimeout(() => {
-    if (splash) {
-      splash.style.display = 'flex';
-    }
-  }, 2000); // Show splash only if load takes longer than 2s
-
-  window.addEventListener('load', () => {
-    clearTimeout(splashTimeout); // Cancel showing splash if load completes in time
-    if (splash) {
-      splash.style.display = 'none';
-    }
-  });
-</script>
 
 <!-- Navbar -->
 <div class="navbar">
@@ -676,20 +639,19 @@ function getQualityClass(quality) {
     "type": "movie",
     "title": "Rakshana (2024)",
     "image": "https://m.media-amazon.com/images/M/MV5BZGY4NjNkMmItZjFkZC00MjdkLTlkNzctNWUyM2UwNjFmZmYxXkEyXkFqcGc@._V1_SX300.jpg",
-	"video": "https://s07.hotshare.link/Moviesda.Mobi_-_Rakshana_2024_Original_1080p_HD.mp4",
-	"alt": "https://s03.hotshare.link/Rakshana_2024_Original_720p_HD.mp4",
+	"video": "https://s03.hotshare.link/Rakshana_2024_Original_720p_HD.mp4",
     "details": {
       "director": "",
       "starring": "",
       "genres": "",
-      "quality": "1080p",
+      "quality": "720p",
       "language": "Tamil",
       "movieRating": "⭐",
       "lastUpdated": "16 May 2025",
       "fileSize": "1.4 GB",
-      "streamURL": "https://s07.hotshare.link/Moviesda.Mobi_-_Rakshana_2024_Original_1080p_HD.mp4"
+      "streamURL": "https://s03.hotshare.link/Rakshana_2024_Original_720p_HD.mp4"
     },
-    "id": "rakshana-2024"
+    "id": "rakshana-2025"
   },	
   {	
     "type": "movie",
@@ -1188,205 +1150,6 @@ function getQualityClass(quality) {
     },
     "id": "aay-2024"
   },
-  {
-    "title": "14 Days Girlfriend Intlo (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BMzA5ZjFiN2YtYWQ2Yi00MzlkLTk2MTgtNDU4MzMxNmY5Mzk0XkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://dl5.hotshare.click/Moviesda.Mobi_-_14_Days_Girlfriend_Intlo_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "0.98 GB",
-      "streamURL": "https://dl5.hotshare.click/Moviesda.Mobi_-_14_Days_Girlfriend_Intlo_2025_Original_720p_HD.mp4"
-    },
-    "id": "14-days-girlfriend-intlo-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Baapu A Fathers Story (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BYjFjMDI3ZDYtMTNiOS00NzJmLWIyZmYtZjY2MGE1NGFlMTgwXkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://s05.hotshare.link/Baapu_A_Fathers_Story_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "1.39 GB",
-      "streamURL": "https://s05.hotshare.link/Baapu_A_Fathers_Story_2025_Original_720p_HD.mp4"
-    },
-    "id": "baapu-a-fathers-story-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Baby and Baby (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BNDBjYTQ4N2MtNGVmNS00MDNmLTkxMmUtMDU4NWFlOTE4ZDI4XkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://s03.hotshare.link/Moviesda.Mobi_-_Baby_and_Baby_2025_Original_1080p_HD.mp4",
-    "alt": "https://dl6.hotshare.top/Moviesda.Mobi_-_Baby_and_Baby_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "1080p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "1.71 GB",
-      "streamURL": "https://s03.hotshare.link/Moviesda.Mobi_-_Baby_and_Baby_2025_Original_1080p_HD.mp4"
-    },
-    "id": "baby-and-baby-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Cheddi Gang Tamasha (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BN2M3YzkxY2MtNjQwMS00YTI1LWEwZmYtMjkzOTYyMzkxMjY0XkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://dl5.hotshare.click/Moviesda.Mobi_-_Cheddi_Gang_Tamasha_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "1.33 GB",
-      "streamURL": "https://dl5.hotshare.click/Moviesda.Mobi_-_Cheddi_Gang_Tamasha_2025_Original_720p_HD.mp4"
-    },
-    "id": "cheddi-gang-tamasha-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Court - State vs a NoBody (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BYTQ3ZjRlYTctYjFmYy00YTAyLWI4MmQtMzUxMjg1ZDZmMTQ1XkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://s06.hotshare.link/Moviesda.Mobi_-_Court_-_State_vs_a_NoBody_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "1.50 GB",
-      "streamURL": "https://s06.hotshare.link/Moviesda.Mobi_-_Court_-_State_vs_a_NoBody_2025_Original_720p_HD.mp4"
-    },
-    "id": "court---state-vs-a-nobody-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Emagadhagan (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BYmUyNDU2OWQtNDEzZS00YTk1LTgyZGUtZTI0NWYxNTc0YzYyXkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://cdn7.uptodl.ch/files/Tamil%202024%20Movies/Emagadhagan%20(2024)/Emagadhagan%20(Original)/Emagadhagan%20(720p%20HD)/Moviesda.Mobi%20-%20Emagadhagan%202025%20Original%20720p%20HD.mp4?h=1c105348ccca73097a877e898847a89b059bf02e&e=1747853251",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "992.02 MB",
-      "streamURL": "https://cdn7.uptodl.ch/files/Tamil%202024%20Movies/Emagadhagan%20(2024)/Emagadhagan%20(Original)/Emagadhagan%20(720p%20HD)/Moviesda.Mobi%20-%20Emagadhagan%202025%20Original%20720p%20HD.mp4?h=1c105348ccca73097a877e898847a89b059bf02e&e=1747853251"
-    },
-    "id": "emagadhagan-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Emergency Exit (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BMTc5NzU1NjM2MV5BMl5BanBnXkFtZTYwODA3Nzc5._V1_SX300.jpg",
-    "video": "https://cdn10.uptodl.ch/files/Tamil%20Dubbed%20Movies/Emergency%20Exit%20(2025)/Emergency%20Exit%20(Original)/Emergency%20Exit%20(720p%20HD)/Moviesda.Mobi%20-%20Emergency%20Exit%202025%20Original%20720p%20HD.mp4?h=bbfeba623b10b30c2cec9c22f1c181f60b77833c&e=1747853180",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "1.19 GB",
-      "streamURL": "https://cdn10.uptodl.ch/files/Tamil%20Dubbed%20Movies/Emergency%20Exit%20(2025)/Emergency%20Exit%20(Original)/Emergency%20Exit%20(720p%20HD)/Moviesda.Mobi%20-%20Emergency%20Exit%202025%20Original%20720p%20HD.mp4?h=bbfeba623b10b30c2cec9c22f1c181f60b77833c&e=1747853180"
-    },
-    "id": "emergency-exit-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Otha Votu Muthaiya (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BMTBjYzMwNGUtZmRmZC00MTc0LTlhZmItNWQ5NGIwMTdlMWEzXkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://s01.hotshare.link/Moviesda.Mobi_-_Otha_Votu_Muthaiya_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "1.33 GB",
-      "streamURL": "https://s01.hotshare.link/Moviesda.Mobi_-_Otha_Votu_Muthaiya_2025_Original_720p_HD.mp4"
-    },
-    "id": "otha-votu-muthaiya-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Pravinkoodu Shappu (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BMTU4NWM2ZWUtMGJiNy00NmQxLTgzM2MtYjQwYjVhNzQxNjAyXkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://s01.hotshare.link/Pravinkoodu_Shappu_2025_Original_1080p_HD.mp4",
-    "alt": "https://s07.hotshare.link/Pravinkoodu_Shappu_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "1080p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "1.55 GB",
-      "streamURL": "https://s01.hotshare.link/Pravinkoodu_Shappu_2025_Original_1080p_HD.mp4"
-    },
-    "id": "pravinkoodu-shappu-2025"
-  },
-  {
-    "type": "movie",
-    "title": "Superboys of Malegaon (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BNTllODgyODEtMTk4Zi00YzRlLWEzNDUtMjAwYmZiMDk2MTkxXkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://s02.hotshare.link/Moviesda.Mobi_-_Superboys_of_Malegaon_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "0.98 GB",
-      "streamURL": "https://s02.hotshare.link/Moviesda.Mobi_-_Superboys_of_Malegaon_2025_Original_720p_HD.mp4"
-    },
-    "id": "superboys-of-malegaon-2025"
-  },
-  {
-    "type": "movie",
-    "title": "The Mehta Boys (2025)",
-    "image": "https://m.media-amazon.com/images/M/MV5BNjE0ZjkzOTUtNTRhZC00MjdmLTlmYjItNTVmZmVhYThhY2ZhXkEyXkFqcGc@._V1_SX300.jpg",
-    "video": "https://s06.hotshare.link/Moviesda.io_-_The_Mehta_Boys_2025_Original_720p_HD.mp4",
-    "details": {
-      "director": "",
-      "starring": "",
-      "genres": "",
-      "quality": "720p",
-      "language": "Tamil",
-      "movieRating": "",
-      "lastUpdated": "10 April 2025",
-      "fileSize": "677.19 MB",
-      "streamURL": "https://s06.hotshare.link/Moviesda.io_-_The_Mehta_Boys_2025_Original_720p_HD.mp4"
-    },
-    "id": "the-mehta-boys-2025"
-  },  
   {
     "type": "movie",
     "title": "Abdhul (2024)",
@@ -10885,14 +10648,6 @@ function loadMovies() {
 
 loadMovies();
 */
-</script>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/PanguPlay/service-worker.js');
-  });
-}
 </script>
 
 </body>
