@@ -1,33 +1,74 @@
 {
-  "id": "/PanguPlay/",
+  "id": "com.panguplay.app",
   "name": "PanguPlay",
   "short_name": "PanguPlay",
   "lang": "en",
   "start_url": "/PanguPlay/index.html",
+  "scope": "/PanguPlay/",
   "display": "standalone",
+  "display_override": ["fullscreen", "minimal-ui"],
   "background_color": "#121212",
   "theme_color": "#1f1f1f",
   "description": "Watch Latest Movies, TV Shows for free without Ads.",
   "orientation": "any",
+  "categories": ["entertainment", "video", "streaming"],
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "/PanguPlay/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "icon-512.png",
+      "src": "/PanguPlay/icon-512.png",
       "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/PanguPlay/favicon.png",
+      "sizes": "16x16",
       "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Movies",
+      "short_name": "Movies",
+      "description": "Browse all movies",
+      "url": "/PanguPlay/movies.html"
+    },
+    {
+      "name": "TV Shows",
+      "short_name": "Shows",
+      "description": "Browse all TV shows",
+      "url": "/PanguPlay/shows.html"
+    },
+    {
+      "name": "Dubbed",
+      "short_name": "Dubbed",
+      "description": "Browse dubbed content",
+      "url": "/PanguPlay/dubbed.html"
+    },
+    {
+      "name": "720p",
+      "short_name": "720p",
+      "description": "Browse 720p content",
+      "url": "/PanguPlay/720p.html"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/PanguPlay/screenshot1.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
     }
   ],
   "prefer_related_applications": false,
   "iarc_rating_id": "",
-  "screenshots": [
-    {
-      "src": "screenshot1.png",
-      "sizes": "540x720",
-      "type": "image/png"
-    }
-  ]
+  "handle_links": "auto",
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  }
 }

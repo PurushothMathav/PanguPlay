@@ -744,7 +744,7 @@ disable-paste='true'>
       const isMobile = window.innerWidth <= 768;
       player = new Plyr('#player', {
         controls: isMobile
-          ? ['play-large', 'rewind', 'play', 'fast-forward', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']
+          ? ['play-large', 'rewind', 'play', 'fast-forward', 'mute', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']
           : ['play-large', 'rewind', 'play', 'fast-forward', 'mute', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
         settings: ['captions', 'speed'],
         resetOnEnd: false,
@@ -1625,5 +1625,20 @@ function loadVideo(initialUrl) {
       document.getElementById('searchResults').style.display = 'none';
     }
   </script>
+  
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/PanguPlay/service-worker.js')
+        .then(registration => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(error => {
+          console.error('Service Worker registration failed:', error);
+        });
+    });
+  }
+</script>
+  
 </body>
 </html>

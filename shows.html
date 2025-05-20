@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"> -->
+  <!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1f1f1f">
   <!-- Favicon -->
@@ -408,9 +410,45 @@
   }
 }
   </style>
+  
 </head>
 <body>
 
+<div id="splash-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#121212;display:none;flex-direction:column;justify-content:center;align-items:center;z-index:9999;">
+  <img src="favicon.png" alt="Loading..." style="width:100px;height:auto;margin-bottom:20px;">
+  <div class="loader"></div>
+</div>
+
+<style>
+  .loader {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ffffff33;
+    border-top: 4px solid #ffffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>
+
+<script>
+  const splash = document.getElementById('splash-screen');
+  let splashTimeout = setTimeout(() => {
+    if (splash) {
+      splash.style.display = 'flex';
+    }
+  }, 2000); // Show splash only if load takes longer than 2s
+
+  window.addEventListener('load', () => {
+    clearTimeout(splashTimeout); // Cancel showing splash if load completes in time
+    if (splash) {
+      splash.style.display = 'none';
+    }
+  });
+</script>
 
 <!-- Navbar -->
 <div class="navbar">
@@ -587,6 +625,2087 @@ function getSeasonClass(Season) {
 }
 
 const videos = [
+  {
+    "type": "series",
+    "id": "asterixandobelixthebigfight-s01",
+    "title": "Asterix and Obelix The Big Fight Season 1 (2025)",
+    "image": "https://m.media-amazon.com/images/M/MV5BOWU3ZDg0NDQtNWFiMS00MzhlLThhZjAtYjkwNDM5ODllMzBlXkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S01"
+    },
+    "episodes": [
+      {
+        "id": "asterix-and-obelix-the-big-fight-s1e1",
+        "season": 1,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://s02.dubshare.one/isaiDub.me_-_Asterix_and_Obelix_The_Big_Fight_2025_Season_01_Epi_01_.mp4",
+        "streamURL": "https://s02.dubshare.one/isaiDub.me_-_Asterix_and_Obelix_The_Big_Fight_2025_Season_01_Epi_01_.mp4"
+      },
+      {
+        "id": "asterix-and-obelix-the-big-fight-s1e2",
+        "season": 1,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://s03.dubshare.one/isaiDub.me_-_Asterix_and_Obelix_The_Big_Fight_2025_Season_01_Epi_02_.mp4",
+        "streamURL": "https://s03.dubshare.one/isaiDub.me_-_Asterix_and_Obelix_The_Big_Fight_2025_Season_01_Epi_02_.mp4"
+      },
+      {
+        "id": "asterix-and-obelix-the-big-fight-s1e3",
+        "season": 1,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://s07.dubshare.one/isaiDub.me_-_Asterix_and_Obelix_The_Big_Fight_2025_Season_01_Epi_03_.mp4",
+        "streamURL": "https://s07.dubshare.one/isaiDub.me_-_Asterix_and_Obelix_The_Big_Fight_2025_Season_01_Epi_03_.mp4"
+      },
+      {
+        "id": "asterix-and-obelix-the-big-fight-s1e4",
+        "season": 1,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://s07.dubshare.one/isaiDub.me_-_Asterix_and_Obelix_The_Big_Fight_2025_Season_01_Epi_04_.mp4",
+        "streamURL": "https://s07.dubshare.one/isaiDub.me_-_Asterix_and_Obelix_The_Big_Fight_2025_Season_01_Epi_04_.mp4"
+      },
+      {
+        "id": "asterix-and-obelix-the-big-fight-s1e5",
+        "season": 1,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://s02.dubshare.one/isaiDub.me_-_Asterix_and_Obelix_The_Big_Fight_2025_Season_01_Epi_05_.mp4",
+        "streamURL": "https://s02.dubshare.one/isaiDub.me_-_Asterix_and_Obelix_The_Big_Fight_2025_Season_01_Epi_05_.mp4"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "chernobyl-s01",
+    "title": "Chernobyl Season 1 (2019)",
+    "image": "https://m.media-amazon.com/images/M/MV5BNzU0OTI4YTQtNGQ1ZS00ZjA4LTg3MTMtZjkyZWNjN2RiZDJmXkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S01"
+    },
+    "episodes": [
+      {
+        "id": "chernobyl-s1e1",
+        "season": 1,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub1-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Chernobyl%20(2019)/Chernobyl%20(Season%2001)/Chernobyl%20Season%2001%20(720p%20HD)/Chernobyl%20(2019)%20Season%2001%20(Epi%2001).mp4?h=444d10e9091c4eb9c1d47f47f713aca74fcbbdda338a9e6167d5518551da3184&e=1748595508",
+        "streamURL": "https://dub1-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Chernobyl%20(2019)/Chernobyl%20(Season%2001)/Chernobyl%20Season%2001%20(720p%20HD)/Chernobyl%20(2019)%20Season%2001%20(Epi%2001).mp4?h=444d10e9091c4eb9c1d47f47f713aca74fcbbdda338a9e6167d5518551da3184&e=1748595508"
+      },
+      {
+        "id": "chernobyl-s1e2",
+        "season": 1,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub1-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Chernobyl%20(2019)/Chernobyl%20(Season%2001)/Chernobyl%20Season%2001%20(720p%20HD)/Chernobyl%20(2019)%20Season%2001%20(Epi%2002).mp4?h=7229978731fa73a8ee99b020b583bfc5be7b40a9e53ad5f3e75a4bb73f6d15b4&e=1748595508",
+        "streamURL": "https://dub1-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Chernobyl%20(2019)/Chernobyl%20(Season%2001)/Chernobyl%20Season%2001%20(720p%20HD)/Chernobyl%20(2019)%20Season%2001%20(Epi%2002).mp4?h=7229978731fa73a8ee99b020b583bfc5be7b40a9e53ad5f3e75a4bb73f6d15b4&e=1748595508"
+      },
+      {
+        "id": "chernobyl-s1e3",
+        "season": 1,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub1-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Chernobyl%20(2019)/Chernobyl%20(Season%2001)/Chernobyl%20Season%2001%20(720p%20HD)/Chernobyl%20(2019)%20Season%2001%20(Epi%2003).mp4?h=30f4e386842bd71678b288a55533ac5acd213844a774729dacc30823ff07fad0&e=1748595509",
+        "streamURL": "https://dub1-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Chernobyl%20(2019)/Chernobyl%20(Season%2001)/Chernobyl%20Season%2001%20(720p%20HD)/Chernobyl%20(2019)%20Season%2001%20(Epi%2003).mp4?h=30f4e386842bd71678b288a55533ac5acd213844a774729dacc30823ff07fad0&e=1748595509"
+      },
+      {
+        "id": "chernobyl-s1e4",
+        "season": 1,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub1-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Chernobyl%20(2019)/Chernobyl%20(Season%2001)/Chernobyl%20Season%2001%20(720p%20HD)/Chernobyl%20(2019)%20Season%2001%20(Epi%2004).mp4?h=e33a77d30f00b92ff720c48c2b0dc857f33cfb358bb998a61e6ce0a898a6847d&e=1748595509",
+        "streamURL": "https://dub1-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Chernobyl%20(2019)/Chernobyl%20(Season%2001)/Chernobyl%20Season%2001%20(720p%20HD)/Chernobyl%20(2019)%20Season%2001%20(Epi%2004).mp4?h=e33a77d30f00b92ff720c48c2b0dc857f33cfb358bb998a61e6ce0a898a6847d&e=1748595509"
+      },
+      {
+        "id": "chernobyl-s1e5",
+        "season": 1,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub1-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Chernobyl%20(2019)/Chernobyl%20(Season%2001)/Chernobyl%20Season%2001%20(720p%20HD)/Chernobyl%20(2019)%20Season%2001%20(Epi%2005).mp4?h=b8b507e72cdd62e3e2289b2333ff2c5cda1ae7fd026b7f7e7bc98c90cfb351a7&e=1748595509",
+        "streamURL": "https://dub1-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Chernobyl%20(2019)/Chernobyl%20(Season%2001)/Chernobyl%20Season%2001%20(720p%20HD)/Chernobyl%20(2019)%20Season%2001%20(Epi%2005).mp4?h=b8b507e72cdd62e3e2289b2333ff2c5cda1ae7fd026b7f7e7bc98c90cfb351a7&e=1748595509"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "echo-s01",
+    "title": "Echo Season 1 (2023)",
+    "image": "https://m.media-amazon.com/images/M/MV5BOGFiYzI1ZDctM2U1Zi00ZWI5LWFiMmQtNGU0NTU5MTg3OWM3XkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S01"
+    },
+    "episodes": [
+      {
+        "id": "echo-s1e1",
+        "season": 1,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Echo%20(2024)/Echo%20Season%2001/Echo%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Echo%20Season%2001%20(Epi%2001).mp4?h=974f1fb3eabdc5400893a2247eb6078ff38ef75c14c95346de509db1e9d061f1&e=1748595537",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Echo%20(2024)/Echo%20Season%2001/Echo%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Echo%20Season%2001%20(Epi%2001).mp4?h=974f1fb3eabdc5400893a2247eb6078ff38ef75c14c95346de509db1e9d061f1&e=1748595537"
+      },
+      {
+        "id": "echo-s1e2",
+        "season": 1,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Echo%20(2024)/Echo%20Season%2001/Echo%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Echo%20Season%2001%20(Epi%2002).mp4?h=10ffb81b40192a1c6f20bea0b73c5e4ec661be4ade996b215e1fd1b427dc293e&e=1748595536",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Echo%20(2024)/Echo%20Season%2001/Echo%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Echo%20Season%2001%20(Epi%2002).mp4?h=10ffb81b40192a1c6f20bea0b73c5e4ec661be4ade996b215e1fd1b427dc293e&e=1748595536"
+      },
+      {
+        "id": "echo-s1e3",
+        "season": 1,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Echo%20(2024)/Echo%20Season%2001/Echo%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Echo%20Season%2001%20(Epi%2003).mp4?h=a00f139ff981dd43094d5e505b45fa0806cf500b3d0c55e5e3f10f4bbade6de2&e=1748595539",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Echo%20(2024)/Echo%20Season%2001/Echo%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Echo%20Season%2001%20(Epi%2003).mp4?h=a00f139ff981dd43094d5e505b45fa0806cf500b3d0c55e5e3f10f4bbade6de2&e=1748595539"
+      },
+      {
+        "id": "echo-s1e4",
+        "season": 1,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Echo%20(2024)/Echo%20Season%2001/Echo%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Echo%20Season%2001%20(Epi%2004).mp4?h=364e9b04b1fc5ee235b55ed95897d59af33c994dff7259a56739ffa844491d00&e=1748595541",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Echo%20(2024)/Echo%20Season%2001/Echo%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Echo%20Season%2001%20(Epi%2004).mp4?h=364e9b04b1fc5ee235b55ed95897d59af33c994dff7259a56739ffa844491d00&e=1748595541"
+      },
+      {
+        "id": "echo-s1e5",
+        "season": 1,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Echo%20(2024)/Echo%20Season%2001/Echo%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Echo%20Season%2001%20(Epi%2005).mp4?h=c70543280ef2cf1a898657092b43ab3fa4c0a466cf7eb8b50205ee8938dbdc56&e=1748595541",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Echo%20(2024)/Echo%20Season%2001/Echo%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Echo%20Season%2001%20(Epi%2005).mp4?h=c70543280ef2cf1a898657092b43ab3fa4c0a466cf7eb8b50205ee8938dbdc56&e=1748595541"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "fightnightthemilliondollarheist-s01",
+    "title": "Fight Night The Million Dollar Heist Season 1 (2025)",
+    "image": "https://m.media-amazon.com/images/M/MV5BOWFhZDVkZWYtNTJhMC00Y2NjLWFiMjItYzU4MDBmZWQ4M2VmXkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S01"
+    },
+    "episodes": [
+      {
+        "id": "fight-night-the-million-dollar-heist-s1e1",
+        "season": 1,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://s05.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_01_.mp4",
+        "streamURL": "https://s05.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_01_.mp4"
+      },
+      {
+        "id": "fight-night-the-million-dollar-heist-s1e2",
+        "season": 1,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://s04.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_02_.mp4",
+        "streamURL": "https://s04.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_02_.mp4"
+      },
+      {
+        "id": "fight-night-the-million-dollar-heist-s1e3",
+        "season": 1,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://s10.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_03_.mp4",
+        "streamURL": "https://s10.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_03_.mp4"
+      },
+      {
+        "id": "fight-night-the-million-dollar-heist-s1e4",
+        "season": 1,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://s07.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_04_.mp4",
+        "streamURL": "https://s07.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_04_.mp4"
+      },
+      {
+        "id": "fight-night-the-million-dollar-heist-s1e5",
+        "season": 1,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://s07.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_05_.mp4",
+        "streamURL": "https://s07.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_05_.mp4"
+      },
+      {
+        "id": "fight-night-the-million-dollar-heist-s1e6",
+        "season": 1,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://s03.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_06_.mp4",
+        "streamURL": "https://s03.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_06_.mp4"
+      },
+      {
+        "id": "fight-night-the-million-dollar-heist-s1e7",
+        "season": 1,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://s08.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_07_.mp4",
+        "streamURL": "https://s08.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_07_.mp4"
+      },
+      {
+        "id": "fight-night-the-million-dollar-heist-s1e8",
+        "season": 1,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://s09.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_08_.mp4",
+        "streamURL": "https://s09.dubshare.one/isaiDub.me_-_Fight_Night_The_Million_Dollar_Heist_2025_Season_01_Epi_08_.mp4"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "found-s01",
+    "title": "Found Season 1 (2023)",
+    "image": "https://m.media-amazon.com/images/M/MV5BOGVmOTg0ZWEtMWIwNS00NjkwLThiYWMtOWJmNGFkZWJhYzVhXkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S01"
+    },
+    "episodes": [
+      {
+        "id": "found-s1e1",
+        "season": 1,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2001).mp4?h=7cbe83427d055ba22520d6ba46ade8945ec6369c039ce19bd96e76c07d59b1da&e=1747707057",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2001).mp4?h=7cbe83427d055ba22520d6ba46ade8945ec6369c039ce19bd96e76c07d59b1da&e=1747707057"
+      },
+      {
+        "id": "found-s1e2",
+        "season": 1,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2002).mp4?h=90396839dc0a32eeffa01998ced3384d8a34e2d2508bd41d5176bb35633d42f1&e=1747707059",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2002).mp4?h=90396839dc0a32eeffa01998ced3384d8a34e2d2508bd41d5176bb35633d42f1&e=1747707059"
+      },
+      {
+        "id": "found-s1e3",
+        "season": 1,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2003).mp4?h=04d3596ba9bf7ccf860f877244c9a07a915f2d262d445f61683a4f51158bc145&e=1747707124",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2003).mp4?h=04d3596ba9bf7ccf860f877244c9a07a915f2d262d445f61683a4f51158bc145&e=1747707124"
+      },
+      {
+        "id": "found-s1e4",
+        "season": 1,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2004).mp4?h=c6c0d8f515ed5f1be7ba1e5ee38440aeb45ccf092fb7d4789a345cbeba044205&e=1747707124",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2004).mp4?h=c6c0d8f515ed5f1be7ba1e5ee38440aeb45ccf092fb7d4789a345cbeba044205&e=1747707124"
+      },
+      {
+        "id": "found-s1e5",
+        "season": 1,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2005).mp4?h=8aa0eb30c5e60dc58ec6a7adb536d3257e968e50fb29c7fcdc6ba999375277bb&e=1747707124",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2005).mp4?h=8aa0eb30c5e60dc58ec6a7adb536d3257e968e50fb29c7fcdc6ba999375277bb&e=1747707124"
+      },
+      {
+        "id": "found-s1e6",
+        "season": 1,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2006).mp4?h=82e23b1fdb6b8619157477395273a5238ef913743196023686752f8aa77b72ac&e=1747707128",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2006).mp4?h=82e23b1fdb6b8619157477395273a5238ef913743196023686752f8aa77b72ac&e=1747707128"
+      },
+      {
+        "id": "found-s1e7",
+        "season": 1,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2007).mp4?h=97cda3271506d19434a8003969df81f01e7e1d376852e3c9e33d572c51cba616&e=1747707127",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2007).mp4?h=97cda3271506d19434a8003969df81f01e7e1d376852e3c9e33d572c51cba616&e=1747707127"
+      },
+      {
+        "id": "found-s1e8",
+        "season": 1,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2008).mp4?h=42ef686f7c012ae52660634ad24e3b2e857c568e5db0cbdf099db0d4988abd92&e=1747707128",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2008).mp4?h=42ef686f7c012ae52660634ad24e3b2e857c568e5db0cbdf099db0d4988abd92&e=1747707128"
+      },
+      {
+        "id": "found-s1e9",
+        "season": 1,
+        "episode": 9,
+        "title": "Episode 9",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2009).mp4?h=f01d9066e60b55421c224dfdd2feef4df678bca794b38b236c5fbeb4efab938b&e=1747707128",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2009).mp4?h=f01d9066e60b55421c224dfdd2feef4df678bca794b38b236c5fbeb4efab938b&e=1747707128"
+      },
+      {
+        "id": "found-s1e10",
+        "season": 1,
+        "episode": 10,
+        "title": "Episode 10",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2010).mp4?h=c7e1d7ff7b35bb8d201c2c194f41549f05c0aa84dd1d10897cf29f28df4c553e&e=1747707128",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2010).mp4?h=c7e1d7ff7b35bb8d201c2c194f41549f05c0aa84dd1d10897cf29f28df4c553e&e=1747707128"
+      },
+      {
+        "id": "found-s1e11",
+        "season": 1,
+        "episode": 11,
+        "title": "Episode 11",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2011).mp4?h=b3ff07b3145b67d34004f52182d470f0ce1441c1eb3e2283d20384b29f10f4cc&e=1747707128",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2011).mp4?h=b3ff07b3145b67d34004f52182d470f0ce1441c1eb3e2283d20384b29f10f4cc&e=1747707128"
+      },
+      {
+        "id": "found-s1e12",
+        "season": 1,
+        "episode": 12,
+        "title": "Episode 12",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2012).mp4?h=2e12ca038587f32fdcb5776f6fcc11d1824e31c146806e652b239fa1aa7b7db7&e=1747707128",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2012).mp4?h=2e12ca038587f32fdcb5776f6fcc11d1824e31c146806e652b239fa1aa7b7db7&e=1747707128"
+      },
+      {
+        "id": "found-s1e13",
+        "season": 1,
+        "episode": 13,
+        "title": "Episode 13",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2013).mp4?h=6fa37a1a4d0e835535b847bd4565e30a6147d7fb30a34791153f6e32bf401c9c&e=1747707168",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Found%20(2023)/Found%20(Season%2001)/isaiDub.me%20-%20Found%202023%20Season%2001%20(Epi%2013).mp4?h=6fa37a1a4d0e835535b847bd4565e30a6147d7fb30a34791153f6e32bf401c9c&e=1747707168"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "gameofthrones-s01",
+    "title": "Game Of Thrones Season 1 (2011)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S01"
+    },
+    "episodes": [
+      {
+        "id": "game-of-thrones-s1e1",
+        "season": 1,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2001).mp4?h=f3cff6db21f5d7357c67b8205adb65fd8ccd9c62fcd5b4744b90d272a3fce023&e=1748595416",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2001).mp4?h=f3cff6db21f5d7357c67b8205adb65fd8ccd9c62fcd5b4744b90d272a3fce023&e=1748595416"
+      },
+      {
+        "id": "game-of-thrones-s1e2",
+        "season": 1,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2002).mp4?h=1c5e1c3ba566134c219607e8186e27b847ec0ce2121006353dbfb22fc973a3a2&e=1748595417",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2002).mp4?h=1c5e1c3ba566134c219607e8186e27b847ec0ce2121006353dbfb22fc973a3a2&e=1748595417"
+      },
+      {
+        "id": "game-of-thrones-s1e3",
+        "season": 1,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2003).mp4?h=655d89d00663835732b2bce3bb98de6f8074f8454792b24a8540fc4c523c2383&e=1748595419",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2003).mp4?h=655d89d00663835732b2bce3bb98de6f8074f8454792b24a8540fc4c523c2383&e=1748595419"
+      },
+      {
+        "id": "game-of-thrones-s1e4",
+        "season": 1,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2004).mp4?h=7f63d71a5c3ae56fdf875b47b44b935fbf094a20afef14caee235ef802197c7e&e=1748595420",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2004).mp4?h=7f63d71a5c3ae56fdf875b47b44b935fbf094a20afef14caee235ef802197c7e&e=1748595420"
+      },
+      {
+        "id": "game-of-thrones-s1e5",
+        "season": 1,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2005).mp4?h=66a9a7ed65e29e8372daebf013f45e0364c7a50c4965ee9101313cd17f38ed4e&e=1748595420",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2005).mp4?h=66a9a7ed65e29e8372daebf013f45e0364c7a50c4965ee9101313cd17f38ed4e&e=1748595420"
+      },
+      {
+        "id": "game-of-thrones-s1e6",
+        "season": 1,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2006).mp4?h=883975313c3e4e4b620816b871847130a84a6988af5085bbcfa19d7c0ef78737&e=1748595422",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2006).mp4?h=883975313c3e4e4b620816b871847130a84a6988af5085bbcfa19d7c0ef78737&e=1748595422"
+      },
+      {
+        "id": "game-of-thrones-s1e7",
+        "season": 1,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2007).mp4?h=7377691c6ff05bfd7f16ca779c38d9d2e648c21accbcdcc72092dc7b08e05bc6&e=1748595422",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2007).mp4?h=7377691c6ff05bfd7f16ca779c38d9d2e648c21accbcdcc72092dc7b08e05bc6&e=1748595422"
+      },
+      {
+        "id": "game-of-thrones-s1e8",
+        "season": 1,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2008).mp4?h=a26af05202f3a92ea358a275b268d913edecf528a701e6dfa544d05b3542ef1d&e=1748595423",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2008).mp4?h=a26af05202f3a92ea358a275b268d913edecf528a701e6dfa544d05b3542ef1d&e=1748595423"
+      },
+      {
+        "id": "game-of-thrones-s1e9",
+        "season": 1,
+        "episode": 9,
+        "title": "Episode 9",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2009).mp4?h=5ed07941067bd732902af4e76d8af227818d4431b4dc654fed06758173bd69ad&e=1748595423",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2009).mp4?h=5ed07941067bd732902af4e76d8af227818d4431b4dc654fed06758173bd69ad&e=1748595423"
+      },
+      {
+        "id": "game-of-thrones-s1e10",
+        "season": 1,
+        "episode": 10,
+        "title": "Episode 10",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2010).mp4?h=05aea771eae601d01f506ac4125a09433f1e405fdc8c93f79eaa48c45b48cb38&e=1748595426",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2001/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2001%20(Epi%2010).mp4?h=05aea771eae601d01f506ac4125a09433f1e405fdc8c93f79eaa48c45b48cb38&e=1748595426"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "gameofthrones-s02",
+    "title": "Game Of Thrones Season 2 (2012)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S02"
+    },
+    "episodes": [
+      {
+        "id": "game-of-thrones-s2e1",
+        "season": 2,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2001).mp4?h=4d5e43f9fe341f144b9f4e11513dbc44b093aa2d928b5edbae388087a06ed0fd&e=1748595426",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2001).mp4?h=4d5e43f9fe341f144b9f4e11513dbc44b093aa2d928b5edbae388087a06ed0fd&e=1748595426"
+      },
+      {
+        "id": "game-of-thrones-s2e2",
+        "season": 2,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2002).mp4?h=b13b40e7c2cf884c202247e88664b4b7fb7f98cb318f82bd3b357771c5adcf56&e=1748595427",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2002).mp4?h=b13b40e7c2cf884c202247e88664b4b7fb7f98cb318f82bd3b357771c5adcf56&e=1748595427"
+      },
+      {
+        "id": "game-of-thrones-s2e3",
+        "season": 2,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2003).mp4?h=e3911e955a0d21ba0a5ceb09e19e99cf48d0d6e13bcea881f5a5bf15877403ae&e=1748595429",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2003).mp4?h=e3911e955a0d21ba0a5ceb09e19e99cf48d0d6e13bcea881f5a5bf15877403ae&e=1748595429"
+      },
+      {
+        "id": "game-of-thrones-s2e4",
+        "season": 2,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2004).mp4?h=ba012dcba78160ea1c5fbb5395140eab192fb1c7235320d68b7759b97d098eaf&e=1748595430",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2004).mp4?h=ba012dcba78160ea1c5fbb5395140eab192fb1c7235320d68b7759b97d098eaf&e=1748595430"
+      },
+      {
+        "id": "game-of-thrones-s2e5",
+        "season": 2,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2005).mp4?h=9143d3af133805430b1be274e7d3a3fe08191acae5dbded8cbabf8c3fc183618&e=1748595430",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2005).mp4?h=9143d3af133805430b1be274e7d3a3fe08191acae5dbded8cbabf8c3fc183618&e=1748595430"
+      },
+      {
+        "id": "game-of-thrones-s2e6",
+        "season": 2,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2006).mp4?h=d9ff5595655383a98af83c936f26b6ca4dcb038625f7a7fb188bb28075ed91b2&e=1748595432",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2006).mp4?h=d9ff5595655383a98af83c936f26b6ca4dcb038625f7a7fb188bb28075ed91b2&e=1748595432"
+      },
+      {
+        "id": "game-of-thrones-s2e7",
+        "season": 2,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2007).mp4?h=1e8fed8a154bad45b234b0be1564547f3fef003700c1757543dbbf5bb7b54c30&e=1748595432",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2007).mp4?h=1e8fed8a154bad45b234b0be1564547f3fef003700c1757543dbbf5bb7b54c30&e=1748595432"
+      },
+      {
+        "id": "game-of-thrones-s2e8",
+        "season": 2,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2008).mp4?h=4d004766ead6146996347d1cc46c2e8e1c506360efeadcca6ccf6be0268c9950&e=1748595432",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2008).mp4?h=4d004766ead6146996347d1cc46c2e8e1c506360efeadcca6ccf6be0268c9950&e=1748595432"
+      },
+      {
+        "id": "game-of-thrones-s2e9",
+        "season": 2,
+        "episode": 9,
+        "title": "Episode 9",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2009).mp4?h=187cb41b46a427d8714715b6137395d60d56a7ec79b9dd97d03b2eb43d733144&e=1748595435",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2009).mp4?h=187cb41b46a427d8714715b6137395d60d56a7ec79b9dd97d03b2eb43d733144&e=1748595435"
+      },
+      {
+        "id": "game-of-thrones-s2e10",
+        "season": 2,
+        "episode": 10,
+        "title": "Episode 10",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2010).mp4?h=b95fdf8bcde50dfd558452d1f163cf21c3b490c1d527cd30166be5d432590f19&e=1748595436",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2002/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2002%20(Epi%2010).mp4?h=b95fdf8bcde50dfd558452d1f163cf21c3b490c1d527cd30166be5d432590f19&e=1748595436"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "gameofthrones-s03",
+    "title": "Game Of Thrones Season 3 (2013)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S03"
+    },
+    "episodes": [
+      {
+        "id": "game-of-thrones-s3e1",
+        "season": 3,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2001).mp4?h=eb71e4abd20f33cc90c67dc8786206122188705e98717691d0cefa68341041f6&e=1748595436",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2001).mp4?h=eb71e4abd20f33cc90c67dc8786206122188705e98717691d0cefa68341041f6&e=1748595436"
+      },
+      {
+        "id": "game-of-thrones-s3e2",
+        "season": 3,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2002).mp4?h=1373eab71b322671dd6ca296011a9469d60ff79c6534d89a39e57b3d29c7e2af&e=1748595437",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2002).mp4?h=1373eab71b322671dd6ca296011a9469d60ff79c6534d89a39e57b3d29c7e2af&e=1748595437"
+      },
+      {
+        "id": "game-of-thrones-s3e3",
+        "season": 3,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2003).mp4?h=08a6412ef788c6acefd63c797722987a3d24b16a6faef90dd0f86bfa9c4d4d27&e=1748595440",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2003).mp4?h=08a6412ef788c6acefd63c797722987a3d24b16a6faef90dd0f86bfa9c4d4d27&e=1748595440"
+      },
+      {
+        "id": "game-of-thrones-s3e4",
+        "season": 3,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2004).mp4?h=c77411d14f3e062c294e17e3d7cee0725369fa5a96cb2fa91a1d33a475f82bd1&e=1748595440",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2004).mp4?h=c77411d14f3e062c294e17e3d7cee0725369fa5a96cb2fa91a1d33a475f82bd1&e=1748595440"
+      },
+      {
+        "id": "game-of-thrones-s3e5",
+        "season": 3,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2005).mp4?h=370f863f609fa13339c8b57a95a5a86f1e070870d09fa29e31b418a742959223&e=1748595440",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2005).mp4?h=370f863f609fa13339c8b57a95a5a86f1e070870d09fa29e31b418a742959223&e=1748595440"
+      },
+      {
+        "id": "game-of-thrones-s3e6",
+        "season": 3,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2006).mp4?h=9dbfbb33a61ab91e88613dd1f9eff954b47b86661dc22e8f4ba09ef35cecc52c&e=1748595449",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2006).mp4?h=9dbfbb33a61ab91e88613dd1f9eff954b47b86661dc22e8f4ba09ef35cecc52c&e=1748595449"
+      },
+      {
+        "id": "game-of-thrones-s3e7",
+        "season": 3,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2007).mp4?h=b1c28410501e63f14c4314816e054d6775e258f346f0438195cb39289faaa17e&e=1748595449",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2007).mp4?h=b1c28410501e63f14c4314816e054d6775e258f346f0438195cb39289faaa17e&e=1748595449"
+      },
+      {
+        "id": "game-of-thrones-s3e8",
+        "season": 3,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2008).mp4?h=acfda00c944213245900dbc3e580a6dd83522717fb2afae6ce60e375627e63cc&e=1748595444",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2008).mp4?h=acfda00c944213245900dbc3e580a6dd83522717fb2afae6ce60e375627e63cc&e=1748595444"
+      },
+      {
+        "id": "game-of-thrones-s3e9",
+        "season": 3,
+        "episode": 9,
+        "title": "Episode 9",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2009).mp4?h=e6a0be8b86b2f693ab1c307e80af1a16f37c356e3986e96bbed5881c057dac7b&e=1748595447",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2009).mp4?h=e6a0be8b86b2f693ab1c307e80af1a16f37c356e3986e96bbed5881c057dac7b&e=1748595447"
+      },
+      {
+        "id": "game-of-thrones-s3e10",
+        "season": 3,
+        "episode": 10,
+        "title": "Episode 10",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2010).mp4?h=f9a2acbd65fabd8da8e76d0f25e88d5bb45c57cd71cbef779312aa82cd239779&e=1748595450",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2003/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2003%20(Epi%2010).mp4?h=f9a2acbd65fabd8da8e76d0f25e88d5bb45c57cd71cbef779312aa82cd239779&e=1748595450"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "gameofthrones-s04",
+    "title": "Game Of Thrones Season 4 (2014)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S04"
+    },
+    "episodes": [
+      {
+        "id": "game-of-thrones-s4e1",
+        "season": 4,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2001).mp4?h=c3e2ff0c287c41d05358423f29705204f6a80ab420e85222528648ef1a77b4a8&e=1748595449",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2001).mp4?h=c3e2ff0c287c41d05358423f29705204f6a80ab420e85222528648ef1a77b4a8&e=1748595449"
+      },
+      {
+        "id": "game-of-thrones-s4e2",
+        "season": 4,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2002).mp4?h=401c82790fab288357a0e82aa5181e68a886741d6546279b683558ac728d6bb5&e=1748595449",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2002).mp4?h=401c82790fab288357a0e82aa5181e68a886741d6546279b683558ac728d6bb5&e=1748595449"
+      },
+      {
+        "id": "game-of-thrones-s4e3",
+        "season": 4,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2003).mp4?h=365b0c7fc704db07c9e8604367cc69707b3a05eb2e8d43b8aedb109b039c92c0&e=1748595450",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2003).mp4?h=365b0c7fc704db07c9e8604367cc69707b3a05eb2e8d43b8aedb109b039c92c0&e=1748595450"
+      },
+      {
+        "id": "game-of-thrones-s4e4",
+        "season": 4,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2004).mp4?h=79f81dd114c72b5f607d79abb07b430cdca0ed5d1de7e8d27acb52cf8b0bad68&e=1748595450",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2004).mp4?h=79f81dd114c72b5f607d79abb07b430cdca0ed5d1de7e8d27acb52cf8b0bad68&e=1748595450"
+      },
+      {
+        "id": "game-of-thrones-s4e5",
+        "season": 4,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2005).mp4?h=e2c0c20114d7f2a891f054e7963181fe3ebe82b8e5eafceb8562555268d854c2&e=1748595452",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2005).mp4?h=e2c0c20114d7f2a891f054e7963181fe3ebe82b8e5eafceb8562555268d854c2&e=1748595452"
+      },
+      {
+        "id": "game-of-thrones-s4e6",
+        "season": 4,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2006).mp4?h=bc58782fbc20bcc7dbead2b41a157a642aff77b891cea5f4b1e1107a0c102f8b&e=1748595454",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2006).mp4?h=bc58782fbc20bcc7dbead2b41a157a642aff77b891cea5f4b1e1107a0c102f8b&e=1748595454"
+      },
+      {
+        "id": "game-of-thrones-s4e7",
+        "season": 4,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2007).mp4?h=1b7f123b833adbc70d578ee283822f5ef1d720c6e2def30c2b508ac46a9c8a1a&e=1748595456",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2007).mp4?h=1b7f123b833adbc70d578ee283822f5ef1d720c6e2def30c2b508ac46a9c8a1a&e=1748595456"
+      },
+      {
+        "id": "game-of-thrones-s4e8",
+        "season": 4,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2008).mp4?h=94a20971a001514ab4e71b2a2cc13e96b81e641e495fd94ebf9236998379ab83&e=1748595458",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2008).mp4?h=94a20971a001514ab4e71b2a2cc13e96b81e641e495fd94ebf9236998379ab83&e=1748595458"
+      },
+      {
+        "id": "game-of-thrones-s4e9",
+        "season": 4,
+        "episode": 9,
+        "title": "Episode 9",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2009).mp4?h=08a27bb302deb7d742e1ef008051a49500924e3f3b7f312bf0a0247a43f4a072&e=1748595459",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2009).mp4?h=08a27bb302deb7d742e1ef008051a49500924e3f3b7f312bf0a0247a43f4a072&e=1748595459"
+      },
+      {
+        "id": "game-of-thrones-s4e10",
+        "season": 4,
+        "episode": 10,
+        "title": "Episode 10",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2010).mp4?h=331055f1a25ff901aa38ad00e5e78e101f29fba1d0dd6fa33f954f30e1f224db&e=1748595459",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2004/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2004%20(Epi%2010).mp4?h=331055f1a25ff901aa38ad00e5e78e101f29fba1d0dd6fa33f954f30e1f224db&e=1748595459"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "gameofthrones-s05",
+    "title": "Game Of Thrones Season 5 (2015)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S05"
+    },
+    "episodes": [
+      {
+        "id": "game-of-thrones-s5e1",
+        "season": 5,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2001).mp4?h=f6bb9d87c3f08ea3edcce7ec3f2b736a742342e13a25699659279d1d9961a000&e=1748595460",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2001).mp4?h=f6bb9d87c3f08ea3edcce7ec3f2b736a742342e13a25699659279d1d9961a000&e=1748595460"
+      },
+      {
+        "id": "game-of-thrones-s5e2",
+        "season": 5,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2002).mp4?h=3d754ea60cd5ee32b882b274cc5cf892bc40eecda783865f1c314022048279de&e=1748595460",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2002).mp4?h=3d754ea60cd5ee32b882b274cc5cf892bc40eecda783865f1c314022048279de&e=1748595460"
+      },
+      {
+        "id": "game-of-thrones-s5e3",
+        "season": 5,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2003).mp4?h=ee46c582648e53e050e4f9bae03581a67664c1aadc5b91ebea786a8a32402b00&e=1748595461",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2003).mp4?h=ee46c582648e53e050e4f9bae03581a67664c1aadc5b91ebea786a8a32402b00&e=1748595461"
+      },
+      {
+        "id": "game-of-thrones-s5e4",
+        "season": 5,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2004).mp4?h=5e91b44d5e8ba7d6049cadbfa9135844041f1ed9d292953af40aa146f9dafe79&e=1748595463",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2004).mp4?h=5e91b44d5e8ba7d6049cadbfa9135844041f1ed9d292953af40aa146f9dafe79&e=1748595463"
+      },
+      {
+        "id": "game-of-thrones-s5e5",
+        "season": 5,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2005).mp4?h=59ca834d08a3145600425d42569d870be1be06b385746e04b78ceebc1c85ff44&e=1748595464",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2005).mp4?h=59ca834d08a3145600425d42569d870be1be06b385746e04b78ceebc1c85ff44&e=1748595464"
+      },
+      {
+        "id": "game-of-thrones-s5e6",
+        "season": 5,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2006).mp4?h=c68c7fda14124012ce63c90489e0148696528fba7ee9ca82404b55caf5da9e28&e=1748595464",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2006).mp4?h=c68c7fda14124012ce63c90489e0148696528fba7ee9ca82404b55caf5da9e28&e=1748595464"
+      },
+      {
+        "id": "game-of-thrones-s5e7",
+        "season": 5,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2007).mp4?h=98f67af89ef7f4bcfd14010667451e9fa1fbf97c15a95b5ce7d4ca09bd8bf9cf&e=1748595466",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2007).mp4?h=98f67af89ef7f4bcfd14010667451e9fa1fbf97c15a95b5ce7d4ca09bd8bf9cf&e=1748595466"
+      },
+      {
+        "id": "game-of-thrones-s5e8",
+        "season": 5,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2008).mp4?h=47b2434ac183ae502b8fcc9ee8d0b2a79aea145301c3dbc158b6a520b389dbf0&e=1748595467",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2008).mp4?h=47b2434ac183ae502b8fcc9ee8d0b2a79aea145301c3dbc158b6a520b389dbf0&e=1748595467"
+      },
+      {
+        "id": "game-of-thrones-s5e9",
+        "season": 5,
+        "episode": 9,
+        "title": "Episode 9",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2009).mp4?h=ae11fd1bcd73bb6c96e87b2b37bef369b9b45165f2d34e385b3111f5626310f2&e=1748595468",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2009).mp4?h=ae11fd1bcd73bb6c96e87b2b37bef369b9b45165f2d34e385b3111f5626310f2&e=1748595468"
+      },
+      {
+        "id": "game-of-thrones-s5e10",
+        "season": 5,
+        "episode": 10,
+        "title": "Episode 10",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2010).mp4?h=cd9263581b8a76e647128730b87a283ae8492f79be9d9285edea7d7c54911f5a&e=1748595470",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2005/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2005%20(Epi%2010).mp4?h=cd9263581b8a76e647128730b87a283ae8492f79be9d9285edea7d7c54911f5a&e=1748595470"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "gameofthrones-s06",
+    "title": "Game Of Thrones Season 6 (2016)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S06"
+    },
+    "episodes": [
+      {
+        "id": "game-of-thrones-s6e1",
+        "season": 6,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2001).mp4?h=0cd5b70d37f0be017fe74f37057926c4eb0653870ba1f0bb7f0c5c6bbf94be15&e=1748595470",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2001).mp4?h=0cd5b70d37f0be017fe74f37057926c4eb0653870ba1f0bb7f0c5c6bbf94be15&e=1748595470"
+      },
+      {
+        "id": "game-of-thrones-s6e2",
+        "season": 6,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2002).mp4?h=4a3e82c880dbf011726ffb5748517c8961c9067342d38335ff6b96fb754e446d&e=1748595471",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2002).mp4?h=4a3e82c880dbf011726ffb5748517c8961c9067342d38335ff6b96fb754e446d&e=1748595471"
+      },
+      {
+        "id": "game-of-thrones-s6e3",
+        "season": 6,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2003).mp4?h=d2a5f13ba1368fa0675c48fffdf59107427f9910e7c496bc1234f354c61dec2e&e=1748595473",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2003).mp4?h=d2a5f13ba1368fa0675c48fffdf59107427f9910e7c496bc1234f354c61dec2e&e=1748595473"
+      },
+      {
+        "id": "game-of-thrones-s6e4",
+        "season": 6,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2004).mp4?h=e21fb3aebb0685263c737ca444eaba2c43970dac7f331069c31a429ed44857b8&e=1748595473",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2004).mp4?h=e21fb3aebb0685263c737ca444eaba2c43970dac7f331069c31a429ed44857b8&e=1748595473"
+      },
+      {
+        "id": "game-of-thrones-s6e5",
+        "season": 6,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2005).mp4?h=9a1f537fd96261218f758f32ecf562c36416801cc378f4ea5613b4ce697c971e&e=1748595473",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2005).mp4?h=9a1f537fd96261218f758f32ecf562c36416801cc378f4ea5613b4ce697c971e&e=1748595473"
+      },
+      {
+        "id": "game-of-thrones-s6e6",
+        "season": 6,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2006).mp4?h=956674ac80fb66ceed67faea029bb482a805374a486559d06d803b948b3bfb64&e=1748595474",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2006).mp4?h=956674ac80fb66ceed67faea029bb482a805374a486559d06d803b948b3bfb64&e=1748595474"
+      },
+      {
+        "id": "game-of-thrones-s6e7",
+        "season": 6,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2007).mp4?h=8213c2b5f621c61c3a4c0582138465cd47508c5c8136b2840e5e886d25be000b&e=1748595476",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2007).mp4?h=8213c2b5f621c61c3a4c0582138465cd47508c5c8136b2840e5e886d25be000b&e=1748595476"
+      },
+      {
+        "id": "game-of-thrones-s6e8",
+        "season": 6,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2008).mp4?h=ba5719e01b9e9f573196b673743dbe9b8185a1ab5bc2808c41b962e8e05c4844&e=1748595477",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2008).mp4?h=ba5719e01b9e9f573196b673743dbe9b8185a1ab5bc2808c41b962e8e05c4844&e=1748595477"
+      },
+      {
+        "id": "game-of-thrones-s6e9",
+        "season": 6,
+        "episode": 9,
+        "title": "Episode 9",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2009).mp4?h=64e074090b9e396386cd3a525fbd3bcf5d2d459b115a12fde004b992954d7ce4&e=1748595478",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2009).mp4?h=64e074090b9e396386cd3a525fbd3bcf5d2d459b115a12fde004b992954d7ce4&e=1748595478"
+      },
+      {
+        "id": "game-of-thrones-s6e10",
+        "season": 6,
+        "episode": 10,
+        "title": "Episode 10",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2010).mp4?h=e9569ba9cbc58f689bec27174dc767c2b16decf7a7f809ab5d420ad633aca490&e=1748595481",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2006/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2006%20(Epi%2010).mp4?h=e9569ba9cbc58f689bec27174dc767c2b16decf7a7f809ab5d420ad633aca490&e=1748595481"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "gameofthrones-s07",
+    "title": "Game Of Thrones Season 7 (2017)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S07"
+    },
+    "episodes": [
+      {
+        "id": "game-of-thrones-s7e1",
+        "season": 7,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2007/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2007%20(Epi%2001).mp4?h=0611f035dd1bbfc1bb00285ce862af9347cfe2dccefb54676eb3ac6d230920fb&e=1748595481",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2007/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2007%20(Epi%2001).mp4?h=0611f035dd1bbfc1bb00285ce862af9347cfe2dccefb54676eb3ac6d230920fb&e=1748595481"
+      },
+      {
+        "id": "game-of-thrones-s7e2",
+        "season": 7,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2007/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2007%20(Epi%2002).mp4?h=c026fd4ca77bf96f78cef9ce987f3e69f60db6240d1ab94d1c49e71ed4fd313f&e=1748595481",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2007/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2007%20(Epi%2002).mp4?h=c026fd4ca77bf96f78cef9ce987f3e69f60db6240d1ab94d1c49e71ed4fd313f&e=1748595481"
+      },
+      {
+        "id": "game-of-thrones-s7e3",
+        "season": 7,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2007/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2007%20(Epi%2003).mp4?h=e7d5c1c7e75129e6c8872d116902b874af04a62fce74c02ba6d63f90093dee26&e=1748595482",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2007/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2007%20(Epi%2003).mp4?h=e7d5c1c7e75129e6c8872d116902b874af04a62fce74c02ba6d63f90093dee26&e=1748595482"
+      },
+      {
+        "id": "game-of-thrones-s7e4",
+        "season": 7,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2007/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2007%20(Epi%2004).mp4?h=aeb9a74dc705ee9a59fd8d03a22aecaaf361a0f29283686dcdde746e6c0383fb&e=1748595483",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2007/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2007%20(Epi%2004).mp4?h=aeb9a74dc705ee9a59fd8d03a22aecaaf361a0f29283686dcdde746e6c0383fb&e=1748595483"
+      },
+      {
+        "id": "game-of-thrones-s7e5",
+        "season": 7,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2007/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2007%20(Epi%2005).mp4?h=8d8f2e46a015bc8631b5b400a33be0c18ddc29bb4b7d553f976e1b5c9763d661&e=1748595486",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2007/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2007%20(Epi%2005).mp4?h=8d8f2e46a015bc8631b5b400a33be0c18ddc29bb4b7d553f976e1b5c9763d661&e=1748595486"
+      },
+      {
+        "id": "game-of-thrones-s7e6",
+        "season": 7,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2007/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2007%20(Epi%2006).mp4?h=64f035f957b386993c95a21e85d152c87adc47d753a2e02faf9e475f3d1a65e4&e=1748595486",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2007/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2007%20(Epi%2006).mp4?h=64f035f957b386993c95a21e85d152c87adc47d753a2e02faf9e475f3d1a65e4&e=1748595486"
+      },
+      {
+        "id": "game-of-thrones-s7e7",
+        "season": 7,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2007/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2007%20(Epi%2007).mp4?h=99776f16a9ef2596361f959650a217ffd03d6cc7e65eb2385fab0de9e59e737b&e=1748595486",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2007/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2007%20(Epi%2007).mp4?h=99776f16a9ef2596361f959650a217ffd03d6cc7e65eb2385fab0de9e59e737b&e=1748595486"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "gameofthrones-s08",
+    "title": "Game Of Thrones Season 8 (2019)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S08"
+    },
+    "episodes": [
+      {
+        "id": "game-of-thrones-s8e1",
+        "season": 8,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2008/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2008%20(Epi%2001).mp4?h=3166be440e4a9464c7090d91654a64775b7a7ca1ca61f972176075c5bfe6287e&e=1748595487",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2008/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2008%20(Epi%2001).mp4?h=3166be440e4a9464c7090d91654a64775b7a7ca1ca61f972176075c5bfe6287e&e=1748595487"
+      },
+      {
+        "id": "game-of-thrones-s8e2",
+        "season": 8,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2008/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2008%20(Epi%2002).mp4?h=c9c18c25677f4d44b4ed65e99ef212749ad1547f30f3c4e1c6a4f8ec20919e74&e=1748595488",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2008/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2008%20(Epi%2002).mp4?h=c9c18c25677f4d44b4ed65e99ef212749ad1547f30f3c4e1c6a4f8ec20919e74&e=1748595488"
+      },
+      {
+        "id": "game-of-thrones-s8e3",
+        "season": 8,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2008/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2008%20(Epi%2003).mp4?h=15d6cb8955fc99b65ec2d215375ae32b7d02faec5e5787bb9ac6fdc8722df99a&e=1748595491",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2008/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2008%20(Epi%2003).mp4?h=15d6cb8955fc99b65ec2d215375ae32b7d02faec5e5787bb9ac6fdc8722df99a&e=1748595491"
+      },
+      {
+        "id": "game-of-thrones-s8e4",
+        "season": 8,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2008/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2008%20(Epi%2004).mp4?h=c36f9f8f62fbac9382d9512ca7227cf5a524dd10d48ec3087d1fc1d07e2b7331&e=1748595491",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2008/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2008%20(Epi%2004).mp4?h=c36f9f8f62fbac9382d9512ca7227cf5a524dd10d48ec3087d1fc1d07e2b7331&e=1748595491"
+      },
+      {
+        "id": "game-of-thrones-s8e5",
+        "season": 8,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2008/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2008%20(Epi%2005).mp4?h=38ff7359987689d40ab5deac4a911c7cb0481baff3dd060a3eb175037826bd14&e=1748595491",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2008/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2008%20(Epi%2005).mp4?h=38ff7359987689d40ab5deac4a911c7cb0481baff3dd060a3eb175037826bd14&e=1748595491"
+      },
+      {
+        "id": "game-of-thrones-s8e6",
+        "season": 8,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2008/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2008%20(Epi%2006).mp4?h=e72d0fac2996e104414f94decfdfe3721bf14bdf09f872234dc5b7e8d651f2b0&e=1748595493",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Game%20of%20Thrones%20(All%20Seasons)%20(2023)/Game%20of%20Thrones%20(720p%20HD)/Game%20of%20Thrones%20Season%2008/IsaiDub.com%20-%20Game%20Of%20Thrones%20Season%2008%20(Epi%2006).mp4?h=e72d0fac2996e104414f94decfdfe3721bf14bdf09f872234dc5b7e8d651f2b0&e=1748595493"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "gyeongseongcreature-s01",
+    "title": "Gyeongseong Creature Season 1 (2023)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMWI1N2I5ZGQtNTFkMC00MjIxLTgxNTQtZTgzNDU2YjhkN2JkXkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S01"
+    },
+    "episodes": [
+      {
+        "id": "gyeongseong-creature-s1e1",
+        "season": 1,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Gyeongseong%20Creature%20(2023)/Gyeongseong%20Creature%20Season%2001/Gyeongseong%20Creature%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Gyeongseong%20Creature%20Season%2001%20(Epi%2001).mp4?h=df2518b222b0b68cc1882a5bef476d901e3cc1c9bed492510b7c09fb95e29af5&e=1748595529",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Gyeongseong%20Creature%20(2023)/Gyeongseong%20Creature%20Season%2001/Gyeongseong%20Creature%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Gyeongseong%20Creature%20Season%2001%20(Epi%2001).mp4?h=df2518b222b0b68cc1882a5bef476d901e3cc1c9bed492510b7c09fb95e29af5&e=1748595529"
+      },
+      {
+        "id": "gyeongseong-creature-s1e2",
+        "season": 1,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Gyeongseong%20Creature%20(2023)/Gyeongseong%20Creature%20Season%2001/Gyeongseong%20Creature%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Gyeongseong%20Creature%20Season%2001%20(Epi%2002).mp4?h=8e9a07b84a46f6625ab6f808c440b6d8f7c22b619bb209231dccd75b1df290ec&e=1748595531",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Gyeongseong%20Creature%20(2023)/Gyeongseong%20Creature%20Season%2001/Gyeongseong%20Creature%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Gyeongseong%20Creature%20Season%2001%20(Epi%2002).mp4?h=8e9a07b84a46f6625ab6f808c440b6d8f7c22b619bb209231dccd75b1df290ec&e=1748595531"
+      },
+      {
+        "id": "gyeongseong-creature-s1e3",
+        "season": 1,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Gyeongseong%20Creature%20(2023)/Gyeongseong%20Creature%20Season%2001/Gyeongseong%20Creature%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Gyeongseong%20Creature%20Season%2001%20(Epi%2003).mp4?h=4717a3257c1bb60fe57bae0a74752e41b0440f2ff17854b226d88880689518b5&e=1748595533",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Gyeongseong%20Creature%20(2023)/Gyeongseong%20Creature%20Season%2001/Gyeongseong%20Creature%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Gyeongseong%20Creature%20Season%2001%20(Epi%2003).mp4?h=4717a3257c1bb60fe57bae0a74752e41b0440f2ff17854b226d88880689518b5&e=1748595533"
+      },
+      {
+        "id": "gyeongseong-creature-s1e4",
+        "season": 1,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Gyeongseong%20Creature%20(2023)/Gyeongseong%20Creature%20Season%2001/Gyeongseong%20Creature%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Gyeongseong%20Creature%20Season%2001%20(Epi%2004).mp4?h=17db9fc6ea496f20d699d64f835842edb38d89df907408182fde2fa094a28ddc&e=1748595533",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Gyeongseong%20Creature%20(2023)/Gyeongseong%20Creature%20Season%2001/Gyeongseong%20Creature%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Gyeongseong%20Creature%20Season%2001%20(Epi%2004).mp4?h=17db9fc6ea496f20d699d64f835842edb38d89df907408182fde2fa094a28ddc&e=1748595533"
+      },
+      {
+        "id": "gyeongseong-creature-s1e5",
+        "season": 1,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Gyeongseong%20Creature%20(2023)/Gyeongseong%20Creature%20Season%2001/Gyeongseong%20Creature%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Gyeongseong%20Creature%20Season%2001%20(Epi%2005).mp4?h=6bb0dd6b0221a613da39a32366dca76a898385100a9a9cd04d79e1b4ed820fa4&e=1748595534",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Gyeongseong%20Creature%20(2023)/Gyeongseong%20Creature%20Season%2001/Gyeongseong%20Creature%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Gyeongseong%20Creature%20Season%2001%20(Epi%2005).mp4?h=6bb0dd6b0221a613da39a32366dca76a898385100a9a9cd04d79e1b4ed820fa4&e=1748595534"
+      },
+      {
+        "id": "gyeongseong-creature-s1e6",
+        "season": 1,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Gyeongseong%20Creature%20(2023)/Gyeongseong%20Creature%20Season%2001/Gyeongseong%20Creature%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Gyeongseong%20Creature%20Season%2001%20(Epi%2006).mp4?h=6bd7bde671b619d5bc668fd36679ce3cf7551ccf9bd6b4af34188dfda4da6d2e&e=1748595534",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Gyeongseong%20Creature%20(2023)/Gyeongseong%20Creature%20Season%2001/Gyeongseong%20Creature%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Gyeongseong%20Creature%20Season%2001%20(Epi%2006).mp4?h=6bd7bde671b619d5bc668fd36679ce3cf7551ccf9bd6b4af34188dfda4da6d2e&e=1748595534"
+      },
+      {
+        "id": "gyeongseong-creature-s1e7",
+        "season": 1,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Gyeongseong%20Creature%20(2023)/Gyeongseong%20Creature%20Season%2001/Gyeongseong%20Creature%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Gyeongseong%20Creature%20Season%2001%20(Epi%2007).mp4?h=ee3210b45108b69ceeec621fbbee6e06c91ea62c08299ccd168f507e35aaa602&e=1748595536",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Gyeongseong%20Creature%20(2023)/Gyeongseong%20Creature%20Season%2001/Gyeongseong%20Creature%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Gyeongseong%20Creature%20Season%2001%20(Epi%2007).mp4?h=ee3210b45108b69ceeec621fbbee6e06c91ea62c08299ccd168f507e35aaa602&e=1748595536"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "houseofthedragon-s01",
+    "title": "House Of The Dragon Season 1 (2023)",
+    "image": "https://m.media-amazon.com/images/M/MV5BM2QzMGVkNjUtN2Y4Yi00ODMwLTg3YzktYzUxYjJlNjFjNDY1XkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S01"
+    },
+    "episodes": [
+      {
+        "id": "house-of-the-dragon-s1e1",
+        "season": 1,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2001).mp4?h=a9654543c42438e8b58b9cf700876637afead3897d083d5a2156a3afeab1d85c&e=1748595493",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2001).mp4?h=a9654543c42438e8b58b9cf700876637afead3897d083d5a2156a3afeab1d85c&e=1748595493"
+      },
+      {
+        "id": "house-of-the-dragon-s1e2",
+        "season": 1,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2002).mp4?h=09a063765ebb29546660814e4bbaf0f31529dc754af5bf3dafd29ff25f5d9288&e=1748595496",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2002).mp4?h=09a063765ebb29546660814e4bbaf0f31529dc754af5bf3dafd29ff25f5d9288&e=1748595496"
+      },
+      {
+        "id": "house-of-the-dragon-s1e3",
+        "season": 1,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2003).mp4?h=73fa3b7570868b7856162ab6b627e918f7c4a7290e5a43b57a99a2cf51c71798&e=1748595496",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2003).mp4?h=73fa3b7570868b7856162ab6b627e918f7c4a7290e5a43b57a99a2cf51c71798&e=1748595496"
+      },
+      {
+        "id": "house-of-the-dragon-s1e4",
+        "season": 1,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2004).mp4?h=5bf05e1a7b0cf97350c7d7f2e9d096ed45e4895b394ebf5837ca15d73f3ab52f&e=1748595497",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2004).mp4?h=5bf05e1a7b0cf97350c7d7f2e9d096ed45e4895b394ebf5837ca15d73f3ab52f&e=1748595497"
+      },
+      {
+        "id": "house-of-the-dragon-s1e5",
+        "season": 1,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2005).mp4?h=c591912c743e26797513641cd98ca9fc95ca41a2682c9611b1f30f8161e441e6&e=1748595498",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2005).mp4?h=c591912c743e26797513641cd98ca9fc95ca41a2682c9611b1f30f8161e441e6&e=1748595498"
+      },
+      {
+        "id": "house-of-the-dragon-s1e6",
+        "season": 1,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2006).mp4?h=e2df1ba21efd3963efde2baf9408a763651e415b84e0100156b9cead8efece6c&e=1748595500",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2006).mp4?h=e2df1ba21efd3963efde2baf9408a763651e415b84e0100156b9cead8efece6c&e=1748595500"
+      },
+      {
+        "id": "house-of-the-dragon-s1e7",
+        "season": 1,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2007).mp4?h=1efac6e6dd40d0f8eaf67f1680224f4521edfbc2b2ced07f916850b3eb3d7b82&e=1748595500",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2007).mp4?h=1efac6e6dd40d0f8eaf67f1680224f4521edfbc2b2ced07f916850b3eb3d7b82&e=1748595500"
+      },
+      {
+        "id": "house-of-the-dragon-s1e8",
+        "season": 1,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2008).mp4?h=ec374a9106af3c5cbf542e1ed890964ac1d87d25c80cc7efaf368ad21d52aff8&e=1748595504",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2008).mp4?h=ec374a9106af3c5cbf542e1ed890964ac1d87d25c80cc7efaf368ad21d52aff8&e=1748595504"
+      },
+      {
+        "id": "house-of-the-dragon-s1e9",
+        "season": 1,
+        "episode": 9,
+        "title": "Episode 9",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2009).mp4?h=a4f3d3bab6bdab65ac1d70cfd856b0ddccf8aa84e93bcd7036fd06334362a525&e=1748595502",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2009).mp4?h=a4f3d3bab6bdab65ac1d70cfd856b0ddccf8aa84e93bcd7036fd06334362a525&e=1748595502"
+      },
+      {
+        "id": "house-of-the-dragon-s1e10",
+        "season": 1,
+        "episode": 10,
+        "title": "Episode 10",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2010).mp4?h=b9634d1fb3a35da5298d645c1b675db601483a96398ee92adf2477b8ebb8e8e9&e=1748595506",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/House%20of%20the%20Dragon%20(2022)/House%20of%20the%20Dragon%20(Season%2001)/House%20of%20the%20Dragon%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20House%20Of%20The%20Dragon%20Season%2001%20(Epi%2010).mp4?h=b9634d1fb3a35da5298d645c1b675db601483a96398ee92adf2477b8ebb8e8e9&e=1748595506"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "prettylittleliars-s02",
+    "title": "Pretty little Liars Season 2 (2024)",
+    "image": "https://m.media-amazon.com/images/M/MV5BN2YwNzA1ODMtNmJjNC00ODJhLTk1YWUtZmY1NTBlMjZlMTkwXkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S02"
+    },
+    "episodes": [
+      {
+        "id": "pretty-little-liars-s2e1",
+        "season": 2,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2001).mp4?h=1b926836a6acf778b2b98e91ed51bc3874e5b80bf63b9b1d4d055e562e8aa7ad&e=1747707049",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2001).mp4?h=1b926836a6acf778b2b98e91ed51bc3874e5b80bf63b9b1d4d055e562e8aa7ad&e=1747707049"
+      },
+      {
+        "id": "pretty-little-liars-s2e2",
+        "season": 2,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2002).mp4?h=de79c183a1243ab877f47ba5c50eb2bc6442a954b8f2a52d6bb9332471ac439c&e=1747707049",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2002).mp4?h=de79c183a1243ab877f47ba5c50eb2bc6442a954b8f2a52d6bb9332471ac439c&e=1747707049"
+      },
+      {
+        "id": "pretty-little-liars-s2e3",
+        "season": 2,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2003).mp4?h=5f13636b70fd2277afe394079d427735ec39f7ad6120ae29761565774f78a256&e=1747707049",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2003).mp4?h=5f13636b70fd2277afe394079d427735ec39f7ad6120ae29761565774f78a256&e=1747707049"
+      },
+      {
+        "id": "pretty-little-liars-s2e4",
+        "season": 2,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2004).mp4?h=90a4e223839cdc4c80ab18ee78df01e47bd209a4826d8a27d35ee68ba4e9cadc&e=1747707066",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2004).mp4?h=90a4e223839cdc4c80ab18ee78df01e47bd209a4826d8a27d35ee68ba4e9cadc&e=1747707066"
+      },
+      {
+        "id": "pretty-little-liars-s2e5",
+        "season": 2,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2005).mp4?h=ca1e68165612f8828157917466ae965e9c8b627568c9beaf67b9019b0f18eae7&e=1747707057",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2005).mp4?h=ca1e68165612f8828157917466ae965e9c8b627568c9beaf67b9019b0f18eae7&e=1747707057"
+      },
+      {
+        "id": "pretty-little-liars-s2e6",
+        "season": 2,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2006).mp4?h=37a1c880adfb7d8eac4f741ae3892ba4910638d70ae302c64a4ccc3933d49278&e=1747707062",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2006).mp4?h=37a1c880adfb7d8eac4f741ae3892ba4910638d70ae302c64a4ccc3933d49278&e=1747707062"
+      },
+      {
+        "id": "pretty-little-liars-s2e7",
+        "season": 2,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2007).mp4?h=643328b853442c899e76f5ae2fdaff808824178053b56cf90d03d3783fb2c06e&e=1747707062",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2007).mp4?h=643328b853442c899e76f5ae2fdaff808824178053b56cf90d03d3783fb2c06e&e=1747707062"
+      },
+      {
+        "id": "pretty-little-liars-s2e8",
+        "season": 2,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2008).mp4?h=bae76e6c11d2524b0f8a11813b6acc87f92155bc993aafc52922d2e10c6581e2&e=1747707057",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Pretty%20little%20Liars%20(2024)/Pretty%20little%20Liars%20(Season%2002)/isaiDub.me%20-%20Pretty%20little%20Liars%202024%20Season%2002%20(Epi%2008).mp4?h=bae76e6c11d2524b0f8a11813b6acc87f92155bc993aafc52922d2e10c6581e2&e=1747707057"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "reacher-s01",
+    "title": "Reacher Season 1 (2023)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMTJkOWIxNTMtZjY0OC00YjQwLTg5ZDYtMDllYTVhYzcyOGRkXkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S01"
+    },
+    "episodes": [
+      {
+        "id": "reacher-s1e1",
+        "season": 1,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2001).mp4?h=65780a07bbc42eae65fca720c2d4e5ec3408d42e30038eba7ba9064dcdf87a04&e=1748595522",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2001).mp4?h=65780a07bbc42eae65fca720c2d4e5ec3408d42e30038eba7ba9064dcdf87a04&e=1748595522"
+      },
+      {
+        "id": "reacher-s1e2",
+        "season": 1,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2002).mp4?h=7947d9c7b987055c2dcfdf28367992ae3ffee21efe4b01325e3a596e7a2325c8&e=1748595511",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2002).mp4?h=7947d9c7b987055c2dcfdf28367992ae3ffee21efe4b01325e3a596e7a2325c8&e=1748595511"
+      },
+      {
+        "id": "reacher-s1e3",
+        "season": 1,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2003).mp4?h=809cb33e819f9ea62cd3c0f788ef4f1ba3e6258dce82cf97130cb02ade0a64d5&e=1748595513",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2003).mp4?h=809cb33e819f9ea62cd3c0f788ef4f1ba3e6258dce82cf97130cb02ade0a64d5&e=1748595513"
+      },
+      {
+        "id": "reacher-s1e4",
+        "season": 1,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2004).mp4?h=56ff2aa42a645f90f82ceca15794b2625be5b43538b0e7dd9567438e6241e383&e=1748595515",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2004).mp4?h=56ff2aa42a645f90f82ceca15794b2625be5b43538b0e7dd9567438e6241e383&e=1748595515"
+      },
+      {
+        "id": "reacher-s1e5",
+        "season": 1,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2005).mp4?h=9869dd5f78964857b843859d9a55d3f7cab17b965d9d72cf65f698d92f74adb4&e=1748595518",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2005).mp4?h=9869dd5f78964857b843859d9a55d3f7cab17b965d9d72cf65f698d92f74adb4&e=1748595518"
+      },
+      {
+        "id": "reacher-s1e6",
+        "season": 1,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2006).mp4?h=ce433b251ac08a73feb2d224794dfe5434f6379f21a08572514442e4d2596fad&e=1748595519",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2006).mp4?h=ce433b251ac08a73feb2d224794dfe5434f6379f21a08572514442e4d2596fad&e=1748595519"
+      },
+      {
+        "id": "reacher-s1e7",
+        "season": 1,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2007).mp4?h=15921bc9ab954a194084fea75ba7d526fca74e7dc909a0cf57d543f199be4d40&e=1748595520",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2007).mp4?h=15921bc9ab954a194084fea75ba7d526fca74e7dc909a0cf57d543f199be4d40&e=1748595520"
+      },
+      {
+        "id": "reacher-s1e8",
+        "season": 1,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2008).mp4?h=353225fe05dc99252f6e129be67f3d7784225871799f757f9af656a85a1ac37b&e=1748595520",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2008).mp4?h=353225fe05dc99252f6e129be67f3d7784225871799f757f9af656a85a1ac37b&e=1748595520"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "reacher-s02",
+    "title": "Reacher Season 2 (2022)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMjEyN2E2ZWItYWRiMC00NDM0LWIxYTAtMGQzZDI5NzIzYzkyXkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S02"
+    },
+    "episodes": [
+      {
+        "id": "reacher-s2e1",
+        "season": 2,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2001).mp4?h=9942a00154b9941dc9d840cfee886d39e90f698f4f03cd8a9b222acb8f8c0f14&e=1748595510",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2001/Reacher%20Season%2001%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2001%20(Epi%2001).mp4?h=9942a00154b9941dc9d840cfee886d39e90f698f4f03cd8a9b222acb8f8c0f14&e=1748595510"
+      },
+      {
+        "id": "reacher-s2e2",
+        "season": 2,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2002).mp4?h=f047bb256099280b6283348d52b5ce67b33237b045555e540ea6f3b6a7ae8854&e=1748595522",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2002).mp4?h=f047bb256099280b6283348d52b5ce67b33237b045555e540ea6f3b6a7ae8854&e=1748595522"
+      },
+      {
+        "id": "reacher-s2e3",
+        "season": 2,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2003).mp4?h=4cc5c79b6aad538b5936b9be42411ba106f5e0f52f99bd87c49087d6e4fb151e&e=1748595522",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2003).mp4?h=4cc5c79b6aad538b5936b9be42411ba106f5e0f52f99bd87c49087d6e4fb151e&e=1748595522"
+      },
+      {
+        "id": "reacher-s2e4",
+        "season": 2,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2004).mp4?h=64f896bb61ecefee2f636da570fb111b4cec13374d0d1501fa3a79b8d68d0d8f&e=1748595524",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2004).mp4?h=64f896bb61ecefee2f636da570fb111b4cec13374d0d1501fa3a79b8d68d0d8f&e=1748595524"
+      },
+      {
+        "id": "reacher-s2e5",
+        "season": 2,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2005).mp4?h=695046abf3ae908f3cb1e7fd25568064558585d3e6ae1b0a829328d2312c8643&e=1748595525",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2005).mp4?h=695046abf3ae908f3cb1e7fd25568064558585d3e6ae1b0a829328d2312c8643&e=1748595525"
+      },
+      {
+        "id": "reacher-s2e6",
+        "season": 2,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2006).mp4?h=984da235f45294a6f761cb88e4ac0fcb53cfecc249f6f9b6ec6649905eb90a93&e=1748595527",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2006).mp4?h=984da235f45294a6f761cb88e4ac0fcb53cfecc249f6f9b6ec6649905eb90a93&e=1748595527"
+      },
+      {
+        "id": "reacher-s2e7",
+        "season": 2,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2007).mp4?h=f9c7f5ad6061cbaa784601ebd953e45454f5f8e304cff47c61ace663b5a3f00b&e=1748595527",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2007).mp4?h=f9c7f5ad6061cbaa784601ebd953e45454f5f8e304cff47c61ace663b5a3f00b&e=1748595527"
+      },
+      {
+        "id": "reacher-s2e8",
+        "season": 2,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2008).mp4?h=4e8a22903d3bf5f785e885ea529e2d958f665454b7c1d6ac6ad8eee573965140&e=1748595529",
+        "streamURL": "https://dub4-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Reacher%20(2023)/Reacher%20Season%2002/Reacher%20Season%2002%20(720p%20HD)/isaiDub.com%20-%20Reacher%20Season%2002%20(Epi%2008).mp4?h=4e8a22903d3bf5f785e885ea529e2d958f665454b7c1d6ac6ad8eee573965140&e=1748595529"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "secretswekeep-s01",
+    "title": "Secrets We Keep Season 1 (2025)",
+    "image": "https://m.media-amazon.com/images/M/MV5BN2VkNzhmMDYtYmIxMC00NmU4LTgwYWYtZDRhMmI3MDI0ZjA3XkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S01"
+    },
+    "episodes": [
+      {
+        "id": "secrets-we-keep-s1e1",
+        "season": 1,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://s07.dubshare.one/isaiDub.me_-_Secrets_We_Keep_2025_Season_01_Epi_01_.mp4",
+        "streamURL": "https://s07.dubshare.one/isaiDub.me_-_Secrets_We_Keep_2025_Season_01_Epi_01_.mp4"
+      },
+      {
+        "id": "secrets-we-keep-s1e2",
+        "season": 1,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://s05.dubshare.one/isaiDub.me_-_Secrets_We_Keep_2025_Season_01_Epi_02_.mp4",
+        "streamURL": "https://s05.dubshare.one/isaiDub.me_-_Secrets_We_Keep_2025_Season_01_Epi_02_.mp4"
+      },
+      {
+        "id": "secrets-we-keep-s1e3",
+        "season": 1,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://s06.dubshare.one/isaiDub.me_-_Secrets_We_Keep_2025_Season_01_Epi_03_.mp4",
+        "streamURL": "https://s06.dubshare.one/isaiDub.me_-_Secrets_We_Keep_2025_Season_01_Epi_03_.mp4"
+      },
+      {
+        "id": "secrets-we-keep-s1e4",
+        "season": 1,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://s10.dubshare.one/isaiDub.me_-_Secrets_We_Keep_2025_Season_01_Epi_04_.mp4",
+        "streamURL": "https://s10.dubshare.one/isaiDub.me_-_Secrets_We_Keep_2025_Season_01_Epi_04_.mp4"
+      },
+      {
+        "id": "secrets-we-keep-s1e5",
+        "season": 1,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://s09.dubshare.one/isaiDub.me_-_Secrets_We_Keep_2025_Season_01_Epi_05_.mp4",
+        "streamURL": "https://s09.dubshare.one/isaiDub.me_-_Secrets_We_Keep_2025_Season_01_Epi_05_.mp4"
+      },
+      {
+        "id": "secrets-we-keep-s1e6",
+        "season": 1,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://s05.dubshare.one/isaiDub.me_-_Secrets_We_Keep_2025_Season_01_Epi_06_.mp4",
+        "streamURL": "https://s05.dubshare.one/isaiDub.me_-_Secrets_We_Keep_2025_Season_01_Epi_06_.mp4"
+      },
+      {
+        "id": "secrets-we-keep-s1e6",
+        "season": 1,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://s07.dubshare.one/isaiDub.me_-_Secrets_We_Keep_2025_Season_01_Epi_06_.mp4",
+        "streamURL": "https://s07.dubshare.one/isaiDub.me_-_Secrets_We_Keep_2025_Season_01_Epi_06_.mp4"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "squidgame-s01",
+    "title": "Squid Game Season 1 (2021)",
+    "image": "https://m.media-amazon.com/images/M/MV5BNDEwNzMwOTMtMWRhYi00Y2JiLTkxZmItMDUxZTQzYjJhOTQzXkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S01"
+    },
+    "episodes": [
+      {
+        "id": "squid-game-s1e1",
+        "season": 1,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2001%20Red%20Light%20Green%20Light)/Squid%20Game%20Season%2001%20(Epi%2001%20Red%20Light%20Green%20Light)%20HD/Squid%20Game%20Season%2001%20(Epi%2001%20Red%20Light%20Green%20Light)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2001%20Red%20Light%20Green%20Light)%20HD.mp4?h=f2425af9883b5e19c7aa1cd739a83b31aea4233bbdc531a56efcfff3fa397f81&e=1748595395",
+        "streamURL": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2001%20Red%20Light%20Green%20Light)/Squid%20Game%20Season%2001%20(Epi%2001%20Red%20Light%20Green%20Light)%20HD/Squid%20Game%20Season%2001%20(Epi%2001%20Red%20Light%20Green%20Light)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2001%20Red%20Light%20Green%20Light)%20HD.mp4?h=f2425af9883b5e19c7aa1cd739a83b31aea4233bbdc531a56efcfff3fa397f81&e=1748595395"
+      },
+      {
+        "id": "squid-game-s1e2",
+        "season": 1,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2002%20Hell)/Squid%20Game%20Season%2001%20(Epi%2002%20Hell)%20HD/Squid%20Game%20Season%2001%20(Epi%2002%20Hell)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2002%20Hell)%20HD.mp4?h=e09fb8064f0713f926b74332b5fc342b02bb406613d52e026b15c97ecf81c7d6&e=1748595397",
+        "streamURL": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2002%20Hell)/Squid%20Game%20Season%2001%20(Epi%2002%20Hell)%20HD/Squid%20Game%20Season%2001%20(Epi%2002%20Hell)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2002%20Hell)%20HD.mp4?h=e09fb8064f0713f926b74332b5fc342b02bb406613d52e026b15c97ecf81c7d6&e=1748595397"
+      },
+      {
+        "id": "squid-game-s1e3",
+        "season": 1,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2003%20The%20Man%20With%20The%20Umbrella)/Squid%20Game%20Season%2001%20(Epi%2003%20The%20Man%20With%20The%20Umbrella)%20HD/Squid%20Game%20Season%2001%20(Epi%2003%20The%20Man%20With%20The%20Umbrella)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2003%20The%20Man%20With%20The%20Umbrella)%20HD.mp4?h=bcfaf79dcac3b720c424d1efcb6825fadbbefab9788feac9f488ec2528a1139d&e=1748595403",
+        "streamURL": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2003%20The%20Man%20With%20The%20Umbrella)/Squid%20Game%20Season%2001%20(Epi%2003%20The%20Man%20With%20The%20Umbrella)%20HD/Squid%20Game%20Season%2001%20(Epi%2003%20The%20Man%20With%20The%20Umbrella)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2003%20The%20Man%20With%20The%20Umbrella)%20HD.mp4?h=bcfaf79dcac3b720c424d1efcb6825fadbbefab9788feac9f488ec2528a1139d&e=1748595403"
+      },
+      {
+        "id": "squid-game-s1e4",
+        "season": 1,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2004%20Stick%20To%20The%20Team)/Squid%20Game%20Season%2001%20(Epi%2004%20Stick%20To%20The%20Team)%20HD/Squid%20Game%20Season%2001%20(Epi%2004%20Stick%20To%20The%20Team)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2004%20Stick%20To%20The%20Team)%20HD.mp4?h=2f1c927ebf50cb2e6657e1bc416b7004a67df43ffe7eeefe0ad86a516d76352e&e=1748595396",
+        "streamURL": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2004%20Stick%20To%20The%20Team)/Squid%20Game%20Season%2001%20(Epi%2004%20Stick%20To%20The%20Team)%20HD/Squid%20Game%20Season%2001%20(Epi%2004%20Stick%20To%20The%20Team)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2004%20Stick%20To%20The%20Team)%20HD.mp4?h=2f1c927ebf50cb2e6657e1bc416b7004a67df43ffe7eeefe0ad86a516d76352e&e=1748595396"
+      },
+      {
+        "id": "squid-game-s1e5",
+        "season": 1,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2005%20A%20Fair%20World)/Squid%20Game%20Season%2001%20(Epi%2005%20A%20Fair%20World)%20HD/Squid%20Game%20Season%2001%20(Epi%2005%20A%20Fair%20World)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2005%20A%20Fair%20World)%20HD.mp4?h=9d128b39f368723e168fcbc5304c296bc0af1b2dd42f08d440c0af664d000259&e=1748595401",
+        "streamURL": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2005%20A%20Fair%20World)/Squid%20Game%20Season%2001%20(Epi%2005%20A%20Fair%20World)%20HD/Squid%20Game%20Season%2001%20(Epi%2005%20A%20Fair%20World)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2005%20A%20Fair%20World)%20HD.mp4?h=9d128b39f368723e168fcbc5304c296bc0af1b2dd42f08d440c0af664d000259&e=1748595401"
+      },
+      {
+        "id": "squid-game-s1e6",
+        "season": 1,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2006%20Gganbu)/Squid%20Game%20Season%2001%20(Epi%2006%20Gganbu)%20HD/Squid%20Game%20Season%2001%20(Epi%2006%20Gganbu)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2006%20Gganbu)%20HD.mp4?h=e8df7e7b35761f3f6ba50a5c06136bed5c4de1a36f2bef5cd3248866d1fdbb7a&e=1748595403",
+        "streamURL": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2006%20Gganbu)/Squid%20Game%20Season%2001%20(Epi%2006%20Gganbu)%20HD/Squid%20Game%20Season%2001%20(Epi%2006%20Gganbu)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2006%20Gganbu)%20HD.mp4?h=e8df7e7b35761f3f6ba50a5c06136bed5c4de1a36f2bef5cd3248866d1fdbb7a&e=1748595403"
+      },
+      {
+        "id": "squid-game-s1e7",
+        "season": 1,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2007%20Vips)/Squid%20Game%20Season%2001%20(Epi%2007%20Vips)%20HD/Squid%20Game%20Season%2001%20(Epi%2007%20Vips)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2007%20Vips)%20HD.mp4?h=28e542e84aba732aafb3a22beb28a51ab1691bb827c0a592f19c2db835bd5f63&e=1748595403",
+        "streamURL": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2007%20Vips)/Squid%20Game%20Season%2001%20(Epi%2007%20Vips)%20HD/Squid%20Game%20Season%2001%20(Epi%2007%20Vips)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2007%20Vips)%20HD.mp4?h=28e542e84aba732aafb3a22beb28a51ab1691bb827c0a592f19c2db835bd5f63&e=1748595403"
+      },
+      {
+        "id": "squid-game-s1e8",
+        "season": 1,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2008%20Front%20Man)/Squid%20Game%20Season%2001%20(Epi%2008%20Front%20Man)%20HD/Squid%20Game%20Season%2001%20(Epi%2008%20Front%20Man)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2008%20Front%20Man)%20HD.mp4?h=5814da25a176383e89b8e31d3112c2aa787393ace01e7151ae3b79739f40938e&e=1748595407",
+        "streamURL": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2008%20Front%20Man)/Squid%20Game%20Season%2001%20(Epi%2008%20Front%20Man)%20HD/Squid%20Game%20Season%2001%20(Epi%2008%20Front%20Man)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2008%20Front%20Man)%20HD.mp4?h=5814da25a176383e89b8e31d3112c2aa787393ace01e7151ae3b79739f40938e&e=1748595407"
+      },
+      {
+        "id": "squid-game-s1e9",
+        "season": 1,
+        "episode": 9,
+        "title": "Episode 9",
+        "videoUrl": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2009%20One%20Lucky%20Day)/Squid%20Game%20Season%2001%20(Epi%2009%20One%20Lucky%20Day)%20HD/Squid%20Game%20Season%2001%20(Epi%2009%20One%20Lucky%20Day)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2009%20One%20Lucky%20Day)%20HD.mp4?h=ab42110c8222ee4658723fd7698f25676d8bbb504054e2936c7d11b7072bdffc&e=1748595410",
+        "streamURL": "https://dub5-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2021)%20Season%2001/Squid%20Game%202021%20Season%2001%20(Epi%2009%20One%20Lucky%20Day)/Squid%20Game%20Season%2001%20(Epi%2009%20One%20Lucky%20Day)%20HD/Squid%20Game%20Season%2001%20(Epi%2009%20One%20Lucky%20Day)%20(640x360)/Squid%20Game%20Season%2001%20(Epi%2009%20One%20Lucky%20Day)%20HD.mp4?h=ab42110c8222ee4658723fd7698f25676d8bbb504054e2936c7d11b7072bdffc&e=1748595410"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "squidgame-s02",
+    "title": "Squid Game Season 2 (2024)",
+    "image": "https://m.media-amazon.com/images/M/MV5BNzMyMTgyY2QtMDRmMS00YWYyLTgyZTgtY2Q3YTJlZjhhYTc2XkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S02"
+    },
+    "episodes": [
+      {
+        "id": "squid-game-s2e1",
+        "season": 2,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub2-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2024)/Squid%20Game%20(Season%2002)/isaiDub.Me%20-%20Squid%20Game%20Season%2002%20(Epi%2001).mp4?h=3d99b5b8f3889e31c7c6c9f76ec2a10f32128cf95daede79dd8466612e1bd8d0&e=1748595411",
+        "streamURL": "https://dub2-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2024)/Squid%20Game%20(Season%2002)/isaiDub.Me%20-%20Squid%20Game%20Season%2002%20(Epi%2001).mp4?h=3d99b5b8f3889e31c7c6c9f76ec2a10f32128cf95daede79dd8466612e1bd8d0&e=1748595411"
+      },
+      {
+        "id": "squid-game-s2e2",
+        "season": 2,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub2-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2024)/Squid%20Game%20(Season%2002)/isaiDub.Me%20-%20Squid%20Game%20Season%2002%20(Epi%2002).mp4?h=50e23fa7643b1c0827015a092f65033d77c363d4d09be03951eb43dea702400b&e=1748595411",
+        "streamURL": "https://dub2-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2024)/Squid%20Game%20(Season%2002)/isaiDub.Me%20-%20Squid%20Game%20Season%2002%20(Epi%2002).mp4?h=50e23fa7643b1c0827015a092f65033d77c363d4d09be03951eb43dea702400b&e=1748595411"
+      },
+      {
+        "id": "squid-game-s2e3",
+        "season": 2,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub2-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2024)/Squid%20Game%20(Season%2002)/isaiDub.Me%20-%20Squid%20Game%20Season%2002%20(Epi%2003).mp4?h=a3cea61d73e2515eefff8835f9579520487cf292877d5bc801de27fa6fe6fe68&e=1748595412",
+        "streamURL": "https://dub2-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2024)/Squid%20Game%20(Season%2002)/isaiDub.Me%20-%20Squid%20Game%20Season%2002%20(Epi%2003).mp4?h=a3cea61d73e2515eefff8835f9579520487cf292877d5bc801de27fa6fe6fe68&e=1748595412"
+      },
+      {
+        "id": "squid-game-s2e4",
+        "season": 2,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub2-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2024)/Squid%20Game%20(Season%2002)/isaiDub.Me%20-%20Squid%20Game%20Season%2002%20(Epi%2004).mp4?h=f97bdcd88188e6a30f06d92228b07827baa66656d803186218c82e58320e13f6&e=1748595412",
+        "streamURL": "https://dub2-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2024)/Squid%20Game%20(Season%2002)/isaiDub.Me%20-%20Squid%20Game%20Season%2002%20(Epi%2004).mp4?h=f97bdcd88188e6a30f06d92228b07827baa66656d803186218c82e58320e13f6&e=1748595412"
+      },
+      {
+        "id": "squid-game-s2e5",
+        "season": 2,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub2-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2024)/Squid%20Game%20(Season%2002)/isaiDub.Me%20-%20Squid%20Game%20Season%2002%20(Epi%2005).mp4?h=d2cccd15342174aedf2b86cf8b515b5d98624868a1b7d68257b45117d68501d3&e=1748595413",
+        "streamURL": "https://dub2-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2024)/Squid%20Game%20(Season%2002)/isaiDub.Me%20-%20Squid%20Game%20Season%2002%20(Epi%2005).mp4?h=d2cccd15342174aedf2b86cf8b515b5d98624868a1b7d68257b45117d68501d3&e=1748595413"
+      },
+      {
+        "id": "squid-game-s2e6",
+        "season": 2,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub2-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2024)/Squid%20Game%20(Season%2002)/isaiDub.Me%20-%20Squid%20Game%20Season%2002%20(Epi%2006).mp4?h=d04ddb23d3c5a0cd0bda58569c0153f10155f6829bd74179223da205d8e3d18c&e=1748595413",
+        "streamURL": "https://dub2-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2024)/Squid%20Game%20(Season%2002)/isaiDub.Me%20-%20Squid%20Game%20Season%2002%20(Epi%2006).mp4?h=d04ddb23d3c5a0cd0bda58569c0153f10155f6829bd74179223da205d8e3d18c&e=1748595413"
+      },
+      {
+        "id": "squid-game-s2e7",
+        "season": 2,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub2-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2024)/Squid%20Game%20(Season%2002)/isaiDub.Me%20-%20Squid%20Game%20Season%2002%20(Epi%2007).mp4?h=f44620d9ea04aee7732c9212ec644bcae2fe1064f8d04916423ce6c7a00ef313&e=1748595413",
+        "streamURL": "https://dub2-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Squid%20Game%20(2024)/Squid%20Game%20(Season%2002)/isaiDub.Me%20-%20Squid%20Game%20Season%2002%20(Epi%2007).mp4?h=f44620d9ea04aee7732c9212ec644bcae2fe1064f8d04916423ce6c7a00ef313&e=1748595413"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "suitsla-s01",
+    "title": "Suits LA Season 1 (2025)",
+    "image": "https://m.media-amazon.com/images/M/MV5BZjBjZDMyOTktZTRjYS00ZjQ1LTlmYTEtOTBkY2U0MDNmMjVkXkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S01"
+    },
+    "episodes": [
+      {
+        "id": "suits-la-s1e1",
+        "season": 1,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2001).mp4?h=06bd513135c8ed2183cdee3ee11982b6c025a825a79f6ef7146caafe43fb798d&e=1748595383",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2001).mp4?h=06bd513135c8ed2183cdee3ee11982b6c025a825a79f6ef7146caafe43fb798d&e=1748595383"
+      },
+      {
+        "id": "suits-la-s1e2",
+        "season": 1,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2002).mp4?h=9cdb90e0a2a2c8ad107986bc6df3eb490ad5dcc8fb91c29362d647f207f50dac&e=1748595383",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2002).mp4?h=9cdb90e0a2a2c8ad107986bc6df3eb490ad5dcc8fb91c29362d647f207f50dac&e=1748595383"
+      },
+      {
+        "id": "suits-la-s1e3",
+        "season": 1,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2003).mp4?h=e5f1996e3d5721ebfc3b977aced963bf107ac8fdf1de6a7e0bd8830e4a80be0f&e=1748595384",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2003).mp4?h=e5f1996e3d5721ebfc3b977aced963bf107ac8fdf1de6a7e0bd8830e4a80be0f&e=1748595384"
+      },
+      {
+        "id": "suits-la-s1e4",
+        "season": 1,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2004).mp4?h=7e2151436ebe114affb8ae264f68450388551c9de6a0229041673bde58a9c126&e=1748595385",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2004).mp4?h=7e2151436ebe114affb8ae264f68450388551c9de6a0229041673bde58a9c126&e=1748595385"
+      },
+      {
+        "id": "suits-la-s1e5",
+        "season": 1,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2005).mp4?h=b0203d0298d489643a0ea0164e3066755781c1b0bfc8c242c4d3abbf6fe9c0f9&e=1748595384",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2005).mp4?h=b0203d0298d489643a0ea0164e3066755781c1b0bfc8c242c4d3abbf6fe9c0f9&e=1748595384"
+      },
+      {
+        "id": "suits-la-s1e6",
+        "season": 1,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2006).mp4?h=5b31275aec2ed498aef09e9fc5482538a097e30597c3f0c6a3712684a833e5bb&e=1748595390",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2006).mp4?h=5b31275aec2ed498aef09e9fc5482538a097e30597c3f0c6a3712684a833e5bb&e=1748595390"
+      },
+      {
+        "id": "suits-la-s1e7",
+        "season": 1,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2007).mp4?h=e2b7c82dae6ac46d8d9a60301849672f18f46732dd2b129345557d2e160d349f&e=1748595392",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2007).mp4?h=e2b7c82dae6ac46d8d9a60301849672f18f46732dd2b129345557d2e160d349f&e=1748595392"
+      },
+      {
+        "id": "suits-la-s1e8",
+        "season": 1,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2008).mp4?h=bcb307a547b5280464bfcaf0eef8b8e1f9f025bf9c7ce7aee313718ce36bcc81&e=1748595393",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/Suits%20LA%20(2025)/Suits%20LA%20(Season%2001)/Suits%20LA%202025%20Season%2001%20(Epi%2008).mp4?h=bcb307a547b5280464bfcaf0eef8b8e1f9f025bf9c7ce7aee313718ce36bcc81&e=1748595393"
+      },
+      {
+        "id": "suits-la-s1e10",
+        "season": 1,
+        "episode": 10,
+        "title": "Episode 10",
+        "videoUrl": "https://s01.dubshare.one/Suits_LA_2025_Season_01_Epi_10_.mp4",
+        "streamURL": "https://s01.dubshare.one/Suits_LA_2025_Season_01_Epi_10_.mp4"
+      },
+      {
+        "id": "suits-la-s1e11",
+        "season": 1,
+        "episode": 11,
+        "title": "Episode 11",
+        "videoUrl": "https://s04.dubshare.one/Suits_LA_2025_Season_01_Epi_11_.mp4",
+        "streamURL": "https://s04.dubshare.one/Suits_LA_2025_Season_01_Epi_11_.mp4"
+      },
+      {
+        "id": "suits-la-s1e13",
+        "season": 1,
+        "episode": 13,
+        "title": "Episode 13",
+        "videoUrl": "https://s07.dubshare.one/Suits_LA_2025_Season_01_Epi_13_.mp4",
+        "streamURL": "https://s07.dubshare.one/Suits_LA_2025_Season_01_Epi_13_.mp4"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "thefourseasons-s01",
+    "title": "The Four Seasons Season 1 (2025)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMjZiMDNhZWItZDk1YS00M2UyLTkxN2YtNDQ3ZmJjYTA4MzgwXkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S01"
+    },
+    "episodes": [
+      {
+        "id": "the-four-seasons-s1e1",
+        "season": 1,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://s09.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_01_.mp4",
+        "streamURL": "https://s09.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_01_.mp4"
+      },
+      {
+        "id": "the-four-seasons-s1e2",
+        "season": 1,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://s06.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_02_.mp4",
+        "streamURL": "https://s06.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_02_.mp4"
+      },
+      {
+        "id": "the-four-seasons-s1e3",
+        "season": 1,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://s03.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_03_.mp4",
+        "streamURL": "https://s03.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_03_.mp4"
+      },
+      {
+        "id": "the-four-seasons-s1e4",
+        "season": 1,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://s04.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_04_.mp4",
+        "streamURL": "https://s04.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_04_.mp4"
+      },
+      {
+        "id": "the-four-seasons-s1e5",
+        "season": 1,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://s03.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_05_.mp4",
+        "streamURL": "https://s03.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_05_.mp4"
+      },
+      {
+        "id": "the-four-seasons-s1e6",
+        "season": 1,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://s04.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_06_.mp4",
+        "streamURL": "https://s04.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_06_.mp4"
+      },
+      {
+        "id": "the-four-seasons-s1e7",
+        "season": 1,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://s04.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_07_.mp4",
+        "streamURL": "https://s04.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_07_.mp4"
+      },
+      {
+        "id": "the-four-seasons-s1e8",
+        "season": 1,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://s09.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_08_.mp4",
+        "streamURL": "https://s09.dubshare.one/isaiDub.me_-_The_Four_Seasons_2025_Season_01_Epi_08_.mp4"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "thelastofus-s01",
+    "title": "The Last Of Us Season 1 (2023)",
+    "image": "https://m.media-amazon.com/images/M/MV5BYWI3ODJlMzktY2U5NC00ZjdlLWE1MGItNWQxZDk3NWNjN2RhXkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S01"
+    },
+    "episodes": [
+      {
+        "id": "the-last-of-us-s1e1",
+        "season": 1,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2001).mp4?h=f49fbce8f2232e4461eb3eb503cd2ad9c9f9e1f5de84016faf68dec841d2f38e&e=1748595364",
+        "streamURL": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2001).mp4?h=f49fbce8f2232e4461eb3eb503cd2ad9c9f9e1f5de84016faf68dec841d2f38e&e=1748595364"
+      },
+      {
+        "id": "the-last-of-us-s1e2",
+        "season": 1,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2002).mp4?h=a25d897d3a9561791bd7e18a8ce2181e22bbd661e3558171ef8fbe9ae285d51e&e=1748595364",
+        "streamURL": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2002).mp4?h=a25d897d3a9561791bd7e18a8ce2181e22bbd661e3558171ef8fbe9ae285d51e&e=1748595364"
+      },
+      {
+        "id": "the-last-of-us-s1e3",
+        "season": 1,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2003).mp4?h=efc27f7f1d8953f87adc897bb33c1b598ae991e526a6707f695e7ea0a9497129&e=1748595364",
+        "streamURL": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2003).mp4?h=efc27f7f1d8953f87adc897bb33c1b598ae991e526a6707f695e7ea0a9497129&e=1748595364"
+      },
+      {
+        "id": "the-last-of-us-s1e4",
+        "season": 1,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2004).mp4?h=4909d66330c04d45475c3cc38193ba64e637e3eaf9eb39ef55d6040c2d557592&e=1748595364",
+        "streamURL": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2004).mp4?h=4909d66330c04d45475c3cc38193ba64e637e3eaf9eb39ef55d6040c2d557592&e=1748595364"
+      },
+      {
+        "id": "the-last-of-us-s1e5",
+        "season": 1,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2005).mp4?h=c59968326804f28af6e1cae4e0cc414ca1a2ef30537067afd798543b672f8d27&e=1748595364",
+        "streamURL": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2005).mp4?h=c59968326804f28af6e1cae4e0cc414ca1a2ef30537067afd798543b672f8d27&e=1748595364"
+      },
+      {
+        "id": "the-last-of-us-s1e6",
+        "season": 1,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2006).mp4?h=76c2b4562a30543421e88f9185f86f7c5149e588ca850a648ee0efa81d840dde&e=1748595364",
+        "streamURL": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2006).mp4?h=76c2b4562a30543421e88f9185f86f7c5149e588ca850a648ee0efa81d840dde&e=1748595364"
+      },
+      {
+        "id": "the-last-of-us-s1e7",
+        "season": 1,
+        "episode": 7,
+        "title": "Episode 7",
+        "videoUrl": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2007).mp4?h=99e17eec55e7955986efd491743d231d9a050b59961e686f71a3cbe43d3f9961&e=1748595364",
+        "streamURL": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2007).mp4?h=99e17eec55e7955986efd491743d231d9a050b59961e686f71a3cbe43d3f9961&e=1748595364"
+      },
+      {
+        "id": "the-last-of-us-s1e8",
+        "season": 1,
+        "episode": 8,
+        "title": "Episode 8",
+        "videoUrl": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2008).mp4?h=1cc5cab90a3d1608fb484522c46e6ca900103297fbe62df72f70e7fa908291b6&e=1748595364",
+        "streamURL": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2008).mp4?h=1cc5cab90a3d1608fb484522c46e6ca900103297fbe62df72f70e7fa908291b6&e=1748595364"
+      },
+      {
+        "id": "the-last-of-us-s1e9",
+        "season": 1,
+        "episode": 9,
+        "title": "Episode 9",
+        "videoUrl": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2009).mp4?h=bcab2c4b92c50f33f9cf23e77acb1f6c63e87e137fddccef90f89a5e81206c71&e=1748595364",
+        "streamURL": "https://dub3-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20Of%20Us%20(2023)/The%20Last%20of%20Us%20Season%2001%20(2023)/The%20Last%20of%20Us%20Season%2001%20(720p%20HD)/The%20Last%20Of%20Us%20Season%2001%20(Epi%2009).mp4?h=bcab2c4b92c50f33f9cf23e77acb1f6c63e87e137fddccef90f89a5e81206c71&e=1748595364"
+      }
+    ]
+  },
+  {
+    "type": "series",
+    "id": "thelastofus-s02",
+    "title": "The Last of Us Season 2 (2025)",
+    "image": "https://m.media-amazon.com/images/M/MV5BYWI3ODJlMzktY2U5NC00ZjdlLWE1MGItNWQxZDk3NWNjN2RhXkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "Season": "S02"
+    },
+    "episodes": [
+      {
+        "id": "the-last-of-us-s2e1",
+        "season": 2,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20of%20Us%20(2025)/The%20Last%20of%20Us%20(Season%2002)/isaiDub.me%20-%20The%20Last%20of%20Us%202025%20Season%2002%20(Epi%2001).mp4?h=449086f0831edc61ceb3f429a6dd5a0fea25e910e1c468b0135865b1127f6ee1&e=1748595364",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20of%20Us%20(2025)/The%20Last%20of%20Us%20(Season%2002)/isaiDub.me%20-%20The%20Last%20of%20Us%202025%20Season%2002%20(Epi%2001).mp4?h=449086f0831edc61ceb3f429a6dd5a0fea25e910e1c468b0135865b1127f6ee1&e=1748595364"
+      },
+      {
+        "id": "the-last-of-us-s2e2",
+        "season": 2,
+        "episode": 2,
+        "title": "Episode 2",
+        "videoUrl": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20of%20Us%20(2025)/The%20Last%20of%20Us%20(Season%2002)/isaiDub.me%20-%20The%20Last%20of%20Us%202025%20Season%2002%20(Epi%2002).mp4?h=86cea45126105b895cce456e1eca55753eb52b7e8270b42deb3dfaf08150800c&e=1748595382",
+        "streamURL": "https://dub7-1.uptodub.ch/files/Tamil%20Dubbed%20Movies/The%20Last%20of%20Us%20(2025)/The%20Last%20of%20Us%20(Season%2002)/isaiDub.me%20-%20The%20Last%20of%20Us%202025%20Season%2002%20(Epi%2002).mp4?h=86cea45126105b895cce456e1eca55753eb52b7e8270b42deb3dfaf08150800c&e=1748595382"
+      },
+      {
+        "id": "the-last-of-us-s2e3",
+        "season": 2,
+        "episode": 3,
+        "title": "Episode 3",
+        "videoUrl": "https://s05.dubshare.one/isaiDub.me_-_The_Last_of_Us_2025_Season_02_Epi_03_.mp4",
+        "streamURL": "https://s05.dubshare.one/isaiDub.me_-_The_Last_of_Us_2025_Season_02_Epi_03_.mp4"
+      },
+      {
+        "id": "the-last-of-us-s2e4",
+        "season": 2,
+        "episode": 4,
+        "title": "Episode 4",
+        "videoUrl": "https://s06.dubshare.one/isaiDub.me_-_The_Last_of_Us_2025_Season_02_Epi_04_.mp4",
+        "streamURL": "https://s06.dubshare.one/isaiDub.me_-_The_Last_of_Us_2025_Season_02_Epi_04_.mp4"
+      },
+      {
+        "id": "the-last-of-us-s2e5",
+        "season": 2,
+        "episode": 5,
+        "title": "Episode 5",
+        "videoUrl": "https://s04.dubshare.one/isaiDub.me_-_The_Last_of_Us_2025_Season_02_Epi_05_.mp4",
+        "streamURL": "https://s04.dubshare.one/isaiDub.me_-_The_Last_of_Us_2025_Season_02_Epi_05_.mp4"
+      },
+      {
+        "id": "the-last-of-us-s2e6",
+        "season": 2,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://s01.dubshare.one/isaiDub.me_-_The_Last_of_Us_2025_Season_02_Epi_06_.mp4",
+        "streamURL": "https://s01.dubshare.one/isaiDub.me_-_The_Last_of_Us_2025_Season_02_Epi_06_.mp4"
+      }
+    ]
+  },
   {
     "type": "series",
     "id": "bet",
@@ -6744,6 +8863,20 @@ function loadShows() {
 loadShows();
 */
 
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/PanguPlay/service-worker.js')
+        .then(registration => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(error => {
+          console.error('Service Worker registration failed:', error);
+        });
+    });
+  }
 </script>
 
 </body>
