@@ -584,44 +584,12 @@ function getQualityClass(quality) {
   }
 }
 
-// Function to lock screen orientation to portrait on mobile devices only
-function handleScreenOrientation() {
-  // Check if this is a mobile device
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  
-  if (isMobile) {
-    try {
-      // For most modern mobile browsers
-      if (screen.orientation && screen.orientation.lock) {
-        screen.orientation.lock('portrait').catch(err => {
-          console.log('Orientation lock failed: ', err);
-        });
-      // For older iOS devices
-      } else if (window.orientation !== undefined) {
-        // Add a listener for orientation change
-        window.addEventListener('orientationchange', function() {
-          // If not in portrait mode (0 or 180 degrees)
-          if (window.orientation !== 0 && window.orientation !== 180) {
-            alert('Please rotate your device to portrait mode for the best experience.');
-          }
-        });
-      }
-    } catch (error) {
-      console.log('Screen orientation API not supported');
-    }
-  }
-  // Do nothing on desktop/laptop devices
-}
-
-// Call the function when the page loads
-document.addEventListener('DOMContentLoaded', handleScreenOrientation);
-
 const videos = [
   {	
     "type": "movie",
     "title": "Eleven (2025)",
     "image": "https://m.media-amazon.com/images/M/MV5BNzNkMGU4YzYtNTY1MC00MmIzLWI0ZjctMzhlMzYwZjQ3MjZjXkEyXkFqcGc@._V1_SX300.jpg",
-	"video": "https://storage.googleapis.com/panguplaybucket/Videos/Eleven%20(2025).mp4",
+	"video": "https://s10.hotshare.link/Eleven_2025_HQ_PreDVD_720p_HD.mp4",
     "details": {
       "director": "Lokkesh Ajls",
       "starring": "Naveen Chandra, Reyaa Hari, Abhirami",
@@ -630,8 +598,8 @@ const videos = [
       "language": "Tamil",
       "movieRating": "⭐7.6/10",
       "lastUpdated": "20 May 2025",
-      "fileSize": "1.5 GB",
-      "streamURL": "https://storage.googleapis.com/panguplaybucket/Videos/Eleven%20(2025).mp4"
+      "fileSize": "0.9 GB",
+      "streamURL": "https://s10.hotshare.link/Eleven_2025_HQ_PreDVD_720p_HD.mp4"
     },
     "id": "rakshana-2025"
   },	
@@ -639,7 +607,7 @@ const videos = [
     "type": "movie",
     "title": "Jora Kaiya Thattunga (2025)",
     "image": "https://m.media-amazon.com/images/M/MV5BYzhjZmVlMmQtNmY5NC00N2RjLTkxOWEtNTM2MjNmNzgzYjYxXkEyXkFqcGc@._V1_SX300.jpg",
-	"video": "https://storage.googleapis.com/panguplaybucket/Videos/Jora%20Kaithattunga%20%20(2025).mp4",
+	"video": "https://s06.hotshare.link/Jora_Kaiya_Thattunga_2025_HQ_PreDVD_720p_HD.mp4",
     "details": {
       "director": "Vineesh Millennium",
       "starring": "Yogi Babu, Hareesh Peradi, Shanthi Rao, Zakir Ali",
@@ -649,7 +617,7 @@ const videos = [
       "movieRating": "⭐8.8/10",
       "lastUpdated": "20 May 2025",
       "fileSize": "0.9 GB",
-      "streamURL": "https://storage.googleapis.com/panguplaybucket/Videos/Jora%20Kaithattunga%20%20(2025).mp4"
+      "streamURL": "https://s06.hotshare.link/Jora_Kaiya_Thattunga_2025_HQ_PreDVD_720p_HD.mp4"
     },
     "id": "rakshana-2025"
   },
@@ -26413,6 +26381,8 @@ loadHomeSections();
 
 
 </script>
+
+<script src="/PanguPlay/orientation-lock.js"></script>
 
 <script>
   if ('serviceWorker' in navigator) {
