@@ -10,7 +10,7 @@
   "background_color": "#121212",
   "theme_color": "#1f1f1f",
   "description": "Watch Latest Movies, TV Shows for free without Ads.",
-  "orientation": "any",
+  "orientation": "portrait",
   "categories": ["entertainment", "video", "streaming"],
   "icons": [
     {
