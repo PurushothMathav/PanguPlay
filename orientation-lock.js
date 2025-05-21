@@ -5,8 +5,35 @@ function setupOrientationLock() {
   
   if (!isMobile) return; // Exit if not on mobile
   
+  // Track fullscreen state
+  let isFullScreen = false;
+  
+  // Function to check if we're in fullscreen mode
+  function checkFullScreen() {
+    return (
+      document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.mozFullScreenElement ||
+      document.msFullscreenElement
+    ) !== null;
+  }
+  
+  // Update fullscreen tracking state
+  function updateFullScreenState() {
+    isFullScreen = checkFullScreen();
+  }
+  
+  // Add fullscreen change event listeners
+  document.addEventListener('fullscreenchange', updateFullScreenState);
+  document.addEventListener('webkitfullscreenchange', updateFullScreenState);
+  document.addEventListener('mozfullscreenchange', updateFullScreenState);
+  document.addEventListener('MSFullscreenChange', updateFullScreenState);
+  
   // Function to lock orientation
   function lockToPortrait() {
+    // Skip orientation lock if we're in fullscreen mode
+    if (isFullScreen) return;
+    
     if (screen.orientation && screen.orientation.lock) {
       screen.orientation.lock('portrait').catch(err => {
         console.log('Orientation lock failed: ', err);
@@ -25,7 +52,7 @@ function setupOrientationLock() {
   
   // Apply lock when page becomes visible again (tab switching or returning)
   document.addEventListener('visibilitychange', function() {
-    if (document.visibilityState === 'visible') {
+    if (document.visibilityState === 'visible' && !isFullScreen) {
       lockToPortrait();
     }
   });
@@ -33,12 +60,17 @@ function setupOrientationLock() {
   // Handle orientation changes
   window.addEventListener('orientationchange', function() {
     // Reapply lock with a slight delay after orientation changes
-    setTimeout(lockToPortrait, 100);
+    // but only if not in fullscreen mode
+    if (!isFullScreen) {
+      setTimeout(lockToPortrait, 100);
+    }
   });
   
   // For single-page applications or when using history API
   window.addEventListener('popstate', function() {
-    lockToPortrait();
+    if (!isFullScreen) {
+      lockToPortrait();
+    }
   });
 }
 
