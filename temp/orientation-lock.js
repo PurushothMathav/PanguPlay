@@ -5,9 +5,6 @@ function setupOrientationLock() {
   
   if (!isMobile) return; // Exit if not on mobile
   
-  // Check if we're on the player page
-  const isPlayerPage = window.location.pathname.includes('player.html');
-  
   // Track fullscreen state
   let isFullScreen = false;
   
@@ -32,25 +29,6 @@ function setupOrientationLock() {
   document.addEventListener('mozfullscreenchange', updateFullScreenState);
   document.addEventListener('MSFullscreenChange', updateFullScreenState);
   
-  // Function to enter fullscreen for the video
-  function enterVideoFullscreen() {
-    if (isPlayerPage && !isFullScreen) {
-      // Find the video element
-      const videoElement = document.querySelector('video');
-      if (videoElement) {
-        if (videoElement.requestFullscreen) {
-          videoElement.requestFullscreen();
-        } else if (videoElement.webkitRequestFullscreen) {
-          videoElement.webkitRequestFullscreen();
-        } else if (videoElement.mozRequestFullScreen) {
-          videoElement.mozRequestFullScreen();
-        } else if (videoElement.msRequestFullscreen) {
-          videoElement.msRequestFullscreen();
-        }
-      }
-    }
-  }
-  
   // Function to lock orientation
   function lockToPortrait() {
     // Skip orientation lock if we're in fullscreen mode
@@ -65,11 +43,6 @@ function setupOrientationLock() {
       if (window.orientation !== 0 && window.orientation !== 180) {
         // This is just a notification as direct locking isn't supported on iOS
         console.log('Please rotate to portrait mode');
-        
-        // If on player page and we detect landscape orientation, enter fullscreen
-        if (isPlayerPage) {
-          enterVideoFullscreen();
-        }
       }
     }
   }
@@ -86,21 +59,10 @@ function setupOrientationLock() {
   
   // Handle orientation changes
   window.addEventListener('orientationchange', function() {
-    // If we're on the player page and going to landscape, enter fullscreen
-    if (isPlayerPage) {
-      const orientation = window.orientation;
-      if (orientation === 90 || orientation === -90) {
-        // This is landscape mode, enter fullscreen after a brief delay
-        setTimeout(enterVideoFullscreen, 100);
-      } else if (!isFullScreen) {
-        // Only lock to portrait if not already in fullscreen
-        setTimeout(lockToPortrait, 100);
-      }
-    } else {
-      // For non-player pages, maintain portrait orientation
-      if (!isFullScreen) {
-        setTimeout(lockToPortrait, 100);
-      }
+    // Reapply lock with a slight delay after orientation changes
+    // but only if not in fullscreen mode
+    if (!isFullScreen) {
+      setTimeout(lockToPortrait, 100);
     }
   });
   
