@@ -1,5 +1,5 @@
 // PanguPlay PWA Service Worker
-const CACHE_NAME = "panguplay-v0521251500";
+const CACHE_NAME = "panguplay-v0522251400";
 const urlsToCache = [
   "/PanguPlay/",
   "/PanguPlay/index.html",
@@ -16,7 +16,7 @@ const urlsToCache = [
   "/PanguPlay/ply-logo.png",
   "/PanguPlay/icon-192.png",
   "/PanguPlay/icon-512.png",
-  "/PanguPlay/orientation-lock.js"
+  "/PanguPlay/orientation-lock.js",
   "https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.css",
   "https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.4.1/swiper-bundle.min.js",
   "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
