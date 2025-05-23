@@ -585,57 +585,6 @@ body.lock-scroll {
   touch-action: none;
 }
 
-.autoplay-overlay:fullscreen,
-.autoplay-overlay:-webkit-full-screen {
-  width: 100vw;
-  height: 100vh;
-}
-
-.auto-play-next-btn {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background: rgba(32, 32, 32, 0.95);
-  color: white;
-  border-radius: 30px;
-  padding: 8px 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  z-index: 1000;
-  font-size: 14px;
-  cursor: pointer;
-  border: 2px solid #ff4500;
-  transition: background 0.3s ease;
-}
-
-.auto-play-next-btn:hover {
-  background: #3a3a3a;
-}
-
-
-.progress-ring {
-  width: 24px;
-  height: 24px;
-}
-
-.progress-ring-path {
-  stroke-linecap: round;
-  transform: rotate(-90deg);
-  transform-origin: 50% 50%;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 0;
-}
-
-@keyframes countdownAnim {
-  from {
-    stroke-dashoffset: 0;
-  }
-  to {
-    stroke-dashoffset: 100;
-  }
-}
-
 
   </style>
 </head>
@@ -840,84 +789,274 @@ function handleVideoEnded() {
 // Show countdown overlay for auto-play
 function showAutoPlayOverlay() {
   const nextEpisode = episodes[currentEpisodeIndex + 1];
-  let countdown = 3;
-
-  let btn = document.getElementById('autoPlayNextBtn');
-  if (!btn) {
-    btn = createAutoPlayNextButton();
+  let countdown = 1; // 10 seconds countdown
+  
+  // Create overlay if it doesn't exist
+  let overlay = document.getElementById('autoplayOverlay');
+  if (!overlay) {
+    overlay = createAutoPlayOverlay();
   }
-
-  const label = btn.querySelector('.label');
-  const progress = btn.querySelector('.progress-ring');
-
-  label.textContent = `Auto: Next in ${countdown}s`;
-
-  // Show button
-  btn.style.display = 'flex';
-
-  // Animate progress ring
-  progress.style.animation = `countdownAnim ${countdown}s linear forwards`;
-
+  
+  // Update overlay content
+  const countdownElement = overlay.querySelector('.countdown');
+  const nextEpisodeTitle = overlay.querySelector('.next-episode-title');
+  
+  nextEpisodeTitle.textContent = `Next: S${String(nextEpisode.season).padStart(2, '0')}E${String(nextEpisode.episode).padStart(2, '0')} - ${nextEpisode.title || `Episode ${nextEpisode.episode}`}`;
+  
+  overlay.style.display = 'flex';
+  
   // Start countdown
   countdownInterval = setInterval(() => {
+    countdownElement.textContent = countdown;
     countdown--;
-    label.textContent = `Auto: Next in ${countdown}s`;
-    if (countdown <= 0) {
+    
+    if (countdown < 0) {
       clearInterval(countdownInterval);
       hideAutoPlayOverlay();
       playNextEpisode();
     }
   }, 1000);
+  
+  // Set initial countdown
+  countdownElement.textContent = countdown + 1;
 }
 
-function createAutoPlayNextButton() {
-  const btn = document.createElement('div');
-  btn.id = 'autoPlayNextBtn';
-  btn.className = 'auto-play-next-btn';
-  btn.innerHTML = `
-    <svg class="progress-ring" viewBox="0 0 36 36">
-      <path class="progress-ring-path"
-            stroke="#ff4500"
-            stroke-width="3"
-            fill="none"
-            stroke-dasharray="100, 100"
-            d="M18 2.0845
-               a 15.9155 15.9155 0 0 1 0 31.831
-               a 15.9155 15.9155 0 0 1 0 -31.831" />
-    </svg>
-    <span class="label">Auto: Next</span>
+// Create auto-play overlay element
+function createAutoPlayOverlay() {
+  const overlay = document.createElement('div');
+  overlay.id = 'autoplayOverlay';
+  overlay.className = 'autoplay-overlay';
+  
+  overlay.innerHTML = `
+    <div class="autoplay-content">
+      <div class="autoplay-header">
+        <i class="fas fa-play-circle"></i>
+        <span>Auto-playing next episode in</span>
+      </div>
+      <div class="countdown">10</div>
+      <div class="next-episode-title">Next Episode</div>
+      <div class="autoplay-controls">
+        <button class="autoplay-btn cancel-btn" onclick="cancelAutoPlay()">
+          <i class="fas fa-times"></i> Cancel
+        </button>
+        <button class="autoplay-btn play-now-btn" onclick="playNextEpisodeNow()">
+          <i class="fas fa-play"></i> Play Now
+        </button>
+      </div>
+    </div>
   `;
-  btn.onclick = () => {
-    clearInterval(countdownInterval);
-    hideAutoPlayOverlay();
-    playNextEpisode();
-  };
-
-  // ✅ Append to the correct fullscreen container if active
-  const container = document.fullscreenElement || document.querySelector('.video-container');
-
-  // Make sure it's only appended once
-  if (!document.getElementById('autoPlayNextBtn')) {
-    container.appendChild(btn);
-  }
-
-  return btn;
+  
+  document.querySelector('.video-container').appendChild(overlay);
+  return overlay;
 }
 
-
+// Hide auto-play overlay
 function hideAutoPlayOverlay() {
-  const btn = document.getElementById('autoPlayNextBtn');
-  if (btn) btn.style.display = 'none';
-  if (countdownInterval) clearInterval(countdownInterval);
+  const overlay = document.getElementById('autoplayOverlay');
+  if (overlay) {
+    overlay.style.display = 'none';
+  }
+  if (countdownInterval) {
+    clearInterval(countdownInterval);
+  }
 }
 
-document.addEventListener('fullscreenchange', () => {
-  const btn = document.getElementById('autoPlayNextBtn');
-  if (btn && btn.style.display === 'flex') {
-    document.fullscreenElement?.appendChild(btn);
+// Cancel auto-play
+function cancelAutoPlay() {
+  hideAutoPlayOverlay();
+  showToast('Auto-play cancelled');
+}
+
+// Play next episode immediately
+function playNextEpisodeNow() {
+  hideAutoPlayOverlay();
+  playNextEpisode();
+}
+
+// Toggle auto-play setting (you can add a button for this in your UI)
+function toggleAutoPlay() {
+  autoPlayNext = !autoPlayNext;
+  const status = autoPlayNext ? 'enabled' : 'disabled';
+  showToast(`Auto-play next episode ${status}`);
+  
+  // Save setting to localStorage
+  localStorage.setItem('autoPlayNext', autoPlayNext.toString());
+}
+
+// Load auto-play setting from localStorage
+function loadAutoPlaySetting() {
+  const saved = localStorage.getItem('autoPlayNext');
+  if (saved !== null) {
+    autoPlayNext = saved === 'true';
   }
+}
+
+// Add this CSS to your existing styles (add to the <style> section)
+const autoPlayCSS = `
+.autoplay-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.autoplay-content {
+  background: #202020;
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  max-width: 400px;
+  margin: 20px;
+  border: 2px solid #ff4500;
+}
+
+.autoplay-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.autoplay-header i {
+  color: #ff4500;
+  font-size: 24px;
+}
+
+.countdown {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ff4500;
+  margin: 20px 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.next-episode-title {
+  font-size: 16px;
+  color: #ccc;
+  margin-bottom: 25px;
+  line-height: 1.4;
+}
+
+.autoplay-controls {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.autoplay-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.cancel-btn {
+  background: #666;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #777;
+}
+
+.play-now-btn {
+  background: #ff4500;
+  color: white;
+}
+
+.play-now-btn:hover {
+  background: #ff6600;
+}
+
+@media (max-width: 768px) {
+  .autoplay-content {
+    padding: 20px;
+    margin: 15px;
+  }
+  
+  .countdown {
+    font-size: 36px;
+  }
+  
+  .next-episode-title {
+    font-size: 14px;
+  }
+  
+  .autoplay-controls {
+    flex-direction: column;
+  }
+  
+  .autoplay-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+`;
+
+// Add the CSS to the page
+function addAutoPlayStyles() {
+  const style = document.createElement('style');
+  style.textContent = autoPlayCSS;
+  document.head.appendChild(style);
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  // Your existing DOMContentLoaded code...
+  
+  // Add auto-play functionality
+  loadAutoPlaySetting();
+  addAutoPlayStyles();
 });
 
+// Optional: Add a toggle button to your custom controls
+function addAutoPlayToggleButton() {
+  const customControls = document.querySelector('.custom-controls .action-controls');
+  
+  const autoPlayBtn = document.createElement('button');
+  autoPlayBtn.className = 'custom-control-btn';
+  autoPlayBtn.id = 'autoPlayBtn';
+  autoPlayBtn.innerHTML = `<i class="fas fa-forward"></i> Auto`;
+  autoPlayBtn.onclick = toggleAutoPlay;
+  
+  // Update button appearance based on setting
+  function updateAutoPlayButton() {
+    if (autoPlayNext) {
+      autoPlayBtn.style.backgroundColor = '#ff4500';
+      autoPlayBtn.title = 'Auto-play next episode: ON';
+    } else {
+      autoPlayBtn.style.backgroundColor = '#666';
+      autoPlayBtn.title = 'Auto-play next episode: OFF';
+    }
+  }
+  
+  updateAutoPlayButton();
+  
+  // Override toggleAutoPlay to update button
+  const originalToggle = toggleAutoPlay;
+  toggleAutoPlay = function() {
+    originalToggle();
+    updateAutoPlayButton();
+  };
+  
+  customControls.appendChild(autoPlayBtn);
+}
 
     document.addEventListener('DOMContentLoaded', function() {
       // Get playerData from sessionStorage
@@ -933,8 +1072,6 @@ document.addEventListener('fullscreenchange', () => {
 	  enableLandscapeOnFullScreen();
 	  updateLogoInFullscreen();
       document.addEventListener('keydown', handleKeyboardShortcuts);
-	  loadAutoPlaySetting();
-	  addAutoPlayStyles();
     });
 
 
@@ -1298,6 +1435,7 @@ window['__onGCastApiAvailable'] = function(isAvailable) {
       }
     }
   });
+  showAutoPlayOverlay()
 }
 
 	
@@ -1368,12 +1506,12 @@ window['__onGCastApiAvailable'] = function(isAvailable) {
       }
     } */
 	
-async function downloadVideo() {
+		async function downloadVideo() {
   let urlToDownload = null;
   let filename = `${playerData.title}.mp4`;
   let fallbackUrl = null;
 
-  // === Series (episode) case ===
+  // === Series (Episode) Case ===
   if (currentEpisodeId && episodes.length > 0) {
     const episode = episodes[currentEpisodeIndex];
     urlToDownload = episode.videoUrl;
@@ -1381,24 +1519,21 @@ async function downloadVideo() {
     filename = `${playerData.title}-S${episode.season}E${episode.episode}.mp4`;
   }
 
-  // === Movie / single video ===
+  // === Movie or Single Video Case ===
   else if (playerData.video) {
-    // 🔍 Find currently playing quality
-    if (currentVideoSources.length > 1) {
-      const activeSource = currentVideoSources.find(src => src.quality === currentQuality);
-      urlToDownload = activeSource ? activeSource.url : playerData.video;
-      filename = `${playerData.title}-${currentQuality}.mp4`;
-    } else {
-      urlToDownload = playerData.video;
-      filename = `${playerData.title}.mp4`;
-    }
+    urlToDownload = playerData.video;
+    filename = `${playerData.title}.mp4`;
 
-    // Fallback by quality or lookUrl
-    fallbackUrl =
-      playerData.lookUrl ||
-      (currentQuality === '720p' && playerData['720Url']) ||
-      (currentQuality === '1080p' && playerData['1080Url']) ||
-      null;
+    // Use lookUrl (for single source) or fallback by currentQuality
+    if (playerData.lookUrl) {
+      fallbackUrl = playerData.lookUrl;
+    } else if (currentQuality === '720p' && playerData['720Url']) {
+      fallbackUrl = playerData['720Url'];
+      filename = `${playerData.title}-720p.mp4`;
+    } else if (currentQuality === '1080p' && playerData['1080Url']) {
+      fallbackUrl = playerData['1080Url'];
+      filename = `${playerData.title}-1080p.mp4`;
+    }
   }
 
   if (!urlToDownload) {
@@ -1408,6 +1543,7 @@ async function downloadVideo() {
 
   const hasToken = urlToDownload.includes('h=') && urlToDownload.includes('e=');
 
+  // === If tokenized URL, check validity first ===
   if (hasToken) {
     showToast('Checking download link...');
     try {
@@ -1415,14 +1551,16 @@ async function downloadVideo() {
       if (res.ok) {
         triggerDownload(urlToDownload, filename);
       } else {
-        throw new Error('Link expired');
+        throw new Error('Link expired or invalid');
       }
     } catch (err) {
-      console.warn('Token-protected download failed:', err);
+      console.warn('Download link invalid:', err);
       fallbackOrNotify(fallbackUrl);
     }
-  } else {
-    // ✅ Normal case — no token, just download selected quality
+  }
+
+  // === If normal URL (no token), proceed immediately ===
+  else {
     triggerDownload(urlToDownload, filename);
   }
 }
@@ -1443,10 +1581,9 @@ function fallbackOrNotify(fallbackUrl) {
     const open = confirm('Download link expired.\n\nOpen fallback page to download manually?');
     if (open) window.open(fallbackUrl, '_blank');
   } else {
-    showToast('No fallback link available.');
+    showToast('No fallback page available.');
   }
 }
-
 
 
 /*
