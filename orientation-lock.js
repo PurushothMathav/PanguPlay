@@ -2,15 +2,15 @@
 function setupOrientationLock() {
   // Check if this is a mobile device
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  
+
   if (!isMobile) return; // Exit if not on mobile
-  
+
   // Check if we're on the player page
   const isPlayerPage = window.location.pathname.includes('player.html');
-  
+
   // Track fullscreen state
   let isFullScreen = false;
-  
+
   // Function to check if we're in fullscreen mode
   function checkFullScreen() {
     return (
@@ -20,22 +20,30 @@ function setupOrientationLock() {
       document.msFullscreenElement
     ) !== null;
   }
-  
-  // Update fullscreen tracking state
-  function updateFullScreenState() {
-    isFullScreen = checkFullScreen();
+
+  // Function to lock orientation to portrait
+  function lockToPortrait() {
+    // Skip orientation lock if we're in fullscreen mode
+    if (isFullScreen) return;
+
+    if (screen.orientation && screen.orientation.lock) {
+      screen.orientation.lock('portrait').catch(err => {
+        console.log('Orientation lock failed: ', err);
+      });
+    } else if (window.orientation !== undefined) {
+      // Handle older devices (mostly iOS)
+      if (window.orientation !== 0 && window.orientation !== 180) {
+        console.log('Please rotate to portrait mode');
+        if (isPlayerPage) {
+          enterVideoFullscreen();
+        }
+      }
+    }
   }
-  
-  // Add fullscreen change event listeners
-  document.addEventListener('fullscreenchange', updateFullScreenState);
-  document.addEventListener('webkitfullscreenchange', updateFullScreenState);
-  document.addEventListener('mozfullscreenchange', updateFullScreenState);
-  document.addEventListener('MSFullscreenChange', updateFullScreenState);
-  
+
   // Function to enter fullscreen for the video
   function enterVideoFullscreen() {
     if (isPlayerPage && !isFullScreen) {
-      // Find the video element
       const videoElement = document.querySelector('video');
       if (videoElement) {
         if (videoElement.requestFullscreen) {
@@ -50,62 +58,53 @@ function setupOrientationLock() {
       }
     }
   }
-  
-  // Function to lock orientation
-  function lockToPortrait() {
-    // Skip orientation lock if we're in fullscreen mode
-    if (isFullScreen) return;
-    
-    if (screen.orientation && screen.orientation.lock) {
-      screen.orientation.lock('portrait').catch(err => {
-        console.log('Orientation lock failed: ', err);
-      });
-    } else if (window.orientation !== undefined) {
-      // Handle older devices (mostly iOS)
-      if (window.orientation !== 0 && window.orientation !== 180) {
-        // This is just a notification as direct locking isn't supported on iOS
-        console.log('Please rotate to portrait mode');
-        
-        // If on player page and we detect landscape orientation, enter fullscreen
-        if (isPlayerPage) {
-          enterVideoFullscreen();
-        }
-      }
+
+  // Update fullscreen tracking state
+  function updateFullScreenState() {
+    const wasFullScreen = isFullScreen;
+    isFullScreen = checkFullScreen();
+
+    // Re-lock orientation after exiting fullscreen
+    if (wasFullScreen && !isFullScreen) {
+      lockToPortrait();
     }
   }
-  
+
+  // Add fullscreen change event listeners
+  document.addEventListener('fullscreenchange', updateFullScreenState);
+  document.addEventListener('webkitfullscreenchange', updateFullScreenState);
+  document.addEventListener('mozfullscreenchange', updateFullScreenState);
+  document.addEventListener('MSFullscreenChange', updateFullScreenState);
+
   // Apply lock on page load
   lockToPortrait();
-  
-  // Apply lock when page becomes visible again (tab switching or returning)
-  document.addEventListener('visibilitychange', function() {
+
+  // Apply lock when page becomes visible again
+  document.addEventListener('visibilitychange', function () {
     if (document.visibilityState === 'visible' && !isFullScreen) {
       lockToPortrait();
     }
   });
-  
+
   // Handle orientation changes
-  window.addEventListener('orientationchange', function() {
-    // If we're on the player page and going to landscape, enter fullscreen
+  window.addEventListener('orientationchange', function () {
     if (isPlayerPage) {
       const orientation = window.orientation;
       if (orientation === 90 || orientation === -90) {
-        // This is landscape mode, enter fullscreen after a brief delay
+        // Landscape mode
         setTimeout(enterVideoFullscreen, 100);
       } else if (!isFullScreen) {
-        // Only lock to portrait if not already in fullscreen
         setTimeout(lockToPortrait, 100);
       }
     } else {
-      // For non-player pages, maintain portrait orientation
       if (!isFullScreen) {
         setTimeout(lockToPortrait, 100);
       }
     }
   });
-  
-  // For single-page applications or when using history API
-  window.addEventListener('popstate', function() {
+
+  // Handle SPA navigation or back/forward actions
+  window.addEventListener('popstate', function () {
     if (!isFullScreen) {
       lockToPortrait();
     }
