@@ -635,7 +635,33 @@ body.lock-scroll {
     stroke-dashoffset: 100;
   }
 }
+/*
+.video-title-overlay {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 6px 12px;
+  border-radius: 8px;
+  z-index: 9998;
+  pointer-events: none;
+  max-width: 90%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
+.video-container:fullscreen .video-title-overlay,
+.video-container:-webkit-full-screen .video-title-overlay {
+  font-size: 20px;
+  top: 20px;
+}
+*/
 
   </style>
 </head>
@@ -698,6 +724,7 @@ body.lock-scroll {
 			<div class="player-logo-overlay" id="logoOverlay">
 				<img src="ply-logo.png" alt="Logo" />
 			</div>
+			<!-- <div id="videoTitleOverlay" class="video-title-overlay">Video Title</div> -->
 			<div id="loadingOverlay" class="loading-overlay">
 				<div class="loading-spinner"></div>
 			</div>
@@ -1473,6 +1500,7 @@ function addCaptionsToPlayer(captions) {
     // Setup page content
 function setupPage() {
       document.getElementById('videoTitle').textContent = playerData.title;
+	  //document.getElementById('videoTitleOverlay').textContent = playerData.title;
       document.getElementById('pageHeading').textContent = playerData.title;
       document.title = playerData.title + ' - PanguPlay';
       const posterUrl = playerData.image;
@@ -1729,6 +1757,9 @@ function loadVideo(initialUrl) {
       }
       setupResolutionSelector();
       loadVideo(currentVideoSources[0]?.url || '');
+	  /*
+	    document.getElementById('videoTitleOverlay').textContent =
+    `S${String(episode.season).padStart(2, '0')}E${String(episode.episode).padStart(2, '0')} - ${episode.title}`; */
       updateHeaderTitle(playerData.title, true, episode.season, episode.episode, episode.title);
       updateEpisodeButtons();
       updateNavButtons();
