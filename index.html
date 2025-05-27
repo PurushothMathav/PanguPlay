@@ -80,7 +80,7 @@
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #121212; color: #fff;  font-family: Arial, sans-serif; }
+    body { background: #121212; color: #fff;  font-family: Arial, sans-serif; } 
     a { color: inherit; text-decoration: none; }
     img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; }
 
@@ -402,7 +402,7 @@ footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f
   <div class="nav-left">
   <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
   <a href="index.html" class="nav-logo">PanguPlay</a>
-  <button class="bell-btn" id="bellBtn" title="Notifications">🔔</button>
+  <!-- <button class="bell-btn" id="bellBtn" title="Notifications">🔔</button> -->
 </div>
 
   <div class="nav-center nav-links">
@@ -416,6 +416,7 @@ footer { text-align: center; padding: 20px; font-size: 14px; background: #1f1f1f
   </div>
 
   <div class="nav-right">
+	<button class="bell-btn" id="bellBtn" title="Notifications">🔔</button>
     <div class="search-bar">
       <input type="text" placeholder="Search..." id="searchInput" oninput="searchFunction()">
       <button id="clearButton">✖</button>
@@ -583,6 +584,46 @@ function getQualityClass(quality) {
 }
 
 const videos = [
+  {
+    "type": "movie",
+    "title": "Kodai Mazhai (1986)",
+    "image": "https://m.media-amazon.com/images/M/MV5BNDY1ZGQwMGMtMWI5MC00ODc0LTg5NWMtNTkzOTZiMDgyZjc5XkEyXkFqcGc@._V1_QL75_UY562_CR91,0,380,562_.jpg",
+    "video": "https://s07.hotshare.link/Moviesda.Mobi_-_Kodai_Mazhai_1986_Original_720p_HD.mp4",
+    "lookUrl": "https://play.onestream.watch/stream/page/90744",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "quality": "720p",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "17 April 2025",
+      "fileSize": "1.23 GB",
+      "streamURL": "https://s07.hotshare.link/Moviesda.Mobi_-_Kodai_Mazhai_1986_Original_720p_HD.mp4"
+    },
+    "id": "kodai-mazhai-1986"
+  },
+  {
+    "type": "movie",
+    "title": "Samar (2013)",
+    "image": "https://m.media-amazon.com/images/M/MV5BNTdiZDhkNzYtMGQxNC00ODA0LTljZDAtYWYyYzcxMGM0NGNiXkEyXkFqcGc@._V1_QL75_UY562_CR13,0,380,562_.jpg",
+    "video": "https://s07.hotshare.link/Moviesda.Mobi_-_Samar_2013_Original_1080p_HD.mp4",
+    "alt": "https://s08.hotshare.link/Moviesda.Mobi_-_Samar_2013_Original_720p_HD.mp4",
+    "1080Url": "https://play.onestream.watch/stream/page/90725",
+    "720Url": "https://play.onestream.watch/stream/page/90730",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "quality": "1080p",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "17 April 2025",
+      "fileSize": "1.63 GB",
+      "streamURL": "https://s07.hotshare.link/Moviesda.Mobi_-_Samar_2013_Original_1080p_HD.mp4"
+    },
+    "id": "samar-2013"
+  },
   {
     "type": "movie",
     "title": "Ace (2025)",
@@ -19762,6 +19803,33 @@ const videos = [
     "id": "lara-2025",
     "lookUrl": "https://play.onestream.watch/stream/page/88788"
   },
+  {
+    "type": "series",
+    "id": "peakyblinders-s02",
+    "title": "Peaky Blinders Season 2 (2014)",
+    "image": "https://m.media-amazon.com/images/M/MV5BY2ZiNWIxMDMtZDAzOC00NjVmLWFjYTUtZmE4YWViODJkYzhjXkEyXkFqcGc@._V1_SX300.jpg",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "27 May 2025",
+      "quality": "S02"
+    },
+    "episodes": [
+      {
+        "id": "peaky-blinders-s2e1",
+        "season": 2,
+        "episode": 1,
+        "title": "Episode 1",
+        "videoUrl": "https://s06.dubshare.one/isaiDub.me_-_Peaky_Blinders_2014_Season_02_Epi_01_.mp4",
+        "streamURL": "https://s06.dubshare.one/isaiDub.me_-_Peaky_Blinders_2014_Season_02_Epi_01_.mp4",
+        "lookUrl": "https://dub.onestream.watch/stream/video/100099"
+      }
+    ]
+  },
+
 {
   "type": "series",
   "id": "peakyblinders-s01",
@@ -19822,6 +19890,15 @@ const videos = [
       "streamURL": "https://s07.dubshare.one/isaiDub.me_-_Peaky_Blinders_2013_Season_01_Epi_05_.mp4",
       "lookUrl": "https://dub.onestream.watch/stream/video/99975"
     },
+	{
+        "id": "peaky-blinders-s1e6",
+        "season": 1,
+        "episode": 6,
+        "title": "Episode 6",
+        "videoUrl": "https://s10.dubshare.one/isaiDub.me_-_Peaky_Blinders_2013_Season_01_Epi_06_.mp4",
+        "streamURL": "https://s10.dubshare.one/isaiDub.me_-_Peaky_Blinders_2013_Season_01_Epi_06_.mp4",
+        "lookUrl": "https://dub.onestream.watch/stream/video/100084"
+    }	
   ]
 },
   {
