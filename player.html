@@ -663,6 +663,46 @@ body.lock-scroll {
 }
 */
 
+.plyr__time--duration {
+  display: inline !important;
+  visibility: visible !important;
+  width: auto !important;
+  opacity: 1 !important;
+}
+
+.player-wrapper .mature-warning {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: black;
+  color: white;
+  padding: 10px 15px;
+  font-size: 18px;
+  font-weight: bold;
+  border-left: 5px solid #ffc107;
+  z-index: 20;
+  opacity: 0;
+  transform: translate(-100%, -100%) scale(1);
+  transition: transform 0.4s ease-out, opacity 0.3s ease-in;
+  pointer-events: none;
+  text-align: left;
+  line-height: 1.4;
+  border-radius: 4px;
+}
+
+.player-wrapper .mature-warning.show {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+.player-wrapper .mature-warning.hide {
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.3s ease-in, opacity 0.3s ease-in;
+}
+
+
+
   </style>
 </head>
 <body>
@@ -728,6 +768,10 @@ body.lock-scroll {
 			<div id="loadingOverlay" class="loading-overlay">
 				<div class="loading-spinner"></div>
 			</div>
+			
+			<!-- 👇 Add this inside player-wrapper -->
+			<div id="matureTextWarning" class="mature-warning">Rated: <strong>A 18+</strong><br> MATURE CONTENT</div>
+
 			<video id="player" playsinline controls data-poster="">
 				<source src="" type="video/mp4" size="1080">
 				<source src="" type="video/mp4" size="720">
@@ -790,6 +834,7 @@ body.lock-scroll {
   </div>
   
   <div id="toast" class="toast"></div>
+  
 
   <footer>
     &copy; 2025 PanguPlay
@@ -809,6 +854,7 @@ disable-paste='true'>
   <script>
     // Global variables
 // Instead of reading from URL, read from sessionStorage
+	let matureImageShown = false;
     let playerData = null;
     let episodes = [];
     let currentEpisodeId = null;
@@ -825,8 +871,8 @@ disable-paste='true'>
   const isMobile = window.innerWidth <= 768;
   player = new Plyr('#player', {
     controls: isMobile
-      ? ['play-large', 'rewind', 'play', 'fast-forward', 'mute', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']
-      : ['play-large', 'rewind', 'play', 'fast-forward', 'mute', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+      ? ['play-large', 'rewind', 'play', 'fast-forward', 'mute', 'progress', 'current-time', 'duration', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']
+      : ['play-large', 'rewind', 'play', 'fast-forward', 'mute', 'progress', 'current-time', 'duration', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
     settings: ['captions', 'speed'],
     resetOnEnd: false,
     keyboard: { focused: true, global: true },
@@ -848,6 +894,22 @@ disable-paste='true'>
   // NEW: Add auto next episode functionality
   player.on('ended', handleVideoEnded);
 }
+
+function showMatureTextWarning() {
+  const el = document.getElementById('matureTextWarning');
+  if (!el) return;
+
+  el.classList.add('show');
+
+  // Wait 2s, then shrink + hide
+  setTimeout(() => {
+    el.classList.add('hide');
+    setTimeout(() => {
+      el.remove(); // Optional: fully remove from DOM
+    }, 300); // match CSS shrink duration
+  }, 5000);
+}
+
 
 // Handle video end for auto-play next episode
 function handleVideoEnded() {
@@ -1499,6 +1561,14 @@ function addCaptionsToPlayer(captions) {
    
     // Setup page content
 function setupPage() {
+
+if (playerData.mature === 'A' && !matureImageShown) {
+  showMatureTextWarning();
+  matureImageShown = true; // prevent re-triggering
+}
+
+
+
       document.getElementById('videoTitle').textContent = playerData.title;
 	  //document.getElementById('videoTitleOverlay').textContent = playerData.title;
       document.getElementById('pageHeading').textContent = playerData.title;
@@ -1548,9 +1618,9 @@ function setupPage() {
         setupResolutionSelector();
         loadVideo(currentVideoSources[0]?.url || '');
       }
-
     }
 	
+		
 function loadVideo(initialUrl) {
   if (!player) return;
   showLoading();
@@ -1893,8 +1963,8 @@ function loadVideo(initialUrl) {
       document.getElementById('clearButton').style.display = 'none';
       document.getElementById('searchResults').style.display = 'none';
     }
-	
-	
+
+
   </script>
   
 <script>
