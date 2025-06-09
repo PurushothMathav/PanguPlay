@@ -571,6 +571,8 @@ disable-paste='false'>
   &copy; 2025 PanguPlay
 </footer>
 
+<div id="gestureZone" style="position: fixed; top: 0; left: 0; height: 100%; width: 30px; z-index: 3000;"></div>
+
 <script>
 // Get the button
 const backToTopButton = document.getElementById("backToTopBtn");
@@ -24725,6 +24727,23 @@ function loadMovies() {
 
 loadMovies();
 */
+</script>
+
+<script>
+
+const gestureZone = document.getElementById('gestureZone');
+
+gestureZone.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+gestureZone.addEventListener('touchend', (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  if (touchEndX - touchStartX > 60) {
+    toggleMenu();
+  }
+});
+
 </script>
 
 <script src="/PanguPlay/orientation-lock.js"></script>
