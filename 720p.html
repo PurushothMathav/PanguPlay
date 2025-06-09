@@ -226,7 +226,7 @@
 
 .swiper-slide img {
   width: 100%;
-  height: 180px;
+  height: 210px;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -476,17 +476,6 @@
   </div>
 </div>
 
-<!-- Notification Popup 
-<div id="notificationPopup" class="notification-popup" style="display:none;">
-  <strong>What's New</strong>
-  <ul style="margin:8px 0 0 0; padding-left:18px;">
-    <li style="display:flex;align-items:center;gap:8px;">
-      <img src="https://m.media-amazon.com/images/M/MV5BYjIzOTgxZTQtN2ExMy00MGM1LThjYTgtNGE5MTUxN2Q5YjRjXkEyXkFqcGc@._V1_SX300.jpg" alt="Sattur Railway Station" style="width:50px;height:70px;object-fit:cover;border-radius:4px;">
-      Sattur Railway Station (2023)
-    </li>
-  </ul>
-</div> -->
-
 <!-- Mobile Menu Backdrop -->
 <div class="mobile-backdrop" id="mobileBackdrop" onclick="closeMenu()"></div>
 
@@ -539,6 +528,8 @@
 <footer>
   &copy; 2025 PanguPlay
 </footer>
+
+<div id="gestureZone" style="position: fixed; top: 0; left: 0; height: 100%; width: 30px; z-index: 3000;"></div>
 
 <script disable-devtool-auto='true'
 src='https://cdn.jsdelivr.net/npm/disable-devtool'
@@ -792,11 +783,192 @@ const videos = [
 		  streamURL: "https://storage.googleapis.com/panguplay/kukufm/The%20Substitute%20Bride.mp4"
         }
 	},
-
-
-
-
-
+	{
+        type: "720p",
+		title: "Contract Pregnant wife",
+        image: "https://images.cdn.kukufm.com/w:640/f:webp/q:50/https://images.cdn.kukufm.com/f:webp/https://s3.ap-south-1.amazonaws.com/kukufm/channel_icons/47075e3cd8984b268a651e8e79f58607_landscape_155.png",
+        video: "https://storage.googleapis.com/panguplay/kukufm/Contract%20Pregnant%20wife.mp4",
+        details: {
+          director: "",
+          starring: "",
+          genres: "",
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '⭐',
+          lastUpdated: '09 June 2025',
+		  fileSize: '',
+		  streamURL: "https://storage.googleapis.com/panguplay/kukufm/Contract%20Pregnant%20wife.mp4"
+        }
+	},
+	{
+        type: "720p",
+		title: "Crowned in Love",
+        image: "https://images.cdn.kukufm.com/w:640/f:webp/q:50/https://images.cdn.kukufm.com/f:webp/https://s3.ap-south-1.amazonaws.com/kukufm/channel_icons/909628f22c5a419dab6c007eadf125a5_landscape_903.jpg",
+        video: "https://storage.googleapis.com/panguplay/kukufm/Crowned%20in%20Love.mp4",
+        details: {
+          director: "",
+          starring: "",
+          genres: "",
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '⭐',
+          lastUpdated: '09 June 2025',
+		  fileSize: '',
+		  streamURL: "https://storage.googleapis.com/panguplay/kukufm/Crowned%20in%20Love.mp4"
+        }
+	},
+	{
+        type: "720p",
+		title: "Cubicle Cupid's Twist",
+        image: "https://images.cdn.kukufm.com/w:640/f:webp/q:50/https://images.cdn.kukufm.com/f:webp/https://s3.ap-south-1.amazonaws.com/kukufm/channel_icons/2aa9bb8de9d04379b057294f3774b151_landscape_810.png",
+        video: "https://storage.googleapis.com/panguplay/kukufm/Cubicle%20Cupid's%20Twist.mp4",
+        details: {
+          director: "",
+          starring: "",
+          genres: "",
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '⭐',
+          lastUpdated: '09 June 2025',
+		  fileSize: '',
+		  streamURL: "https://storage.googleapis.com/panguplay/kukufm/Cubicle%20Cupid's%20Twist.mp4"
+        }
+	},
+	{
+        type: "720p",
+		title: "Cursed Daughter",
+        image: "https://images.cdn.kukufm.com/w:640/f:webp/q:50/https://images.cdn.kukufm.com/f:webp/https://s3.ap-south-1.amazonaws.com/kukufm/channel_icons/9186bab2e45844a9815e18b26ff273ca_landscape_197.jpg",
+        video: "https://storage.googleapis.com/panguplay/kukufm/Cursed%20Daughter.mp4",
+        details: {
+          director: "",
+          starring: "",
+          genres: "",
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '⭐',
+          lastUpdated: '09 June 2025',
+		  fileSize: '',
+		  streamURL: "https://storage.googleapis.com/panguplay/kukufm/Cursed%20Daughter.mp4"
+        }
+	},
+	{
+        type: "720p",
+		title: "Desperate Husband's Revenge",
+        image: "https://images.cdn.kukufm.com/w:640/f:webp/q:50/https://images.cdn.kukufm.com/f:webp/https://s3.ap-south-1.amazonaws.com/kukufm/channel_icons/fcb3e29462d94bd295a39cd02a796e67_landscape_314.png",
+        video: "https://storage.googleapis.com/panguplay/kukufm/Desperate%20Husband's%20Revenge.mp4",
+        details: {
+          director: "",
+          starring: "",
+          genres: "",
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '⭐',
+          lastUpdated: '09 June 2025',
+		  fileSize: '',
+		  streamURL: "https://storage.googleapis.com/panguplay/kukufm/Desperate%20Husband's%20Revenge.mp4"
+        }
+	},
+	{
+        type: "720p",
+		title: "Destined to Meet You",
+        image: "https://images.cdn.kukufm.com/w:640/f:webp/q:50/https://images.cdn.kukufm.com/f:webp/https://s3.ap-south-1.amazonaws.com/kukufm/channel_icons/39ee6d44bfd440dfae46cb17cf5ff35e_landscape_952.png",
+        video: "https://storage.googleapis.com/panguplay/kukufm/Destined%20to%20Meet%20You.mp4",
+        details: {
+          director: "",
+          starring: "",
+          genres: "",
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '⭐',
+          lastUpdated: '09 June 2025',
+		  fileSize: '',
+		  streamURL: "https://storage.googleapis.com/panguplay/kukufm/Destined%20to%20Meet%20You.mp4"
+        }
+	},
+	{
+        type: "720p",
+		title: "Divorced Billionaire Heiress",
+        image: "https://images.cdn.kukufm.com/w:640/f:webp/q:50/https://images.cdn.kukufm.com/f:webp/https://s3.ap-south-1.amazonaws.com/kukufm/channel_icons/1f1601eeb6144caaacee5c2cb6eedb12_landscape_258.png",
+        video: "https://storage.googleapis.com/panguplay/kukufm/Divorced%20Billionaire%20Heiress.mp4",
+        details: {
+          director: "",
+          starring: "",
+          genres: "",
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '⭐',
+          lastUpdated: '09 June 2025',
+		  fileSize: '',
+		  streamURL: "https://storage.googleapis.com/panguplay/kukufm/Divorced%20Billionaire%20Heiress.mp4"
+        }
+	},{
+        type: "720p",
+		title: "Divorced But Doted Upon by the Trio",
+        image: "https://images.cdn.kukufm.com/w:640/f:webp/q:50/https://images.cdn.kukufm.com/f:webp/https://s3.ap-south-1.amazonaws.com/kukufm/channel_icons/1a1181d1a6624e658839b611665e3328_landscape_47.png",
+        video: "https://storage.googleapis.com/panguplay/kukufm/Divorced%20But%20Doted%20Upon%20by%20the%20Trio.mp4",
+        details: {
+          director: "",
+          starring: "",
+          genres: "",
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '⭐',
+          lastUpdated: '09 June 2025',
+		  fileSize: '',
+		  streamURL: "https://storage.googleapis.com/panguplay/kukufm/Divorced%20But%20Doted%20Upon%20by%20the%20Trio.mp4"
+        }
+	},
+	{
+        type: "720p",
+		title: "Don't Mess With Super DAD",
+        image: "https://images.cdn.kukufm.com/w:640/f:webp/q:50/https://images.cdn.kukufm.com/f:webp/https://s3.ap-south-1.amazonaws.com/kukufm/channel_icons/28c9e2343fcd4e5394cdc143670401d8_landscape_916.png",
+        video: "https://storage.googleapis.com/panguplay/kukufm/Don't%20Mess%20With%20Super%20DAD.mp4",
+        details: {
+          director: "",
+          starring: "",
+          genres: "",
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '⭐',
+          lastUpdated: '09 June 2025',
+		  fileSize: '',
+		  streamURL: "https://storage.googleapis.com/panguplay/kukufm/Don't%20Mess%20With%20Super%20DAD.mp4"
+        }
+	},
+	{
+        type: "720p",
+		title: "Don't Speak",
+        image: "https://images.cdn.kukufm.com/w:640/f:webp/q:50/https://images.cdn.kukufm.com/f:webp/https://s3.ap-south-1.amazonaws.com/kukufm/channel_icons/c80ccceae31e4626aab054c9c0f3726d_landscape_167.png",
+        video: "https://storage.googleapis.com/panguplay/kukufm/Don't%20Speak.mp4",
+        details: {
+          director: "",
+          starring: "",
+          genres: "",
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '⭐',
+          lastUpdated: '09 June 2025',
+		  fileSize: '',
+		  streamURL: "https://storage.googleapis.com/panguplay/kukufm/Don't%20Speak.mp4"
+        }
+	},
+	{
+        type: "720p",
+		title: "Dracula's Curse",
+        image: "https://images.cdn.kukufm.com/w:640/f:webp/q:50/https://images.cdn.kukufm.com/f:webp/https://s3.ap-south-1.amazonaws.com/kukufm/channel_icons/33fea3cfdbb84c43a1d2c1cd8356e0a7_landscape_736.jpg",
+        video: "https://storage.googleapis.com/panguplay/kukufm/Dracula's%20Curse.mp4",
+        details: {
+          director: "",
+          starring: "",
+          genres: "",
+          quality: 'WEBDL',
+          language: 'Tamil',
+          movieRating: '⭐',
+          lastUpdated: '09 June 2025',
+		  fileSize: '',
+		  streamURL: "https://storage.googleapis.com/panguplay/kukufm/Dracula's%20Curse.mp4"
+        }
+	}
 
 ]; // Insert your full 720p list here
 
@@ -949,39 +1121,6 @@ document.addEventListener('DOMContentLoaded', () => {
 };
   filterAndRenderWebdl();
 });
-/*
-// Show/hide notification popup
-const bellBtn = document.getElementById('bellBtn');
-const popup = document.getElementById('notificationPopup');
-
-bellBtn.addEventListener('click', function(event) {
-  event.stopPropagation();
-  popup.style.display = (popup.style.display === 'none' || popup.style.display === '') ? 'block' : 'none';
-});
-
-// Hide popup when clicking outside
-document.addEventListener('click', function(event) {
-  if (popup.style.display === 'block' && !popup.contains(event.target) && event.target !== bellBtn) {
-    popup.style.display = 'none';
-  }
-}); */
-
-/*
-function openPlayer(video) {
-  const details = encodeURIComponent(JSON.stringify(video.details));
-  let url = `player.html?title=${encodeURIComponent(video.title)}&image=${encodeURIComponent(video.image)}&details=${details}`;
-  if (video.type === 'series') {
-    const episodes = encodeURIComponent(JSON.stringify(video.episodes));
-    url += `&id=${video.id}&episodes=${episodes}`;
-  } else {
-    url += `&video=${encodeURIComponent(video.video)}`;
-	if (video.alt) {
-		url += `&alt=${encodeURIComponent(video.alt)}`;
-	}
-  }
-  window.location.href = url;
-}
-*/
 
 function openPlayer(video) {
   sessionStorage.setItem('playerData', JSON.stringify(video));
@@ -1015,7 +1154,7 @@ function loadSwiper() {
 
   // Initialize Swiper
   const swiper = new Swiper('.swiper', {
-    slidesPerView: 3.0,
+    slidesPerView: 1.0,
     spaceBetween: 10,
     loop: true,
     autoplay: {
@@ -1030,44 +1169,7 @@ function loadSwiper() {
 }
 
 loadSwiper();
-/*
-function load720p() {
-  const webdl = document.getElementById('720pList');
 
-  // Sort 720p movies/shows by lastUpdated in descending order (latest first)
-  videos
-    .filter(v => v.type === '720p')
-    .sort((a, b) => parseDate(b.details.lastUpdated) - parseDate(a.details.lastUpdated))
-    .forEach(v => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      
-      // Check if image exists, if not use our new placeholder generator
-      let imageContent;
-	  const quality = v.details.quality || 'SD';
-      const qualityClass = getQualityClass(quality);
-      if (v.image && v.image.trim() !== '') {
-        imageContent = `
-          <div class="card-image-container">
-            <img src="${v.image}" alt="${v.title}" loading="lazy">
-            <div class="quality-tag ${qualityClass}">${quality}</div>
-          </div>`;
-      } else {
-        imageContent = `
-          <div class="card-image-container">
-            ${generatePlaceholderImage(v.title)}
-            <div class="quality-tag ${qualityClass}">${quality}</div>
-          </div>`;
-      }
-      
-      card.innerHTML = `${imageContent}
-                       <div class="card-title">${v.title}</div>`;
-      card.onclick = () => openPlayer(v);
-      webdl.appendChild(card);
-    });
-}
-
-load720p(); */
 </script>
 
 <script>
@@ -1083,6 +1185,49 @@ load720p(); */
     });
   }
 </script>
+
+<script>
+
+/*
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', function (e) {
+  touchStartX = e.changedTouches[0].screenX;
+}, false);
+
+document.addEventListener('touchend', function (e) {
+  touchEndX = e.changedTouches[0].screenX;
+  handleGesture();
+}, false);
+
+function handleGesture() {
+  const swipeDistance = touchEndX - touchStartX;
+  if (swipeDistance > 60 && touchStartX < 50) {
+    // Swiped right from left edge
+    toggleMenu();
+  } else if (swipeDistance < -60 && document.getElementById("mobileMenu").classList.contains("open")) {
+    // Swiped left while menu is open
+    closeMenu();
+  }
+}
+*/
+
+const gestureZone = document.getElementById('gestureZone');
+
+gestureZone.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+gestureZone.addEventListener('touchend', (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  if (touchEndX - touchStartX > 60) {
+    toggleMenu();
+  }
+});
+
+</script>
+
 
 <script src="/PanguPlay/orientation-lock.js"></script>
 
