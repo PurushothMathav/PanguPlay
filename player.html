@@ -51,19 +51,57 @@
       font-size: 14px;
       cursor: pointer;
     }
+	
     .video-container {
       width: 100%;
       border-radius: 10px;
       overflow: hidden;
       margin: 10px 0;
-      aspect-ratio: 16/9;
+      //aspect-ratio: 16/9;
       position: relative;
-    }
-    .player-wrapper {
+    } 
+	
+	.player-wrapper {
       width: 100%;
       height: 100%;
       position: relative;
     }
+	
+	.video-container video {
+  width: 100%;
+  height: auto;
+  max-height: 80vh; /* prevent fullscreen overflow */
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+	
+	/*
+	.video-container video {
+  width: 100%;
+  height: auto;
+  max-height: 80vh; /* prevent fullscreen overflow */
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+	.player-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black; /* ensures no weird background in fullscreen */
+  width: 100%;
+  height: 100%;
+}
+
+.player-wrapper video {
+  max-width: 100%;
+  max-height: 100vh;
+  object-fit: contain;
+}
+
+ */   
     .resolution-selector {
       display: flex;
       justify-content: center;
@@ -716,7 +754,7 @@ body.lock-scroll {
         <a href="movies.html">Movies</a>
         <a href="shows.html">Shows</a>
         <a href="dubbed.html">Tamil Dub</a>
-        <a href="720p.html">720p</a>
+        <a href="720p.html">Kuku TV</a>
         <a href="request.html">Request</a>
         <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">Telegram</a>
       </div>
@@ -741,7 +779,7 @@ body.lock-scroll {
     <a href="movies.html">🎬 Movies</a>
     <a href="shows.html">📺 Shows</a>
     <a href="dubbed.html">🎙 Tamil Dub</a>
-    <a href="720p.html">🎞️ 720p HD</a>
+    <a href="720p.html">🎞️ Kuku TV</a>
     <a href="request.html">📩 Request</a>
     <a href="https://t.me/+QscDhM495tM4NTg9" target="_blank">💬 Telegram</a>
   </div>
@@ -1963,6 +2001,33 @@ function loadVideo(initialUrl) {
       document.getElementById('clearButton').style.display = 'none';
       document.getElementById('searchResults').style.display = 'none';
     }
+
+const video = document.getElementById('player');
+video.addEventListener('loadedmetadata', () => {
+  const ratio = video.videoWidth / video.videoHeight;
+  const wrapper = document.querySelector('.player-wrapper');
+
+  if (ratio < 1) {
+    // Portrait mode
+    wrapper.style.maxWidth = '406px';
+    wrapper.style.margin = '0 auto';
+  } else {
+    // Landscape
+    wrapper.style.maxWidth = '100%';
+  }
+}); 
+
+document.addEventListener('fullscreenchange', () => {
+  const wrapper = document.querySelector('.player-wrapper');
+  if (document.fullscreenElement) {
+    wrapper.style.justifyContent = 'center';
+    wrapper.style.alignItems = 'center';
+  } else {
+    wrapper.style.justifyContent = '';
+    wrapper.style.alignItems = '';
+  }
+});
+
 
 
   </script>
