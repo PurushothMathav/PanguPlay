@@ -1,5 +1,5 @@
 // PanguPlay PWA Service Worker
-const CACHE_NAME = "panguplay-v0609252330";
+const CACHE_NAME = "panguplay-v0610250930";
 const urlsToCache = [
   "/PanguPlay/",
   "/PanguPlay/index.html",
