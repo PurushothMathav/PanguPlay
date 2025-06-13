@@ -902,7 +902,7 @@ disable-paste='true'>
     let player;
     let currentVideoSources = [];
     let currentQuality = '1080p';
-    const seekTime = 10; // Seconds to skip when seeking
+    const seekTime = 30; // Seconds to skip when seeking
 	let autoPlayNext = true; // You can make this a user setting
 	let autoPlayTimeout;
 	let countdownInterval;
@@ -911,13 +911,13 @@ disable-paste='true'>
   const isMobile = window.innerWidth <= 768;
   player = new Plyr('#player', {
     controls: isMobile
-      ? ['play-large', 'rewind', 'play', 'fast-forward', 'mute', 'progress', 'current-time', 'duration', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']
-      : ['play-large', 'rewind', 'play', 'fast-forward', 'mute', 'progress', 'current-time', 'duration', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+      ? ['play-large', 'rewind', 'play', 'fast-forward', 'mute', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen']
+      : ['play-large', 'rewind', 'play', 'fast-forward', 'mute', 'progress', 'current-time', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
     settings: ['captions', 'speed'],
     resetOnEnd: false,
     keyboard: { focused: true, global: true },
     tooltips: { controls: true, seek: true },
-    seekTime: 10,
+    seekTime: 0,
     iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.svg',
     blankVideo: 'https://cdn.plyr.io/static/blank.mp4',
   });
