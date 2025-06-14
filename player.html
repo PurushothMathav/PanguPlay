@@ -1286,11 +1286,11 @@ function setupDoubleTapSeeking() {
 
   const leftOverlay = document.createElement('div');
   leftOverlay.className = 'tap-overlay tap-overlay-left';
-  leftOverlay.innerHTML = '<i class="fas fa-backward"></i><span>-10s</span>';
+  leftOverlay.innerHTML = '<i class="fas fa-backward"></i><span>-30s</span>';
 
   const rightOverlay = document.createElement('div');
   rightOverlay.className = 'tap-overlay tap-overlay-right';
-  rightOverlay.innerHTML = '<i class="fas fa-forward"></i><span>+10s</span>';
+  rightOverlay.innerHTML = '<i class="fas fa-forward"></i><span>+30s</span>';
 
   videoContainer.appendChild(leftOverlay);
   videoContainer.appendChild(rightOverlay);
@@ -1304,10 +1304,10 @@ function setupDoubleTapSeeking() {
 
     if (tapLength < 300 && tapLength > 0) {
       if (side === 'left') {
-        player.currentTime = Math.max(player.currentTime - 10, 0);
+        player.currentTime = Math.max(player.currentTime - 30, 0);
         showTapOverlay(leftOverlay);
       } else {
-        player.currentTime = Math.min(player.currentTime + 10, player.duration);
+        player.currentTime = Math.min(player.currentTime + 30, player.duration);
         showTapOverlay(rightOverlay);
       }
       e.preventDefault();
