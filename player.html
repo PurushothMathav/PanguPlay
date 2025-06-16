@@ -979,7 +979,7 @@ disable-paste='true'>
     let player;
     let currentVideoSources = [];
     let currentQuality = '1080p';
-    const seekTime = 30; // Seconds to skip when seeking
+    const seekTime = 0; // Seconds to skip when seeking
 	let autoPlayNext = true; // You can make this a user setting
 	let autoPlayTimeout;
 	let countdownInterval;
@@ -996,7 +996,7 @@ disable-paste='true'>
     resetOnEnd: false,
     keyboard: { focused: true, global: true },
     tooltips: { controls: true, seek: true },
-    seekTime: 0,
+    seekTime: 30,
     iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.svg',
     blankVideo: 'https://cdn.plyr.io/static/blank.mp4',
   });
