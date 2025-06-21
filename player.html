@@ -1735,7 +1735,6 @@ function loadVideo(initialUrl) {
     size: parseInt(source.quality.replace('p', ''))
   }));
 
-  // ✅ Prepare subtitles inside the `source` object
   const tracks = (playerData.captions || []).map(caption => ({
     kind: 'subtitles',
     label: caption.label,
@@ -1749,7 +1748,7 @@ function loadVideo(initialUrl) {
     title: playerData.title,
     sources: sources,
     poster: poster,
-    tracks: tracks // ✅ Pass captions here
+    tracks: tracks
   };
 
   player.once('canplay', () => {
@@ -1759,6 +1758,9 @@ function loadVideo(initialUrl) {
       tryFallback();
     });
     hideLoading();
+
+    // ✅ FIX: rebind gestures after video is playable
+    setupDoubleTapSeeking();
   });
 
   player.once('error', () => {
