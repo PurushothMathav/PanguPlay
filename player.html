@@ -1555,35 +1555,7 @@ window['__onGCastApiAvailable'] = function(isAvailable) {
       player.currentTime = newTime;
       showToast(`Rewound ${seekTime}s`);
     }
-    /*
-    // Download video function
-    function downloadVideo() {
-      let urlToDownload;
-      let filename;
-      if (currentEpisodeId && episodes.length > 0) {
-        const episode = episodes[currentEpisodeIndex];
-        urlToDownload = episode.videoUrl;
-        filename = `${playerData.title}-S${episode.season}E${episode.episode}.mp4`;
-      } else if (currentVideoSources.length > 0) {
-        const activeSource = currentVideoSources.find(source => source.quality === currentQuality);
-        urlToDownload = activeSource ? activeSource.url : currentVideoSources[0].url;
-        filename = `${playerData.title}-${currentQuality}.mp4`;
-      }
-      if (urlToDownload) {
-        showToast('Preparing download...');
-        const a = document.createElement('a');
-        a.href = urlToDownload;
-        a.download = filename;
-        //a.target = '_blank';
-        //a.rel = 'noopener noreferrer';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        showToast('Download started!');
-      } else {
-        showToast('No video available for download');
-      }
-    } */
+
 	
 async function downloadVideo() {
 
@@ -1673,106 +1645,82 @@ function fallbackOrNotify(fallbackUrl) {
     showToast('No fallback link available.');
   }
 }
-
-
-
-/*
-function addCaptionsToPlayer(captions) {
-  const videoElement = document.getElementById('player');
-
-  // Remove existing tracks
-  const oldTracks = videoElement.querySelectorAll('track');
-  oldTracks.forEach(track => track.remove());
-
-  // Add new tracks
-  captions.forEach((caption) => {
-    const track = document.createElement('track');
-    track.kind = 'subtitles';
-    track.label = caption.label;
-    track.srclang = caption.srclang;
-    track.src = caption.src;
-    if (caption.default) track.default = true;
-    videoElement.appendChild(track);
-  });
-}
-	*/
    
     // Setup page content
 function setupPage() {
+  if (!playerData) {
+    showToast('Missing video data.');
+    return;
+  }
 
-if (playerData.mature === 'A' && !matureImageShown) {
-  showMatureTextWarning();
-  matureImageShown = true; // prevent re-triggering
-}
+  if (playerData.mature === 'A' && !matureImageShown) {
+    showMatureTextWarning();
+    matureImageShown = true;
+  }
 
+  document.getElementById('videoTitle').textContent = playerData.title;
+  document.getElementById('pageHeading').textContent = playerData.title;
+  document.title = playerData.title + ' - PanguPlay';
+  const posterUrl = playerData.image;
+  document.getElementById('videoPoster').src = posterUrl;
+  document.getElementById('player').setAttribute('data-poster', posterUrl);
 
+  // Video metadata
+  const details = playerData.details || {};
+  document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
+  document.getElementById('director').textContent = details.director || 'N/A';
+  document.getElementById('starring').textContent = details.starring || 'N/A';
+  document.getElementById('genres').textContent = details.genres || 'N/A';
+  document.getElementById('quality').textContent = details.quality || 'N/A';
+  document.getElementById('language').textContent = details.language || 'N/A';
+  document.getElementById('fileSize').textContent = details.fileSize || 'N/A';
+  document.getElementById('lastUpdated').textContent = details.lastUpdated || 'N/A';
 
-      document.getElementById('videoTitle').textContent = playerData.title;
-	  //document.getElementById('videoTitleOverlay').textContent = playerData.title;
-      document.getElementById('pageHeading').textContent = playerData.title;
-      document.title = playerData.title + ' - PanguPlay';
-      const posterUrl = playerData.image;
-      document.getElementById('videoPoster').src = posterUrl;
-      document.getElementById('player').setAttribute('data-poster', posterUrl);
+  // Handle series
+  if (playerData.type === 'series' && Array.isArray(playerData.episodes)) {
+    episodes = playerData.episodes;
+    if (episodes.length > 0) {
+      playEpisode(episodes[0].id);
+    }
+    document.getElementById('episodesSection').style.display = 'block';
+    document.getElementById('navButtons').style.display = 'flex';
+  } else {
+    // Handle movies
+    document.getElementById('episodesSection').style.display = 'none';
+    document.getElementById('navButtons').style.display = 'none';
 
-      // Details
-      const details = playerData.details || {};
-      document.getElementById('movieRating').textContent = details.movieRating || 'N/A';
-      document.getElementById('director').textContent = details.director || 'N/A';
-      document.getElementById('starring').textContent = details.starring || 'N/A';
-      document.getElementById('genres').textContent = details.genres || 'N/A';
-      document.getElementById('quality').textContent = details.quality || 'N/A';
-      document.getElementById('language').textContent = details.language || 'N/A';
-      document.getElementById('fileSize').textContent = details.fileSize || 'N/A';
-      document.getElementById('lastUpdated').textContent = details.lastUpdated || 'N/A';
+    currentVideoSources = [];
+    if (playerData.video) {
+      currentVideoSources.push({
+        url: playerData.video,
+        quality: '1080p'
+      });
+    }
+    if (playerData.alt) {
+      currentVideoSources.push({
+        url: playerData.alt,
+        quality: '720p'
+      });
+    }
 
-      if (playerData.type === 'series' && Array.isArray(playerData.episodes)) {
-        episodes = playerData.episodes;
-        if (episodes.length > 0) {
-          playEpisode(episodes[0].id);
-        }
-        document.getElementById('episodesSection').style.display = 'block';
-        document.getElementById('navButtons').style.display = 'flex';
-      } else {
-        document.getElementById('episodesSection').style.display = 'none';
-        document.getElementById('navButtons').style.display = 'none';
-        currentVideoSources = [];
-        if (playerData.video) {
-          currentVideoSources.push({
-            url: playerData.video,
-            quality: '1080p'
-          });
-        }
-        if (playerData.alt) {
-          currentVideoSources.push({
-            url: playerData.alt,
-            quality: '720p'
-          });
-        }
-		/*
-		if (playerData.captions) {
-  addCaptionsToPlayer(playerData.captions);
-} */
-        setupResolutionSelector();
-        //loadVideo(currentVideoSources[0]?.url || '');
-      }
-	  
-   const isMature = playerData.mature && playerData.mature.trim().toUpperCase() === 'A';
+    setupResolutionSelector();
+    // We'll call loadVideo later inside proceedWithVideoLoad
+  }
 
-  // Always hide the mask at the beginning
+  // Mature check logic
+  const isMature = playerData.mature && playerData.mature.trim().toUpperCase() === 'A';
+
   const mask = document.getElementById('matureConsentMask');
   if (mask) mask.style.display = 'none';
 
-  if (isMature) {
-  showMatureConsentMask(); // will set flag on approval
-} else {
-  matureConsentGranted = true; // ✅ allow streaming/casting for safe videos
-  proceedWithVideoLoad();
+  if (isMature && !matureConsentGranted) {
+    showMatureConsentMask(); // will call proceedWithVideoLoad() on Agree
+  } else {
+    matureConsentGranted = true;
+    proceedWithVideoLoad();        // ✅ Load the video now
+    setupDoubleTapSeeking();       // ✅ Enable double-tap gestures
+  }
 }
-
-
-
-    }
 	
 		
 function loadVideo(initialUrl) {
@@ -1894,6 +1842,7 @@ function proceedWithVideoLoad() {
 
   // ✅ NOW it's safe to enable download
   setupDownloadButton();
+  setupDoubleTapSeeking();
 }
 
 
@@ -1913,42 +1862,6 @@ function disableVideo() {
 
   showToast('Video blocked due to lack of consent.');
 }
-
-
-
-/*    
-    function loadVideo(initialUrl) {
-      if (!player) return;
-      showLoading();
-      const poster = playerData.image;
-      const currentTime = player.currentTime || 0;
-      const sources = currentVideoSources.map(source => ({
-        src: source.url,
-        type: 'video/mp4',
-        size: parseInt(source.quality.replace('p', ''))
-      }));
-      player.source = {
-        type: 'video',
-        sources: sources,
-        poster: poster
-      };
-	  if (playerData.captions) {
-  addCaptionsToPlayer(playerData.captions);
-}
-      player.once('canplay', () => {
-        player.currentTime = currentTime;
-        player.play().catch(err => {
-          showToast('Playback error. Trying fallback…');
-          tryFallback();
-        });
-        hideLoading();
-      });
-      player.once('error', () => {
-        showToast('Video load error. Trying fallback…');
-        tryFallback();
-      });
-	  
-    } */
 
     function tryFallback() {
       const fallback = currentVideoSources.find(src => src.quality === '720p');
