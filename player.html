@@ -741,70 +741,6 @@ body.lock-scroll {
 
 
 
-.mature-consent-mask {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10000;
-  width: 100%;
-  height: 100%;
-  background: rgba(18, 18, 18, 0.95);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-family: 'Arial', sans-serif;
-}
-
-.mature-consent-box {
-  background: #1e1e1e;
-  padding: 20px 30px;
-  border-radius: 10px;
-  text-align: center;
-  max-width: 90%;
-  width: 350px;
-  border: 2px solid #ff4500;
-}
-
-.mature-consent-box h3 {
-  color: #ff4500;
-  margin-bottom: 10px;
-}
-
-.mature-consent-box p {
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
-.consent-actions {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.consent-actions button {
-  padding: 8px 12px;
-  font-size: 14px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-}
-
-#agreeBtn {
-  background: #28a745;
-  color: white;
-}
-
-#denyBtn {
-  background: #dc3545;
-  color: white;
-}
-
-#matureConsentMask {
-  display: none;
-}
-
-
   </style>
 </head>
 <body>
@@ -873,19 +809,6 @@ body.lock-scroll {
 			
 			<!-- 👇 Add this inside player-wrapper -->
 			<div id="matureTextWarning" class="mature-warning">Rated: <strong>A 18+</strong><br> MATURE CONTENT</div>
-			
-			<div id="matureConsentMask" class="mature-consent-mask">
-				<div class="mature-consent-box">
-					<h3>⚠️ Mature Content (18+)</h3>
-					<p>This video is rated <strong>A</strong>. Viewer discretion is advised.</p>
-					<p>You must confirm you are 18 or older to watch this content.</p>
-					<div class="consent-actions">
-						<button id="agreeBtn">I Agree (<span id="countdown">10</span>s)</button>
-						<button id="denyBtn">I Do Not Agree</button>
-					</div>
-				</div>
-			</div>
-
 
 			<video id="player" playsinline controls data-poster="">
 				<source src="" type="video/mp4" size="1080">
@@ -979,12 +902,10 @@ disable-paste='true'>
     let player;
     let currentVideoSources = [];
     let currentQuality = '1080p';
-    const seekTime = 0; // Seconds to skip when seeking
+    const seekTime = 30; // Seconds to skip when seeking
 	let autoPlayNext = true; // You can make this a user setting
 	let autoPlayTimeout;
 	let countdownInterval;
-	let matureConsentGranted = false;
-
 
     function initPlayer() {
   const isMobile = window.innerWidth <= 768;
@@ -996,7 +917,7 @@ disable-paste='true'>
     resetOnEnd: false,
     keyboard: { focused: true, global: true },
     tooltips: { controls: true, seek: true },
-    seekTime: 30,
+    seekTime: 0,
     iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/plyr/3.7.8/plyr.svg',
     blankVideo: 'https://cdn.plyr.io/static/blank.mp4',
   });
@@ -1136,7 +1057,7 @@ document.addEventListener('fullscreenchange', () => {
       }
       initPlayer();
       setupPage();
-      //setupDownloadButton();
+      setupDownloadButton();
       setupDoubleTapSeeking();
 	  enableLandscapeOnFullScreen();
 	  updateLogoInFullscreen();
@@ -1414,12 +1335,6 @@ function initializeCastApi() {
   });
 
   castButton.addEventListener('click', () => {
-  if (!matureConsentGranted) {
-    showToast('You must agree to view mature content before casting.');
-    return;
-  }
-
-  
     // Defensive: Ensure video sources are ready
     if (!currentVideoSources || !currentVideoSources.length || !currentVideoSources[0].url) {
       showToast('No video to cast.');
@@ -1517,10 +1432,9 @@ window['__onGCastApiAvailable'] = function(isAvailable) {
 	
     // Setup download button functionality
     function setupDownloadButton() {
-  const downloadBtn = document.getElementById('downloadBtn');
-  downloadBtn.removeEventListener('click', downloadVideo); // avoid duplicates
-  downloadBtn.addEventListener('click', downloadVideo);
-}
+      const downloadBtn = document.getElementById('downloadBtn');
+      downloadBtn.addEventListener('click', downloadVideo);
+    }
     
     // Handle keyboard shortcuts
     function handleKeyboardShortcuts(e) {
@@ -1533,7 +1447,7 @@ window['__onGCastApiAvailable'] = function(isAvailable) {
         seekForward();
       }
       // 'D' key for download
-      else if ((e.key === 'd' || e.key === 'D') && matureConsentGranted) {
+      else if (e.key === 'd' || e.key === 'D') {
         downloadVideo();
       }
     }
@@ -1584,16 +1498,6 @@ window['__onGCastApiAvailable'] = function(isAvailable) {
     } */
 	
 async function downloadVideo() {
-
-  if (!matureConsentGranted) {
-    showToast('You must agree to watch mature content before downloading.');
-    return;
-  }
-  if (!playerData || !currentVideoSources || currentVideoSources.length === 0) {
-    showToast('Video not ready yet.');
-    return;
-  }
-  
   let urlToDownload = null;
   let filename = `${playerData.title}.mp4`;
   let fallbackUrl = null;
@@ -1752,24 +1656,8 @@ if (playerData.mature === 'A' && !matureImageShown) {
   addCaptionsToPlayer(playerData.captions);
 } */
         setupResolutionSelector();
-        //loadVideo(currentVideoSources[0]?.url || '');
+        loadVideo(currentVideoSources[0]?.url || '');
       }
-	  
-   const isMature = playerData.mature && playerData.mature.trim().toUpperCase() === 'A';
-
-  // Always hide the mask at the beginning
-  const mask = document.getElementById('matureConsentMask');
-  if (mask) mask.style.display = 'none';
-
-  if (isMature) {
-  showMatureConsentMask(); // will set flag on approval
-} else {
-  matureConsentGranted = true; // ✅ allow streaming/casting for safe videos
-  proceedWithVideoLoad();
-}
-
-
-
     }
 	
 		
@@ -1816,100 +1704,6 @@ function loadVideo(initialUrl) {
     tryFallback();
   });
 }
-
-
-function showMatureConsentMask() {
-  const mask = document.getElementById('matureConsentMask');
-  if (!mask) return;
-
-  mask.style.display = 'flex';
-
-  const agreeBtn = document.getElementById('agreeBtn');
-  const denyBtn = document.getElementById('denyBtn');
-  const countdownSpan = document.getElementById('countdown');
-
-  let countdown = 10;
-  countdownSpan.textContent = countdown;
-
-  const timer = setInterval(() => {
-    countdown--;
-    countdownSpan.textContent = countdown;
-    if (countdown <= 0) {
-      clearInterval(timer);
-      mask.innerHTML = "<h3 style='color: red;'>Access Denied</h3><p>You did not consent to view mature content.</p>";
-      disableVideo();  // 👈 this will stop/remove the video
-    }
-  }, 1000);
-
-  agreeBtn.onclick = () => {
-    clearInterval(timer);
-	matureConsentGranted = true; // ✅ allow Stream / Cast
-    mask.remove();
-    proceedWithVideoLoad();  // 👈 only load video AFTER consent
-  };
-
-  denyBtn.onclick = () => {
-    clearInterval(timer);
-	matureConsentGranted = false;
-    mask.innerHTML = "<h3 style='color: red;'>Access Denied</h3><p>You chose not to view mature content.</p>";
-    disableVideo(); // 👈 stop the video permanently
-  };
-}
-
-
-
-function proceedWithVideoLoad() {
-  const mask = document.getElementById('matureConsentMask');
-  if (mask) mask.remove();
-
-  // Setup player data
-  document.getElementById('videoTitle').textContent = playerData.title;
-  document.getElementById('pageHeading').textContent = playerData.title;
-  document.title = playerData.title + ' - PanguPlay';
-  const posterUrl = playerData.image;
-  document.getElementById('videoPoster').src = posterUrl;
-  document.getElementById('player').setAttribute('data-poster', posterUrl);
-
-  // Setup video sources
-  currentVideoSources = [];
-  if (playerData.video) {
-    currentVideoSources.push({
-      url: playerData.video,
-      quality: '1080p'
-    });
-  }
-  if (playerData.alt) {
-    currentVideoSources.push({
-      url: playerData.alt,
-      quality: '720p'
-    });
-  }
-
-  setupResolutionSelector();
-  loadVideo(currentVideoSources[0]?.url || '');
-
-  // ✅ NOW it's safe to enable download
-  setupDownloadButton();
-}
-
-
-function disableVideo() {
-  const video = document.getElementById('player');
-  if (!video) return;
-
-  // Kill Plyr instance if needed
-  if (player) {
-    player.stop();
-    player.source = null; // Clear sources
-  }
-
-  video.pause();
-  video.removeAttribute('src');
-  video.load();
-
-  showToast('Video blocked due to lack of consent.');
-}
-
 
 
 /*    
@@ -1991,30 +1785,24 @@ function disableVideo() {
 
 //setup stream button
     document.getElementById('streamBtn').addEventListener('click', () => {
-  if (!matureConsentGranted) {
-    showToast('You must agree to view mature content before streaming.');
-    return;
-  }
-
-  let streamUrl;
-  if (currentEpisodeId && episodes.length > 0) {
-    streamUrl = episodes[currentEpisodeIndex].videoUrl;
-  } else if (currentVideoSources.length > 0) {
-    const activeSource = currentVideoSources.find(source => source.quality === currentQuality);
-    streamUrl = activeSource ? activeSource.url : currentVideoSources[0].url;
-  }
-  if (streamUrl) {
-    const isAndroid = /Android/i.test(navigator.userAgent);
-    if (isAndroid) {
-      window.location.href = `intent://${streamUrl.replace(/^https?:\/\//, '')}#Intent;package=com.mxtech.videoplayer.ad;scheme=http;end;`;
-    } else {
-      window.open(streamUrl, '_blank');
-    }
-  } else {
-    showToast('No stream URL available.');
-  }
-});
-
+      let streamUrl;
+      if (currentEpisodeId && episodes.length > 0) {
+        streamUrl = episodes[currentEpisodeIndex].videoUrl;
+      } else if (currentVideoSources.length > 0) {
+        const activeSource = currentVideoSources.find(source => source.quality === currentQuality);
+        streamUrl = activeSource ? activeSource.url : currentVideoSources[0].url;
+      }
+      if (streamUrl) {
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        if (isAndroid) {
+          window.location.href = `intent://${streamUrl.replace(/^https?:\/\//, '')}#Intent;package=com.mxtech.videoplayer.ad;scheme=http;end;`;
+        } else {
+          window.open(streamUrl, '_blank');
+        }
+      } else {
+        showToast('No stream URL available.');
+      }
+    });
 
     // Setup resolution selector
     function setupResolutionSelector() {
@@ -2085,11 +1873,6 @@ function disableVideo() {
       updateHeaderTitle(playerData.title, true, episode.season, episode.episode, episode.title);
       updateEpisodeButtons();
       updateNavButtons();
-	   setupDownloadButton();
-	   /*
-	  if (matureConsentGranted) {
-  setupDownloadButton();
-} */
     }
     
     function updateHeaderTitle(title, isSeries = false, seasonNumber = null, episodeNumber = null, episodeTitle = null) {
