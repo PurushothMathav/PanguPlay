@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HLS Player with Quality Selector</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    video {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      background: #000;
+    }
+    select {
+      margin-top: 10px;
+      padding: 6px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <video id="video" controls></video>
+  <select id="qualitySelector" style="display:none;"></select>
+
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script>
+    const video = document.getElementById('video');
+    const qualitySelector = document.getElementById('qualitySelector');
+    const hlsUrl = "https://storage.googleapis.com/panguplay/temp/Villain_720p_proxy.m3u8";
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(hlsUrl);
+      hls.attachMedia(video);
+
+      hls.on(Hls.Events.MANIFEST_PARSED, function (_, data) {
+        const levels = hls.levels;
+
+        if (levels.length > 1) {
+          qualitySelector.style.display = 'inline';
+          levels.forEach((level, index) => {
+            const option = document.createElement("option");
+            option.value = index;
+            option.text = level.height + "p";
+            qualitySelector.appendChild(option);
+          });
+
+          qualitySelector.addEventListener("change", () => {
+            hls.currentLevel = parseInt(qualitySelector.value);
+          });
+        }
+      });
+
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = hlsUrl;
+    } else {
+      alert("Your browser does not support HLS playback.");
+    }
+  </script>
+</body>
+</html>
