@@ -1364,6 +1364,7 @@ function setupDoubleTapSeeking() {
   const videoContainer = document.querySelector('.video-container');
   const playerElement = document.getElementById('player');
   let lastTap = 0;
+  let tapTimeout = null;
 
   const leftOverlay = document.createElement('div');
   leftOverlay.className = 'tap-overlay tap-overlay-left';
@@ -1383,7 +1384,11 @@ function setupDoubleTapSeeking() {
     const touchX = e.changedTouches[0].clientX;
     const side = touchX < screenWidth / 2 ? 'left' : 'right';
 
-    if (tapLength < 300 && tapLength > 0) {
+    if (tapTimeout) {
+      clearTimeout(tapTimeout);
+      tapTimeout = null;
+
+      // Double tap detected
       if (side === 'left') {
         player.currentTime = Math.max(player.currentTime - 30, 0);
         showTapOverlay(leftOverlay);
@@ -1391,7 +1396,10 @@ function setupDoubleTapSeeking() {
         player.currentTime = Math.min(player.currentTime + 30, player.duration);
         showTapOverlay(rightOverlay);
       }
-      e.preventDefault();
+    } else {
+      tapTimeout = setTimeout(() => {
+        tapTimeout = null;  // Reset
+      }, 300);
     }
 
     lastTap = currentTime;
