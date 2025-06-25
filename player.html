@@ -1605,7 +1605,7 @@ async function downloadVideo() {
     return;
   }
 
-  const hasToken = urlToDownload.includes('h=') && urlToDownload.includes('e=');
+  const hasToken = urlToDownload.includes('h=') && urlToDownload.includes('e=') || urlToDownload.includes('X-Amz-Expires=') && urlToDownload.includes('X-Amz-Date=') ;
 
   if (hasToken) {
     showToast('Checking download link...');
