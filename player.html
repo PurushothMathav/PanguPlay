@@ -1718,7 +1718,8 @@ function setupPage() {
   } else {
     matureConsentGranted = true;
     proceedWithVideoLoad();        // ✅ Load the video now
-    setupDoubleTapSeeking();       // ✅ Enable double-tap gestures
+    setupDoubleTapSeeking();	// ✅ Enable double-tap gestures
+	updateLogoInFullscreen();
   }
 }
 	
@@ -1799,6 +1800,7 @@ function showMatureConsentMask() {
     mask.remove();
     proceedWithVideoLoad();     // 👈 load the video
     setupDoubleTapSeeking();    // ✅ BIND GESTURES HERE AFTER VIDEO LOAD
+	updateLogoInFullscreen();
   };
 
   denyBtn.onclick = () => {
@@ -2005,6 +2007,7 @@ function disableVideo() {
       updateEpisodeButtons();
       updateNavButtons();
 	   setupDownloadButton();
+	   updateLogoInFullscreen();
 	   /*
 	  if (matureConsentGranted) {
   setupDownloadButton();
