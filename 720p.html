@@ -504,11 +504,24 @@
   <p style="font-size: 18px; margin-bottom: 30px; color: #ccc;">
     We’ve moved to a better platform with enhanced performance, faster loading, and updated content.
   </p>
-  <a href="https://purushothmathav.github.io/meow" target="_blank" 
-     style="display: inline-block; background: #587df0; color: white; padding: 12px 24px; font-size: 16px; font-weight: bold; border-radius: 8px; text-decoration: none; transition: background 0.3s;">
+  <button onclick="openExternally()" 
+     style="background: #587df0; color: white; padding: 12px 24px; font-size: 16px; font-weight: bold; border-radius: 8px; border: none; cursor: pointer; transition: background 0.3s;">
     Visit 🐱e⭕w
-  </a>
+  </button>
 </div>
+
+<script>
+  function openExternally() {
+    const url = "https://purushothmathav.github.io/meow";
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      // Running as PWA, open in external browser
+      window.open(url, '_blank');
+    } else {
+      // Running in browser, navigate normally
+      window.location.href = url;
+    }
+  }
+</script>
 
 
 <footer>
