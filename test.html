@@ -189,18 +189,17 @@
     }
 
     /* Category Sections */
-    .category-section {
-		padding: 16px 15px;
-		margin-bottom: 4px;
-	}
+    .category-section { 
+      padding: 20px 15px; 
+      margin-bottom: 20px;
+    }
     
-    .category-header {
-	  display: flex;
-	  justify-content: space-between;
-	  align-items: center;
-	  flex-wrap: nowrap; /* Prevent wrapping */
-	}
-
+    .category-header { 
+      margin-bottom: 15px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+    }
     
     .category-title { 
       font-size: 22px; 
@@ -237,10 +236,13 @@
       gap: 15px;
       padding-bottom: 10px;
       scroll-behavior: smooth;
+	  -ms-overflow-style: none;  /* IE/Edge */
+	  scrollbar-width: none;     /* Firefox */
+	  -webkit-overflow-scrolling: touch;
     }
 
     .horizontal-scroll::-webkit-scrollbar {
-      height: 6px;
+      display: none;   
     }
 
     .horizontal-scroll::-webkit-scrollbar-track {
@@ -374,15 +376,6 @@
       border-radius: 0; 
       background: #ff6600; 
     }
-	
-	.swiper.swiper-category {
-		padding-bottom: 0 !important;
-		margin-bottom: 0 !important;
-	}
-
-	.swiper-pagination {
-		margin-bottom: 4px !important;
-	}
 
     footer { 
       text-align: center; 
@@ -424,29 +417,17 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
-	
-	.grid-view {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 12px;
-  padding: 8px 0;
-}
 
-.swiper.swiper-category {
-  display: block;
-}
-
-	
     /* Responsive */
     @media(max-width:768px) {
       .nav-links { display: none; }
       .menu-icon { display: block; }
       .search-bar input { width: 140px; }
       .category-grid { grid-template-columns: repeat(3, 1fr); }
-      .horizontal-scroll .card { flex: 0 0 120px; }
+      .horizontal-scroll .card { flex: 0 0 120px; margin-right: 10px; }
       
       .category-header {
-        flex-direction: row;
+        flex-direction: row !important;
 		justify-content: space-between;
 		align-items: center;
       }
@@ -454,16 +435,20 @@
       .category-title {
         font-size: 18px;
       }
+	  
+	  .category-toggle {
+		display: none !important;
+	  }
     }
 
     /* Category Toggle Buttons */
     .category-toggle {
-		display: flex;
-		justify-content: center;
-		gap: 10px;
-		margin: 12px 0;  /* 👈 reduced vertical spacing */
-		flex-wrap: wrap;
-	}
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
 
     .category-btn {
       padding: 8px 16px;
@@ -605,9 +590,6 @@
 <div id="gestureZone" style="position: fixed; top: 0; left: 0; height: 100%; width: 30px; z-index: 3000;"></div>
 
 <script>
-
-
-
 // Sample data - you would replace this with your actual movie data
 const videos = [
 {
@@ -652,7 +634,7 @@ const videos = [
   },
   "id": "akkenam-2025",
   "mature": "",
-  "categories": ["latest", "action", "drama", "thriller", "Tamil"]
+  "categories": ["latest", "action", "drama", "thriller", "tamil"]
 },	
 {
   "type": "movie",
@@ -673,7 +655,7 @@ const videos = [
   },
   "id": "3bhk-2025",
   "mature": "",
-  "categories": ["latest", "drama", "comedy", "family", "Tamil"]
+  "categories": ["latest", "drama", "comedy", "family", "tamil"]
 },	
 {
   "type": "movie",
@@ -742,7 +724,7 @@ const videos = [
   },
   "id": "madras-matinee-2025",
   "mature": "",
-  "categories": ["latest", "drama", "comedy", "family", "Tamil"]
+  "categories": ["latest", "drama", "comedy", "family", "tamil"]
 },
 {
   "type": "movie",
@@ -765,7 +747,7 @@ const videos = [
   },
   "id": "paramasivan-fathima-2025",
   "mature": "",
-  "categories": ["latest", "horror", "thriller", "drama", "Tamil"]
+  "categories": ["latest", "horror", "thriller", "drama", "tamil"]
 },
 {
   "type": "movie",
@@ -811,7 +793,7 @@ const videos = [
   },
   "id": "raja-puthiran-2025",
   "mature": "",
-  "categories": ["drama", "family", "Tamil"]
+  "categories": ["drama", "family", "tamil"]
 },
 {
   "type": "movie",
@@ -834,7 +816,7 @@ const videos = [
   },
   "id": "thug-life-2025",
   "mature": "",
-  "categories": ["latest", "action", "drama", "thriller", "Tamil"]
+  "categories": ["latest", "action", "drama", "thriller", "tamil"]
 },
 {
   "type": "movie",
@@ -901,7 +883,7 @@ const videos = [
   },
   "id": "love-marriage-2025",
   "mature": "",
-  "categories": ["latest", "drama", "comedy", "family", "Tamil"]
+  "categories": ["latest", "drama", "comedy", "family", "tamil"]
 },
 {
   "type": "movie",
@@ -922,7 +904,7 @@ const videos = [
   },
   "id": "maargan-2025",
   "mature": "",
-  "categories": ["latest", "thriller", "drama", "Tamil"]
+  "categories": ["latest", "thriller", "drama", "tamil"]
 },
 {
   "type": "movie",
@@ -945,7 +927,7 @@ const videos = [
   },
   "id": "aravaan-2011",
   "mature": "",
-  "categories": ["drama", "action", "history", "80s", "Tamil"]
+  "categories": ["drama", "action", "history", "80s", "tamil"]
 },	
 {
   "type": "movie",
@@ -1033,7 +1015,7 @@ const videos = [
   },
   "id": "ambi-2025",
   "mature": "U",
-  "categories": ["latest", "comedy", "drama", "Tamil"]
+  "categories": ["latest", "comedy", "drama", "tamil"]
 },
 {
   "type": "movie",
@@ -1075,7 +1057,7 @@ const videos = [
   },
   "id": "evol-2025",
   "mature": "U",
-  "categories": ["drama", "thriller", "romance", "psychological", "Tamil"]
+  "categories": ["drama", "thriller", "romance", "psychological", "tamil"]
 },
 {
   "type": "movie",
@@ -1117,7 +1099,7 @@ const videos = [
   },
   "id": "chennai-city-gangsters-2025",
   "mature": "U",
-  "categories": ["latest", "comedy", "drama", "crime", "heist", "Tamil"]
+  "categories": ["latest", "comedy", "drama", "crime", "heist", "tamil"]
 },
 {
   "type": "movie",
@@ -1140,7 +1122,7 @@ const videos = [
   },
   "id": "the-verdict-2025",
   "mature": "U",
-  "categories": ["latest", "drama", "thriller", "crime", "mystery", "Tamil"]
+  "categories": ["latest", "drama", "thriller", "crime", "mystery", "tamil"]
 },	
 {
   "type": "movie",
@@ -1162,14 +1144,1383 @@ const videos = [
     "streamURL": "https://dl9.hotshare.click/Moviesda.Mobi_-_Naan_Ee_2012_Original_1080p_HD.mp4"
   },
   "id": "naan-ee-2012",
-  "categories": ["action", "drama", "fantasy", "revenge", "Tamil"]
-}
-];
+  "categories": ["action", "drama", "fantasy", "revenge", "tamil"]
+},
+  {
+    "type": "movie",
+    "title": "Nanban (2012)",
+    "image": "https://m.media-amazon.com/images/M/MV5BNWY4YThjYzYtNWVhMC00YzZkLWI2ZDktYzAzYzIwNDM5ZjY3XkEyXkFqcGc@._V1_QL75_UX380_CR0,7,380,562_.jpg",
+    "video": "https://s03.hotshare.link/Moviesda.Mobi_-_Nanban_2012_Original_1080p_HD.mp4",
+    "alt": "https://s04.hotshare.link/Moviesda.Mobi_-_Nanban_2012_Original_720p_HD.mp4",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "quality": "1080p",
+      "language": "Tamil",
+      "movieRating": "\u2b50",
+      "lastUpdated": "10 April 2025",
+      "fileSize": "",
+      "streamURL": "https://s03.hotshare.link/Moviesda.Mobi_-_Nanban_2012_Original_1080p_HD.mp4"
+    },
+    "id": "nanban-2012",
+    "1080Url": "https://play.onestream.watch/stream/page/90365",
+    "720Url": "https://play.onestream.watch/stream/page/90370",
+	"categories": ["vijay"]
+  },
+    {
+    "type": "movie",
+    "title": "Leo (2023)",
+    "image": "https://m.media-amazon.com/images/M/MV5BODFkZWQwZDAtZDNkYi00MWU1LTkyNmYtM2JjMTM5OTI0ZGQwXkEyXkFqcGc@._V1_SX300.jpg",
+    "video": "https://cdn6.uptodl.ch/files/Tamil%202023%20Movies/LEO%20(2023)/Leo%20(Original)/Leo%20(1080p%20HD)/Moviesda.Mobi%20-%20Leo%202023%20Original%201080p%20HD.mp4?h=0519955c7cadebad931dafa66276382e06643be4&e=1748711559",
+    "alt": "https://cdn6.uptodl.ch/files/Tamil%202023%20Movies/LEO%20(2023)/Leo%20(Original)/Leo%20(720p%20HD)/Moviesda.Mobi%20-%20Leo%202023%20Original%20720p%20HD.mp4?h=5b5b0e8d0ffc30eb6e4863cd9bce06314b3ec351&e=1748711559",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "quality": "1080p",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "17 April 2025",
+      "fileSize": "1.57 GB",
+      "streamURL": "https://cdn6.uptodl.ch/files/Tamil%202023%20Movies/LEO%20(2023)/Leo%20(Original)/Leo%20(1080p%20HD)/Moviesda.Mobi%20-%20Leo%202023%20Original%201080p%20HD.mp4?h=0519955c7cadebad931dafa66276382e06643be4&e=1748711559"
+    },
+    "id": "leo-2023",
+    "1080Url": "https://play.onestream.watch/stream/page/82169",
+    "720Url": "https://play.onestream.watch/stream/page/82168",
+	"categories": ["vijay"]
+  },
+    {
+    "type": "movie",
+    "title": "Jilla (2014)",
+    "image": "https://m.media-amazon.com/images/M/MV5BNDJjNTIxM2YtZGExYy00MTQzLTgyNzctZTRmZDMyMmM1ZGJmXkEyXkFqcGc@._V1_QL75_UY562_CR31,0,380,562_.jpg",
+    "video": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Jilla%20(2014)/Jilla%20(Original)/Jilla%20(1080p%20HD)/Moviesda.Mobi%20-%20Jilla%202014%20Original%201080p%20HD.mp4?h=aaaabaceefebfd40848e2bd7bae7d7a073f7ce4c&e=1747837049",
+    "alt": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Jilla%20(2014)/Jilla%20(Original)/Jilla%20(720p%20HD)/Moviesda.Mobi%20-%20Jilla%202014%20Original%20720p%20HD.mp4?h=4015b4ed476ebafd76016c0471224670b84e1877&e=1747837049",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "quality": "1080p",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "fileSize": "1.84 GB",
+      "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Jilla%20(2014)/Jilla%20(Original)/Jilla%20(1080p%20HD)/Moviesda.Mobi%20-%20Jilla%202014%20Original%201080p%20HD.mp4?h=aaaabaceefebfd40848e2bd7bae7d7a073f7ce4c&e=1747837049"
+    },
+    "id": "jilla-2014",
+    "1080Url": "https://play.onestream.watch/stream/page/87186",
+    "720Url": "https://play.onestream.watch/stream/page/87188",
+	"categories": ["vijay"]
+  },
+    {
+    "type": "movie",
+    "title": "Theri (2016)",
+    "image": "https://m.media-amazon.com/images/M/MV5BZDBlNGEyZDAtZjFhYS00YWU2LWFkYzEtNTlmYTIxZjJhNzI3XkEyXkFqcGc@._V1_QL75_UY562_CR15,0,380,562_.jpg",
+    "video": "https://s03.hotshare.link/Moviesda.Mobi_-_Theri_2016_Original_1080p_HD.mp4",
+    "alt": "https://s01.hotshare.link/Moviesda.Mobi_-_Theri_2016_Original_720p_HD.mp4",
+    "1080Url": "https://play.onestream.watch/stream/page/91243",
+    "720Url": "https://play.onestream.watch/stream/page/91248",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "quality": "1080p",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "23 June 2025",
+      "fileSize": "1.59 GB",
+      "streamURL": "https://s03.hotshare.link/Moviesda.Mobi_-_Theri_2016_Original_1080p_HD.mp4"
+    },
+    "id": "theri-2016",
+	"categories": ["vijay"]
+  },
+  {
+    "type": "movie",
+    "title": "Goat (2024)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMTUxNjg1ODY3Ml5BMl5BanBnXkFtZTgwODEyNjUzOTE@._V1_SX300.jpg",
+    "video": "https://cdn7.uptodl.ch/files/Tamil%202024%20Movies/GOAT%20(The%20Greatest%20of%20All%20Time)%20(2024)/The%20Greatest%20of%20All%20Time%20(Original)/The%20Greatest%20of%20All%20Time%20(1080p%20HD)/Moviesda.Mobi%20-%20Goat%202024%20Original%201080p%20HD.mp4?h=545421953cf0dcf68abe595b9948273f6f8f1f97&e=1748012042",
+    "alt": "https://cdn7.uptodl.ch/files/Tamil%202024%20Movies/GOAT%20(The%20Greatest%20of%20All%20Time)%20(2024)/The%20Greatest%20of%20All%20Time%20(Original)/The%20Greatest%20of%20All%20Time%20(720p%20HD)/Moviesda.Mobi%20-%20Goat%202024%20Original%20720p%20HD.mp4?h=1fc8cbe5fa28253ea24fc93c7f34538c9e662514&e=1748012047",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "quality": "1080p",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "fileSize": "1.93 GB",
+      "streamURL": "https://cdn7.uptodl.ch/files/Tamil%202024%20Movies/GOAT%20(The%20Greatest%20of%20All%20Time)%20(2024)/The%20Greatest%20of%20All%20Time%20(Original)/The%20Greatest%20of%20All%20Time%20(1080p%20HD)/Moviesda.Mobi%20-%20Goat%202024%20Original%201080p%20HD.mp4?h=545421953cf0dcf68abe595b9948273f6f8f1f97&e=1748012042"
+    },
+    "id": "goat-2024",
+    "1080Url": "https://play.onestream.watch/stream/page/86699",
+    "720Url": "https://play.onestream.watch/stream/page/86701",
+	"categories": ["vijay"]
+  },
+  {
+    "type": "movie",
+    "title": "Varisu (2023)",
+    "image": "https://m.media-amazon.com/images/M/MV5BZDM4NDBkNGEtNzI2Yi00ODkwLTliNzAtODkwMmRhNTEzZmVlXkEyXkFqcGc@._V1_SX300.jpg",
+    "video": "https://cdn6.uptodl.ch/files/Tamil%202023%20Movies/Varisu%20(2023)/Varisu%20(Original)/Varisu%20(720p%20HD)/Moviesda.Mobi%20-%20Varisu%202023%20Original%20720p%20HD.mp4?h=a053396c18c06e0021c7a0a2f5c6590c0f71c49e&e=1749278050",
+    "lookUrl": "https://play.onestream.watch/stream/page/78219",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "quality": "720p",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "17 April 2025",
+      "fileSize": "852.80 MB",
+      "streamURL": "https://cdn6.uptodl.ch/files/Tamil%202023%20Movies/Varisu%20(2023)/Varisu%20(Original)/Varisu%20(720p%20HD)/Moviesda.Mobi%20-%20Varisu%202023%20Original%20720p%20HD.mp4?h=a053396c18c06e0021c7a0a2f5c6590c0f71c49e&e=1749278050"
+    },
+    "id": "varisu-2023",
+	"categories": ["vijay"]
+  },
+  {
+    "type": "movie",
+    "title": "Ghilli (2004)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMTFiODU5NjEtOTNjMy00MzUzLWEzYTMtZGU0NTdmYjkwNTM4XkEyXkFqcGc@._V1_SX300.jpg",
+    "video": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Ghilli%20(2004)/Ghilli%20(Original)/Ghilli%20(720p%20HD)/Moviesda.Mobi%20-%20Ghilli%202004%20Original%20720p%20HD.mp4?h=b0c416138b7bd0f674c0bf0f5f80b795ec3396b4&e=1748711797",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "quality": "720p",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "17 April 2025",
+      "fileSize": "1.41 GB",
+      "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Ghilli%20(2004)/Ghilli%20(Original)/Ghilli%20(720p%20HD)/Moviesda.Mobi%20-%20Ghilli%202004%20Original%20720p%20HD.mp4?h=b0c416138b7bd0f674c0bf0f5f80b795ec3396b4&e=1748711797"
+    },
+    "id": "ghilli-2004",
+    "1080Url": "https://play.onestream.watch/stream/page/87671",
+    "720Url": "https://play.onestream.watch/stream/page/84136",
+	"categories": ["vijay"]
+  },
+  {
+    "type": "movie",
+    "title": "Thalaivaa (2013)",
+    "image": "https://m.media-amazon.com/images/M/MV5BM2Y4Y2ExZTMtY2I5MS00NTdmLWE1ZmUtYWJiODI5OTJlNDdhXkEyXkFqcGc@._V1_SX300.jpg",
+    "video": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Thalaivaa%20(2013)/Thalaivaa%20(Original)/Thalaivaa%20(720p%20HD)/Moviesda.Mobi%20-%20Thalaivaa%202013%20Original%20720p%20HD.mp4?h=e2cec81a688ff4038e9e2cb46aaa7a70ee294094&e=1748711670",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "quality": "720p",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "17 April 2025",
+      "fileSize": "0.00 MB",
+      "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Thalaivaa%20(2013)/Thalaivaa%20(Original)/Thalaivaa%20(720p%20HD)/Moviesda.Mobi%20-%20Thalaivaa%202013%20Original%20720p%20HD.mp4?h=e2cec81a688ff4038e9e2cb46aaa7a70ee294094&e=1748711670"
+    },
+    "id": "thalaivaa-2013",
+    "lookUrl": "https://play.onestream.watch/stream/page/83089",
+	"categories": ["vijay"]
+  },
+  {
+    "type": "movie",
+    "title": "Velayudham (2011)",
+    "image": "https://m.media-amazon.com/images/M/MV5BYmQ3Njg3NzQtMDdjNi00Mzc2LTg1ZTAtOGE1MzM5ZTc1ZGUwXkEyXkFqcGc@._V1_QL75_UY562_CR28,0,380,562_.jpg",
+    "video": "https://s02.hotshare.link/Moviesda.Mobi_-_Velayudham_2011_Original_1080p_HD.mp4",
+    "alt": "https://s05.hotshare.link/Moviesda.Mobi_-_Velayudham_2011_Original_720p_HD.mp4",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "quality": "1080p",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "fileSize": "1.56 GB",
+      "streamURL": "https://s02.hotshare.link/Moviesda.Mobi_-_Velayudham_2011_Original_1080p_HD.mp4"
+    },
+    "id": "velayudham-2011",
+    "1080Url": "https://play.onestream.watch/stream/page/89770",
+    "720Url": "https://play.onestream.watch/stream/page/89775",
+	"categories": ["vijay"]
+  },
+  {
+    "type": "movie",
+    "title": "Akka Kuruvi (2022)",
+    "image": "https://m.media-amazon.com/images/M/MV5BNmFhNDM0MmYtMWI5OC00ZGQ4LWJjMjQtZjU4Y2NhNjFiMmIxXkEyXkFqcGc@._V1_SX300.jpg",
+    "video": "https://cdn5.uptodl.ch/files/Tamil%202022%20Movies/Akka%20Kuruvi%20(2022)/Akka%20Kuruvi%20(Original)/Akka%20Kuruvi%20(720p%20HD)/Moviesda.Mobi%20-%20Akka%20Kuruvi%202022%20Original%20720p%20HD.mp4?h=9777ff4f729cd912fdc021b9f19f547487ed2e0e&e=1749276506",
+    "lookUrl": "https://play.onestream.watch/stream/page/75576",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "quality": "720p",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "17 April 2025",
+      "fileSize": "625.77 MB",
+      "streamURL": "https://cdn5.uptodl.ch/files/Tamil%202022%20Movies/Akka%20Kuruvi%20(2022)/Akka%20Kuruvi%20(Original)/Akka%20Kuruvi%20(720p%20HD)/Moviesda.Mobi%20-%20Akka%20Kuruvi%202022%20Original%20720p%20HD.mp4?h=9777ff4f729cd912fdc021b9f19f547487ed2e0e&e=1749276506"
+    },
+    "id": "akka-kuruvi-2022",
+	"categories": ["vijay"]
+  },
+  {
+    "type": "movie",
+    "title": "Pokkiri (2007)",
+    "image": "https://m.media-amazon.com/images/M/MV5BZTliNDg2MWQtZDEzYS00ZmU3LWFkYzktMGMzYWI2ZmYwNjJlXkEyXkFqcGc@._V1_QL75_UY562_CR29,0,380,562_.jpg",
+    "video": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Pokkiri%20(2007)/Pokkiri%20(Original)/Pokkiri%20(1080p%20HD)/Moviesda.Mobi%20-%20Pokkiri%202007%20Original%201080p%20HD.mp4?h=33d7468f97c576b762c56da4803022e41996e5c5&e=1747837243",
+    "alt": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Pokkiri%20(2007)/Pokkiri%20(Original)/Pokkiri%20(720p%20HD)/Moviesda.Mobi%20-%20Pokkiri%202007%20Original%20720p%20HD.mp4?h=c600ef81f4f41de60b943a69cdb56314b938681e&e=1747837251",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "quality": "1080p",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "fileSize": "1.60 GB",
+      "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Pokkiri%20(2007)/Pokkiri%20(Original)/Pokkiri%20(1080p%20HD)/Moviesda.Mobi%20-%20Pokkiri%202007%20Original%201080p%20HD.mp4?h=33d7468f97c576b762c56da4803022e41996e5c5&e=1747837243"
+    },
+    "id": "pokkiri-2007",
+    "1080Url": "https://play.onestream.watch/stream/page/87831",
+    "720Url": "https://play.onestream.watch/stream/page/87834",
+	"categories": ["vijay"]
+  },
+  {
+    "type": "movie",
+    "title": "Sachein (2005)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMjRjMzFlYTMtZTdkMS00NDBjLWI5MzEtZDY5NzM5ZjFmYTkzXkEyXkFqcGc@._V1_QL75_UY562_CR4,0,380,562_.jpg",
+    "video": "https://s10.hotshare.link/Moviesda.Mobi_-_Sachein_2005_Original_1080p_HD.mp4",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "quality": "720p",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "fileSize": "1.75 GB",
+      "streamURL": "https://s10.hotshare.link/Moviesda.Mobi_-_Sachein_2005_Original_1080p_HD.mp4"
+    },
+    "id": "sachein-2005",
+    "1080Url": "https://play.onestream.watch/stream/page/90051",
+    "720Url": "https://play.onestream.watch/stream/page/80356",
+	"categories": ["vijay"]
+  },
+  {
+    "type": "movie",
+    "title": "Minsara Kanavu (1997)",
+    "image": "https://m.media-amazon.com/images/M/MV5BMmU3MjNkOTgtNThlZS00MTk2LWE4N2EtYmJmMjQ0YWFlNzNlXkEyXkFqcGc@._V1_QL75_UY562_CR19,0,380,562_.jpg",
+    "video": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Minsara%20Kanavu%20(1997)/Minsara%20Kanavu%20(Original)/Minsara%20Kanavu%20(1080p%20HD)/Moviesda.Mobi%20-%20Minsara%20Kanavu%201997%20Original%201080p%20HD.mp4?h=056deb2b46a569eead6a234ff781dbf52e6dc41a&e=1747837155",
+    "alt": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Minsara%20Kanavu%20(1997)/Minsara%20Kanavu%20(Original)/Minsara%20Kanavu%20(720p%20HD)/Moviesda.Mobi%20-%20Minsara%20Kanavu%201997%20Original%20720p%20HD.mp4?h=95a1a819b29ead06e6c9061546dc83ad99da2e58&e=1747837155",
+    "details": {
+      "director": "",
+      "starring": "",
+      "genres": "",
+      "quality": "1080p",
+      "language": "Tamil",
+      "movieRating": "",
+      "lastUpdated": "10 April 2025",
+      "fileSize": "1.57 GB",
+      "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Minsara%20Kanavu%20(1997)/Minsara%20Kanavu%20(Original)/Minsara%20Kanavu%20(1080p%20HD)/Moviesda.Mobi%20-%20Minsara%20Kanavu%201997%20Original%201080p%20HD.mp4?h=056deb2b46a569eead6a234ff781dbf52e6dc41a&e=1747837155"
+    },
+    "id": "minsara-kanavu-1997",
+    "1080Url": "https://play.onestream.watch/stream/page/88843",
+    "720Url": "https://play.onestream.watch/stream/page/88841",
+	"categories": ["vijay", "90s"]
+  },
+  {
+  "type": "movie",
+  "title": "Aasai (1995)",
+  "image": "https://m.media-amazon.com/images/M/MV5BY2JjODBkNGItYjMyMi00MzRkLWEwYWUtN2MzYWM0ODY3MDEzXkEyXkFqcGc@._V1_QL75_UY562_CR16,0,380,562_.jpg",
+  "video": "https://cdn2.uptodl.ch/files/Tamil%20Movies%20Collection/Ajith%20Movies%20Collection/Aasai/Aasai%20(640x360)/Aasai%20HD.mp4?h=5a1f0561374c25857c341faf5bcc81822654e490&e=1752866912",
+  "lookUrl": "https://play.onestream.watch/stream/page/49809",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "541.94 MB",
+    "streamURL": "https://cdn2.uptodl.ch/files/Tamil%20Movies%20Collection/Ajith%20Movies%20Collection/Aasai/Aasai%20(640x360)/Aasai%20HD.mp4?h=5a1f0561374c25857c341faf5bcc81822654e490&e=1752866912"
+  },
+  "id": "aasai-1995",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Amarkalam (1999)",
+  "image": "https://m.media-amazon.com/images/M/MV5BOTQ2ZGMwNWUtNWVhZi00YjE0LWJiMGMtNzEzNjg2OTNiZTMxXkEyXkFqcGc@._V1_QL75_UY562_CR5,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Amarkalam%20(1999)/Amarkalam%20(HD)/Amarkalam%20(640x360)/Amarkalam%201999%20HD.mp4?h=8210cc89b74b77f80fc1d095813fba246676fedc&e=1752866966",
+  "lookUrl": "https://play.onestream.watch/stream/page/62456",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "637.58 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Amarkalam%20(1999)/Amarkalam%20(HD)/Amarkalam%20(640x360)/Amarkalam%201999%20HD.mp4?h=8210cc89b74b77f80fc1d095813fba246676fedc&e=1752866966"
+  },
+  "id": "amarkalam-1999",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Anantha Poongatre (1999)",
+  "image": "https://m.media-amazon.com/images/M/MV5BZGMyYjQ2NzAtMDAwNi00YmNkLWFiMTUtNzhjMTQ2M2RmZjM3XkEyXkFqcGc@._V1_QL75_UY562_CR11,0,380,562_.jpg",
+  "video": "https://cdn2.uptodl.ch/files/Tamil%20Movies%20Collection/Ajith%20Movies%20Collection/Anantha%20Poongatre/Anantha%20Poongatre%20(640x360)/Anantha%20Poongatre%20HD.mp4?h=e1fbd18d0e3ed8033e09bedc1da5726a37f09a32&e=1752866966",
+  "lookUrl": "https://play.onestream.watch/stream/page/49817",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "577.95 MB",
+    "streamURL": "https://cdn2.uptodl.ch/files/Tamil%20Movies%20Collection/Ajith%20Movies%20Collection/Anantha%20Poongatre/Anantha%20Poongatre%20(640x360)/Anantha%20Poongatre%20HD.mp4?h=e1fbd18d0e3ed8033e09bedc1da5726a37f09a32&e=1752866966"
+  },
+  "id": "anantha-poongatre-1999",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Anjaneya (2003)",
+  "image": "https://m.media-amazon.com/images/M/MV5BNDU1OGQ0YjAtYTY2Ny00M2JhLWFmM2MtMDZhNzcxZDNkMjI4XkEyXkFqcGc@._V1_QL75_UY562_CR12,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Anjaneya%20(2003)/Anjaneya%20HD/Anjaneya%20(640x360)/Anjaneya%20HD.mp4?h=f5cf0e46b7aa9d1b4a4eed42c69ed366727d3bee&e=1752867075",
+  "lookUrl": "https://play.onestream.watch/stream/page/60154",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "739.13 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Anjaneya%20(2003)/Anjaneya%20HD/Anjaneya%20(640x360)/Anjaneya%20HD.mp4?h=f5cf0e46b7aa9d1b4a4eed42c69ed366727d3bee&e=1752867075"
+  },
+  "id": "anjaneya-2003",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Arrambam (2013)",
+  "image": "https://m.media-amazon.com/images/M/MV5BMzRmMDMyMzQtZDQ5OS00M2M1LWE5YzUtMDAxNmM4YmE5OWYxXkEyXkFqcGc@._V1_QL75_UX380_CR0,12,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Arrambam%20(2013)/Arrambam%20HD/Arrambam%20(640x360)/Arrambam%20HD.mp4?h=d7f6ca2a8a94c89a93d4a07355d50cd4a599c622&e=1752867129",
+  "lookUrl": "https://play.onestream.watch/stream/page/60159",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "638.92 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Arrambam%20(2013)/Arrambam%20HD/Arrambam%20(640x360)/Arrambam%20HD.mp4?h=d7f6ca2a8a94c89a93d4a07355d50cd4a599c622&e=1752867129"
+  },
+  "id": "arrambam-2013",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Aval Varuvala (1998)",
+  "image": "https://m.media-amazon.com/images/M/MV5BOTFkZjIxYTctYmNmOC00ZjNiLWE1NWUtYTNiYzFiZmZlNzZkXkEyXkFqcGc@._V1_QL75_UY562_CR22,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Aval%20Varuvala%20(1998)/Aval%20Varuvala%20HD/Aval%20Varuvala%20(640x360)/Aval%20Varuvala%20HD.mp4?h=4754373d2f27148c0560baf60fe8bbb9f60aeab6&e=1752866966",
+  "lookUrl": "https://play.onestream.watch/stream/page/60174",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "645.47 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Aval%20Varuvala%20(1998)/Aval%20Varuvala%20HD/Aval%20Varuvala%20(640x360)/Aval%20Varuvala%20HD.mp4?h=4754373d2f27148c0560baf60fe8bbb9f60aeab6&e=1752866966"
+  },
+  "id": "aval-varuvala-1998",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Billa (2007)",
+  "image": "https://m.media-amazon.com/images/M/MV5BMTczZDQwMmEtODJlMC00MTY2LTkzMjQtYmNlNWMzN2I3YjE5XkEyXkFqcGc@._V1_QL75_UY562_CR59,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Billa%20(2007)/Billa%20HD/Billa%20(640x360)/Billa%20HD.mp4?h=761eb206c35e3c4108cf96c9c8d7c37d7956d7a2&e=1752867075",
+  "lookUrl": "https://play.onestream.watch/stream/page/60179",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "566.16 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Billa%20(2007)/Billa%20HD/Billa%20(640x360)/Billa%20HD.mp4?h=761eb206c35e3c4108cf96c9c8d7c37d7956d7a2&e=1752867075"
+  },
+  "id": "billa-2007",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Billa 2 (2012)",
+  "image": "https://m.media-amazon.com/images/M/MV5BZjZlNDE4OTAtMjRiNS00MzE3LWE3YzktOTM1MjJjNzAwNTdmXkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Billa%202%20(2012)/Billa%202%20HD/Billa%202%20(640x360)/Billa%202%20HD.mp4?h=5d77584cbe74c9b850a38e5912d7cca4892ba951&e=1752867129",
+  "lookUrl": "https://play.onestream.watch/stream/page/60184",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "522.18 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Billa%202%20(2012)/Billa%202%20HD/Billa%202%20(640x360)/Billa%202%20HD.mp4?h=5d77584cbe74c9b850a38e5912d7cca4892ba951&e=1752867129"
+  },
+  "id": "billa-2-2012",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Citizen (2001)",
+  "image": "https://m.media-amazon.com/images/M/MV5BN2ZlYTIxMDYtNDA4Zi00MDMyLTliNWItN2NlMGU3NTE2ZDc5XkEyXkFqcGc@._V1_QL75_UY562_CR18,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Citizen%20(2001)/Citizen%20HD/Citizen%20(640x360)/Citizen%20HD.mp4?h=25a870cf88868feddad1c24ac3e58d2adbbd3543&e=1752867009",
+  "lookUrl": "https://play.onestream.watch/stream/page/60189",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "619.91 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Citizen%20(2001)/Citizen%20HD/Citizen%20(640x360)/Citizen%20HD.mp4?h=25a870cf88868feddad1c24ac3e58d2adbbd3543&e=1752867009"
+  },
+  "id": "citizen-2001",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Dheena (2001)",
+  "image": "https://m.media-amazon.com/images/M/MV5BYWFjNTk1ZmQtYzM4My00NjlhLWExNmUtNTI4MzU1M2VhZjEyXkEyXkFqcGc@._V1_QL75_UY562_CR12,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Dheena%20(2001)/Dheena%20HD/Dheena%20(640x360)/Dheena%20HD.mp4?h=a021211369dfcff70915fbe5f133837c0b8f9c90&e=1752867009",
+  "lookUrl": "https://play.onestream.watch/stream/page/60194",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "711.79 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Dheena%20(2001)/Dheena%20HD/Dheena%20(640x360)/Dheena%20HD.mp4?h=a021211369dfcff70915fbe5f133837c0b8f9c90&e=1752867009"
+  },
+  "id": "dheena-2001",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "English Vinglish (2012)",
+  "image": "https://m.media-amazon.com/images/M/MV5BMmMwYzZhNTgtMzhhZC00N2FmLTlmY2MtZWJmZWE2MjJhMGE4XkEyXkFqcGc@._V1_QL75_UY562_CR6,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/English%20Vinglish%20(2012)/English%20Vinglish%20(Original)/English%20Vinglish%20(640x360)/English%20Vinglish%20HD.mp4?h=8e73124f808284a8daf45e9bde866ae907f7de26&e=1752867129",
+  "lookUrl": "https://play.onestream.watch/stream/page/56761",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "537.95 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/English%20Vinglish%20(2012)/English%20Vinglish%20(Original)/English%20Vinglish%20(640x360)/English%20Vinglish%20HD.mp4?h=8e73124f808284a8daf45e9bde866ae907f7de26&e=1752867129"
+  },
+  "id": "english-vinglish-2012",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Ennai Thalatta Varuvala (2003)",
+  "image": "https://m.media-amazon.com/images/M/MV5BNTJlZjkyOTctMGMxZi00ZGJkLTg5OGMtZWE3MWRlMTBlOTVhXkEyXkFqcGc@._V1_QL75_UY562_CR35,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Ennai%20Thalatta%20Varuvala%20(2003)/Ennai%20Thalatta%20Varuvala%20HD/Ennai%20Thalatta%20Varuvala%20(640x360)/Ennai%20Thalatta%20Varuvala%20HD.mp4?h=553a4657381dccfcfcc91d8625bd175da27ccfcc&e=1752867074",
+  "lookUrl": "https://play.onestream.watch/stream/page/60199",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "513.39 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Ennai%20Thalatta%20Varuvala%20(2003)/Ennai%20Thalatta%20Varuvala%20HD/Ennai%20Thalatta%20Varuvala%20(640x360)/Ennai%20Thalatta%20Varuvala%20HD.mp4?h=553a4657381dccfcfcc91d8625bd175da27ccfcc&e=1752867074"
+  },
+  "id": "ennai-thalatta-varuvala-2003",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Good Bad Ugly (2025)",
+  "image": "https://m.media-amazon.com/images/M/MV5BZTViMDEwZjgtMjEzZS00YWQ1LWI0ODctMWIzNTE4Y2Y5Y2Y2XkEyXkFqcGc@._V1_QL75_UX380_CR0,1,380,562_.jpg",
+  "video": "https://s01.hotshare.link/Moviesda.Mobi_-_Good_Bad_Ugly_2025_Original_1080p_HD.mp4",
+  "alt": "https://dl8.hotshare.click/Moviesda.Mobi_-_Good_Bad_Ugly_2025_Original_720p_HD.mp4",
+  "1080Url": "https://play.onestream.watch/stream/page/90395",
+  "720Url": "https://play.onestream.watch/stream/page/90400",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "1080p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "1.52 GB",
+    "streamURL": "https://s01.hotshare.link/Moviesda.Mobi_-_Good_Bad_Ugly_2025_Original_1080p_HD.mp4"
+  },
+  "id": "good-bad-ugly-2025",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Jana (2004)",
+  "image": "https://m.media-amazon.com/images/M/MV5BM2YxMWE1NmQtMGY0MS00YmRlLWE5NTYtYTk1MTBiOGE5YTRiXkEyXkFqcGc@._V1_QL75_UY562_CR23,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Jana%20(2004)/Jana%20HD/Jana%20(640x360)/Jana%20HD.mp4?h=9e8d75d3c7ed5cb8fa749e9ee4bfe049dd32c8af&e=1752867075",
+  "lookUrl": "https://play.onestream.watch/stream/page/60204",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "714.77 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Jana%20(2004)/Jana%20HD/Jana%20(640x360)/Jana%20HD.mp4?h=9e8d75d3c7ed5cb8fa749e9ee4bfe049dd32c8af&e=1752867075"
+  },
+  "id": "jana-2004",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Ji (2005)",
+  "image": "https://m.media-amazon.com/images/M/MV5BNTk5ZjE2NzctODViYS00MjI3LWIzYzctYzVlMDU2Yjk2ZmM3XkEyXkFqcGc@._V1_QL75_UY562_CR36,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Ji%20(2005)/Ji%20HD/Ji%20(640x360)/Ji%20HD.mp4?h=580011c9ffeff74cd23ae45e84c16ca5f797b777&e=1752867076",
+  "lookUrl": "https://play.onestream.watch/stream/page/60209",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "726.46 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Ji%20(2005)/Ji%20HD/Ji%20(640x360)/Ji%20HD.mp4?h=580011c9ffeff74cd23ae45e84c16ca5f797b777&e=1752867076"
+  },
+  "id": "ji-2005",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Kaadhal Mannan (1998)",
+  "image": "https://m.media-amazon.com/images/M/MV5BZWE5ZTQ4MjgtYTY5ZS00NDM4LWIyZDUtYWNjYjg4MmZkZDJjXkEyXkFqcGc@._V1_QL75_UY562_CR7,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Kadhal%20Mannan%20(1998)/Kadhal%20Mannan%20(HD)/Kadhal%20Mannan%20(640x360)/Kaadhal%20Mannan%201998%20HD.mp4?h=61a6a8e2c17692b5c35e972ac6c4b49457f99b21&e=1752866966",
+  "lookUrl": "https://play.onestream.watch/stream/page/62446",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "569.92 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Kadhal%20Mannan%20(1998)/Kadhal%20Mannan%20(HD)/Kadhal%20Mannan%20(640x360)/Kaadhal%20Mannan%201998%20HD.mp4?h=61a6a8e2c17692b5c35e972ac6c4b49457f99b21&e=1752866966"
+  },
+  "id": "kaadhal-mannan-1998",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Kadhal Kottai (1996)",
+  "image": "https://m.media-amazon.com/images/M/MV5BMTQzNWVkOTUtYmQyOC00NGYxLWEzNzgtNjQzODFjZDU4ZWY2XkEyXkFqcGc@._V1_QL75_UY562_CR22,0,380,562_.jpg",
+  "video": "https://cdn2.uptodl.ch/files/Tamil%20Movies%20Collection/Ajith%20Movies%20Collection/Kathal%20Kottai/Kadhal%20Kottai%20(640x360)/Kadhal%20Kottai%20HD.mp4?h=f4dd58b7fa5cb3d1c2b03b8688c2ca567ca21ed1&e=1752866913",
+  "lookUrl": "https://play.onestream.watch/stream/page/49788",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "634.18 MB",
+    "streamURL": "https://cdn2.uptodl.ch/files/Tamil%20Movies%20Collection/Ajith%20Movies%20Collection/Kathal%20Kottai/Kadhal%20Kottai%20(640x360)/Kadhal%20Kottai%20HD.mp4?h=f4dd58b7fa5cb3d1c2b03b8688c2ca567ca21ed1&e=1752866913"
+  },
+  "id": "kadhal-kottai-1996",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Kalloori Vaasal (1996)",
+  "image": "https://m.media-amazon.com/images/M/MV5BN2QyZjhjOTQtOWU4Yi00MzgxLWJkODgtOWVlNzk2ZjkzM2I5XkEyXkFqcGc@._V1_QL75_UY562_CR18,0,380,562_.jpg",
+  "video": "https://cdn2.uptodl.ch/files/Tamil%20Movies%20Collection/Ajith%20Movies%20Collection/Kalloori%20Vaasal%20(1996)/Kalloori%20Vaasal%20(640x360)/Kalloori%20Vaasal%20HD.mp4?h=30f533bdb46a64e07496a64393a1aba59959b94b&e=1752866912",
+  "lookUrl": "https://play.onestream.watch/stream/page/50833",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "520.66 MB",
+    "streamURL": "https://cdn2.uptodl.ch/files/Tamil%20Movies%20Collection/Ajith%20Movies%20Collection/Kalloori%20Vaasal%20(1996)/Kalloori%20Vaasal%20(640x360)/Kalloori%20Vaasal%20HD.mp4?h=30f533bdb46a64e07496a64393a1aba59959b94b&e=1752866912"
+  },
+  "id": "kalloori-vaasal-1996",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Kandukondain Kandukondain (2000)",
+  "image": "https://m.media-amazon.com/images/M/MV5BOGMzMmI5MGEtM2QzYS00NzJmLTgyYjEtMzUzYjBhZWZhYzdhXkEyXkFqcGc@._V1_QL75_UY562_CR7,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Kandukondain%20Kandukondain%20(2000)/Kandukondain%20Kandukondain%20HD/Kandukondain%20Kandukondain%20(640x360)/Kandukondain%20Kandukondain%20HD.mp4?h=45523718f41bb79455dcfd6ed166674423e4c7ae&e=1752867009",
+  "lookUrl": "https://play.onestream.watch/stream/page/60229",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "636.70 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Kandukondain%20Kandukondain%20(2000)/Kandukondain%20Kandukondain%20HD/Kandukondain%20Kandukondain%20(640x360)/Kandukondain%20Kandukondain%20HD.mp4?h=45523718f41bb79455dcfd6ed166674423e4c7ae&e=1752867009"
+  },
+  "id": "kandukondain-kandukondain-2000",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Kireedam (2007)",
+  "image": "https://m.media-amazon.com/images/M/MV5BMTQ3YTdmNjYtY2YwNC00NWE0LTg4MTEtNmRmZDFmM2ZiNjkzXkEyXkFqcGc@._V1_QL75_UY562_CR31,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Kireedam%20(2007)/Kireedam%20HD/Kireedam%20(640x360)/Kireedam%20HD.mp4?h=7e419112b8ceec2c6243b33af0a4ba588ac55402&e=1752867076",
+  "lookUrl": "https://play.onestream.watch/stream/page/60234",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "654.62 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Kireedam%20(2007)/Kireedam%20HD/Kireedam%20(640x360)/Kireedam%20HD.mp4?h=7e419112b8ceec2c6243b33af0a4ba588ac55402&e=1752867076"
+  },
+  "id": "kireedam-2007",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Mankatha (2011)",
+  "image": "https://m.media-amazon.com/images/M/MV5BMzZmZTIxZmMtODJjNC00ZTQ5LWE0N2MtZGZlNWQ3MjYzNzIxXkEyXkFqcGc@._V1_QL75_UY562_CR22,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Mankatha%20(2011)/Mankatha%20HD/Mankatha%20(640x360)/Mankatha%20HD.mp4?h=80c4989d29945f793d2e9bc2d3e00ffcc1a25577&e=1752867075",
+  "lookUrl": "https://play.onestream.watch/stream/page/60239",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "687.66 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Mankatha%20(2011)/Mankatha%20HD/Mankatha%20(640x360)/Mankatha%20HD.mp4?h=80c4989d29945f793d2e9bc2d3e00ffcc1a25577&e=1752867075"
+  },
+  "id": "mankatha-2011",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Minor Mappillai (1996)",
+  "image": "https://m.media-amazon.com/images/M/MV5BZDgwYWNjZGQtODVlNi00ZGVlLTgyZjMtYzJhZGE5ZTk4NzQ4XkEyXkFqcGc@._V1_QL75_UY562_CR15,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Minor%20Mappillai%20(1996)/Minor%20Mappillai%20HD/Minor%20Mappillai%20(640x360)/Minor%20Mappillai%20HD.mp4?h=be8208f57f995f16811fe38896905238258cf142&e=1752866912",
+  "lookUrl": "https://play.onestream.watch/stream/page/60244",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "624.40 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Minor%20Mappillai%20(1996)/Minor%20Mappillai%20HD/Minor%20Mappillai%20(640x360)/Minor%20Mappillai%20HD.mp4?h=be8208f57f995f16811fe38896905238258cf142&e=1752866912"
+  },
+  "id": "minor-mappillai-1996",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Mugavaree (2000)",
+  "image": "https://m.media-amazon.com/images/M/MV5BZjg1NmU2M2QtZDUwNi00ZjYzLTk0NGMtMjBiNzg5ZGRhODJiXkEyXkFqcGc@._V1_QL75_UY562_CR13,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Mugavaree%20(2000)/Mugavaree%20HD/Mugavaree%20(640x360)/Mugavaree%20HD.mp4?h=785e6feec44e85df8b8a94d6c15db0397235b3e1&e=1752867009",
+  "lookUrl": "https://play.onestream.watch/stream/page/60249",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "662.68 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Mugavaree%20(2000)/Mugavaree%20HD/Mugavaree%20(640x360)/Mugavaree%20HD.mp4?h=785e6feec44e85df8b8a94d6c15db0397235b3e1&e=1752867009"
+  },
+  "id": "mugavaree-2000",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Nee Varuvai Ena (1999)",
+  "image": "https://m.media-amazon.com/images/M/MV5BN2JmZGFiZTctMGZiMS00OTgyLWFiMjgtZGYwMzI1OWFlMmYyXkEyXkFqcGc@._V1_QL75_UY562_CR14,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Nee%20Varuvai%20Ena%20(1999)/Nee%20Varuvai%20Ena%20HD/Nee%20Varuvai%20Ena%20(640x360)/Nee%20Varuvai%20Ena%20HD.mp4?h=6cbc140d797f4efb888b45bc30391f76037be03f&e=1752867009",
+  "lookUrl": "https://play.onestream.watch/stream/page/60254",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "665.50 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Nee%20Varuvai%20Ena%20(1999)/Nee%20Varuvai%20Ena%20HD/Nee%20Varuvai%20Ena%20(640x360)/Nee%20Varuvai%20Ena%20HD.mp4?h=6cbc140d797f4efb888b45bc30391f76037be03f&e=1752867009"
+  },
+  "id": "nee-varuvai-ena-1999",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Nerkonda Paarvai (2019)",
+  "image": "https://m.media-amazon.com/images/M/MV5BZDk0MDI1MjEtMDliMC00ZTcyLTljOTItZWVlNjZjNmZjMGMxXkEyXkFqcGc@._V1_QL75_UY562_CR21,0,380,562_.jpg",
+  "video": "https://cdn3.uptodl.ch/files/Tamil%202019%20Movies/Nerkonda%20Paarvai%20(2019)/Nerkonda%20Paarvai%20(Original)/Nerkonda%20Paarvai%20(640x360)/Nerkonda%20Paarvai%202019%20HD.mp4?h=d0247c8337ec9795b687f80b4f047c8e042d5bb6&e=1752867130",
+  "lookUrl": "https://play.onestream.watch/stream/page/62026",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "595.96 MB",
+    "streamURL": "https://cdn3.uptodl.ch/files/Tamil%202019%20Movies/Nerkonda%20Paarvai%20(2019)/Nerkonda%20Paarvai%20(Original)/Nerkonda%20Paarvai%20(640x360)/Nerkonda%20Paarvai%202019%20HD.mp4?h=d0247c8337ec9795b687f80b4f047c8e042d5bb6&e=1752867130"
+  },
+  "id": "nerkonda-paarvai-2019",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Nesam (1997)",
+  "image": "https://m.media-amazon.com/images/M/MV5BOTI5ZWYxOGUtMjE5Ny00ZTU1LTk2YmQtMDg3M2FjZjQ2ZDRkXkEyXkFqcGc@._V1_QL75_UY562_CR23,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Nesam%20(1997)/Nesam%20HD/Nesam%20(640x360)/Nesam%20HD.mp4?h=f3fbcd65ede194c03f0bc191b240e6883db81c30&e=1752866912",
+  "lookUrl": "https://play.onestream.watch/stream/page/60259",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "594.59 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Nesam%20(1997)/Nesam%20HD/Nesam%20(640x360)/Nesam%20HD.mp4?h=f3fbcd65ede194c03f0bc191b240e6883db81c30&e=1752866912"
+  },
+  "id": "nesam-1997",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Pagaivan (1997)",
+  "image": "https://m.media-amazon.com/images/M/MV5BNDVjZDhiZGUtZWJiYS00N2Y1LWFhMjEtNjEyNTdkZTIyOWRkXkEyXkFqcGc@._V1_QL75_UY562_CR2,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Pagaivan%20(1997)/Pagaivan%20HD/Pagaivan%20(640x360)/Pagaivan%20HD.mp4?h=c2911f000ef6b1cf98b2d2fc72531d776c185a06&e=1752866966",
+  "lookUrl": "https://play.onestream.watch/stream/page/60264",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "582.88 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Pagaivan%20(1997)/Pagaivan%20HD/Pagaivan%20(640x360)/Pagaivan%20HD.mp4?h=c2911f000ef6b1cf98b2d2fc72531d776c185a06&e=1752866966"
+  },
+  "id": "pagaivan-1997",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Paramasivan (2006)",
+  "image": "https://m.media-amazon.com/images/M/MV5BMGIwMjUxMmEtY2IzOC00MGFhLWE0ZDItZGUwYjI1OWMyMjdlXkEyXkFqcGc@._V1_QL75_UY562_CR12,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Paramasivan%20(2006)/Paramasivan%20HD/Paramasivan%20(640x360)/Paramasivan%20HD.mp4?h=23583d2fbe06d9a685a7a806b071559022900ae1&e=1752867075",
+  "lookUrl": "https://play.onestream.watch/stream/page/60269",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "678.24 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Paramasivan%20(2006)/Paramasivan%20HD/Paramasivan%20(640x360)/Paramasivan%20HD.mp4?h=23583d2fbe06d9a685a7a806b071559022900ae1&e=1752867075"
+  },
+  "id": "paramasivan-2006",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Pavithra (1994)",
+  "image": "https://m.media-amazon.com/images/M/MV5BY2M3Yzc5YjMtZjIxZS00ZjFjLTg2MTMtYTU3MTYxZDhmZjg3XkEyXkFqcGc@._V1_QL75_UX380_CR0,12,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Pavithra%20(1994)/Pavithra%20HD/Pavithra%20(640x360)/Pavithra%20HD.mp4?h=8b76042d39cbd52d8fb539457254141a51abc88d&e=1752866912",
+  "lookUrl": "https://play.onestream.watch/stream/page/60274",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "219.46 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Pavithra%20(1994)/Pavithra%20HD/Pavithra%20(640x360)/Pavithra%20HD.mp4?h=8b76042d39cbd52d8fb539457254141a51abc88d&e=1752866912"
+  },
+  "id": "pavithra-1994",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Poovellam Un Vasam (2001)",
+  "image": "https://m.media-amazon.com/images/M/MV5BOWQ0MTY1NzMtMzc1MS00M2RiLTk1MmMtYjA1NzA3OWE4MWNkXkEyXkFqcGc@._V1_QL75_UY562_CR24,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Poovellam%20Un%20Vasam%20(2001)/Poovellam%20Un%20Vasam%20HD/Poovellam%20Un%20Vasam%20(640x360)/Poovellam%20Un%20Vasam%20HD.mp4?h=d232dc910db12bb8b1970524ee39cd9b0e4e2d4e&e=1752867009",
+  "lookUrl": "https://play.onestream.watch/stream/page/60279",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "674.77 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Poovellam%20Un%20Vasam%20(2001)/Poovellam%20Un%20Vasam%20HD/Poovellam%20Un%20Vasam%20(640x360)/Poovellam%20Un%20Vasam%20HD.mp4?h=d232dc910db12bb8b1970524ee39cd9b0e4e2d4e&e=1752867009"
+  },
+  "id": "poovellam-un-vasam-2001",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Raasi (1997)",
+  "image": "https://m.media-amazon.com/images/M/MV5BNzNjZjFiZmItYWMzMi00MTE0LThlMWEtZGVlMzMxOGYyZTAzXkEyXkFqcGc@._V1_QL75_UY562_CR39,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Raasi%20(1997)/Raasi%20HD/Raasi%20(640x360)/Raasi%20HD.mp4?h=06cddf782bba67a47300217ce3194097e73644d3&e=1752866912",
+  "lookUrl": "https://play.onestream.watch/stream/page/60284",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "570.11 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Raasi%20(1997)/Raasi%20HD/Raasi%20(640x360)/Raasi%20HD.mp4?h=06cddf782bba67a47300217ce3194097e73644d3&e=1752866912"
+  },
+  "id": "raasi-1997",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Raja (2002)",
+  "image": "https://m.media-amazon.com/images/M/MV5BZmRmNWRmMDEtMzJmZC00ODhiLTk3NzMtMmJkMDNjZjMzZWQyXkEyXkFqcGc@._V1_QL75_UY562_CR10,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Raja%20(2002)/Raja%20HD/Raja%20(640x360)/Raja%20HD.mp4?h=751edabf3922b071394775d3df794efa9906d2b6&e=1752867010",
+  "lookUrl": "https://play.onestream.watch/stream/page/60289",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "506.80 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Raja%20(2002)/Raja%20HD/Raja%20(640x360)/Raja%20HD.mp4?h=751edabf3922b071394775d3df794efa9906d2b6&e=1752867010"
+  },
+  "id": "raja-2002",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Rajavin Parvaiyile (1995)",
+  "image": "https://m.media-amazon.com/images/M/MV5BZDZlMjFmNzEtODAxZi00ZTgzLWFlNjctNDY2MDczNDYzYmM3XkEyXkFqcGc@._V1_QL75_UY562_CR8,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Rajavin%20Parvaiyile%20(1995)/Rajavin%20Parvaiyile%20HD/Rajavin%20Parvaiyile%20(640x360)/Rajavin%20Parvaiyile%20HD.mp4?h=df0d47e977302499251cbb3ffca213c315b3f265&e=1752866912",
+  "lookUrl": "https://play.onestream.watch/stream/page/60294",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "186.44 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Rajavin%20Parvaiyile%20(1995)/Rajavin%20Parvaiyile%20HD/Rajavin%20Parvaiyile%20(640x360)/Rajavin%20Parvaiyile%20HD.mp4?h=df0d47e977302499251cbb3ffca213c315b3f265&e=1752866912"
+  },
+  "id": "rajavin-parvaiyile-1995",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Red (2002)",
+  "image": "https://m.media-amazon.com/images/M/MV5BMGQwMmUyNmUtMGI4Mi00YjQwLWE0YjEtNDQ4MmU2Yjc0ZDdhXkEyXkFqcGc@._V1_QL75_UY562_CR23,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Red%20(2002)/Red%20HD/Red%20(640x360)/Red%20HD.mp4?h=d1ed8d75b6f0e045322951cad213f6eb741fc51d&e=1752867009",
+  "lookUrl": "https://play.onestream.watch/stream/page/60299",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "91.21 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Red%20(2002)/Red%20HD/Red%20(640x360)/Red%20HD.mp4?h=d1ed8d75b6f0e045322951cad213f6eb741fc51d&e=1752867009"
+  },
+  "id": "red-2002",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Rettai Jadai Vayasu (1997)",
+  "image": "https://m.media-amazon.com/images/M/MV5BNjU1MmE4YjgtNWQzMi00MWVkLTg5Y2ItNjEzY2VlMGQzMjg4XkEyXkFqcGc@._V1_QL75_UY562_CR328,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Rettai%20Jadai%20Vayasu%20(1997)/Rettai%20Jadai%20Vayasu%20HD/Rettai%20Jadai%20Vayasu%20(640x360)/Rettai%20Jadai%20Vayasu%20HD.mp4?h=4aa3e1bfabbbd0b1065c912b7140bb0ca41d1ab3&e=1752866966",
+  "lookUrl": "https://play.onestream.watch/stream/page/60304",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "550.21 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Rettai%20Jadai%20Vayasu%20(1997)/Rettai%20Jadai%20Vayasu%20HD/Rettai%20Jadai%20Vayasu%20(640x360)/Rettai%20Jadai%20Vayasu%20HD.mp4?h=4aa3e1bfabbbd0b1065c912b7140bb0ca41d1ab3&e=1752866966"
+  },
+  "id": "rettai-jadai-vayasu-1997",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Thirupathi (2006)",
+  "image": "https://m.media-amazon.com/images/M/MV5BZjg2MmU5OGEtNDNhNC00YzI0LWI1ZjMtMmIwYzFkMGVmODBiXkEyXkFqcGc@._V1_QL75_UY562_CR17,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Thirupathi%20(2006)/Thirupathi%20HD/Thirupathi%20(640x360)/Thirupathi%20HD.mp4?h=19513441c2364b4c8c7e273902a803fad7ea2453&e=1752867076",
+  "lookUrl": "https://play.onestream.watch/stream/page/60309",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "524.15 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Thirupathi%20(2006)/Thirupathi%20HD/Thirupathi%20(640x360)/Thirupathi%20HD.mp4?h=19513441c2364b4c8c7e273902a803fad7ea2453&e=1752867076"
+  },
+  "id": "thirupathi-2006",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Thunivu (2023)",
+  "image": "https://m.media-amazon.com/images/M/MV5BMWUwMzc3MTQtNDRlYi00MmUzLTllODktZDlhOTIyMmMyNWNjXkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg",
+  "video": "https://cdn6.uptodl.ch/files/Tamil%202023%20Movies/Thunivu%20(2023)/Thunivu%20(Original)/Thunivu%20(720p%20HD)/Moviesda.Mobi%20-%20Thunivu%202023%20Original%20720p%20HD.mp4?h=c44c720183d29a4d4e771d5520d1c5556311bea3&e=1752867130",
+  "lookUrl": "https://play.onestream.watch/stream/page/78049",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "720p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "747.58 MB",
+    "streamURL": "https://cdn6.uptodl.ch/files/Tamil%202023%20Movies/Thunivu%20(2023)/Thunivu%20(Original)/Thunivu%20(720p%20HD)/Moviesda.Mobi%20-%20Thunivu%202023%20Original%20720p%20HD.mp4?h=c44c720183d29a4d4e771d5520d1c5556311bea3&e=1752867130"
+  },
+  "id": "thunivu-2023",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Ullaasam (1997)",
+  "image": "https://m.media-amazon.com/images/M/MV5BMjlmMjdlMDUtMGM0Yi00N2MzLTk5ZDktNmZjMGE2ZjAzZTMyXkEyXkFqcGc@._V1_QL75_UY562_CR20,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Ullaasam%20(1997)/Ullaasam%20HD/Ullaasam%20(640x360)/Ullaasam%20HD.mp4?h=8684d1ab1d54fc15cf038df743f42b40673a016a&e=1752866912",
+  "lookUrl": "https://play.onestream.watch/stream/page/60314",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "407.52 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Ullaasam%20(1997)/Ullaasam%20HD/Ullaasam%20(640x360)/Ullaasam%20HD.mp4?h=8684d1ab1d54fc15cf038df743f42b40673a016a&e=1752866912"
+  },
+  "id": "ullaasam-1997",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Unnai Kodu Ennai Tharuven (2000)",
+  "image": "https://m.media-amazon.com/images/M/MV5BNTI0N2I4NTQtM2Q0NC00MjQxLWIyNDQtMTJmYzlkOWM0ZTgxXkEyXkFqcGc@._V1_QL75_UY562_CR12,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Unnai%20Kodu%20Ennai%20Tharuven%20(2000)/Unnai%20Kodu%20Ennai%20Tharuven%20HD/Unnai%20Kodu%20Ennai%20Tharuven%20(640x360)/Unnai%20Kodu%20Ennai%20Tharuven%20HD.mp4?h=089444cf0c12778170030769964a6610c7c1052b&e=1752867009",
+  "lookUrl": "https://play.onestream.watch/stream/page/60319",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "675.10 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Unnai%20Kodu%20Ennai%20Tharuven%20(2000)/Unnai%20Kodu%20Ennai%20Tharuven%20HD/Unnai%20Kodu%20Ennai%20Tharuven%20(640x360)/Unnai%20Kodu%20Ennai%20Tharuven%20HD.mp4?h=089444cf0c12778170030769964a6610c7c1052b&e=1752867009"
+  },
+  "id": "unnai-kodu-ennai-tharuven-2000",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Unnai Thedi (1999)",
+  "image": "https://m.media-amazon.com/images/M/MV5BZjQ5NjcyMmMtZDFkZi00NWY4LWJiZWYtZGU2ZDJiYzNmNjQxXkEyXkFqcGc@._V1_QL75_UY562_CR16,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Unnai%20Thedi%20(1999)/Unnai%20Thedi%20HD/Unnai%20Thedi%20(640x360)/Unnai%20Thedi%20HD.mp4?h=5904c052fad56c6e0e53d8b3428cff1e637c45ba&e=1752866966",
+  "lookUrl": "https://play.onestream.watch/stream/page/60324",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "542.37 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Unnai%20Thedi%20(1999)/Unnai%20Thedi%20HD/Unnai%20Thedi%20(640x360)/Unnai%20Thedi%20HD.mp4?h=5904c052fad56c6e0e53d8b3428cff1e637c45ba&e=1752866966"
+  },
+  "id": "unnai-thedi-1999",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Unnidathil Ennai Koduthen (1998)",
+  "image": "https://m.media-amazon.com/images/M/MV5BN2NlOGEyY2QtNjE4Mi00MDBlLTgwZjctYTUzMzJjNWMyZTI5XkEyXkFqcGc@._V1_QL75_UY562_CR18,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Unnidathil%20Ennai%20Koduthen%20(1998)/Unnidathil%20Ennai%20Koduthen%20HD/Unnidathil%20Ennai%20Koduthen%20(640x360)/Unnidathil%20Ennai%20Koduthen%20HD.mp4?h=d9dbb12855788aad46d81e425e9540f0294cd54f&e=1752866966",
+  "lookUrl": "https://play.onestream.watch/stream/page/60329",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "694.39 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Unnidathil%20Ennai%20Koduthen%20(1998)/Unnidathil%20Ennai%20Koduthen%20HD/Unnidathil%20Ennai%20Koduthen%20(640x360)/Unnidathil%20Ennai%20Koduthen%20HD.mp4?h=d9dbb12855788aad46d81e425e9540f0294cd54f&e=1752866966"
+  },
+  "id": "unnidathil-ennai-koduthen-1998",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Uyirodu Uyiraga (1998)",
+  "image": "https://m.media-amazon.com/images/M/MV5BNmIzYmJlMjEtMmZlYS00ZWEyLTljYjUtMTMwOTZjZDRjZWY2XkEyXkFqcGc@._V1_QL75_UX380_CR0,26,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Uyirodu%20Uyiraga%20(1998)/Uyirodu%20Uyiraga%20HD/Uyirodu%20Uyiraga%20(640x360)/Uyirodu%20Uyiraga%20HD.mp4?h=cc326033e40e2d375b8064f43f6b5148ec0a3f8d&e=1752866966",
+  "lookUrl": "https://play.onestream.watch/stream/page/60334",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "591.84 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Uyirodu%20Uyiraga%20(1998)/Uyirodu%20Uyiraga%20HD/Uyirodu%20Uyiraga%20(640x360)/Uyirodu%20Uyiraga%20HD.mp4?h=cc326033e40e2d375b8064f43f6b5148ec0a3f8d&e=1752866966"
+  },
+  "id": "uyirodu-uyiraga-1998",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Vaali (1999)",
+  "image": "https://m.media-amazon.com/images/M/MV5BMTAyNDIzNWYtNzQwMS00MmYyLTg3YjUtZmYxNjJhNzViNTExXkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Vaali%20(1999)/Vaali%20HD/Vaali%20(640x360)/Vaali%20HD.mp4?h=f2e5fa33230dbfb8370e751e6d819d1badbd188c&e=1752866966",
+  "lookUrl": "https://play.onestream.watch/stream/page/60339",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "681.92 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Vaali%20(1999)/Vaali%20HD/Vaali%20(640x360)/Vaali%20HD.mp4?h=f2e5fa33230dbfb8370e751e6d819d1badbd188c&e=1752866966"
+  },
+  "id": "vaali-1999",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Vaanmathi (1996)",
+  "image": "https://m.media-amazon.com/images/M/MV5BNWFmYzFiMTgtNTUxNy00NTA5LWJkMzYtYzhhZTBkOGI0ZDBiXkEyXkFqcGc@._V1_QL75_UY562_CR750,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Vaanmathi%20(1996)/Vaanmathi%20HD/Vaanmathi%20(640x360)/Vaanmathi%20HD.mp4?h=8a9fac85ff39351e519c45b29d3f2df90633552b&e=1752866912",
+  "lookUrl": "https://play.onestream.watch/stream/page/60344",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "594.35 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Vaanmathi%20(1996)/Vaanmathi%20HD/Vaanmathi%20(640x360)/Vaanmathi%20HD.mp4?h=8a9fac85ff39351e519c45b29d3f2df90633552b&e=1752866912"
+  },
+  "id": "vaanmathi-1996",
+  "mature": "",
+  "categories": ["ajith", "90s"]
+},
+{
+  "type": "movie",
+  "title": "Valimai (2022)",
+  "image": "https://m.media-amazon.com/images/M/MV5BZTljZTEwNDAtYmEyMy00YjQ5LTljMjgtMGYyNzU0MDI0NTU3XkEyXkFqcGc@._V1_QL75_UY562_CR4,0,380,562_.jpg",
+  "video": "https://cdn5.uptodl.ch/files/Tamil%202022%20Movies/Valimai%20(2022)/Valimai%20(Original)/Valimai%20(720p%20HD)/Valimai%202022%20720p%20HD.mp4?h=a66ea1e2b518291f0ba46fece029534528912c4c&e=1752867130",
+  "lookUrl": "https://play.onestream.watch/stream/page/72897",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "720p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "1.44 GB",
+    "streamURL": "https://cdn5.uptodl.ch/files/Tamil%202022%20Movies/Valimai%20(2022)/Valimai%20(Original)/Valimai%20(720p%20HD)/Valimai%202022%20720p%20HD.mp4?h=a66ea1e2b518291f0ba46fece029534528912c4c&e=1752867130"
+  },
+  "id": "valimai-2022",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Varalaru (2006)",
+  "image": "https://m.media-amazon.com/images/M/MV5BNDdlODYxZmMtM2ZhOS00ODc0LWE5MmYtOWI5MmQ5MTlmN2I5XkEyXkFqcGc@._V1_QL75_UY562_CR13,0,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Varalaru%20(2006)/Varalaru%20HD/Varalaru%20(640x360)/Varalaru%20HD.mp4?h=43c9abe1823771789504829ab26df4d5e1e01b2a&e=1752867075",
+  "lookUrl": "https://play.onestream.watch/stream/page/60349",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "713.70 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Varalaru%20(2006)/Varalaru%20HD/Varalaru%20(640x360)/Varalaru%20HD.mp4?h=43c9abe1823771789504829ab26df4d5e1e01b2a&e=1752867075"
+  },
+  "id": "varalaru-2006",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Vedalam (2015)",
+  "image": "https://m.media-amazon.com/images/M/MV5BOGYzNmI4NGEtOGZlMC00NGFiLTkzN2QtY2ZkNmIwMDE1YTYwXkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Vedalam%20(2015)/Vedalam%20(Original)/Vedalam%20(720p%20HD)/Moviesda.Mobi%20-%20Vedalam%202015%20Original%20720p%20HD.mp4?h=76a85b94361fb28914fbf5e8f811b73bdda2b1b5&e=1752867130",
+  "lookUrl": "https://play.onestream.watch/stream/page/80958",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "720p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "843.22 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20HD%20Mobile%20Movies/Vedalam%20(2015)/Vedalam%20(Original)/Vedalam%20(720p%20HD)/Moviesda.Mobi%20-%20Vedalam%202015%20Original%20720p%20HD.mp4?h=76a85b94361fb28914fbf5e8f811b73bdda2b1b5&e=1752867130"
+  },
+  "id": "vedalam-2015",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Veeram (2014)",
+  "image": "https://m.media-amazon.com/images/M/MV5BMjBmZjNmZjctODc5Zi00ZTc0LTgwMTktZjFkMjY3NzMyZDE5XkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Veeram%20(2014)/Veeram%20HD/Veeram%20(640x360)/Veeram%20HD.mp4?h=334d427c4509ed91085a54d7012d31e03cb969ee&e=1752867130",
+  "lookUrl": "https://play.onestream.watch/stream/page/60359",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "674.33 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Veeram%20(2014)/Veeram%20HD/Veeram%20(640x360)/Veeram%20HD.mp4?h=334d427c4509ed91085a54d7012d31e03cb969ee&e=1752867130"
+  },
+  "id": "veeram-2014",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Vidaamuyarchi (2025)",
+  "image": "https://m.media-amazon.com/images/M/MV5BZjk5OWRjNzUtZDNjNC00ZjI4LTk0MmUtN2M0YWE4OTRhNGRjXkEyXkFqcGc@._V1_QL75_UY562_CR35,0,380,562_.jpg",
+  "video": "https://dl2.hotshare.click/Moviesda.Mobi_-_Vidaamuyarchi_2025_Original_1080p_HD.mp4",
+  "alt": "https://dl9.hotshare.click/Moviesda.Mobi_-_Vidaamuyarchi_2025_Original_720p_HD.mp4",
+  "1080Url": "https://play.onestream.watch/stream/page/89203",
+  "720Url": "https://play.onestream.watch/stream/page/89202",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "1080p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "1.62 GB",
+    "streamURL": "https://dl2.hotshare.click/Moviesda.Mobi_-_Vidaamuyarchi_2025_Original_1080p_HD.mp4"
+  },
+  "id": "vidaamuyarchi-2025",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Villain (2002)",
+  "image": "https://m.media-amazon.com/images/M/MV5BMzAyNGYzYzUtYmU5MS00OGE0LTliY2EtOGU1MDI3OGNkZjRhXkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg",
+  "video": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Villain%20(2002)/Villain%20HD/Villain%20(640x360)/Villain%20HD.mp4?h=7766f54085823d6917442292ab36c344a995a292&e=1752867010",
+  "lookUrl": "https://play.onestream.watch/stream/page/60364",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "700.58 MB",
+    "streamURL": "https://cdn4.uptodl.ch/files/Tamil%20Movies%20Collections/Thala%20Ajith%20Movies%20Collection/Villain%20(2002)/Villain%20HD/Villain%20(640x360)/Villain%20HD.mp4?h=7766f54085823d6917442292ab36c344a995a292&e=1752867010"
+  },
+  "id": "villain-2002",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Viswasam (2019)",
+  "image": "https://m.media-amazon.com/images/M/MV5BY2EzNDUxODktMDIzNC00ZGFiLTk5NTItMTk3MDIyNjMxZTZlXkEyXkFqcGc@._V1_QL75_UY562_CR19,0,380,562_.jpg",
+  "video": "https://cdn3.uptodl.ch/files/Tamil%202019%20Movies/Viswasam%20(2019)/Viswasam%20(Original)/Viswasam%20(640x360)/Viswasam%20HD.mp4?h=4b5358a5308cd6d8ebe85b0a4ab09b6e2a2792c2&e=1752867130",
+  "lookUrl": "https://play.onestream.watch/stream/page/56692",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 April 2025",
+    "fileSize": "617.57 MB",
+    "streamURL": "https://cdn3.uptodl.ch/files/Tamil%202019%20Movies/Viswasam%20(2019)/Viswasam%20(Original)/Viswasam%20(640x360)/Viswasam%20HD.mp4?h=4b5358a5308cd6d8ebe85b0a4ab09b6e2a2792c2&e=1752867130"
+  },
+  "id": "viswasam-2019",
+  "mature": "",
+  "categories": ["ajith"]
+},
+{
+  "type": "movie",
+  "title": "Vivegam (2017)",
+  "image": "https://m.media-amazon.com/images/M/MV5BZWNjZGRiZDUtYTIxYi00NmRhLWI0Y2YtODhhMGJlN2UzNzAzXkEyXkFqcGc@._V1_QL75_UY562_CR21,0,380,562_.jpg",
+  "video": "https://cdn1.uptodl.ch/files/Tamil%202017%20Movies/Vivegam%20(2017)/Vivegam%20HD%20(640x360)/Vivegam%20HD.mp4?h=3840ab5619a40fa0b4b6dc4a9323071510991897&e=1752867130",
+  "lookUrl": "https://play.onestream.watch/stream/page/51885",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "640p",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "09 July 2025",
+    "fileSize": "614.24 MB",
+    "streamURL": "https://cdn1.uptodl.ch/files/Tamil%202017%20Movies/Vivegam%20(2017)/Vivegam%20HD%20(640x360)/Vivegam%20HD.mp4?h=3840ab5619a40fa0b4b6dc4a9323071510991897&e=1752867130"
+  },
+  "id": "vivegam-2017",
+  "mature": "",
+  "categories": ["ajith"]
+},
 
-const featuredVideos = [
-  videos.find(v => v.id === 'moonwalk-2025'),
-  videos.find(v => v.id === 'akkenam-2025'),
-  videos.find(v => v.id === '3bhk-2025')
 ];
 
 // Category definitions
@@ -1219,8 +2570,13 @@ const categories = {
     icon: "💿",
     layout: "horizontal"
   },
-  recent: {
-    title: "Recent Additions",
+  ajith: {
+    title: "Actor Ajith Movies",
+    icon: "🔄",
+    layout: "horizontal"
+  },
+  vijay: {
+    title: "Actor Vijay Movies",
     icon: "🔄",
     layout: "horizontal"
   }
@@ -1284,229 +2640,126 @@ function createMovieCard(movie) {
   return card;
 }
 
-/*
 function renderCategories() {
   const container = document.getElementById('movieCategories');
   container.innerHTML = '';
-  
+
+  const isMobile = window.innerWidth < 768;
+
   Object.entries(categories).forEach(([key, category]) => {
-    const moviesInCategory = videos.filter(movie => 
+    const moviesInCategory = videos.filter(movie =>
       movie.categories && movie.categories.includes(key)
     );
-    
+
     if (moviesInCategory.length === 0) return;
-    
+
     const section = document.createElement('div');
     section.className = 'category-section';
     section.id = `category-${key}`;
-    
+
     const header = document.createElement('div');
     header.className = 'category-header';
-    
+
     const title = document.createElement('h2');
     title.className = 'category-title';
     title.innerHTML = `${category.icon} ${category.title}`;
-    
+
     const viewAllBtn = document.createElement('button');
     viewAllBtn.className = 'view-all-btn';
     viewAllBtn.textContent = 'View All';
     viewAllBtn.onclick = () => showFullCategory(key);
-    
+
     header.appendChild(title);
-    if (moviesInCategory.length > 6) {
+    if (moviesInCategory.length > 6 || isMobile) {
+      // Show "View All" if enough items or on mobile
       header.appendChild(viewAllBtn);
     }
-    
+
+    const layout = isMobile ? 'horizontal' : category.layout;
     const moviesContainer = document.createElement('div');
-    moviesContainer.className = 'swiper swiper-category';
-	const wrapper = document.createElement('div');
-	wrapper.className = 'swiper-wrapper';
+    moviesContainer.className = layout === 'horizontal' ? 'horizontal-scroll' : 'category-grid';
 
-    
-    // Show only first 6 movies for grid layout, all for horizontal
-    const moviesToShow = category.layout === 'grid' ? moviesInCategory.slice(0, 6) : moviesInCategory;
-    
-    moviesToShow.forEach(movie => {
-		const slide = document.createElement('div');
-		slide.className = 'swiper-slide';
-		slide.appendChild(createMovieCard(movie));
-		wrapper.appendChild(slide);
-	});
-	moviesContainer.appendChild(wrapper);
-	
-	setTimeout(() => {
-		new Swiper('.swiper', {
-  slidesPerView: 3,
-  spaceBetween: 10,
-  freeMode: true,
-  loop: false,
-  breakpoints: {
-    0: {          // 👈 phones
-      slidesPerView: 2.2,
-    },
-    480: {        // 👈 larger phones
-      slidesPerView: 2.5,
-    },
-    768: {        // 👈 tablets
-      slidesPerView: 3,
-    },
-    1024: {       // 👈 desktop
-      slidesPerView: 5,
-    }
-  }
-});
-
-	}, 0);
-
-    
-    section.appendChild(header);
-    section.appendChild(moviesContainer);
-    container.appendChild(section);
-  });
-} */
-
-
-function renderCategories() {
-  const container = document.getElementById("movieCategories");
-  container.innerHTML = "";
-
-  Object.entries(categories).forEach(([key, category]) => {
-    const section = document.createElement("div");
-    section.className = "category-section";
-
-    // Section header with title and View All
-    const header = document.createElement("div");
-    header.className = "category-header";
-    header.innerHTML = `<h2>${category.icon} ${category.title}</h2>`;
-
-    const viewAllBtn = document.createElement("button");
-    viewAllBtn.className = "view-all-btn";
-    viewAllBtn.textContent = "View All";
-    header.appendChild(viewAllBtn);
-    section.appendChild(header);
-
-    // Swiper container
-    const moviesContainer = document.createElement("div");
-    moviesContainer.className = "swiper swiper-category";
-    const wrapper = document.createElement("div");
-    wrapper.className = "swiper-wrapper";
-
-    const moviesToShow = videos.filter(movie =>
-      movie.categories && movie.categories.includes(key)
-    );
-
-    // Save movie card references
-    const cardSlides = [];
+    const moviesToShow = layout === 'grid'
+      ? moviesInCategory.slice(0, 6)
+      : moviesInCategory;
 
     moviesToShow.forEach(movie => {
-      const slide = document.createElement("div");
-      slide.className = "swiper-slide";
-      slide.appendChild(createMovieCard(movie));
-      wrapper.appendChild(slide);
-      cardSlides.push(slide); // Save for grid view
+      const movieCard = createMovieCard(movie);
+      moviesContainer.appendChild(movieCard);
     });
 
-    moviesContainer.appendChild(wrapper);
+    section.appendChild(header);
     section.appendChild(moviesContainer);
     container.appendChild(section);
-
-    // Swiper instance
-    setTimeout(() => {
-      const swiperInstance = new Swiper(moviesContainer, {
-        slidesPerView: 2.2,
-        spaceBetween: 10,
-        freeMode: true,
-        breakpoints: {
-          480: { slidesPerView: 2.5 },
-          768: { slidesPerView: 3 },
-          1024: { slidesPerView: 5 }
-        }
-      });
-
-      // View All -> switch to grid layout
-      viewAllBtn.onclick = () => {
-        swiperInstance.destroy(true, true); // Remove swiper behavior
-        moviesContainer.className = "grid-view"; // Switch to grid
-        moviesContainer.innerHTML = ""; // Clear old wrapper
-
-        // Re-append cards directly
-        cardSlides.forEach(slide => {
-          slide.className = "grid-card";
-          moviesContainer.appendChild(slide);
-        });
-      };
-    }, 0);
   });
 }
 
 function showFullCategory(categoryKey) {
-  const allMovies = videos.filter(movie =>
+  const allMovies = videos.filter(movie => 
     movie.categories && movie.categories.includes(categoryKey)
   );
-
+  
   const container = document.getElementById('movieCategories');
   container.innerHTML = '';
-
+  
   const section = document.createElement('div');
   section.className = 'category-section';
-
+  
   const header = document.createElement('div');
   header.className = 'category-header';
-
+  
   const title = document.createElement('h2');
   title.className = 'category-title';
   title.innerHTML = `${categories[categoryKey].icon} ${categories[categoryKey].title} - All Movies`;
-
+  
   const backBtn = document.createElement('button');
   backBtn.className = 'view-all-btn';
   backBtn.textContent = 'Back to Categories';
-  backBtn.onclick = () => renderCategories();
-
+  backBtn.onclick = () => {
+    renderCategories();
+    showCategory('all');
+  };
+  
   header.appendChild(title);
   header.appendChild(backBtn);
-
+  
   const moviesContainer = document.createElement('div');
   moviesContainer.className = 'category-grid';
-
+  
   allMovies.forEach(movie => {
     const movieCard = createMovieCard(movie);
     moviesContainer.appendChild(movieCard);
   });
-
+  
   section.appendChild(header);
   section.appendChild(moviesContainer);
   container.appendChild(section);
 }
-/*
+
 function showCategory(categoryKey) {
-  // Update active button
-  document.querySelectorAll('.category-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  
-  event.target.classList.add('active');
-  
-  // Show/hide categories
+  // Safe check only if buttons exist
+  const clickedBtn = event?.target;
+  if (clickedBtn?.classList?.contains('category-btn')) {
+    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+    clickedBtn.classList.add('active');
+  }
+
   const allSections = document.querySelectorAll('.category-section');
-  
   if (categoryKey === 'all') {
-    allSections.forEach(section => {
-      section.classList.remove('hidden');
-    });
+    allSections.forEach(section => section.classList.remove('hidden'));
   } else {
     allSections.forEach(section => {
-      if (section.id === `category-${categoryKey}`) {
-        section.classList.remove('hidden');
-      } else {
-        section.classList.add('hidden');
-      }
+      section.classList.toggle('hidden', section.id !== `category-${categoryKey}`);
     });
   }
-} */
+}
+
 
 function renderFeatured() {
   const featuredContainer = document.getElementById('featured');
-  const featuredMovies = featuredVideos.filter(Boolean);
+  const featuredMovies = videos.filter(movie => 
+    movie.categories && movie.categories.includes('latest')
+  ).slice(0, 8);
   
   featuredMovies.forEach(movie => {
     const slide = document.createElement('div');
@@ -1557,9 +2810,9 @@ function renderFeatured() {
   }
 }
 
-function openPlayer(movie) {
-  sessionStorage.setItem('playerData', JSON.stringify(movie));
-  window.location.href = 'player.html';
+function openPlayer(video) {
+  sessionStorage.setItem('playerData', JSON.stringify(video));
+  window.location.href = `player.html?id=${video.id}`;
 }
 
 // Search functionality
@@ -1680,7 +2933,7 @@ backToTopBtn.addEventListener('click', function() {
   });
 });
 
-/* // Initialize page
+// Initialize page
 document.addEventListener('DOMContentLoaded', function() {
   renderFeatured();
   renderCategories();
@@ -1707,14 +2960,7 @@ document.addEventListener('DOMContentLoaded', function() {
       showCategory(categoryMap[category] || category);
     });
   });
-}); */
-
-document.addEventListener("DOMContentLoaded", () => {
-  renderFeatured();       // ✅ your manually selected featured content
-  renderCategories();     // ✅ renders all category sections without filters
 });
-
-
 
 // Service Worker registration
 if ('serviceWorker' in navigator) {
