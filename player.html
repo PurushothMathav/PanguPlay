@@ -805,6 +805,24 @@ body.lock-scroll {
 }
 
 
+.important-warning {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #ffcc00;
+  color: #000;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
   </style>
 </head>
 <body>
@@ -886,6 +904,11 @@ body.lock-scroll {
 						<button id="denyBtn">I Do Not Agree</button>
 					</div>
 				</div>
+			</div>
+			
+			<div id="importantNotice" class="important-warning" style="display:none;">
+				<i class="fas fa-exclamation-triangle"></i>
+				<span id="importantText"></span>
 			</div>
 
 
@@ -1706,6 +1729,26 @@ function setupPage() {
     setupResolutionSelector();
     // We'll call loadVideo later inside proceedWithVideoLoad
   }
+  
+  // Handle important notice
+if (playerData.important) {
+  const notice = document.getElementById('importantNotice');
+  const text = document.getElementById('importantText');
+  if (notice && text) {
+    text.textContent = playerData.important;
+    notice.style.display = 'flex';
+
+    // Auto-hide after 6 seconds
+    setTimeout(() => {
+      notice.style.opacity = '0';
+      notice.style.transition = 'opacity 0.5s ease';
+      setTimeout(() => {
+        notice.style.display = 'none';
+      }, 500); // Wait for fade-out to finish
+    }, 6000);
+  }
+}
+
 
   // Mature check logic
   const isMature = playerData.mature && playerData.mature.trim().toUpperCase() === 'A';
