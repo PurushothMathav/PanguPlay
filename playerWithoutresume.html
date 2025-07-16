@@ -1039,57 +1039,6 @@ disable-paste='true'>
   player.on('ended', handleVideoEnded);
 }
 
-function resumePlaybackIfAvailable() {
-  const key = getContinueWatchingKey();
-  const savedTime = parseFloat(localStorage.getItem(key));
-
-  if (!isNaN(savedTime) && savedTime > 5) {
-    player.once('loadedmetadata', () => {
-      const duration = player.duration;
-      if (duration && savedTime < duration - 5) {
-        player.currentTime = savedTime;
-        showToast(`⏯ Resumed from ${formatTime(savedTime)}.`);
-      } else {
-        localStorage.removeItem(key);
-      }
-    });
-  }
-}
-
-function setupContinueWatching() {
-  if (!player) return;
-  const key = getContinueWatchingKey();
-
-  player.on('timeupdate', () => {
-    const currentTime = player.currentTime;
-    const duration = player.duration;
-    if (!isNaN(currentTime) && duration && currentTime < duration - 2) {
-      localStorage.setItem(key, currentTime.toFixed(2));
-    }
-  });
-
-  player.on('ended', () => {
-    localStorage.removeItem(key);
-  });
-}
-
-function formatTime(seconds) {
-  const mins = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60);
-  return `${mins}:${secs.toString().padStart(2, '0')}`;
-}
-
-function getContinueWatchingKey() {
-  if (!playerData) return 'continue-unknown';
-  if (playerData.type === 'series' && episodes.length > 0) {
-    const ep = episodes[currentEpisodeIndex];
-    if (!ep) return `continue-${playerData.title}-unknown`;
-    return `continue-${playerData.title}-S${ep.season}E${ep.episode}`;
-  }
-  return `continue-${playerData.title}`;
-}
-
-
 function showMatureTextWarning() {
   const el = document.getElementById('matureTextWarning');
   if (!el) return;
@@ -1816,11 +1765,13 @@ if (playerData.important) {
 	updateLogoInFullscreen();
   }
 }
-
+	
+		
 function loadVideo(initialUrl) {
   if (!player) return;
   showLoading();
   const poster = playerData.image;
+  const currentTime = player.currentTime || 0;
 
   const sources = currentVideoSources.map(source => ({
     src: source.url,
@@ -1844,25 +1795,15 @@ function loadVideo(initialUrl) {
     tracks: tracks
   };
 
-  // Resume logic must wait for metadata to be ready
-  player.once('loadedmetadata', () => {
-    const key = getContinueWatchingKey();
-    const savedTime = parseFloat(localStorage.getItem(key));
-    const duration = player.duration;
-
-    if (!isNaN(savedTime) && duration && savedTime > 5 && savedTime < duration - 5) {
-      player.currentTime = savedTime;
-      showToast(`⏯ Resumed from ${formatTime(savedTime)}.`);
-    }
-  });
-
   player.once('canplay', () => {
+    player.currentTime = currentTime;
     player.play().catch(err => {
-      console.warn('Play error:', err);
       showToast('Playback error. Trying fallback…');
       tryFallback();
     });
     hideLoading();
+
+    // ✅ FIX: rebind gestures after video is playable
     setupDoubleTapSeeking();
   });
 
@@ -1871,6 +1812,7 @@ function loadVideo(initialUrl) {
     tryFallback();
   });
 }
+
 
 function showMatureConsentMask() {
   const mask = document.getElementById('matureConsentMask');
@@ -1912,23 +1854,7 @@ function showMatureConsentMask() {
   };
 }
 
-function buildSources() {
-  const sources = [];
 
-  if (playerData.video) {
-    sources.push({ url: playerData.video, quality: '1080p' });
-  }
-
-  if (playerData.alt && playerData.alt !== playerData.video) {
-    sources.push({ url: playerData.alt, quality: '720p' });
-  }
-
-  if (playerData.details?.streamURL && !sources.find(s => s.url === playerData.details.streamURL)) {
-    sources.push({ url: playerData.details.streamURL, quality: '720p' });
-  }
-
-  return sources;
-}
 
 
 function proceedWithVideoLoad() {
@@ -1943,23 +1869,29 @@ function proceedWithVideoLoad() {
   document.getElementById('videoPoster').src = posterUrl;
   document.getElementById('player').setAttribute('data-poster', posterUrl);
 
-  // ✅ Build video sources
-  currentVideoSources = buildSources();
-
-  if (!currentVideoSources.length) {
-    showToast('❌ No playable video source found.');
-    return;
+  // Setup video sources
+  currentVideoSources = [];
+  if (playerData.video) {
+    currentVideoSources.push({
+      url: playerData.video,
+      quality: '1080p'
+    });
+  }
+  if (playerData.alt) {
+    currentVideoSources.push({
+      url: playerData.alt,
+      quality: '720p'
+    });
   }
 
-  setupContinueWatching();
   setupResolutionSelector();
-  loadVideo(currentVideoSources[0].url);  // now guaranteed valid
-  player.once('canplay', () => {
-	resumePlaybackIfAvailable();
-  });
+  loadVideo(currentVideoSources[0]?.url || '');
+
+  // ✅ NOW it's safe to enable download
   setupDownloadButton();
   setupDoubleTapSeeking();
 }
+
 
 function disableVideo() {
   const video = document.getElementById('player');
@@ -2111,13 +2043,12 @@ function disableVideo() {
       }
       setupResolutionSelector();
       loadVideo(currentVideoSources[0]?.url || '');
-	  player.once('canplay', () => {
-		resumePlaybackIfAvailable();
-	  });
+	  /*
+	    document.getElementById('videoTitleOverlay').textContent =
+    `S${String(episode.season).padStart(2, '0')}E${String(episode.episode).padStart(2, '0')} - ${episode.title}`; */
       updateHeaderTitle(playerData.title, true, episode.season, episode.episode, episode.title);
       updateEpisodeButtons();
       updateNavButtons();
-	  setupContinueWatching();
 	   setupDownloadButton();
 	   updateLogoInFullscreen();
 	   /*
