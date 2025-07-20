@@ -1476,14 +1476,10 @@ function setupDoubleTapSeeking() {
         player.currentTime = Math.min(player.currentTime + 10, player.duration);
         showTapOverlay(rightOverlay);
       } else {
-        // Center third - toggle pause/play
-        if (player.paused) {
-          player.play();
-        } else {
-          player.pause();
-        }
-        showTapOverlay(centerOverlay);
-      }
+		// Center third - toggle pause/play using Plyr method
+		player.togglePlay();
+		showTapOverlay(centerOverlay);
+	  }
       e.preventDefault();
     }
 
