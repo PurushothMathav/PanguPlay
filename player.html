@@ -823,6 +823,15 @@ body.lock-scroll {
   opacity: 1;
   transition: opacity 0.3s ease;
 }
+
+.tap-overlay:nth-child(3) {
+  left: 33.33%;
+  width: 33.34%;
+  border-left: 1px solid rgba(255,255,255,0.2);
+  border-right: 1px solid rgba(255,255,255,0.2);
+}
+
+
   </style>
 </head>
 <body>
@@ -1381,7 +1390,7 @@ videoArea.addEventListener('touchend', () => {
   document.body.classList.remove('lock-scroll');
 });
 
-
+/*
 //DoubleTap Function
 function setupDoubleTapSeeking() {
   const videoContainer = document.querySelector('.video-container');
@@ -1413,6 +1422,67 @@ function setupDoubleTapSeeking() {
       } else {
         player.currentTime = Math.min(player.currentTime + 10, player.duration);
         showTapOverlay(rightOverlay);
+      }
+      e.preventDefault();
+    }
+
+    lastTap = currentTime;
+  });
+
+  function showTapOverlay(overlay) {
+    overlay.classList.add('active');
+    setTimeout(() => overlay.classList.remove('active'), 500);
+  }
+}
+*/
+
+function setupDoubleTapSeeking() {
+  const videoContainer = document.querySelector('.video-container');
+  const playerElement = document.getElementById('player');
+  let lastTap = 0;
+
+  // Overlays
+  const leftOverlay = document.createElement('div');
+  leftOverlay.className = 'tap-overlay tap-overlay-left';
+  leftOverlay.innerHTML = '<i class="fas fa-backward"></i><span>-10s</span>';
+
+  const rightOverlay = document.createElement('div');
+  rightOverlay.className = 'tap-overlay tap-overlay-right';
+  rightOverlay.innerHTML = '<i class="fas fa-forward"></i><span>+10s</span>';
+
+  const centerOverlay = document.createElement('div');
+  centerOverlay.className = 'tap-overlay';
+  centerOverlay.style.left = '33.33%';
+  centerOverlay.style.width = '33.33%';
+  centerOverlay.innerHTML = '<i class="fas fa-play"></i><span>Play/Pause</span>';
+
+  videoContainer.appendChild(leftOverlay);
+  videoContainer.appendChild(rightOverlay);
+  videoContainer.appendChild(centerOverlay);
+
+  videoContainer.addEventListener('touchend', function (e) {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTap;
+    const screenWidth = window.innerWidth;
+    const touchX = e.changedTouches[0].clientX;
+
+    if (tapLength < 300 && tapLength > 0) {
+      if (touchX < screenWidth / 3) {
+        // Left third - rewind
+        player.currentTime = Math.max(player.currentTime - 10, 0);
+        showTapOverlay(leftOverlay);
+      } else if (touchX > (2 * screenWidth) / 3) {
+        // Right third - forward
+        player.currentTime = Math.min(player.currentTime + 10, player.duration);
+        showTapOverlay(rightOverlay);
+      } else {
+        // Center third - toggle pause/play
+        if (player.paused) {
+          player.play();
+        } else {
+          player.pause();
+        }
+        showTapOverlay(centerOverlay);
       }
       e.preventDefault();
     }
