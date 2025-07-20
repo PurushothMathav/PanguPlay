@@ -1438,10 +1438,9 @@ function setupDoubleTapSeeking() {
 
 function setupDoubleTapSeeking() {
   const videoContainer = document.querySelector('.video-container');
-  const playerElement = document.getElementById('player');
+  const screenWidth = window.innerWidth;
   let lastTap = 0;
 
-  // Overlays
   const leftOverlay = document.createElement('div');
   leftOverlay.className = 'tap-overlay tap-overlay-left';
   leftOverlay.innerHTML = '<i class="fas fa-backward"></i><span>-10s</span>';
@@ -1453,33 +1452,42 @@ function setupDoubleTapSeeking() {
   const centerOverlay = document.createElement('div');
   centerOverlay.className = 'tap-overlay';
   centerOverlay.style.left = '33.33%';
-  centerOverlay.style.width = '33.33%';
+  centerOverlay.style.width = '33.34%';
   centerOverlay.innerHTML = '<i class="fas fa-play"></i><span>Play/Pause</span>';
 
   videoContainer.appendChild(leftOverlay);
   videoContainer.appendChild(rightOverlay);
   videoContainer.appendChild(centerOverlay);
 
+  // Touchstart required to register interaction on some mobile browsers
+  videoContainer.addEventListener('touchstart', function (e) {
+    e.preventDefault();
+  }, { passive: false });
+
   videoContainer.addEventListener('touchend', function (e) {
     const currentTime = new Date().getTime();
     const tapLength = currentTime - lastTap;
-    const screenWidth = window.innerWidth;
     const touchX = e.changedTouches[0].clientX;
 
     if (tapLength < 300 && tapLength > 0) {
       if (touchX < screenWidth / 3) {
-        // Left third - rewind
         player.currentTime = Math.max(player.currentTime - 10, 0);
         showTapOverlay(leftOverlay);
       } else if (touchX > (2 * screenWidth) / 3) {
-        // Right third - forward
         player.currentTime = Math.min(player.currentTime + 10, player.duration);
         showTapOverlay(rightOverlay);
       } else {
-		// Center third - toggle pause/play using Plyr method
-		player.togglePlay();
-		showTapOverlay(centerOverlay);
-	  }
+        try {
+          // Toggle using Plyr
+          player.togglePlay();
+        } catch (err) {
+          // Fallback: try HTML video element
+          const videoEl = document.getElementById('player');
+          if (videoEl.paused) videoEl.play();
+          else videoEl.pause();
+        }
+        showTapOverlay(centerOverlay);
+      }
       e.preventDefault();
     }
 
@@ -1491,7 +1499,6 @@ function setupDoubleTapSeeking() {
     setTimeout(() => overlay.classList.remove('active'), 500);
   }
 }
-
 
 //CastAPI Initialization
 function initializeCastApi() {
