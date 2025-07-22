@@ -1578,6 +1578,7 @@ window['__onGCastApiAvailable'] = function(isAvailable) {
       player.currentTime = newTime;
       showToast(`Rewound ${seekTime}s`);
     }
+
 	
 async function downloadVideo() {
 
@@ -1627,7 +1628,7 @@ async function downloadVideo() {
     return;
   }
 
-  const hasToken = urlToDownload.includes('h=') && urlToDownload.includes('e=') || urlToDownload.includes('X-Amz-Expires=') && urlToDownload.includes('X-Amz-Date=') || urlToDownload.includes('/dl/') && urlToDownload.includes('/p/') ;
+  const hasToken = urlToDownload.includes('h=') && urlToDownload.includes('e=') || urlToDownload.includes('X-Amz-Expires=') && urlToDownload.includes('X-Amz-Date=') ;
 
   if (hasToken) {
     showToast('Checking download link...');
