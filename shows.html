@@ -23185,13 +23185,13 @@ function filterAndRenderSeries() {
       imageContent = `
         <div class="card-image-container">
           <img src="${v.image}" alt="${v.title}" loading="lazy">
-          <div class="Season-tag ${SeasonClass}">${Season}</div>
+          <div class="Season-tag ${SeasonClass}">${Season} • ${v.episodes?.length || 0} Ep</div>
         </div>`;
     } else {
       imageContent = `
         <div class="card-image-container">
           ${generatePlaceholderImage(v.title)}
-          <div class="Season-tag ${SeasonClass}">${Season}</div>
+          <div class="Season-tag ${SeasonClass}">${Season} • ${v.episodes?.length || 0} Ep</div>
         </div>`;
     }
     card.innerHTML = `${imageContent}
