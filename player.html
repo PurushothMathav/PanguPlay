@@ -2027,6 +2027,39 @@ function disableVideo() {
       currentEpisodeId = episodeId;
       currentEpisodeIndex = index;
       const episode = episodes[index];
+	  
+  // Handle episode-level important notice
+const notice = document.getElementById('importantNotice');
+const text = document.getElementById('importantText');
+
+if (notice && text) {
+  if (episode.important) {
+    text.textContent = episode.important;
+
+    // Reset any previous fade-out or hidden state
+    notice.style.display = 'flex';
+    notice.style.opacity = '1';
+    notice.style.transition = 'none'; // reset any existing transition
+
+    // Force reflow to restart transition cleanly
+    void notice.offsetWidth;
+
+    // Now add fade-out with delay
+    setTimeout(() => {
+      notice.style.transition = 'opacity 0.5s ease';
+      notice.style.opacity = '0';
+      setTimeout(() => {
+        notice.style.display = 'none';
+      }, 500);
+    }, 6000);
+  } else {
+    // No important message for this episode
+    notice.style.display = 'none';
+    notice.style.opacity = '1';
+    text.textContent = '';
+  }
+}
+	  
       currentVideoSources = [];
       if (episode.videoUrl) {
         currentVideoSources.push({
