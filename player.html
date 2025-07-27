@@ -1697,7 +1697,7 @@ async function downloadVideo() {
     return;
   }
 
-  const hasToken = urlToDownload.includes('h=') && urlToDownload.includes('e=') || urlToDownload.includes('X-Amz-Expires=') && urlToDownload.includes('X-Amz-Date=') || urlToDownload.includes('/dl/') && urlToDownload.includes('/p/') ;
+  const hasToken = urlToDownload.includes('h=') && urlToDownload.includes('e=') || urlToDownload.includes('X-Amz-Expires=') && urlToDownload.includes('X-Amz-Date=') || urlToDownload.includes('/dl/') && urlToDownload.includes('/p/') || urlToDownload.includes('token=');
 
   if (hasToken) {
     showToast('Checking download link...');
