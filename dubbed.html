@@ -605,7 +605,7 @@ function generatePlaceholderImage(title) {
 
 // Get appropriate CSS class for quality tag
 function getQualityClass(quality) {
-  if (quality.includes('HD') || quality.includes('720p')) {
+  if (quality.includes('HD') || quality.includes('720p') || quality.includes('1080p')) {
     return 'quality-4k';
   } else if (quality.includes('320p') || quality.includes('480p') || quality.includes('640p')) {
     return 'quality-hd';
@@ -616,6 +616,50 @@ function getQualityClass(quality) {
 
 
 const videos = [
+{
+  "type": "dubbed",
+  "title": "The Pickup (2025)",
+  "image": "https://m.media-amazon.com/images/M/MV5BNjNhNzQ5NmQtY2Q1Ny00NzI0LTgyMmUtYjU2MmI5NDE3MGQ0XkEyXkFqcGc@._V1_QL75_UX380_CR0,4,380,562_.jpg",
+  "video": "https://s10.dubshare.one/The_Pickup_2025_1080p_HD.mp4",
+  "alt": "https://s05.dubshare.one/The_Pickup_2025_720p_HD.mp4",
+  "1080Url": "https://dub.onestream.watch/stream/video/100921",
+  "720Url": "https://dub.onestream.watch/stream/video/100925",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "HD",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "06 August 2025",
+    "fileSize": "1.31 GB",
+    "streamURL": "https://s10.dubshare.one/The_Pickup_2025_1080p_HD.mp4"
+  },
+  "id": "the-pickup-2025",
+  "mature": "",
+  "categories": ""
+},
+{
+  "type": "dubbed",
+  "title": "Jurassic World Rebirth (2025)",
+  "image": "https://m.media-amazon.com/images/M/MV5BMGM3ZmI3NzQtNzU5Yi00ZWI1LTg3YTAtNmNmNWIyMWFjZTBkXkEyXkFqcGc@._V1_QL75_UX380_CR0,20,380,562_.jpg",
+  "video": "https://s06.dubshare.one/Jurassic_World_Rebirth_2025_720p_HD.mp4",
+  "lookUrl": "https://dub.onestream.watch/stream/video/100908",
+  "details": {
+    "director": "",
+    "starring": "",
+    "genres": "",
+    "quality": "HD",
+    "language": "Tamil",
+    "movieRating": "",
+    "lastUpdated": "06 August 2025",
+    "fileSize": "1.07 GB",
+    "streamURL": "https://s06.dubshare.one/Jurassic_World_Rebirth_2025_720p_HD.mp4"
+  },
+  "id": "jurassic-world-rebirth-2025",
+  "mature": "",
+  "categories": ""
+},
 {
   "type": "dubbed",
   "title": "Running Free (1999)",

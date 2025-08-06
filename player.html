@@ -2324,6 +2324,72 @@ document.addEventListener('fullscreenchange', () => {
   }
 });
 
+function updateEpisodeButtonsInFullscreen() {
+  const episodeNav = document.querySelector('.episode-navigation');
+
+  if (!episodeNav) return;
+
+  // Clone to use for fullscreen
+  const navClone = episodeNav.cloneNode(true);
+  navClone.id = 'episodeNavigationFullscreen';
+
+  function handleFullscreenChange() {
+    const isFullscreen = document.fullscreenElement !== null;
+
+    if (isFullscreen) {
+      // Remove old clone if exists
+      const oldClone = document.getElementById('episodeNavigationFullscreen');
+      if (oldClone) oldClone.remove();
+
+      // Append to fullscreen element
+      document.fullscreenElement.appendChild(navClone);
+
+      // Set styles
+      navClone.style.position = 'fixed';
+      navClone.style.bottom = '60px';
+      navClone.style.left = '0';
+      navClone.style.right = '0';
+      navClone.style.zIndex = '9999';
+      navClone.style.display = 'flex';
+      navClone.style.justifyContent = 'space-between';
+      navClone.style.padding = '0 16px';
+      navClone.classList.add('show'); // force visibility
+
+      // Adjust for mobile or desktop
+      const isMobile = window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isLandscape = window.innerWidth > window.innerHeight;
+
+      if (isMobile && isLandscape) {
+        // Mobile landscape: smaller button size
+        const buttons = navClone.querySelectorAll('.episode-nav-btn');
+        buttons.forEach(btn => {
+          btn.style.padding = '8px 12px';
+          btn.style.fontSize = '12px';
+        });
+      }
+    } else {
+      const oldClone = document.getElementById('episodeNavigationFullscreen');
+      if (oldClone) oldClone.remove();
+    }
+  }
+
+  document.addEventListener('fullscreenchange', handleFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+  document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+  document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+  window.addEventListener('orientationchange', () => {
+    if (document.fullscreenElement) {
+      setTimeout(handleFullscreenChange, 100);
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (document.fullscreenElement) {
+      setTimeout(handleFullscreenChange, 100);
+    }
+  });
+}
 
 
   </script>
